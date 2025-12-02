@@ -1,0 +1,67 @@
+# ==============================================================================
+# Waiting The Longest™ - Git Ignore
+# ==============================================================================
+
+# Environment files (NEVER commit secrets!)
+.env
+.env.local
+.env.production
+*.credentials
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+.eggs/
+*.egg-info/
+*.egg
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Data files (generated)
+data/videos/
+data/images/
+data/uploads/
+
+# Node (if any frontend build tools)
+node_modules/
+npm-debug.log
+
+# Database
+*.db
+*.sqlite
+
+# Testing
+.tox/
+.nox/
+
+# Documentation builds
+docs/_build/
+
+# Secrets and certificates
+*.pem
+*.key
+*.crt
+secrets/
