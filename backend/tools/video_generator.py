@@ -2,13 +2,21 @@
 ===============================================================================
 Waiting The Longest™ - Social Media Video Generator
 ===============================================================================
-Generates TikTok/Instagram Reels style videos featuring animals who have
-waited the longest. These videos are crucial for viral growth!
-
-Dependencies:
-    pip install moviepy pillow numpy
+Purpose: Generates TikTok/Instagram Reels style vertical videos (9:16 aspect
+         ratio) featuring animals who have waited the longest. These videos
+         are crucial for viral growth and adoption awareness!
 
 Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: moviepy, pillow, numpy
+Related Files: scheduler.py, crud.py, config.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
+
+Video Structure:
+1. Intro clip with prominent days waiting count
+2. Photo slideshow with overlays
+3. Outro with call-to-action and branding
 ===============================================================================
 """
 

@@ -2,14 +2,21 @@
 ===============================================================================
 Waiting The Longest™ - RescueGroups.org API Ingestor
 ===============================================================================
-Data ingestion from RescueGroups.org API (PRIMARY DATA SOURCE).
+Purpose: Data ingestion from RescueGroups.org API (PRIMARY DATA SOURCE).
+         Fetches animal data, parses it into standardized format, and
+         handles deduplication via perceptual hashing.
+
+Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: requests, PIL, imagehash
+Related Files: scheduler.py, crud.py, models.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 
 NOTE: Petfinder does NOT have a public API! We discovered this during
 development and pivoted to RescueGroups.org as our primary data source.
 
 RescueGroups API: https://rescuegroups.org/services/adoptable-pet-data-api/
-
-Author: Waiting The Longest™ Development Team
 ===============================================================================
 """
 

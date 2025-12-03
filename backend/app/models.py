@@ -2,7 +2,16 @@
 ===============================================================================
 Waiting The Longest™ - Database Models
 ===============================================================================
-SQLAlchemy ORM models for the pet adoption platform.
+Purpose: SQLAlchemy ORM models for the pet adoption platform. Defines the
+         database schema for all entities including animals, observations,
+         shelters, success stories, and monetization tracking.
+
+Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: sqlalchemy
+Related Files: database.py, schemas.py, crud.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 
 Core Models:
 - Animal: Canonical animal records (deduplicated)
@@ -10,8 +19,7 @@ Core Models:
 - Shelter: Shelter/rescue organization information
 - SuccessStory: Adoption success stories for social content
 - SocialPromotion: Social media post tracking
-
-Author: Waiting The Longest™ Development Team
+- AffiliateClick: Revenue tracking for affiliate links
 ===============================================================================
 """
 

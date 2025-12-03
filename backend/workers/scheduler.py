@@ -2,18 +2,27 @@
 ===============================================================================
 Waiting The Longest™ - Background Workers
 ===============================================================================
-Background task workers for scheduled operations:
-- Data ingestion from shelter APIs
-- Social media content generation
-- Status updates and cleanup
-
-Run manually:
-    python -m app.workers.scheduler
-
-Or configure as cron job:
-    0 */6 * * * cd /opt/waitingthelongest/backend && venv/bin/python -m app.workers.scheduler
+Purpose: Background task workers for scheduled operations including data
+         ingestion, status updates, social content generation, and cleanup.
 
 Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: logging, datetime
+Related Files: rescuegroups.py, video_generator.py, models.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
+
+Workers:
+- IngestionWorker: Fetches new animals from shelter APIs
+- StatusUpdateWorker: Updates stale animal statuses
+- SocialContentWorker: Generates promotional videos
+- CleanupWorker: Removes old video files
+
+Run manually:
+    python -m backend.workers.scheduler
+
+Or configure as cron job:
+    0 */6 * * * cd /opt/waitingthelongest/backend && venv/bin/python -m backend.workers.scheduler
 ===============================================================================
 """
 

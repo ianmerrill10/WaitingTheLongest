@@ -2,9 +2,15 @@
 ===============================================================================
 Waiting The Longest™ - Pydantic Schemas
 ===============================================================================
-Request/response schemas for API validation and serialization.
+Purpose: Request/response schemas for API validation and serialization.
+         Defines data transfer objects for all API endpoints.
 
 Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: pydantic
+Related Files: main.py, crud.py, models.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 ===============================================================================
 """
 

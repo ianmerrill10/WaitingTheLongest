@@ -2,13 +2,21 @@
 ===============================================================================
 Waiting The Longest™ - CRUD Operations & Business Logic
 ===============================================================================
-Database operations and core business logic including:
+Purpose: Core business logic and database operations. Implements the 
+         "days waiting" sorting which is central to our mission.
+
+Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: sqlalchemy
+Related Files: main.py, models.py, schemas.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
+
+Key Operations:
 - Animal listing with "days waiting" sorting (OUR CORE FEATURE!)
 - Deduplication using perceptual hashing
 - Success story management
 - Statistics calculations
-
-Author: Waiting The Longest™ Development Team
 ===============================================================================
 """
 
@@ -46,9 +54,29 @@ def paginate_animals(
     """
     Paginate animals with filtering and sorting.
 
-    The default sort is by days_waiting descending - this is the core
-    of "Waiting The Longest™"! We want to show animals who have waited
-    the longest first.
+    This is THE CORE FEATURE of Waiting The Longest™! The default sort is by 
+    days_waiting descending, showing animals who have waited the longest first.
+    
+    Args:
+        db: Database session for queries
+        species: Filter by species ("dog", "cat", or None for all)
+        status: Filter by status (default "available")
+        sort_by: Field to sort by (default "days_waiting")
+        sort_order: Sort direction ("asc" or "desc", default "desc")
+        page: Page number (1-indexed)
+        page_size: Number of items per page (max 100)
+        breed: Partial match filter for breed
+        age_group: Filter by age ("puppy", "young", "adult", "senior")
+        size: Filter by size ("small", "medium", "large")
+        gender: Filter by gender ("male", "female")
+        state: Filter by state (e.g., "CA", "TX")
+        
+    Returns:
+        AnimalListResponse with paginated items and metadata
+        
+    Example:
+        >>> result = paginate_animals(db, species="dog", page=1, page_size=20)
+        >>> print(f"Found {result.total} dogs")
     """
     # Base query with eager loading to avoid N+1 queries
     query = db.query(Animal).options(
@@ -163,7 +191,20 @@ def get_animal_detail(db: Session, animal_id: int) -> Optional[AnimalDetailRespo
     """
     Get detailed information about a specific animal.
 
-    Includes all observations, photos, and shelter information.
+    Retrieves complete animal information including all observations from
+    different sources, photo galleries, descriptions, and shelter contact info.
+    
+    Args:
+        db: Database session for queries
+        animal_id: The unique identifier of the animal
+        
+    Returns:
+        AnimalDetailResponse with complete animal data, or None if not found
+        
+    Example:
+        >>> animal = get_animal_detail(db, animal_id=123)
+        >>> if animal:
+        ...     print(f"{animal.canonical_name} has waited {animal.days_waiting} days")
     """
     animal = db.query(Animal).options(
         selectinload(Animal.observations).selectinload(Observation.shelter)
@@ -262,7 +303,24 @@ def create_success_story(db: Session, story: SuccessStoryCreate) -> SuccessStory
     """
     Create a new success story submission.
 
-    These stories are gold for our social media content!
+    These stories are gold for our social media content! Stories with high
+    days_waited values create emotional impact and drive engagement.
+    
+    Args:
+        db: Database session
+        story: SuccessStoryCreate schema with story details
+        
+    Returns:
+        The created SuccessStory object
+        
+    Note:
+        Stories are created with is_approved=False and require moderation
+        before they appear on the site.
+        
+    Example:
+        >>> story = SuccessStoryCreate(pet_name="Max", story_text="...", days_waited=365)
+        >>> created = create_success_story(db, story)
+        >>> print(f"Story {created.id} created, pending approval")
     """
     db_story = SuccessStory(
         animal_id=story.animal_id,
@@ -286,12 +344,24 @@ def create_success_story(db: Session, story: SuccessStoryCreate) -> SuccessStory
 
 def get_trending_stories(db: Session, limit: int = 10) -> List[SuccessStory]:
     """
-    Get trending/featured success stories.
+    Get trending/featured success stories for display and social content.
 
-    Prioritizes:
-    1. Featured stories
-    2. Recently approved stories
-    3. Stories with long wait times (more emotional impact)
+    Stories are prioritized to maximize emotional impact and engagement:
+    1. Featured stories (manually curated for quality)
+    2. Stories with longest wait times (emotional impact)
+    3. Most recently approved stories (freshness)
+    
+    Args:
+        db: Database session
+        limit: Maximum number of stories to return (default 10)
+        
+    Returns:
+        List of approved SuccessStory objects with animal data loaded
+        
+    Example:
+        >>> stories = get_trending_stories(db, limit=5)
+        >>> for story in stories:
+        ...     print(f"{story.pet_name} waited {story.days_waited} days")
     """
     return db.query(SuccessStory).options(
         joinedload(SuccessStory.animal)
@@ -318,10 +388,29 @@ def find_duplicate_animal(
     """
     Find a potentially duplicate animal using various matching strategies.
 
-    Matching priority:
-    1. Perceptual hash match (most reliable for same animal)
-    2. Name + species + breed match
-    3. Name similarity + species match
+    This is critical for preventing the same animal from appearing multiple
+    times in our database. An animal might be listed at different shelters
+    or re-listed after being returned.
+    
+    Matching priority (most to least reliable):
+    1. Perceptual hash match - Same photo = same animal
+    2. Name + species + breed match - Exact match on all fields
+    3. Name + species match - Fallback for missing breed info
+    
+    Args:
+        db: Database session
+        name: Animal's name to match
+        species: Species ("dog", "cat", etc.)
+        photo_phash: Perceptual hash of primary photo (optional)
+        breed: Primary breed for matching (optional)
+        
+    Returns:
+        Existing Animal object if duplicate found, None otherwise
+        
+    Example:
+        >>> existing = find_duplicate_animal(db, "Max", "dog", breed="Labrador")
+        >>> if existing:
+        ...     print(f"Found duplicate: Animal ID {existing.id}")
     """
     # Try perceptual hash match first (most reliable)
     if photo_phash:
