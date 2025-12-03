@@ -21,7 +21,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from datetime import datetime
+from datetime import datetime, timezone
 import enum
 
 from .database import Base
@@ -125,7 +125,7 @@ class Animal(Base):
     def days_waiting(self) -> int:
         """Calculate days this animal has been waiting"""
         if self.first_seen_at:
-            return (datetime.utcnow() - self.first_seen_at).days
+            return (datetime.now(timezone.utc).replace(tzinfo=None) - self.first_seen_at).days
         return 0
 
 

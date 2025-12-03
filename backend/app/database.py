@@ -17,8 +17,7 @@ Author: Waiting The Longest™ Development Team
 """
 
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from .config import settings
 
 # Create database engine

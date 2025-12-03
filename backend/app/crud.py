@@ -15,7 +15,7 @@ Author: Waiting The Longest™ Development Team
 from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy import func, desc, asc, or_, and_
 from typing import Optional, List, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 
 from .models import Animal, Observation, Shelter, SuccessStory, SocialPromotion
@@ -187,7 +187,7 @@ def get_animal_detail(db: Session, animal_id: int) -> Optional[AnimalDetailRespo
                 gallery = json.loads(obs.photo_gallery_json) if isinstance(
                     obs.photo_gallery_json, str
                 ) else obs.photo_gallery_json
-            except:
+            except (json.JSONDecodeError, TypeError):
                 gallery = []
 
         if obs.photo_url:
@@ -296,7 +296,7 @@ def get_trending_stories(db: Session, limit: int = 10) -> List[SuccessStory]:
     return db.query(SuccessStory).options(
         joinedload(SuccessStory.animal)
     ).filter(
-        SuccessStory.is_approved == True
+        SuccessStory.is_approved.is_(True)
     ).order_by(
         desc(SuccessStory.is_featured),
         desc(SuccessStory.days_waited),
@@ -377,7 +377,7 @@ def merge_animal_observation(
     db.add(observation)
 
     # Update animal's last seen time
-    animal.last_seen_at = datetime.utcnow()
+    animal.last_seen_at = datetime.now(timezone.utc).replace(tzinfo=None)
 
     # Update other fields if we have better data
     if not animal.canonical_name and observation_data.get('name'):
@@ -415,7 +415,7 @@ def get_platform_stats(db: Session) -> Dict[str, Any]:
         longest_days = (datetime.utcnow() - longest.first_seen_at).days
 
     success_count = db.query(func.count(SuccessStory.id)).filter(
-        SuccessStory.is_approved == True
+        SuccessStory.is_approved.is_(True)
     ).scalar() or 0
 
     return {

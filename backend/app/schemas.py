@@ -134,7 +134,7 @@ class SuccessStoryCreate(BaseModel):
     animal_id: Optional[int] = None
 
 
-class SuccessStoryResponse(BaseModel):
+class SuccessStoryResponse(BaseSchema):
     """Success story submission response"""
     success: bool
     message: str

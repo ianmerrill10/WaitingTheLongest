@@ -23,7 +23,7 @@ from typing import List, Dict, Optional
 from pydantic import BaseModel
 from urllib.parse import urlencode
 import hashlib
-from datetime import datetime
+from datetime import datetime, timezone
 
 from ..app.config import settings
 
@@ -285,7 +285,7 @@ class AmazonAssociates:
         return results
 
     @classmethod
-    def get_new_pet_essentials(cls, pet_type: str, pet_age: str = "adult") -> List[Dict]:
+    def get_new_pet_essentials(cls, pet_type: str, pet_age: str = "adult") -> Dict:
         """
         Get essential products for newly adopted pets.
 
@@ -366,7 +366,7 @@ def track_affiliate_click(
         animal_id=animal_id,
         session_id=session_id,
         ip_hash=ip_hash,
-        clicked_at=datetime.utcnow()
+        clicked_at=datetime.now(timezone.utc).replace(tzinfo=None)
     )
 
     db.add(click)

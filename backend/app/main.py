@@ -15,7 +15,8 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import Optional, List
-from datetime import datetime
+from datetime import datetime, timezone
+from contextlib import asynccontextmanager
 import logging
 
 from .config import settings
@@ -35,8 +36,18 @@ from .crud import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+
+# Lifespan context manager (replaces deprecated on_event)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    logger.info("Waiting The Longest API starting up...")
+    logger.info("Mission: Help shelter animals who have waited the longest find forever homes")
+    Base.metadata.create_all(bind=engine)
+    yield
+    # Shutdown
+    logger.info("Waiting The Longest API shutting down...")
+
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -44,7 +55,8 @@ app = FastAPI(
     description="API for the pet adoption platform highlighting animals who have waited the longest",
     version="1.0.0",
     docs_url="/api/docs",
-    redoc_url="/api/redoc"
+    redoc_url="/api/redoc",
+    lifespan=lifespan
 )
 
 # CORS middleware
@@ -275,15 +287,5 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 
 # =============================================================================
-# Startup/Shutdown Events
+# Startup/Shutdown Events (Now handled by lifespan context manager above)
 # =============================================================================
-
-@app.on_event("startup")
-async def startup_event():
-    logger.info("Waiting The Longest API starting up...")
-    logger.info("Mission: Help shelter animals who have waited the longest find forever homes")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    logger.info("Waiting The Longest API shutting down...")

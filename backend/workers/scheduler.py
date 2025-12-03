@@ -19,7 +19,7 @@ Author: Waiting The Longest™ Development Team
 
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from ..app.database import SessionLocal
@@ -45,7 +45,7 @@ class IngestionWorker:
         if self.last_run is None:
             return True
 
-        elapsed = datetime.utcnow() - self.last_run
+        elapsed = datetime.now(timezone.utc).replace(tzinfo=None) - self.last_run
         return elapsed >= timedelta(hours=self.interval_hours)
 
     def run(self) -> dict:
@@ -76,7 +76,7 @@ class IngestionWorker:
             stats.update(result)
             stats["duration_seconds"] = round(time.time() - start_time, 2)
 
-            self.last_run = datetime.utcnow()
+            self.last_run = datetime.now(timezone.utc).replace(tzinfo=None)
 
             logger.info(f"Ingestion complete: {stats}")
 
@@ -113,7 +113,7 @@ class StatusUpdateWorker:
         stats = {"checked": 0, "updated": 0}
 
         try:
-            cutoff = datetime.utcnow() - timedelta(days=self.STALE_DAYS)
+            cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=self.STALE_DAYS)
 
             # Find stale animals
             stale_animals = db.query(Animal).filter(
@@ -167,7 +167,7 @@ class SocialContentWorker:
 
         try:
             # Find longest-waiting animals not recently promoted
-            cutoff = datetime.utcnow() - timedelta(days=self.PROMOTION_COOLDOWN_DAYS)
+            cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=self.PROMOTION_COOLDOWN_DAYS)
 
             # Get animals that haven't been promoted recently
             from sqlalchemy import func, and_, or_
@@ -244,7 +244,7 @@ class CleanupWorker:
 
         try:
             video_dir = Path(settings.VIDEO_OUTPUT_DIR)
-            cutoff = datetime.utcnow() - timedelta(days=self.VIDEO_RETENTION_DAYS)
+            cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=self.VIDEO_RETENTION_DAYS)
 
             if video_dir.exists():
                 for video_file in video_dir.glob("*.mp4"):
@@ -275,7 +275,7 @@ def run_all_workers():
     """
     logger.info("=" * 60)
     logger.info("Starting Waiting The Longest Worker Run")
-    logger.info(f"Time: {datetime.utcnow().isoformat()}")
+    logger.info(f"Time: {datetime.now(timezone.utc).isoformat()}")
     logger.info("=" * 60)
 
     results = {}

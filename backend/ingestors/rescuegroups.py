@@ -16,7 +16,7 @@ Author: Waiting The Longest™ Development Team
 import requests
 import logging
 from typing import List, Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass
 import json
 import hashlib
@@ -317,11 +317,13 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         "name": animal_data.name,
                         "description": animal_data.description,
                         "photo_url": animal_data.photos[0] if animal_data.photos else None,
-                        "photo_gallery_json": animal_data.photos,
+                        "photo_gallery_json": json.dumps(animal_data.photos) if animal_data.photos else None,
                         "city": animal_data.city,
                         "state": animal_data.state,
+                        "zip_code": animal_data.zip_code,
                         "listing_url": animal_data.listing_url,
-                        "last_seen_at": datetime.utcnow()
+                        "first_seen_at": datetime.now(timezone.utc).replace(tzinfo=None),
+                        "last_seen_at": datetime.now(timezone.utc).replace(tzinfo=None)
                     })
                     stats["updated"] += 1
                 else:
@@ -335,8 +337,8 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         size=animal_data.size,
                         gender=animal_data.gender,
                         color_primary=animal_data.color,
-                        first_seen_at=datetime.utcnow(),
-                        last_seen_at=datetime.utcnow(),
+                        first_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
+                        last_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
                         status="available"
                     )
                     db.add(new_animal)
@@ -351,13 +353,13 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         name=animal_data.name,
                         description=animal_data.description,
                         photo_url=animal_data.photos[0] if animal_data.photos else None,
-                        photo_gallery_json=animal_data.photos,
+                        photo_gallery_json=json.dumps(animal_data.photos) if animal_data.photos else None,
                         city=animal_data.city,
                         state=animal_data.state,
                         zip_code=animal_data.zip_code,
                         listing_url=animal_data.listing_url,
-                        first_seen_at=datetime.utcnow(),
-                        last_seen_at=datetime.utcnow()
+                        first_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
+                        last_seen_at=datetime.now(timezone.utc).replace(tzinfo=None)
                     )
                     db.add(observation)
                     stats["new"] += 1

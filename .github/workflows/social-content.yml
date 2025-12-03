@@ -1,0 +1,30 @@
+name: 📱 Social Media Content Generation
+
+on:
+  schedule:
+    # Run daily at 10 AM UTC (optimal posting time)
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate-content:
+    name: 🎬 Generate TikTok Videos
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Generate and queue social content
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /opt/waitingthelongest/backend
+            source venv/bin/activate
+            python -c "
+            from workers.scheduler import SocialContentWorker
+            worker = SocialContentWorker()
+            result = worker.run()
+            print(f'Generated {result[\"generated\"]} videos')
+            "
+            echo "✅ Social content generation complete!"
