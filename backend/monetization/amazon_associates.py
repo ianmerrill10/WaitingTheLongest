@@ -25,7 +25,10 @@ from urllib.parse import urlencode
 import hashlib
 from datetime import datetime, timezone
 
-from ..app.config import settings
+try:
+    from app.config import settings
+except ImportError:
+    from ..app.config import settings
 
 
 class AffiliateProduct(BaseModel):
@@ -353,7 +356,10 @@ def track_affiliate_click(
 
     We hash IP addresses for privacy.
     """
-    from ..app.models import AffiliateClick
+    try:
+        from app.models import AffiliateClick
+    except ImportError:
+        from ..app.models import AffiliateClick
 
     ip_hash = None
     if ip_address:

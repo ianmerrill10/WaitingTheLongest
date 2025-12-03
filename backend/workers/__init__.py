@@ -4,6 +4,12 @@ Waiting The Longest™ - Background Workers
 Scheduled tasks for data ingestion, social content, and maintenance.
 """
 
-from .scheduler import run_all_workers, IngestionWorker, SocialContentWorker
+# Lazy import to avoid circular dependencies
+__all__ = ["run_all_workers", "IngestionWorker", "SocialContentWorker", "StatusUpdateWorker", "CleanupWorker"]
 
-__all__ = ["run_all_workers", "IngestionWorker", "SocialContentWorker"]
+
+def __getattr__(name):
+    if name in __all__:
+        from .scheduler import run_all_workers, IngestionWorker, SocialContentWorker, StatusUpdateWorker, CleanupWorker
+        return locals()[name]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

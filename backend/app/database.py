@@ -22,13 +22,21 @@ from .config import settings
 
 # Create database engine
 # pool_pre_ping=True ensures connections are alive before using
-engine = create_engine(
-    settings.DATABASE_URL,
-    pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW,
-    pool_pre_ping=True,
-    echo=settings.DEBUG  # Log SQL in debug mode
-)
+# SQLite doesn't support pool_size/max_overflow, so we conditionally set them
+if settings.DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        settings.DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        echo=settings.DEBUG
+    )
+else:
+    engine = create_engine(
+        settings.DATABASE_URL,
+        pool_size=settings.DB_POOL_SIZE,
+        max_overflow=settings.DB_MAX_OVERFLOW,
+        pool_pre_ping=True,
+        echo=settings.DEBUG
+    )
 
 # Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

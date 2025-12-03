@@ -18,6 +18,11 @@ from typing import Optional, List
 from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 import logging
+import hashlib
+
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from .config import settings
 from .database import get_db, engine, Base
@@ -32,6 +37,12 @@ from .crud import (
     create_success_story, get_trending_stories
 )
 
+# Import monetization modules
+from monetization.amazon_associates import AmazonAssociates, track_affiliate_click
+
+# Configure rate limiter
+limiter = Limiter(key_func=get_remote_address)
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -43,7 +54,13 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Waiting The Longest API starting up...")
     logger.info("Mission: Help shelter animals who have waited the longest find forever homes")
-    Base.metadata.create_all(bind=engine)
+    # Skip DB initialization during tests (tests handle their own DB setup)
+    import os
+    if not os.environ.get("TESTING"):
+        try:
+            Base.metadata.create_all(bind=engine)
+        except Exception as e:
+            logger.warning(f"Database initialization skipped: {e}")
     yield
     # Shutdown
     logger.info("Waiting The Longest API shutting down...")
@@ -58,6 +75,10 @@ app = FastAPI(
     redoc_url="/api/redoc",
     lifespan=lifespan
 )
+
+# Rate limiting
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS middleware
 app.add_middleware(
@@ -108,10 +129,16 @@ async def health_check(db: Session = Depends(get_db)):
 # =============================================================================
 
 @app.get("/api/animals", response_model=AnimalListResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def list_animals(
     request: Request,
     species: Optional[str] = Query(None, description="Filter by species (dog/cat)"),
     status: Optional[str] = Query("available", description="Filter by status"),
+    breed: Optional[str] = Query(None, description="Filter by breed (partial match)"),
+    age_group: Optional[str] = Query(None, description="Filter by age (puppy/young/adult/senior)"),
+    size: Optional[str] = Query(None, description="Filter by size (small/medium/large)"),
+    gender: Optional[str] = Query(None, description="Filter by gender (male/female)"),
+    state: Optional[str] = Query(None, description="Filter by state (e.g., CA, TX)"),
     sort_by: Optional[str] = Query("days_waiting", description="Sort field"),
     sort_order: Optional[str] = Query("desc", description="Sort order (asc/desc)"),
     page: int = Query(1, ge=1, description="Page number"),
@@ -128,6 +155,11 @@ async def list_animals(
         db=db,
         species=species,
         status=status,
+        breed=breed,
+        age_group=age_group,
+        size=size,
+        gender=gender,
+        state=state,
         sort_by=sort_by,
         sort_order=sort_order,
         page=page,
@@ -138,7 +170,9 @@ async def list_animals(
 
 
 @app.get("/api/animals/{animal_id}", response_model=AnimalDetailResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def get_animal(
+    request: Request,
     animal_id: int,
     db: Session = Depends(get_db)
 ):
@@ -152,7 +186,9 @@ async def get_animal(
 
 
 @app.get("/api/longest-waiting")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def longest_waiting_animals(
+    request: Request,
     species: Optional[str] = None,
     limit: int = Query(10, ge=1, le=50),
     db: Session = Depends(get_db)
@@ -183,7 +219,9 @@ async def longest_waiting_animals(
 # =============================================================================
 
 @app.post("/api/success-stories", response_model=SuccessStoryResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def submit_success_story(
+    request: Request,
     story: SuccessStoryCreate,
     db: Session = Depends(get_db)
 ):
@@ -205,7 +243,9 @@ async def submit_success_story(
 
 
 @app.get("/api/success-stories")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def get_success_stories(
+    request: Request,
     limit: int = Query(10, ge=1, le=50),
     db: Session = Depends(get_db)
 ):
@@ -233,7 +273,8 @@ async def get_success_stories(
 # =============================================================================
 
 @app.get("/api/stats")
-async def get_statistics(db: Session = Depends(get_db)):
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_statistics(request: Request, db: Session = Depends(get_db)):
     """Get platform statistics"""
     from sqlalchemy import func
 
@@ -267,6 +308,100 @@ async def get_statistics(db: Session = Depends(get_db)):
         "success_stories": success_count,
         "mission": "Because Every Day Matters",
         "updated_at": datetime.utcnow().isoformat()
+    }
+
+
+# =============================================================================
+# Affiliate & Products Endpoints
+# =============================================================================
+
+@app.post("/api/affiliate/click")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def track_affiliate_click_endpoint(
+    request: Request,
+    product_id: str = Query(..., description="Product ID being clicked"),
+    source_page: Optional[str] = Query(None, description="Page where click originated"),
+    animal_id: Optional[int] = Query(None, description="Associated animal ID"),
+    db: Session = Depends(get_db)
+):
+    """
+    Track affiliate link clicks for analytics and revenue attribution.
+    
+    IP addresses are hashed for privacy.
+    """
+    # Get client IP and hash it for privacy
+    client_ip = get_remote_address(request)
+    
+    try:
+        click_id = track_affiliate_click(
+            db=db,
+            product_id=product_id,
+            program="amazon",
+            source_page=source_page,
+            animal_id=animal_id,
+            ip_address=client_ip
+        )
+        
+        return {
+            "success": True,
+            "click_id": click_id,
+            "message": "Click tracked successfully"
+        }
+    except Exception as e:
+        logger.error(f"Failed to track affiliate click: {e}")
+        raise HTTPException(status_code=500, detail="Failed to track click")
+
+
+@app.get("/api/products/recommendations")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_product_recommendations(
+    request: Request,
+    pet_type: str = Query(..., description="Pet type (dog/cat)"),
+    pet_age: Optional[str] = Query(None, description="Pet age group (puppy/adult/senior)"),
+    pet_size: Optional[str] = Query(None, description="Pet size (small/medium/large)"),
+    limit: int = Query(5, ge=1, le=20, description="Maximum number of recommendations")
+):
+    """
+    Get personalized product recommendations with affiliate links.
+    
+    Returns curated products for new pet adopters to help them
+    get supplies for their new family member.
+    
+    Disclosure: As an Amazon Associate, Waiting The Longest earns from qualifying purchases.
+    """
+    # Validate pet_type
+    if pet_type not in ["dog", "cat", "both"]:
+        raise HTTPException(
+            status_code=400,
+            detail="pet_type must be 'dog', 'cat', or 'both'"
+        )
+    
+    # Validate pet_age if provided
+    if pet_age and pet_age not in ["puppy", "adult", "senior"]:
+        raise HTTPException(
+            status_code=400,
+            detail="pet_age must be 'puppy', 'adult', or 'senior'"
+        )
+    
+    # Validate pet_size if provided
+    if pet_size and pet_size not in ["small", "medium", "large"]:
+        raise HTTPException(
+            status_code=400,
+            detail="pet_size must be 'small', 'medium', or 'large'"
+        )
+    
+    recommendations = AmazonAssociates.get_recommendations(
+        pet_type=pet_type,
+        pet_age=pet_age,
+        pet_size=pet_size,
+        limit=limit
+    )
+    
+    return {
+        "products": recommendations,
+        "count": len(recommendations),
+        "pet_type": pet_type,
+        "disclosure": "As an Amazon Associate, Waiting The Longest earns from qualifying purchases."
     }
 
 

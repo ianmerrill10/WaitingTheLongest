@@ -22,9 +22,14 @@ import time
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from ..app.database import SessionLocal
-from ..app.models import Animal, SocialPromotion
-from ..app.config import settings
+try:
+    from app.database import SessionLocal
+    from app.models import Animal, SocialPromotion
+    from app.config import settings
+except ImportError:
+    from ..app.database import SessionLocal
+    from ..app.models import Animal, SocialPromotion
+    from ..app.config import settings
 
 logger = logging.getLogger(__name__)
 
