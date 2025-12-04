@@ -21,6 +21,7 @@ Parameters:
 
   GoogleClientId:
     Type: String
+    Default: "placeholder"
     Description: Google OAuth Client ID for admin dashboard
 
   AdminEmails:
@@ -32,26 +33,6 @@ Parameters:
     Type: String
     Default: anthropic.claude-3-5-sonnet-20241022-v2:0
     Description: AWS Bedrock model ID to use
-
-Globals:
-  Function:
-    Timeout: 300
-    MemorySize: 1024
-    Runtime: python3.11
-    Architectures:
-      - x86_64
-    Environment:
-      Variables:
-        ENVIRONMENT: !Ref Environment
-        DYNAMODB_TABLE: !Ref ShelterDataTable
-        PROGRESS_TABLE: !Ref ProgressTable
-        S3_BUCKET: !Ref DataBucket
-        BEDROCK_MODEL_ID: !Ref BedrockModelId
-        SERPAPI_SECRET_ARN: !Ref SerpApiSecret
-        COGNITO_USER_POOL_ID: !Ref AdminUserPool
-        ALLOWED_ADMIN_EMAILS: !Ref AdminEmails
-        STATE_MACHINE_ARN: !Ref CollectionStateMachine
-        SNS_TOPIC_ARN: !Ref NotificationTopic
 
 Resources:
   # ========================================
@@ -122,8 +103,6 @@ Resources:
           AttributeType: S
         - AttributeName: state
           AttributeType: S
-        - AttributeName: name_lower
-          AttributeType: S
       KeySchema:
         - AttributeName: shelter_id
           KeyType: HASH
@@ -132,8 +111,6 @@ Resources:
           KeySchema:
             - AttributeName: state
               KeyType: HASH
-            - AttributeName: name_lower
-              KeyType: RANGE
           Projection:
             ProjectionType: ALL
       Tags:
@@ -173,6 +150,60 @@ Resources:
     Properties:
       TopicName: !Sub animal-rescue-notifications-${Environment}
       DisplayName: Animal Rescue Search Notifications
+
+  # ========================================
+  # Cognito User Pool (for future Google OAuth)
+  # ========================================
+  AdminUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub AnimalRescue-AdminPool-${Environment}
+      AutoVerifiedAttributes:
+        - email
+      UsernameAttributes:
+        - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+      Schema:
+        - Name: email
+          Required: true
+          Mutable: true
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: !Sub AnimalRescue-AdminClient-${Environment}
+      UserPoolId: !Ref AdminUserPool
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+      AllowedOAuthFlows:
+        - implicit
+      AllowedOAuthScopes:
+        - openid
+        - email
+        - profile
+      AllowedOAuthFlowsUserPoolClient: true
+      CallbackURLs:
+        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+        - http://localhost:8080
+      LogoutURLs:
+        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+        - http://localhost:8080
+      SupportedIdentityProviders:
+        - COGNITO
+
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Sub animal-rescue-admin-${Environment}-${AWS::AccountId}
+      UserPoolId: !Ref AdminUserPool
 
   # ========================================
   # IAM Role for Lambda Functions
@@ -259,7 +290,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - states:StartExecution
-                Resource: !Ref CollectionStateMachine
+                Resource: !Sub arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:AnimalRescue-Collection-${Environment}
 
   # ========================================
   # Lambda Functions
@@ -270,10 +301,20 @@ Resources:
       FunctionName: !Sub AnimalRescue-ShelterSearch-${Environment}
       CodeUri: ../lambda/
       Handler: shelter_search_agent.lambda_handler
+      Runtime: python3.11
       Role: !GetAtt LambdaExecutionRole.Arn
       Timeout: 600
       MemorySize: 2048
       Description: AI-powered shelter search using Bedrock
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          DYNAMODB_TABLE: !Ref ShelterDataTable
+          PROGRESS_TABLE: !Ref ProgressTable
+          S3_BUCKET: !Ref DataBucket
+          BEDROCK_MODEL_ID: !Ref BedrockModelId
+          SERPAPI_SECRET_ARN: !Ref SerpApiSecret
+          SNS_TOPIC_ARN: !Ref NotificationTopic
 
   OrchestratorFunction:
     Type: AWS::Serverless::Function
@@ -281,8 +322,17 @@ Resources:
       FunctionName: !Sub AnimalRescue-Orchestrator-${Environment}
       CodeUri: ../lambda/
       Handler: orchestrator.lambda_handler
+      Runtime: python3.11
       Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 300
+      MemorySize: 512
       Description: Orchestrates state-by-state collection
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          PROGRESS_TABLE: !Ref ProgressTable
+          SNS_TOPIC_ARN: !Ref NotificationTopic
+          STATE_MACHINE_ARN: !Sub arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:AnimalRescue-Collection-${Environment}
 
   CsvExporterFunction:
     Type: AWS::Serverless::Function
@@ -290,8 +340,16 @@ Resources:
       FunctionName: !Sub AnimalRescue-CsvExporter-${Environment}
       CodeUri: ../lambda/
       Handler: csv_exporter.lambda_handler
+      Runtime: python3.11
       Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 300
+      MemorySize: 1024
       Description: Exports data to CSV files
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          DYNAMODB_TABLE: !Ref ShelterDataTable
+          S3_BUCKET: !Ref DataBucket
 
   AdminApiFunction:
     Type: AWS::Serverless::Function
@@ -299,11 +357,56 @@ Resources:
       FunctionName: !Sub AnimalRescue-AdminApi-${Environment}
       CodeUri: ../lambda/
       Handler: admin_api.lambda_handler
+      Runtime: python3.11
       Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 30
+      MemorySize: 256
+      Description: Admin dashboard API
       Environment:
         Variables:
-          CORS_ORIGIN: !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
-      Description: Admin dashboard API
+          ENVIRONMENT: !Ref Environment
+          DYNAMODB_TABLE: !Ref ShelterDataTable
+          PROGRESS_TABLE: !Ref ProgressTable
+          COGNITO_USER_POOL_ID: !Ref AdminUserPool
+          ALLOWED_ADMIN_EMAILS: !Ref AdminEmails
+          CORS_ORIGIN: '*'
+      Events:
+        ApiStats:
+          Type: Api
+          Properties:
+            Path: /admin/stats
+            Method: GET
+            RestApiId: !Ref AdminApi
+        ApiStates:
+          Type: Api
+          Properties:
+            Path: /admin/states
+            Method: GET
+            RestApiId: !Ref AdminApi
+        ApiShelters:
+          Type: Api
+          Properties:
+            Path: /admin/shelters
+            Method: GET
+            RestApiId: !Ref AdminApi
+        ApiShelterGet:
+          Type: Api
+          Properties:
+            Path: /admin/shelters/{id}
+            Method: GET
+            RestApiId: !Ref AdminApi
+        ApiShelterPut:
+          Type: Api
+          Properties:
+            Path: /admin/shelters/{id}
+            Method: PUT
+            RestApiId: !Ref AdminApi
+        ApiOptions:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: OPTIONS
+            RestApiId: !Ref AdminApi
 
   # ========================================
   # API Gateway
@@ -317,89 +420,6 @@ Resources:
         AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
         AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key'"
         AllowOrigin: "'*'"
-      Auth:
-        DefaultAuthorizer: NONE
-
-  AdminApiIntegration:
-    Type: AWS::ApiGateway::Resource
-    Properties:
-      RestApiId: !Ref AdminApi
-      ParentId: !GetAtt AdminApi.RootResourceId
-      PathPart: admin
-
-  # Lambda Permission for API Gateway
-  AdminApiPermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      FunctionName: !Ref AdminApiFunction
-      Action: lambda:InvokeFunction
-      Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${AdminApi}/*
-
-  # ========================================
-  # Cognito User Pool (Google OAuth)
-  # ========================================
-  AdminUserPool:
-    Type: AWS::Cognito::UserPool
-    Properties:
-      UserPoolName: !Sub AnimalRescue-AdminPool-${Environment}
-      AutoVerifiedAttributes:
-        - email
-      UsernameAttributes:
-        - email
-      Policies:
-        PasswordPolicy:
-          MinimumLength: 8
-          RequireUppercase: true
-          RequireLowercase: true
-          RequireNumbers: true
-          RequireSymbols: false
-      Schema:
-        - Name: email
-          Required: true
-          Mutable: true
-
-  UserPoolClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      ClientName: !Sub AnimalRescue-AdminClient-${Environment}
-      UserPoolId: !Ref AdminUserPool
-      GenerateSecret: false
-      AllowedOAuthFlows:
-        - implicit
-      AllowedOAuthScopes:
-        - openid
-        - email
-        - profile
-      AllowedOAuthFlowsUserPoolClient: true
-      CallbackURLs:
-        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
-        - http://localhost:8080
-      LogoutURLs:
-        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
-        - http://localhost:8080
-      SupportedIdentityProviders:
-        - Google
-
-  UserPoolDomain:
-    Type: AWS::Cognito::UserPoolDomain
-    Properties:
-      Domain: !Sub animal-rescue-admin-${Environment}-${AWS::AccountId}
-      UserPoolId: !Ref AdminUserPool
-
-  GoogleIdentityProvider:
-    Type: AWS::Cognito::UserPoolIdentityProvider
-    Properties:
-      UserPoolId: !Ref AdminUserPool
-      ProviderName: Google
-      ProviderType: Google
-      ProviderDetails:
-        client_id: !Ref GoogleClientId
-        client_secret: "PLACEHOLDER_UPDATE_MANUALLY"
-        authorize_scopes: "openid email profile"
-      AttributeMapping:
-        email: email
-        name: name
 
   # ========================================
   # Step Functions State Machine
@@ -424,12 +444,16 @@ Resources:
                 Action:
                   - lambda:InvokeFunction
                 Resource:
-                  - !GetAtt ShelterSearchFunction.Arn
-                  - !GetAtt OrchestratorFunction.Arn
-                  - !GetAtt CsvExporterFunction.Arn
+                  - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-ShelterSearch-${Environment}
+                  - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-Orchestrator-${Environment}
+                  - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-CsvExporter-${Environment}
 
   CollectionStateMachine:
     Type: AWS::StepFunctions::StateMachine
+    DependsOn:
+      - ShelterSearchFunction
+      - OrchestratorFunction
+      - CsvExporterFunction
     Properties:
       StateMachineName: !Sub AnimalRescue-Collection-${Environment}
       RoleArn: !GetAtt StepFunctionsRole.Arn
@@ -440,7 +464,7 @@ Resources:
           "States": {
             "CheckCollectionStatus": {
               "Type": "Task",
-              "Resource": "${OrchestratorFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-Orchestrator-${Environment}",
               "Parameters": {
                 "mode": "status"
               },
@@ -460,7 +484,7 @@ Resources:
             },
             "GetNextState": {
               "Type": "Task",
-              "Resource": "${OrchestratorFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-Orchestrator-${Environment}",
               "Parameters": {
                 "mode": "next_state"
               },
@@ -480,7 +504,7 @@ Resources:
             },
             "ProcessState": {
               "Type": "Task",
-              "Resource": "${ShelterSearchFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-ShelterSearch-${Environment}",
               "Parameters": {
                 "state.$": "$.nextState.next_state.state",
                 "state_full.$": "$.nextState.next_state.state_full"
@@ -505,7 +529,7 @@ Resources:
             },
             "ExportStateCSV": {
               "Type": "Task",
-              "Resource": "${CsvExporterFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-CsvExporter-${Environment}",
               "Parameters": {
                 "mode": "state",
                 "state.$": "$.processingResult.state"
@@ -525,7 +549,7 @@ Resources:
             },
             "AllStatesComplete": {
               "Type": "Task",
-              "Resource": "${OrchestratorFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-Orchestrator-${Environment}",
               "Parameters": {
                 "mode": "complete_notification"
               },
@@ -534,7 +558,7 @@ Resources:
             },
             "ExportMasterCSV": {
               "Type": "Task",
-              "Resource": "${CsvExporterFunction.Arn}",
+              "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:AnimalRescue-CsvExporter-${Environment}",
               "Parameters": {
                 "mode": "full_export"
               },
@@ -552,6 +576,7 @@ Resources:
   # ========================================
   DailyScheduleRole:
     Type: AWS::IAM::Role
+    DependsOn: CollectionStateMachine
     Properties:
       RoleName: !Sub AnimalRescueSchedulerRole-${Environment}
       AssumeRolePolicyDocument:
@@ -569,10 +594,11 @@ Resources:
               - Effect: Allow
                 Action:
                   - states:StartExecution
-                Resource: !Ref CollectionStateMachine
+                Resource: !Sub arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:AnimalRescue-Collection-${Environment}
 
   DailyCollectionSchedule:
     Type: AWS::Scheduler::Schedule
+    DependsOn: CollectionStateMachine
     Properties:
       Name: !Sub AnimalRescue-DailyCollection-${Environment}
       Description: Run animal rescue collection daily at 2 AM EST
@@ -581,39 +607,23 @@ Resources:
       FlexibleTimeWindow:
         Mode: "OFF"
       Target:
-        Arn: !Ref CollectionStateMachine
+        Arn: !Sub arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:AnimalRescue-Collection-${Environment}
         RoleArn: !GetAtt DailyScheduleRole.Arn
         Input: '{"mode": "daily_run"}'
       State: ENABLED
-
-  # ========================================
-  # Initialize Progress Table (Custom Resource)
-  # ========================================
-  InitializeProgressFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub AnimalRescue-InitProgress-${Environment}
-      CodeUri: ../lambda/
-      Handler: orchestrator.lambda_handler
-      Role: !GetAtt LambdaExecutionRole.Arn
-      Timeout: 60
-
-  InitializeProgressInvocation:
-    Type: AWS::CloudFormation::CustomResource
-    DependsOn:
-      - ProgressTable
-    Properties:
-      ServiceToken: !GetAtt InitializeProgressFunction.Arn
-      mode: initialize
 
 Outputs:
   DataBucketName:
     Description: S3 bucket for shelter data
     Value: !Ref DataBucket
 
+  DashboardBucketName:
+    Description: S3 bucket for admin dashboard
+    Value: !Ref DashboardBucket
+
   DashboardUrl:
     Description: Admin dashboard URL
-    Value: !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+    Value: !Sub http://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
 
   ApiEndpoint:
     Description: Admin API endpoint
@@ -629,7 +639,7 @@ Outputs:
 
   CognitoDomain:
     Description: Cognito domain for OAuth
-    Value: !Sub ${UserPoolDomain}.auth.${AWS::Region}.amazoncognito.com
+    Value: !Sub animal-rescue-admin-${Environment}-${AWS::AccountId}.auth.${AWS::Region}.amazoncognito.com
 
   StateMachineArn:
     Description: Step Functions State Machine ARN
