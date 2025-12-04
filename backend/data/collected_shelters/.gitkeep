@@ -1,0 +1,3 @@
+# This directory stores collected shelter data per state
+# Example files: TX_shelters.json, CA_shelters.json
+# These files serve as backups and allow for review before database insertion
