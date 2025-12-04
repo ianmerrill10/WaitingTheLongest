@@ -247,10 +247,10 @@ Reference `.env.example` for a complete list of environment variables.
 
 **API Documentation**: https://rescuegroups.org/services/adoptable-pet-data-api/
 
-### Adopt-a-Pet API (Secondary, TODO)
-**Status**: Not yet implemented
+### Adopt-a-Pet API (Secondary)
+**Status**: Implemented (requires `ADOPTAPET_API_KEY`)
 
-Additional data coverage beyond RescueGroups.
+Secondary source to expand coverage beyond RescueGroups. Configure `ADOPTAPET_API_KEY` to enable ingestion; when missing, the ingestor is automatically skipped to keep runs healthy.
 
 ---
 

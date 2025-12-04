@@ -278,15 +278,115 @@ class AdoptAPetIngestor:
     This provides additional data coverage beyond RescueGroups.
     """
 
-    BASE_URL = "https://api.adoptapet.com/search/"
+    BASE_URL = "https://api.adoptapet.com/search/pet_search"
     SOURCE_NAME = "adoptapet"
 
     def __init__(self):
         self.api_key = settings.ADOPTAPET_API_KEY
 
-    # Implementation similar to RescueGroupsIngestor
-    # TODO: Implement when API key is obtained
-    pass
+        if not self.api_key:
+            logger.warning("Adopt-a-Pet API key not configured; ingestion disabled")
+
+    def _make_request(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Perform GET request to Adopt-a-Pet search endpoint."""
+
+        try:
+            response = requests.get(
+                self.BASE_URL,
+                params=params,
+                timeout=30,
+                headers={"Accept": "application/json"},
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as exc:
+            logger.error(f"Adopt-a-Pet API error: {exc}")
+            return {"status": "error", "pets": []}
+
+    def fetch_animals(
+        self,
+        species: str = "dog",
+        limit: int = 100,
+        location: Optional[str] = None,
+        status: str = "adoptable",
+    ) -> List[IngestedAnimal]:
+        """Fetch animals from Adopt-a-Pet API."""
+
+        if not self.api_key:
+            logger.error("Cannot fetch: Adopt-a-Pet API key not configured")
+            return []
+
+        params: Dict[str, Any] = {
+            "key": self.api_key,
+            "pet_type": species.lower(),
+            "page_size": limit,
+            "status": status,
+        }
+
+        if location:
+            params["location"] = location
+
+        raw = self._make_request(params)
+
+        if raw.get("status") == "error":
+            logger.error("Adopt-a-Pet search failed: %s", raw)
+            return []
+
+        pets = raw.get("pets") or raw.get("animals") or []
+        animals: List[IngestedAnimal] = []
+
+        for pet in pets:
+            try:
+                animals.append(self._parse_animal(pet))
+            except Exception as exc:
+                logger.warning("Failed to parse Adopt-a-Pet entry: %s", exc)
+                continue
+
+        logger.info("Fetched %d animals from Adopt-a-Pet", len(animals))
+        return animals
+
+    def _parse_animal(self, data: Dict[str, Any]) -> IngestedAnimal:
+        """Normalize Adopt-a-Pet payload to IngestedAnimal."""
+
+        photos: List[str] = []
+        media = data.get("photos") or data.get("media") or []
+        for photo in media:
+            if isinstance(photo, dict):
+                url = (
+                    photo.get("large")
+                    or photo.get("full")
+                    or photo.get("url")
+                    or photo.get("photo")
+                )
+                if url:
+                    photos.append(url)
+            elif isinstance(photo, str):
+                photos.append(photo)
+
+        return IngestedAnimal(
+            external_id=str(data.get("id") or data.get("pet_id") or ""),
+            source=self.SOURCE_NAME,
+            name=data.get("name", "Unknown"),
+            species=(data.get("type") or data.get("species") or "dog").lower(),
+            breed=data.get("primary_breed") or data.get("breed"),
+            breed_secondary=data.get("secondary_breed"),
+            age_group=data.get("age_group") or data.get("age"),
+            size=data.get("size"),
+            gender=data.get("sex") or data.get("gender"),
+            color=data.get("color") or data.get("coat_length"),
+            description=data.get("description"),
+            photos=photos,
+            shelter_id=str(data.get("shelter_id") or ""),
+            shelter_name=data.get("shelter_name", "Unknown Shelter"),
+            city=data.get("city"),
+            state=data.get("state"),
+            zip_code=data.get("postal") or data.get("zip"),
+            listing_url=data.get("url")
+            or data.get("web_url")
+            or f"https://www.adoptapet.com/pet/{data.get('id')}"
+            if data.get("id")
+            else None,
+        )
 
 
 def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, int]:
@@ -304,27 +404,32 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
 
     stats = {"new": 0, "updated": 0, "errors": 0}
 
-    # RescueGroups ingestion
-    rg_ingestor = RescueGroupsIngestor()
+    ingestors = [RescueGroupsIngestor()]
+
+    # Only enable Adopt-a-Pet when credentials are configured
+    adopt_ingestor = AdoptAPetIngestor()
+    if adopt_ingestor.api_key:
+        ingestors.append(adopt_ingestor)
+    else:
+        logger.info("Skipping Adopt-a-Pet ingestion (API key missing)")
 
     species_list = ["Dog", "Cat"] if species == "all" else [species.capitalize()]
 
-    for sp in species_list:
-        animals = rg_ingestor.fetch_animals(species=sp, limit=limit)
+    for ingestor in ingestors:
+        for sp in species_list:
+            animals = ingestor.fetch_animals(species=sp, limit=limit)
 
-        for animal_data in animals:
-            try:
-                # Check for duplicate
-                existing = find_duplicate_animal(
-                    db,
-                    name=animal_data.name,
-                    species=animal_data.species,
-                    breed=animal_data.breed
-                )
+            for animal_data in animals:
+                try:
+                    # Check for duplicate
+                    existing = find_duplicate_animal(
+                        db,
+                        name=animal_data.name,
+                        species=animal_data.species,
+                        breed=animal_data.breed
+                    )
 
-                if existing:
-                    # Update existing animal
-                    merge_animal_observation(db, existing, {
+                    payload = {
                         "source": animal_data.source,
                         "external_id": animal_data.external_id,
                         "shelter_name": animal_data.shelter_name,
@@ -338,52 +443,44 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         "listing_url": animal_data.listing_url,
                         "first_seen_at": datetime.now(timezone.utc).replace(tzinfo=None),
                         "last_seen_at": datetime.now(timezone.utc).replace(tzinfo=None)
-                    })
-                    stats["updated"] += 1
-                else:
-                    # Create new animal
-                    new_animal = Animal(
-                        species=animal_data.species,
-                        canonical_name=animal_data.name,
-                        breed_primary=animal_data.breed,
-                        breed_secondary=animal_data.breed_secondary,
-                        age_group=animal_data.age_group,
-                        size=animal_data.size,
-                        gender=animal_data.gender,
-                        color_primary=animal_data.color,
-                        first_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
-                        last_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
-                        status="available"
-                    )
-                    db.add(new_animal)
-                    db.flush()
+                    }
 
-                    # Create observation
-                    observation = Observation(
-                        animal_id=new_animal.id,
-                        source=animal_data.source,
-                        external_id=animal_data.external_id,
-                        shelter_name=animal_data.shelter_name,
-                        name=animal_data.name,
-                        description=animal_data.description,
-                        photo_url=animal_data.photos[0] if animal_data.photos else None,
-                        photo_gallery_json=json.dumps(animal_data.photos) if animal_data.photos else None,
-                        city=animal_data.city,
-                        state=animal_data.state,
-                        zip_code=animal_data.zip_code,
-                        listing_url=animal_data.listing_url,
-                        first_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
-                        last_seen_at=datetime.now(timezone.utc).replace(tzinfo=None)
-                    )
-                    db.add(observation)
-                    stats["new"] += 1
+                    if existing:
+                        # Update existing animal
+                        merge_animal_observation(db, existing, payload)
+                        stats["updated"] += 1
+                    else:
+                        # Create new animal
+                        new_animal = Animal(
+                            species=animal_data.species,
+                            canonical_name=animal_data.name,
+                            breed_primary=animal_data.breed,
+                            breed_secondary=animal_data.breed_secondary,
+                            age_group=animal_data.age_group,
+                            size=animal_data.size,
+                            gender=animal_data.gender,
+                            color_primary=animal_data.color,
+                            first_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
+                            last_seen_at=datetime.now(timezone.utc).replace(tzinfo=None),
+                            status="available"
+                        )
+                        db.add(new_animal)
+                        db.flush()
 
-            except Exception as e:
-                logger.error(f"Error processing animal: {e}")
-                stats["errors"] += 1
-                continue
+                        # Create observation
+                        observation = Observation(
+                            animal_id=new_animal.id,
+                            **payload
+                        )
+                        db.add(observation)
+                        stats["new"] += 1
 
-        db.commit()
+                except Exception as e:
+                    logger.error(f"Error processing animal: {e}")
+                    stats["errors"] += 1
+                    continue
+
+            db.commit()
 
     logger.info(f"Ingestion complete: {stats}")
     return stats
