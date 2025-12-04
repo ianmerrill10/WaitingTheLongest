@@ -2,7 +2,15 @@
 ===============================================================================
 Waiting The Longest™ - Amazon Associates Monetization
 ===============================================================================
-Amazon Associates affiliate link generation and product recommendations.
+Purpose: Amazon Associates affiliate link generation and product 
+         recommendations. Handles click tracking for revenue attribution.
+
+Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: pydantic, urllib
+Related Files: main.py, models.py, config.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 
 Your Associate ID: waitingthelon-20
 
@@ -14,8 +22,6 @@ Commission Rates (Pet Products):
 - Pet Food: 4%
 - Toys: 3%
 - Luxury Beauty (pet grooming): 10%
-
-Author: Waiting The Longest™ Development Team
 ===============================================================================
 """
 

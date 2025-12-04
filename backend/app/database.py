@@ -2,7 +2,15 @@
 ===============================================================================
 Waiting The Longest™ - Database Configuration
 ===============================================================================
-SQLAlchemy database setup and session management.
+Purpose: SQLAlchemy database engine and session management. Handles 
+         PostgreSQL connection pooling and session lifecycle.
+
+Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: sqlalchemy
+Related Files: config.py, models.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 
 Usage:
     from app.database import get_db
@@ -11,8 +19,6 @@ Usage:
     def list_animals(db: Session = Depends(get_db)):
         animals = db.query(Animal).all()
         return animals
-
-Author: Waiting The Longest™ Development Team
 ===============================================================================
 """
 

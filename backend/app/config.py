@@ -2,10 +2,18 @@
 ===============================================================================
 Waiting The Longest™ - Configuration Settings
 ===============================================================================
-Application configuration using Pydantic Settings for environment variable
-management and validation.
+Purpose: Centralized configuration management using Pydantic Settings for 
+         environment variable loading and validation.
 
 Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: pydantic_settings, os
+Related Files: .env, .env.example
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
+
+Application configuration using Pydantic Settings for environment variable
+management and validation.
 ===============================================================================
 """
 

@@ -178,7 +178,29 @@ Key variables:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Submit a pull request
+4. **Update OWNERS_MANUAL.md with any functional changes**
+5. Submit a pull request
+
+### Documentation Requirements
+
+All contributions must follow our documentation policy:
+- Update `OWNERS_MANUAL.md` when changing functionality
+- Include docstrings for all new functions
+- Add header comments to new Python files
+- See `backend/DOCUMENTATION_REQUIREMENTS.md` for full guidelines
+
+## Documentation
+
+- **OWNERS_MANUAL.md** - Comprehensive system guide (see note below)
+- **backend/OWNERS_MANUAL_CONTENT.md** - Full manual content (copy to OWNERS_MANUAL.md)
+- **backend/DOCUMENTATION_REQUIREMENTS.md** - Documentation policy
+- **.github/PULL_REQUEST_TEMPLATE.md** - PR checklist
+- **API Docs** - https://waitingthelongest.com/api/docs
+
+> **Note**: If OWNERS_MANUAL.md is empty, copy content from `backend/OWNERS_MANUAL_CONTENT.md`:
+> ```bash
+> cp backend/OWNERS_MANUAL_CONTENT.md OWNERS_MANUAL.md
+> ```
 
 ## License
 

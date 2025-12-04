@@ -2,10 +2,18 @@
 ===============================================================================
 Waiting The Longest™ - Main FastAPI Application
 ===============================================================================
-Mission: Help shelter animals who have waited the longest find forever homes.
-Tagline: "Because Every Day Matters"
+Purpose: FastAPI application entry point. Defines all HTTP endpoints, 
+         middleware configuration, and application lifecycle management.
 
 Author: Waiting The Longest™ Development Team
+Last Updated: 2025-01-15
+Dependencies: fastapi, slowapi, sqlalchemy, pydantic
+Related Files: config.py, database.py, models.py, schemas.py, crud.py
+
+IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
+
+Mission: Help shelter animals who have waited the longest find forever homes.
+Tagline: "Because Every Day Matters"
 ===============================================================================
 """
 
