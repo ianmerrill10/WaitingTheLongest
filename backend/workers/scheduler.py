@@ -35,10 +35,12 @@ try:
     from app.database import SessionLocal
     from app.models import Animal, SocialPromotion
     from app.config import settings
+    from app.email_marketing import EmailMarketingService
 except ImportError:
     from ..app.database import SessionLocal
     from ..app.models import Animal, SocialPromotion
     from ..app.config import settings
+    from ..app.email_marketing import EmailMarketingService
 
 logger = logging.getLogger(__name__)
 
@@ -287,6 +289,89 @@ class CleanupWorker:
         return stats
 
 
+class EmailWorker:
+    """
+    Worker for processing scheduled emails.
+
+    Sends pending emails and schedules newsletter batches.
+    """
+
+    BATCH_SIZE = 100  # Emails to process per run
+
+    def run(self) -> dict:
+        """
+        Process pending emails and schedule newsletters.
+
+        Returns:
+            Statistics about email processing
+        """
+        logger.info("Processing email queue...")
+
+        db = SessionLocal()
+        stats = {"processed": 0, "sent": 0, "failed": 0, "newsletters_scheduled": 0}
+
+        try:
+            # Get pending emails
+            pending_emails = EmailMarketingService.get_pending_emails(db, limit=self.BATCH_SIZE)
+            stats["processed"] = len(pending_emails)
+
+            for email in pending_emails:
+                try:
+                    # In production, this would call the actual email provider
+                    # For now, we just mark as sent (mock sending)
+                    success = self._send_email(email)
+
+                    if success:
+                        EmailMarketingService.mark_email_sent(db, email.id, external_id=f"mock_{email.id}")
+                        stats["sent"] += 1
+                    else:
+                        EmailMarketingService.mark_email_failed(db, email.id, "Send failed")
+                        stats["failed"] += 1
+
+                except Exception as e:
+                    logger.warning(f"Failed to send email {email.id}: {e}")
+                    EmailMarketingService.mark_email_failed(db, email.id, str(e))
+                    stats["failed"] += 1
+
+            # Schedule weekly newsletter if it's Sunday
+            if datetime.now().weekday() == 6:  # Sunday
+                newsletters_scheduled = EmailMarketingService.schedule_weekly_newsletter(db)
+                stats["newsletters_scheduled"] = newsletters_scheduled
+
+            logger.info(f"Email processing complete: {stats}")
+
+        except Exception as e:
+            logger.error(f"Email processing failed: {e}")
+
+        finally:
+            db.close()
+
+        return stats
+
+    def _send_email(self, email) -> bool:
+        """
+        Send an email via the configured provider.
+
+        In production, this would integrate with SendGrid, Mailgun, or SES.
+        For development, this is a mock implementation.
+        """
+        try:
+            # Mock implementation - in production, use actual email provider
+            logger.info(
+                f"[MOCK] Sending email: "
+                f"to={email.subscriber.email}, "
+                f"subject={email.subject}, "
+                f"type={email.email_type}"
+            )
+
+            # Simulate sending (always succeeds in mock)
+            return True
+
+        except Exception as e:
+            logger.error(f"Email send error: {e}")
+            return False
+
+
 def run_all_workers():
     """
     Run all workers in sequence.
@@ -312,6 +397,10 @@ def run_all_workers():
     # Run social content generation
     social = SocialContentWorker()
     results["social_content"] = social.run()
+
+    # Run email processing
+    email = EmailWorker()
+    results["email"] = email.run()
 
     # Run cleanup
     cleanup = CleanupWorker()

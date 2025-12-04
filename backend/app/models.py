@@ -343,3 +343,236 @@ class AffiliateClick(Base):
 
     # Timestamp
     clicked_at = Column(DateTime, default=datetime.utcnow)
+
+
+# =============================================================================
+# Email Marketing Models
+# =============================================================================
+
+class EmailStatus(str, enum.Enum):
+    """Status of an email in the queue"""
+    PENDING = "pending"
+    SENDING = "sending"
+    SENT = "sent"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+
+
+class SequenceType(str, enum.Enum):
+    """Types of email sequences"""
+    WELCOME = "welcome"
+    ABANDONED_CART = "abandoned_cart"
+    PRICE_DROP = "price_drop"
+    STILL_WAITING = "still_waiting"
+    WEEKLY_NEWSLETTER = "weekly_newsletter"
+    ADOPTION_FOLLOWUP = "adoption_followup"
+
+
+class AlertType(str, enum.Enum):
+    """Types of price/availability alerts"""
+    PRICE_DROP = "price_drop"
+    BACK_IN_STOCK = "back_in_stock"
+    NEW_ARRIVAL = "new_arrival"
+    ANIMAL_AVAILABLE = "animal_available"
+
+
+class EmailSubscriber(Base):
+    """
+    Email subscriber for marketing campaigns.
+
+    Tracks newsletter subscriptions, email preferences, and consent.
+    GDPR/CAN-SPAM compliant with proper consent tracking.
+    """
+    __tablename__ = "email_subscribers"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    # Contact info
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    first_name = Column(String(100), nullable=True)
+    last_name = Column(String(100), nullable=True)
+
+    # Preferences
+    preferred_species = Column(String(20), nullable=True)  # dog, cat, both
+    preferred_location = Column(String(100), nullable=True)  # state/region
+    preferred_age_group = Column(String(20), nullable=True)  # puppy, adult, senior
+
+    # Subscription status
+    is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)
+    verification_token = Column(String(100), nullable=True)
+
+    # Consent tracking (GDPR/CAN-SPAM compliance)
+    consent_given = Column(Boolean, default=False)
+    consent_date = Column(DateTime, nullable=True)
+    consent_source = Column(String(100), nullable=True)  # website, popup, footer
+
+    # Communication preferences
+    newsletter_enabled = Column(Boolean, default=True)
+    product_updates_enabled = Column(Boolean, default=True)
+    adoption_alerts_enabled = Column(Boolean, default=True)
+    affiliate_emails_enabled = Column(Boolean, default=True)
+
+    # Engagement tracking
+    last_email_sent_at = Column(DateTime, nullable=True)
+    last_email_opened_at = Column(DateTime, nullable=True)
+    last_email_clicked_at = Column(DateTime, nullable=True)
+    total_emails_sent = Column(Integer, default=0)
+    total_emails_opened = Column(Integer, default=0)
+    total_emails_clicked = Column(Integer, default=0)
+
+    # Timestamps
+    signup_date = Column(DateTime, default=datetime.utcnow)
+    unsubscribe_date = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    email_sequences = relationship("EmailSequence", back_populates="subscriber", cascade="all, delete-orphan")
+    scheduled_emails = relationship("ScheduledEmail", back_populates="subscriber", cascade="all, delete-orphan")
+    price_alerts = relationship("PriceAlert", back_populates="subscriber", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        Index('idx_subscriber_email', 'email'),
+        Index('idx_subscriber_active', 'is_active'),
+        Index('idx_subscriber_verified', 'is_verified'),
+    )
+
+
+class EmailSequence(Base):
+    """
+    Email sequence/automation tracking.
+
+    Tracks user progress through email sequences like welcome series,
+    abandoned cart, or post-adoption follow-ups.
+    """
+    __tablename__ = "email_sequences"
+
+    id = Column(Integer, primary_key=True, index=True)
+    subscriber_id = Column(Integer, ForeignKey("email_subscribers.id"), index=True)
+
+    # Sequence info
+    sequence_type = Column(String(50), index=True)  # welcome, abandoned_cart, etc.
+    current_step = Column(Integer, default=0)  # Current position in sequence
+    total_steps = Column(Integer, default=1)  # Total emails in sequence
+
+    # Status
+    status = Column(String(20), default="active")  # active, paused, completed, cancelled
+    is_completed = Column(Boolean, default=False)
+
+    # Context data (JSON for flexible storage)
+    context_data = Column(JSON, nullable=True)  # e.g., {"animal_id": 123}
+
+    # Timing
+    started_at = Column(DateTime, default=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
+    next_email_at = Column(DateTime, nullable=True)
+    last_email_sent_at = Column(DateTime, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    subscriber = relationship("EmailSubscriber", back_populates="email_sequences")
+
+    __table_args__ = (
+        Index('idx_sequence_type_status', 'sequence_type', 'status'),
+        Index('idx_sequence_next_email', 'next_email_at'),
+    )
+
+
+class ScheduledEmail(Base):
+    """
+    Queue of scheduled emails waiting to be sent.
+
+    Provides reliable email delivery with retry logic and tracking.
+    """
+    __tablename__ = "scheduled_emails"
+
+    id = Column(Integer, primary_key=True, index=True)
+    subscriber_id = Column(Integer, ForeignKey("email_subscribers.id"), index=True)
+    sequence_id = Column(Integer, ForeignKey("email_sequences.id"), nullable=True)
+
+    # Email content
+    email_type = Column(String(100), index=True)  # welcome_1, newsletter_weekly, etc.
+    subject = Column(String(500), nullable=False)
+    template_name = Column(String(100), nullable=True)  # Template file name
+
+    # Template variables (JSON)
+    template_data = Column(JSON, nullable=True)
+
+    # Scheduling
+    scheduled_at = Column(DateTime, index=True, nullable=False)
+    sent_at = Column(DateTime, nullable=True)
+
+    # Status
+    status = Column(String(20), default="pending", index=True)  # pending, sending, sent, failed
+    error_message = Column(Text, nullable=True)
+    retry_count = Column(Integer, default=0)
+    max_retries = Column(Integer, default=3)
+
+    # Tracking
+    external_id = Column(String(100), nullable=True)  # ID from email provider
+    opened_at = Column(DateTime, nullable=True)
+    clicked_at = Column(DateTime, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    subscriber = relationship("EmailSubscriber", back_populates="scheduled_emails")
+
+    __table_args__ = (
+        Index('idx_email_status_scheduled', 'status', 'scheduled_at'),
+        Index('idx_email_type', 'email_type'),
+    )
+
+
+class PriceAlert(Base):
+    """
+    Price and availability alerts for products/animals.
+
+    Users can set alerts for price drops on affiliate products or
+    when specific animals become available.
+    """
+    __tablename__ = "price_alerts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    subscriber_id = Column(Integer, ForeignKey("email_subscribers.id"), index=True)
+
+    # Alert type
+    alert_type = Column(String(50), index=True)  # price_drop, animal_available, new_arrival
+
+    # Target info
+    target_type = Column(String(50))  # product, animal
+    target_id = Column(String(100), index=True)  # Product ASIN or Animal ID
+    target_name = Column(String(255), nullable=True)
+
+    # Price tracking (for products)
+    original_price = Column(Float, nullable=True)
+    target_price = Column(Float, nullable=True)  # Alert when price drops to this
+    current_price = Column(Float, nullable=True)
+
+    # Status
+    is_active = Column(Boolean, default=True)
+    is_triggered = Column(Boolean, default=False)
+    triggered_at = Column(DateTime, nullable=True)
+
+    # Notification
+    notification_sent = Column(Boolean, default=False)
+    notification_sent_at = Column(DateTime, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    expires_at = Column(DateTime, nullable=True)  # Auto-expire after X days
+
+    # Relationships
+    subscriber = relationship("EmailSubscriber", back_populates="price_alerts")
+
+    __table_args__ = (
+        Index('idx_alert_active_type', 'is_active', 'alert_type'),
+        Index('idx_alert_target', 'target_type', 'target_id'),
+    )
