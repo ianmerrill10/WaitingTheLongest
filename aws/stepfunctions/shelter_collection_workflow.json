@@ -1,0 +1,208 @@
+{
+  "Comment": "Animal Rescue Search Agent - State-by-State Collection Workflow",
+  "StartAt": "CheckCollectionStatus",
+  "States": {
+    "CheckCollectionStatus": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "status"
+      },
+      "ResultPath": "$.collectionStatus",
+      "Next": "DecideNextAction"
+    },
+    "DecideNextAction": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.collectionStatus.collection_status.pending_count",
+          "NumericGreaterThan": 0,
+          "Next": "GetNextState"
+        },
+        {
+          "Variable": "$.collectionStatus.collection_status.is_initial_run_complete",
+          "BooleanEquals": true,
+          "Next": "StartDailyRefresh"
+        }
+      ],
+      "Default": "GetNextState"
+    },
+    "GetNextState": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "next_state"
+      },
+      "ResultPath": "$.nextState",
+      "Next": "CheckIfStateAvailable"
+    },
+    "CheckIfStateAvailable": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.nextState.next_state",
+          "IsPresent": true,
+          "Next": "ProcessState"
+        }
+      ],
+      "Default": "AllStatesComplete"
+    },
+    "ProcessState": {
+      "Type": "Task",
+      "Resource": "${ShelterSearchFunctionArn}",
+      "Parameters": {
+        "state.$": "$.nextState.next_state.state",
+        "state_full.$": "$.nextState.next_state.state_full"
+      },
+      "ResultPath": "$.processingResult",
+      "Retry": [
+        {
+          "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException", "Lambda.SdkClientException"],
+          "IntervalSeconds": 30,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "ResultPath": "$.error",
+          "Next": "HandleStateError"
+        }
+      ],
+      "Next": "ExportStateCSV"
+    },
+    "ExportStateCSV": {
+      "Type": "Task",
+      "Resource": "${CsvExporterFunctionArn}",
+      "Parameters": {
+        "mode": "state",
+        "state.$": "$.processingResult.state"
+      },
+      "ResultPath": "$.exportResult",
+      "Next": "WaitBetweenStates"
+    },
+    "WaitBetweenStates": {
+      "Type": "Wait",
+      "Seconds": 60,
+      "Comment": "Wait 60 seconds between states to avoid rate limiting",
+      "Next": "CheckIfMoreStates"
+    },
+    "CheckIfMoreStates": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "status"
+      },
+      "ResultPath": "$.updatedStatus",
+      "Next": "ContinueOrComplete"
+    },
+    "ContinueOrComplete": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.updatedStatus.collection_status.pending_count",
+          "NumericGreaterThan": 0,
+          "Next": "GetNextState"
+        }
+      ],
+      "Default": "AllStatesComplete"
+    },
+    "StartDailyRefresh": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "daily_run"
+      },
+      "ResultPath": "$.dailyRunConfig",
+      "Next": "ProcessDailyStates"
+    },
+    "ProcessDailyStates": {
+      "Type": "Map",
+      "ItemsPath": "$.dailyRunConfig.states_to_process",
+      "MaxConcurrency": 1,
+      "Iterator": {
+        "StartAt": "ProcessSingleState",
+        "States": {
+          "ProcessSingleState": {
+            "Type": "Task",
+            "Resource": "${ShelterSearchFunctionArn}",
+            "Parameters": {
+              "state.$": "$.state",
+              "state_full.$": "$.state_full"
+            },
+            "ResultPath": "$.result",
+            "Retry": [
+              {
+                "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException"],
+                "IntervalSeconds": 30,
+                "MaxAttempts": 2,
+                "BackoffRate": 2
+              }
+            ],
+            "Catch": [
+              {
+                "ErrorEquals": ["States.ALL"],
+                "ResultPath": "$.error",
+                "Next": "LogStateError"
+              }
+            ],
+            "Next": "WaitAfterState"
+          },
+          "WaitAfterState": {
+            "Type": "Wait",
+            "Seconds": 120,
+            "Comment": "Wait 2 minutes between states for daily refresh",
+            "End": true
+          },
+          "LogStateError": {
+            "Type": "Pass",
+            "Result": {
+              "status": "error"
+            },
+            "End": true
+          }
+        }
+      },
+      "ResultPath": "$.dailyResults",
+      "Next": "ExportMasterCSV"
+    },
+    "AllStatesComplete": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "complete_notification"
+      },
+      "ResultPath": "$.notification",
+      "Next": "ExportMasterCSV"
+    },
+    "ExportMasterCSV": {
+      "Type": "Task",
+      "Resource": "${CsvExporterFunctionArn}",
+      "Parameters": {
+        "mode": "full_export"
+      },
+      "ResultPath": "$.finalExport",
+      "Next": "WorkflowComplete"
+    },
+    "HandleStateError": {
+      "Type": "Task",
+      "Resource": "${OrchestratorFunctionArn}",
+      "Parameters": {
+        "mode": "status"
+      },
+      "ResultPath": "$.errorStatus",
+      "Next": "WaitAfterError"
+    },
+    "WaitAfterError": {
+      "Type": "Wait",
+      "Seconds": 300,
+      "Comment": "Wait 5 minutes after error before continuing",
+      "Next": "CheckIfMoreStates"
+    },
+    "WorkflowComplete": {
+      "Type": "Succeed",
+      "Comment": "Collection workflow completed successfully"
+    }
+  }
+}
