@@ -422,7 +422,7 @@ class TestDatabaseOperations:
     
     def test_upsert_new_shelter(self, db_session, sample_shelter):
         """Test inserting a new shelter"""
-        from app.models import Shelter
+        from backend.app.models import Shelter
         
         collector = ShelterCollector(db=db_session)
         

@@ -256,6 +256,10 @@ Additional data coverage beyond RescueGroups.
 
 ## Changelog
 
+### January 2026
+- Updated backend import paths to consistently use the `backend` package namespace, ensuring tests run from the repository root without missing-module errors.
+- Migrated Pydantic settings and schema configuration to `SettingsConfigDict` and `ConfigDict` to remove deprecation warnings in tests.
+
 ### December 2025
 - Created comprehensive OWNERS_MANUAL.md documentation
 - Added `backend/__init__.py` to fix import errors

@@ -14,7 +14,7 @@ IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 ===============================================================================
 """
 
-from pydantic import BaseModel, Field, HttpUrl, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, HttpUrl
 from typing import Optional, List, Any
 from datetime import datetime
 
@@ -25,8 +25,7 @@ from datetime import datetime
 
 class BaseSchema(BaseModel):
     """Base schema with common configuration"""
-    class Config:
-        from_attributes = True  # Enable ORM mode
+    model_config = ConfigDict(from_attributes=True)
 
 
 # =============================================================================

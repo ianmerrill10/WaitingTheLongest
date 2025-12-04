@@ -50,7 +50,7 @@ from .crud import (
 from .email_marketing import EmailMarketingService
 
 # Import monetization modules
-from monetization.amazon_associates import AmazonAssociates, track_affiliate_click
+from backend.monetization.amazon_associates import AmazonAssociates, track_affiliate_click
 
 # Configure rate limiter
 limiter = Limiter(key_func=get_remote_address)

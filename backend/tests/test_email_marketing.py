@@ -16,13 +16,9 @@ import pytest
 from datetime import datetime, timezone, timedelta
 from unittest.mock import patch
 
-from app.models import (
-    EmailSubscriber, EmailSequence, ScheduledEmail, PriceAlert, Animal
-)
-from app.email_marketing import EmailMarketingService, EMAIL_SEQUENCES
-from app.schemas import (
-    EmailSubscriberCreate, EmailPreferencesUpdate, PriceAlertCreate
-)
+from backend.app.email_marketing import EMAIL_SEQUENCES, EmailMarketingService
+from backend.app.models import Animal, EmailSequence, EmailSubscriber, PriceAlert, ScheduledEmail
+from backend.app.schemas import EmailPreferencesUpdate, EmailSubscriberCreate, PriceAlertCreate
 
 
 class TestEmailSubscriberModel:

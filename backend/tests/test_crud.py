@@ -19,17 +19,17 @@ Tests:
 import pytest
 from datetime import datetime, timezone, timedelta
 
-from app.crud import (
-    paginate_animals,
-    get_animal_detail,
+from backend.app.crud import (
     create_success_story,
-    get_trending_stories,
     find_duplicate_animal,
+    get_animal_detail,
+    get_platform_stats,
+    get_trending_stories,
     merge_animal_observation,
-    get_platform_stats
+    paginate_animals,
 )
-from app.schemas import SuccessStoryCreate
-from app.models import Animal, Observation, SuccessStory
+from backend.app.models import Animal, Observation, SuccessStory
+from backend.app.schemas import SuccessStoryCreate
 
 
 class TestPaginateAnimals:
