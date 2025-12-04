@@ -4,59 +4,309 @@
     "created_at": "2025-12-04",
     "last_updated": "2025-12-04",
     "total_states": 50,
-    "completed_count": 1,
-    "total_shelters_collected": 30
+    "completed_count": 2,
+    "total_shelters_collected": 111
   },
   "states": {
-    "AL": {"name": "Alabama", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "AK": {"name": "Alaska", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "AZ": {"name": "Arizona", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "AR": {"name": "Arkansas", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "CA": {"name": "California", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "CO": {"name": "Colorado", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "CT": {"name": "Connecticut", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "DE": {"name": "Delaware", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "FL": {"name": "Florida", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "GA": {"name": "Georgia", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "HI": {"name": "Hawaii", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "ID": {"name": "Idaho", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "IL": {"name": "Illinois", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "IN": {"name": "Indiana", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "IA": {"name": "Iowa", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "KS": {"name": "Kansas", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "KY": {"name": "Kentucky", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "LA": {"name": "Louisiana", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "ME": {"name": "Maine", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},
-    "MD": {"name": "Maryland", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MA": {"name": "Massachusetts", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MI": {"name": "Michigan", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MN": {"name": "Minnesota", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MS": {"name": "Mississippi", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MO": {"name": "Missouri", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "MT": {"name": "Montana", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NE": {"name": "Nebraska", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NV": {"name": "Nevada", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NH": {"name": "New Hampshire", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NJ": {"name": "New Jersey", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NM": {"name": "New Mexico", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NY": {"name": "New York", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "NC": {"name": "North Carolina", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "ND": {"name": "North Dakota", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "OH": {"name": "Ohio", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "OK": {"name": "Oklahoma", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "OR": {"name": "Oregon", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "PA": {"name": "Pennsylvania", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "RI": {"name": "Rhode Island", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "SC": {"name": "South Carolina", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "SD": {"name": "South Dakota", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "TN": {"name": "Tennessee", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "TX": {"name": "Texas", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "UT": {"name": "Utah", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "VT": {"name": "Vermont", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "VA": {"name": "Virginia", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "WA": {"name": "Washington", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "WV": {"name": "West Virginia", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "WI": {"name": "Wisconsin", "status": "pending", "last_collection": null, "shelter_count": 0},
-    "WY": {"name": "Wyoming", "status": "pending", "last_collection": null, "shelter_count": 0}
+    "AL": {
+      "name": "Alabama",
+      "status": "completed",
+      "last_collection": "2025-12-04",
+      "shelter_count": 81
+    },
+    "AK": {
+      "name": "Alaska",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "AZ": {
+      "name": "Arizona",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "AR": {
+      "name": "Arkansas",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "CA": {
+      "name": "California",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "CO": {
+      "name": "Colorado",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "CT": {
+      "name": "Connecticut",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "DE": {
+      "name": "Delaware",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "FL": {
+      "name": "Florida",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "GA": {
+      "name": "Georgia",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "HI": {
+      "name": "Hawaii",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "ID": {
+      "name": "Idaho",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "IL": {
+      "name": "Illinois",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "IN": {
+      "name": "Indiana",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "IA": {
+      "name": "Iowa",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "KS": {
+      "name": "Kansas",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "KY": {
+      "name": "Kentucky",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "LA": {
+      "name": "Louisiana",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "ME": {
+      "name": "Maine",
+      "status": "completed",
+      "last_collection": "2025-12-04",
+      "shelter_count": 30
+    },
+    "MD": {
+      "name": "Maryland",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MA": {
+      "name": "Massachusetts",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MI": {
+      "name": "Michigan",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MN": {
+      "name": "Minnesota",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MS": {
+      "name": "Mississippi",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MO": {
+      "name": "Missouri",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "MT": {
+      "name": "Montana",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NE": {
+      "name": "Nebraska",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NV": {
+      "name": "Nevada",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NH": {
+      "name": "New Hampshire",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NJ": {
+      "name": "New Jersey",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NM": {
+      "name": "New Mexico",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NY": {
+      "name": "New York",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "NC": {
+      "name": "North Carolina",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "ND": {
+      "name": "North Dakota",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "OH": {
+      "name": "Ohio",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "OK": {
+      "name": "Oklahoma",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "OR": {
+      "name": "Oregon",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "PA": {
+      "name": "Pennsylvania",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "RI": {
+      "name": "Rhode Island",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "SC": {
+      "name": "South Carolina",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "SD": {
+      "name": "South Dakota",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "TN": {
+      "name": "Tennessee",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "TX": {
+      "name": "Texas",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "UT": {
+      "name": "Utah",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "VT": {
+      "name": "Vermont",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "VA": {
+      "name": "Virginia",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "WA": {
+      "name": "Washington",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "WV": {
+      "name": "West Virginia",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "WI": {
+      "name": "Wisconsin",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    },
+    "WY": {
+      "name": "Wyoming",
+      "status": "pending",
+      "last_collection": null,
+      "shelter_count": 0
+    }
   }
 }
