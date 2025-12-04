@@ -147,6 +147,7 @@ Progress is automatically tracked in:
 - `humane_society` - Humane societies
 - `spca` - Society for Prevention of Cruelty to Animals
 - `aspca` - ASPCA affiliates
+- `animal_control` - Animal control facilities
 - `sanctuary` - Animal sanctuaries
 - `foster_network` - Foster-based rescue networks
 - `nonprofit` - Other non-profit animal welfare organizations

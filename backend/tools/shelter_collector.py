@@ -229,7 +229,13 @@ class ShelterCollector:
         # Normalize organization type
         org_type = None
         if data.get("type"):
-            org_type = data.get("type", "").strip().lower().replace(" ", "_")
+            # Normalize: lowercase, replace spaces/hyphens with underscores, collapse multiple
+            org_type = data.get("type", "").strip().lower()
+            org_type = org_type.replace("-", "_").replace(" ", "_")
+            # Collapse multiple underscores
+            while "__" in org_type:
+                org_type = org_type.replace("__", "_")
+            org_type = org_type.strip("_")
         if org_type and org_type not in VALID_ORG_TYPES:
             org_type = "nonprofit"  # Default to nonprofit if unknown
 

@@ -41,7 +41,7 @@ For each organization, collect the following information:
 | Field | Required | Max Length | Description |
 |-------|----------|------------|-------------|
 | `name` | **Yes** | 200 chars | Official organization name |
-| `type` | Yes | - | Organization type (shelter, rescue, humane_society, spca, aspca, sanctuary, foster_network, nonprofit) |
+| `type` | Yes | - | Organization type (shelter, rescue, humane_society, spca, aspca, animal_control, sanctuary, foster_network, nonprofit) |
 | `email` | No | 200 chars | Contact email address |
 | `phone` | No | 50 chars | Contact phone number |
 | `website` | No | - | Official website URL |

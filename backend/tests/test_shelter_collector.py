@@ -142,25 +142,43 @@ class TestShelterDataValidation:
         
         assert result.latitude is None
         assert result.longitude is None
-    
+
     def test_validate_org_type_normalization(self):
         """Test organization type normalization"""
         collector = ShelterCollector(db=None)
         data = {"name": "Test Shelter", "type": "Humane Society"}
-        
+
         result = collector.validate_shelter(data)
-        
+
         assert result.org_type == "humane_society"
-    
+
+    def test_validate_org_type_normalization_with_hyphens(self):
+        """Test organization type normalization with hyphens"""
+        collector = ShelterCollector(db=None)
+        data = {"name": "Test Shelter", "type": "Humane-Society"}
+
+        result = collector.validate_shelter(data)
+
+        assert result.org_type == "humane_society"
+
+    def test_validate_org_type_normalization_with_multiple_spaces(self):
+        """Test organization type normalization with multiple spaces"""
+        collector = ShelterCollector(db=None)
+        data = {"name": "Test Shelter", "type": "animal  control"}
+
+        result = collector.validate_shelter(data)
+
+        assert result.org_type == "animal_control"
+
     def test_validate_unknown_org_type_defaults_to_nonprofit(self):
         """Test that unknown org type defaults to nonprofit"""
         collector = ShelterCollector(db=None)
         data = {"name": "Test Shelter", "type": "unknown_type"}
-        
+
         result = collector.validate_shelter(data)
-        
+
         assert result.org_type == "nonprofit"
-    
+
     def test_validate_truncates_long_fields(self):
         """Test that long fields are truncated appropriately"""
         collector = ShelterCollector(db=None)
