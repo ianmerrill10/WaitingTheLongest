@@ -4,8 +4,8 @@
     "created_at": "2025-12-04",
     "last_updated": "2025-12-04",
     "total_states": 50,
-    "completed_count": 48,
-    "total_shelters_collected": 873
+    "completed_count": 49,
+    "total_shelters_collected": 888
   },
   "states": {
     "AL": {"name": "Alabama", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},
@@ -56,7 +56,7 @@
     "VA": {"name": "Virginia", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "WA": {"name": "Washington", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "WV": {"name": "West Virginia", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
-    "WI": {"name": "Wisconsin", "status": "pending", "last_collection": null, "shelter_count": 0},
+    "WI": {"name": "Wisconsin", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "WY": {"name": "Wyoming", "status": "pending", "last_collection": null, "shelter_count": 0}
   }
 }
