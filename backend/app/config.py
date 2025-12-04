@@ -69,8 +69,29 @@ class Settings(BaseSettings):
     INSTAGRAM_ACCESS_TOKEN: Optional[str] = None
     FACEBOOK_PAGE_TOKEN: Optional[str] = None
 
+    # Twitter/X API credentials
+    TWITTER_API_KEY: Optional[str] = None
+    TWITTER_API_SECRET: Optional[str] = None
+    TWITTER_ACCESS_TOKEN: Optional[str] = None
+    TWITTER_ACCESS_SECRET: Optional[str] = None
+
+    # Pinterest API credentials
+    PINTEREST_ACCESS_TOKEN: Optional[str] = None
+    PINTEREST_BOARD_ID: Optional[str] = None
+
     # Ayrshare (unified social posting)
     AYRSHARE_API_KEY: Optional[str] = None
+
+    # ==========================================================================
+    # Social Auto-Posting Schedule Settings
+    # ==========================================================================
+    SOCIAL_AUTOPOST_ENABLED: bool = False
+    TIKTOK_POSTS_PER_DAY: int = 3
+    INSTAGRAM_POSTS_PER_DAY: int = 2
+    INSTAGRAM_STORIES_PER_DAY: int = 5
+    INSTAGRAM_REELS_PER_DAY: int = 1
+    TWITTER_POSTS_PER_DAY: int = 5
+    PINTEREST_PINS_PER_DAY: int = 10
 
     # ==========================================================================
     # CORS & Security

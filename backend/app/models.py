@@ -63,6 +63,7 @@ class SocialPlatform(str, enum.Enum):
     FACEBOOK = "facebook"
     TWITTER = "twitter"
     YOUTUBE = "youtube"
+    PINTEREST = "pinterest"
 
 
 class PromotionStatus(str, enum.Enum):

@@ -313,6 +313,16 @@ def run_all_workers():
     social = SocialContentWorker()
     results["social_content"] = social.run()
 
+    # Run social auto-posting if enabled
+    if settings.SOCIAL_AUTOPOST_ENABLED:
+        try:
+            from .social_scheduler import SocialAutoPostWorker
+        except ImportError:
+            from workers.social_scheduler import SocialAutoPostWorker
+
+        autopost = SocialAutoPostWorker()
+        results["social_autopost"] = autopost.run()
+
     # Run cleanup
     cleanup = CleanupWorker()
     results["cleanup"] = cleanup.run()
