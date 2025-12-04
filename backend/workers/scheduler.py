@@ -78,7 +78,10 @@ class IngestionWorker:
             start_time = time.time()
 
             # Import here to avoid circular imports
-            from ..ingestors.rescuegroups import run_full_ingestion
+            try:
+                from ingestors.rescuegroups import run_full_ingestion
+            except ImportError:
+                from ..ingestors.rescuegroups import run_full_ingestion
 
             # Run ingestion
             result = run_full_ingestion(
@@ -202,7 +205,10 @@ class SocialContentWorker:
             for animal in candidates:
                 try:
                     # Generate video
-                    from ..tools.video_generator import generate_animal_video
+                    try:
+                        from tools.video_generator import generate_animal_video
+                    except ImportError:
+                        from ..tools.video_generator import generate_animal_video
 
                     video_path = generate_animal_video(db, animal.id)
 

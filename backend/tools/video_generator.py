@@ -404,7 +404,10 @@ def generate_animal_video(db, animal_id: int) -> Optional[str]:
 
     Fetches animal data from database and generates video.
     """
-    from ..app.crud import get_animal_detail
+    try:
+        from app.crud import get_animal_detail
+    except ImportError:
+        from ..app.crud import get_animal_detail
 
     animal = get_animal_detail(db, animal_id)
     if not animal:
