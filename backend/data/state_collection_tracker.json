@@ -5,10 +5,10 @@
     "last_updated": "2025-12-04",
     "total_states": 50,
     "completed_count": 50,
-    "total_shelters_collected": 1058
+    "total_shelters_collected": 1041
   },
   "states": {
-    "AL": {"name": "Alabama", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 100},
+    "AL": {"name": "Alabama", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 91},
     "AK": {"name": "Alaska", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "AZ": {"name": "Arizona", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "AR": {"name": "Arkansas", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
@@ -52,7 +52,7 @@
     "TN": {"name": "Tennessee", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "TX": {"name": "Texas", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "UT": {"name": "Utah", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
-    "VT": {"name": "Vermont", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 100},
+    "VT": {"name": "Vermont", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 92},
     "VA": {"name": "Virginia", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "WA": {"name": "Washington", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "WV": {"name": "West Virginia", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
