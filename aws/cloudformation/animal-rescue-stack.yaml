@@ -1,0 +1,644 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Animal Rescue Search Agent - Complete AWS Infrastructure
+  AI-powered search agent using Bedrock to collect animal rescue organization data
+
+Parameters:
+  Environment:
+    Type: String
+    Default: prod
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Deployment environment
+
+  SerpApiKey:
+    Type: String
+    NoEcho: true
+    Description: SerpAPI key for web search
+
+  GoogleClientId:
+    Type: String
+    Description: Google OAuth Client ID for admin dashboard
+
+  AdminEmails:
+    Type: String
+    Default: ""
+    Description: Comma-separated list of allowed admin email addresses
+
+  BedrockModelId:
+    Type: String
+    Default: anthropic.claude-3-5-sonnet-20241022-v2:0
+    Description: AWS Bedrock model ID to use
+
+Globals:
+  Function:
+    Timeout: 300
+    MemorySize: 1024
+    Runtime: python3.11
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        ENVIRONMENT: !Ref Environment
+        DYNAMODB_TABLE: !Ref ShelterDataTable
+        PROGRESS_TABLE: !Ref ProgressTable
+        S3_BUCKET: !Ref DataBucket
+        BEDROCK_MODEL_ID: !Ref BedrockModelId
+        SERPAPI_SECRET_ARN: !Ref SerpApiSecret
+        COGNITO_USER_POOL_ID: !Ref AdminUserPool
+        ALLOWED_ADMIN_EMAILS: !Ref AdminEmails
+        STATE_MACHINE_ARN: !Ref CollectionStateMachine
+        SNS_TOPIC_ARN: !Ref NotificationTopic
+
+Resources:
+  # ========================================
+  # S3 Bucket for Data Storage
+  # ========================================
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub animal-rescue-data-${Environment}-${AWS::AccountId}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: CleanupOldExports
+            Status: Enabled
+            Prefix: exports/
+            ExpirationInDays: 90
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ['*']
+            AllowedMethods: [GET]
+            AllowedOrigins: ['*']
+            MaxAge: 3600
+      Tags:
+        - Key: Project
+          Value: AnimalRescueSearch
+
+  # S3 Bucket for Admin Dashboard (Static Hosting)
+  DashboardBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub animal-rescue-admin-${Environment}-${AWS::AccountId}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+  DashboardBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DashboardBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub ${DashboardBucket.Arn}/*
+
+  # ========================================
+  # DynamoDB Tables
+  # ========================================
+  ShelterDataTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub AnimalRescueData-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: shelter_id
+          AttributeType: S
+        - AttributeName: state
+          AttributeType: S
+        - AttributeName: name_lower
+          AttributeType: S
+      KeySchema:
+        - AttributeName: shelter_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: state-index
+          KeySchema:
+            - AttributeName: state
+              KeyType: HASH
+            - AttributeName: name_lower
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      Tags:
+        - Key: Project
+          Value: AnimalRescueSearch
+
+  ProgressTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub AnimalRescueData_Progress-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: state
+          AttributeType: S
+      KeySchema:
+        - AttributeName: state
+          KeyType: HASH
+      Tags:
+        - Key: Project
+          Value: AnimalRescueSearch
+
+  # ========================================
+  # Secrets Manager
+  # ========================================
+  SerpApiSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub animal-rescue-search/serpapi-${Environment}
+      Description: SerpAPI key for web search
+      SecretString: !Sub '{"api_key": "${SerpApiKey}"}'
+
+  # ========================================
+  # SNS Topic for Notifications
+  # ========================================
+  NotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub animal-rescue-notifications-${Environment}
+      DisplayName: Animal Rescue Search Notifications
+
+  # ========================================
+  # IAM Role for Lambda Functions
+  # ========================================
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AnimalRescueLambdaRole-${Environment}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource:
+                  - !GetAtt ShelterDataTable.Arn
+                  - !Sub ${ShelterDataTable.Arn}/index/*
+                  - !GetAtt ProgressTable.Arn
+        - PolicyName: S3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - !GetAtt DataBucket.Arn
+                  - !Sub ${DataBucket.Arn}/*
+        - PolicyName: BedrockAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - bedrock:InvokeModel
+                  - bedrock:InvokeModelWithResponseStream
+                Resource: '*'
+        - PolicyName: SecretsAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: !Ref SerpApiSecret
+        - PolicyName: CognitoAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cognito-idp:GetUser
+                Resource: !GetAtt AdminUserPool.Arn
+        - PolicyName: SNSAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref NotificationTopic
+        - PolicyName: StepFunctionsAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - states:StartExecution
+                Resource: !Ref CollectionStateMachine
+
+  # ========================================
+  # Lambda Functions
+  # ========================================
+  ShelterSearchFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub AnimalRescue-ShelterSearch-${Environment}
+      CodeUri: ../lambda/
+      Handler: shelter_search_agent.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 600
+      MemorySize: 2048
+      Description: AI-powered shelter search using Bedrock
+
+  OrchestratorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub AnimalRescue-Orchestrator-${Environment}
+      CodeUri: ../lambda/
+      Handler: orchestrator.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Description: Orchestrates state-by-state collection
+
+  CsvExporterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub AnimalRescue-CsvExporter-${Environment}
+      CodeUri: ../lambda/
+      Handler: csv_exporter.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Description: Exports data to CSV files
+
+  AdminApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub AnimalRescue-AdminApi-${Environment}
+      CodeUri: ../lambda/
+      Handler: admin_api.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          CORS_ORIGIN: !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+      Description: Admin dashboard API
+
+  # ========================================
+  # API Gateway
+  # ========================================
+  AdminApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub AnimalRescue-AdminApi-${Environment}
+      StageName: prod
+      Cors:
+        AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key'"
+        AllowOrigin: "'*'"
+      Auth:
+        DefaultAuthorizer: NONE
+
+  AdminApiIntegration:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref AdminApi
+      ParentId: !GetAtt AdminApi.RootResourceId
+      PathPart: admin
+
+  # Lambda Permission for API Gateway
+  AdminApiPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref AdminApiFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${AdminApi}/*
+
+  # ========================================
+  # Cognito User Pool (Google OAuth)
+  # ========================================
+  AdminUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub AnimalRescue-AdminPool-${Environment}
+      AutoVerifiedAttributes:
+        - email
+      UsernameAttributes:
+        - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+      Schema:
+        - Name: email
+          Required: true
+          Mutable: true
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: !Sub AnimalRescue-AdminClient-${Environment}
+      UserPoolId: !Ref AdminUserPool
+      GenerateSecret: false
+      AllowedOAuthFlows:
+        - implicit
+      AllowedOAuthScopes:
+        - openid
+        - email
+        - profile
+      AllowedOAuthFlowsUserPoolClient: true
+      CallbackURLs:
+        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+        - http://localhost:8080
+      LogoutURLs:
+        - !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+        - http://localhost:8080
+      SupportedIdentityProviders:
+        - Google
+
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Sub animal-rescue-admin-${Environment}-${AWS::AccountId}
+      UserPoolId: !Ref AdminUserPool
+
+  GoogleIdentityProvider:
+    Type: AWS::Cognito::UserPoolIdentityProvider
+    Properties:
+      UserPoolId: !Ref AdminUserPool
+      ProviderName: Google
+      ProviderType: Google
+      ProviderDetails:
+        client_id: !Ref GoogleClientId
+        client_secret: "PLACEHOLDER_UPDATE_MANUALLY"
+        authorize_scopes: "openid email profile"
+      AttributeMapping:
+        email: email
+        name: name
+
+  # ========================================
+  # Step Functions State Machine
+  # ========================================
+  StepFunctionsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AnimalRescueStepFunctionsRole-${Environment}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: InvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource:
+                  - !GetAtt ShelterSearchFunction.Arn
+                  - !GetAtt OrchestratorFunction.Arn
+                  - !GetAtt CsvExporterFunction.Arn
+
+  CollectionStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: !Sub AnimalRescue-Collection-${Environment}
+      RoleArn: !GetAtt StepFunctionsRole.Arn
+      DefinitionString: !Sub |
+        {
+          "Comment": "Animal Rescue Search Agent - State-by-State Collection Workflow",
+          "StartAt": "CheckCollectionStatus",
+          "States": {
+            "CheckCollectionStatus": {
+              "Type": "Task",
+              "Resource": "${OrchestratorFunction.Arn}",
+              "Parameters": {
+                "mode": "status"
+              },
+              "ResultPath": "$.collectionStatus",
+              "Next": "DecideNextAction"
+            },
+            "DecideNextAction": {
+              "Type": "Choice",
+              "Choices": [
+                {
+                  "Variable": "$.collectionStatus.collection_status.pending_count",
+                  "NumericGreaterThan": 0,
+                  "Next": "GetNextState"
+                }
+              ],
+              "Default": "AllStatesComplete"
+            },
+            "GetNextState": {
+              "Type": "Task",
+              "Resource": "${OrchestratorFunction.Arn}",
+              "Parameters": {
+                "mode": "next_state"
+              },
+              "ResultPath": "$.nextState",
+              "Next": "CheckIfStateAvailable"
+            },
+            "CheckIfStateAvailable": {
+              "Type": "Choice",
+              "Choices": [
+                {
+                  "Variable": "$.nextState.next_state",
+                  "IsPresent": true,
+                  "Next": "ProcessState"
+                }
+              ],
+              "Default": "AllStatesComplete"
+            },
+            "ProcessState": {
+              "Type": "Task",
+              "Resource": "${ShelterSearchFunction.Arn}",
+              "Parameters": {
+                "state.$": "$.nextState.next_state.state",
+                "state_full.$": "$.nextState.next_state.state_full"
+              },
+              "ResultPath": "$.processingResult",
+              "Retry": [
+                {
+                  "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException"],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 3,
+                  "BackoffRate": 2
+                }
+              ],
+              "Catch": [
+                {
+                  "ErrorEquals": ["States.ALL"],
+                  "ResultPath": "$.error",
+                  "Next": "WaitAfterError"
+                }
+              ],
+              "Next": "ExportStateCSV"
+            },
+            "ExportStateCSV": {
+              "Type": "Task",
+              "Resource": "${CsvExporterFunction.Arn}",
+              "Parameters": {
+                "mode": "state",
+                "state.$": "$.processingResult.state"
+              },
+              "ResultPath": "$.exportResult",
+              "Next": "WaitBetweenStates"
+            },
+            "WaitBetweenStates": {
+              "Type": "Wait",
+              "Seconds": 60,
+              "Next": "CheckCollectionStatus"
+            },
+            "WaitAfterError": {
+              "Type": "Wait",
+              "Seconds": 300,
+              "Next": "CheckCollectionStatus"
+            },
+            "AllStatesComplete": {
+              "Type": "Task",
+              "Resource": "${OrchestratorFunction.Arn}",
+              "Parameters": {
+                "mode": "complete_notification"
+              },
+              "ResultPath": "$.notification",
+              "Next": "ExportMasterCSV"
+            },
+            "ExportMasterCSV": {
+              "Type": "Task",
+              "Resource": "${CsvExporterFunction.Arn}",
+              "Parameters": {
+                "mode": "full_export"
+              },
+              "ResultPath": "$.finalExport",
+              "Next": "WorkflowComplete"
+            },
+            "WorkflowComplete": {
+              "Type": "Succeed"
+            }
+          }
+        }
+
+  # ========================================
+  # EventBridge Schedule (2 AM EST Daily)
+  # ========================================
+  DailyScheduleRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AnimalRescueSchedulerRole-${Environment}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: scheduler.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: StartStateMachine
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - states:StartExecution
+                Resource: !Ref CollectionStateMachine
+
+  DailyCollectionSchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: !Sub AnimalRescue-DailyCollection-${Environment}
+      Description: Run animal rescue collection daily at 2 AM EST
+      ScheduleExpression: cron(0 7 * * ? *)
+      ScheduleExpressionTimezone: America/New_York
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      Target:
+        Arn: !Ref CollectionStateMachine
+        RoleArn: !GetAtt DailyScheduleRole.Arn
+        Input: '{"mode": "daily_run"}'
+      State: ENABLED
+
+  # ========================================
+  # Initialize Progress Table (Custom Resource)
+  # ========================================
+  InitializeProgressFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub AnimalRescue-InitProgress-${Environment}
+      CodeUri: ../lambda/
+      Handler: orchestrator.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 60
+
+  InitializeProgressInvocation:
+    Type: AWS::CloudFormation::CustomResource
+    DependsOn:
+      - ProgressTable
+    Properties:
+      ServiceToken: !GetAtt InitializeProgressFunction.Arn
+      mode: initialize
+
+Outputs:
+  DataBucketName:
+    Description: S3 bucket for shelter data
+    Value: !Ref DataBucket
+
+  DashboardUrl:
+    Description: Admin dashboard URL
+    Value: !Sub https://${DashboardBucket}.s3-website-${AWS::Region}.amazonaws.com
+
+  ApiEndpoint:
+    Description: Admin API endpoint
+    Value: !Sub https://${AdminApi}.execute-api.${AWS::Region}.amazonaws.com/prod
+
+  UserPoolId:
+    Description: Cognito User Pool ID
+    Value: !Ref AdminUserPool
+
+  UserPoolClientId:
+    Description: Cognito User Pool Client ID
+    Value: !Ref UserPoolClient
+
+  CognitoDomain:
+    Description: Cognito domain for OAuth
+    Value: !Sub ${UserPoolDomain}.auth.${AWS::Region}.amazoncognito.com
+
+  StateMachineArn:
+    Description: Step Functions State Machine ARN
+    Value: !Ref CollectionStateMachine
+
+  ShelterSearchFunctionArn:
+    Description: Shelter Search Lambda ARN
+    Value: !GetAtt ShelterSearchFunction.Arn
+
+  LatestCsvLocation:
+    Description: S3 location of latest master CSV
+    Value: !Sub s3://${DataBucket}/exports/master/animal_rescues_all_states_LATEST.csv
