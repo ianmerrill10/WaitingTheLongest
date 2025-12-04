@@ -295,8 +295,12 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
 
     Returns counts of new and updated animals.
     """
-    from ..app.crud import find_duplicate_animal, merge_animal_observation
-    from ..app.models import Animal, Observation
+    try:
+        from app.crud import find_duplicate_animal, merge_animal_observation
+        from app.models import Animal, Observation
+    except ImportError:
+        from ..app.crud import find_duplicate_animal, merge_animal_observation
+        from ..app.models import Animal, Observation
 
     stats = {"new": 0, "updated": 0, "errors": 0}
 
