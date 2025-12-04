@@ -7,14 +7,8 @@ Tests for affiliate link generation and product recommendations.
 """
 
 import pytest
-import sys
-import os
 
-# Add backend to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Import with proper path setup
-from monetization.amazon_associates import AmazonAssociates, AffiliateProduct
+from backend.monetization.amazon_associates import AffiliateProduct, AmazonAssociates
 
 
 class TestAmazonAssociates:

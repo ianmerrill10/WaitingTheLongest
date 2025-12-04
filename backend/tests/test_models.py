@@ -24,7 +24,14 @@ Key tests:
 import pytest
 from datetime import datetime, timezone, timedelta
 
-from app.models import Animal, Observation, Shelter, SuccessStory, SocialPromotion, AffiliateClick
+from backend.app.models import (
+    AffiliateClick,
+    Animal,
+    Observation,
+    Shelter,
+    SocialPromotion,
+    SuccessStory,
+)
 
 
 class TestAnimalModel:

@@ -19,23 +19,32 @@ Usage:
 ===============================================================================
 """
 
-import pytest
 import os
-from unittest.mock import patch, MagicMock
+from datetime import datetime, timezone, timedelta
+from unittest.mock import MagicMock, patch
+
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-from datetime import datetime, timezone, timedelta
 
 # Set testing environment variable before importing app
 os.environ["TESTING"] = "1"
 
-from app.main import app
-from app.database import Base, get_db
-from app.models import (
-    Animal, Observation, Shelter, SuccessStory, SocialPromotion, AffiliateClick,
-    EmailSubscriber, EmailSequence, ScheduledEmail, PriceAlert
+from backend.app.database import Base, get_db
+from backend.app.main import app
+from backend.app.models import (
+    AffiliateClick,
+    Animal,
+    EmailSequence,
+    EmailSubscriber,
+    Observation,
+    PriceAlert,
+    ScheduledEmail,
+    Shelter,
+    SocialPromotion,
+    SuccessStory,
 )
 
 
