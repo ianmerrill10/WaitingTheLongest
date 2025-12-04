@@ -12,6 +12,7 @@ gunicorn==21.2.0
 # Data Validation
 pydantic==2.9.2
 pydantic-settings==2.0.3
+email-validator==2.1.0
 
 # Database
 SQLAlchemy==2.0.36
