@@ -25,7 +25,7 @@
       "city": "Huntsville",
       "state": "AL",
       "zip_code": "35805",
-      "description": "A 501(c)(3) no-kill animal shelter rescuing North Alabama's homeless animals for over 55 years. Offers community programs including pet food bank and wellness clinic."
+      "description": "A 501(c)(3) no-kill animal shelter rescuing North Alabama's homeless animals for over 55 years. Incorporated in December 1969. Offers community programs including pet food bank and wellness clinic."
     },
     {
       "name": "Montgomery Humane Society",
@@ -37,19 +37,19 @@
       "city": "Montgomery",
       "state": "AL",
       "zip_code": "36110",
-      "description": "Founded in 1920, Montgomery Humane Society is an open admission shelter preventing cruelty to animals through shelter operations, adoption services, and investigating abuse cases."
+      "description": "Founded in 1920, over 100 years of service. Open admission shelter sheltering 10,000+ homeless animals annually. Operates 24/7 rescue, adoption center, and investigates abuse cases."
     },
     {
       "name": "Mobile SPCA",
       "type": "spca",
       "email": "info@mobilespca.org",
-      "phone": "(251) 633-3531",
+      "phone": "(251) 343-2227",
       "website": "https://www.mobilespca.org",
-      "address": "620 Zeigler Circle West",
+      "address": "3980 Airport Boulevard",
       "city": "Mobile",
       "state": "AL",
       "zip_code": "36608",
-      "description": "Founded in 1885, one of Alabama's oldest continuously operating charitable organizations. A no-kill, limited intake shelter offering adoption guarantees for healthy or treatable animals."
+      "description": "Founded in 1885 at Temperance Hall in the Port of Mobile, one of Alabama's oldest continuously operating charitable organizations. No-kill, limited intake shelter with adoption guarantee."
     },
     {
       "name": "Humane Society of West Alabama",
@@ -61,7 +61,7 @@
       "city": "Tuscaloosa",
       "state": "AL",
       "zip_code": "35404",
-      "description": "Since 1971, a no-kill, volunteer-run, cage-free nonprofit adoption center. Operates entirely on donor support with no government funding."
+      "description": "Since 1971, a no-kill, volunteer-run, cage-free nonprofit adoption center. Operates entirely on donor support with no government funding or administrative fees."
     },
     {
       "name": "Morgan County Humane Society",
@@ -73,7 +73,7 @@
       "city": "Hartselle",
       "state": "AL",
       "zip_code": "35640",
-      "description": "Established in 2004 as the first no-kill organization in North Alabama. Their facility sits on over eight acres in rural Morgan County."
+      "description": "Established in 2004 as the first no-kill organization in North Alabama. Facility sits on over eight acres in rural Morgan County, between Somerville and Hartselle."
     },
     {
       "name": "Baldwin Humane Society",
@@ -85,7 +85,7 @@
       "city": "Fairhope",
       "state": "AL",
       "zip_code": "36532",
-      "description": "Founded in 1979, Baldwin County AL Humane Society has been a driving force in animal welfare serving the entire Baldwin County area."
+      "description": "Founded in 1979, a driving force in animal welfare serving the entire Baldwin County area for over 45 years."
     },
     {
       "name": "Lee County Humane Society",
@@ -100,6 +100,18 @@
       "description": "Developed in 1974, a 501(c)3 non-profit, open-admission shelter serving Auburn and Opelika. Provides adoption services, educational programs, and community awareness."
     },
     {
+      "name": "CARE Humane Society",
+      "type": "humane_society",
+      "email": "info@carehumane.org",
+      "phone": "(334) 821-3222",
+      "website": "https://www.carehumane.org",
+      "address": "1140 Ware Drive",
+      "city": "Auburn",
+      "state": "AL",
+      "zip_code": "36832",
+      "description": "Offers Auburn and Opelika residents programs and services that strengthen the human-animal bond, prevent cruelty/neglect, provide medical care, and educate on humane treatment."
+    },
+    {
       "name": "East Alabama Humane Society",
       "type": "humane_society",
       "email": "eahs4pets@yahoo.com",
@@ -109,7 +121,7 @@
       "city": "Phenix City",
       "state": "AL",
       "zip_code": "36867",
-      "description": "The only no-kill shelter facility within Russell County, Alabama. Mission is to promote and enable saving the lives of as many unwanted pets as possible."
+      "description": "The only no-kill shelter facility within Russell County, Alabama. Best Friends Animal Society partner. Mission is to save lives of as many unwanted pets as possible."
     },
     {
       "name": "Shelby Humane Society",
@@ -121,7 +133,7 @@
       "city": "Columbiana",
       "state": "AL",
       "zip_code": "35051",
-      "description": "Founded in 1977 to care for unwanted cats and dogs in Shelby County. Operates the county animal shelter through contract with Shelby County."
+      "description": "Founded in 1977 to care for unwanted cats and dogs in Shelby County. Operates the county animal shelter through contract with Shelby County. Offers Shelby Spay Neuter program."
     },
     {
       "name": "Calhoun County Humane Society",
@@ -133,7 +145,7 @@
       "city": "Anniston",
       "state": "AL",
       "zip_code": "36201",
-      "description": "Established in 1973, a 501(c)3 non-profit shelter for homeless pets. Known as The Animal Shelter, serving Jacksonville, AL and surrounding areas."
+      "description": "Established in 1973, a 501(c)3 non-profit shelter for homeless pets known as The Animal Shelter, serving Jacksonville, AL and surrounding areas."
     },
     {
       "name": "Prattville/Autauga Humane Society",
@@ -160,6 +172,18 @@
       "description": "Saves hundreds of homeless pets in the Gadsden and Attalla areas by providing temporary shelter, food, veterinary care, and educational outreach programs."
     },
     {
+      "name": "Humane Society of Elmore County",
+      "type": "humane_society",
+      "email": "hselmorecounty@gmail.com",
+      "phone": "(334) 567-3377",
+      "website": "https://www.elmorehumane.org",
+      "address": "255 Central Plank Road",
+      "city": "Wetumpka",
+      "state": "AL",
+      "zip_code": "36092",
+      "description": "Non-profit 501(c)(3) operational for over thirty years. Rescues animals, prevents cruelty, promotes responsible pet ownership, and finds loving homes."
+    },
+    {
       "name": "Wiregrass Pet Rescue and Adoption Center",
       "type": "rescue",
       "email": "info@wiregrasspetrescue.org",
@@ -181,11 +205,167 @@
       "city": "Huntsville",
       "state": "AL",
       "zip_code": "35801",
-      "description": "A volunteer-driven rescue committed to helping homeless animals find their forever homes. Offers adoption and foster programs for cats and dogs."
+      "description": "Saves homeless, abused and abandoned animals and gives them a second chance, working to create a no-kill community. Volunteer-driven offering adoption and foster programs."
+    },
+    {
+      "name": "Crossing Paths Animal Rescue",
+      "type": "rescue",
+      "email": "info@crossingpathsanimalrescue.org",
+      "phone": null,
+      "website": "https://www.crossingpathsanimalrescue.org",
+      "address": null,
+      "city": "Oneonta",
+      "state": "AL",
+      "zip_code": "35121",
+      "description": "Established 2006. 501(c)(3) in Blount County dedicated to placing abused, abandoned, and neglected dogs into forever homes. Rescued 1,000+ dogs in 2021. PetSmart Charities $25k grant recipient."
+    },
+    {
+      "name": "Troy Animal Rescue Project",
+      "type": "rescue",
+      "email": "info@troyanimalrescueproject.org",
+      "phone": null,
+      "website": "https://troyanimalrescueproject.org",
+      "address": null,
+      "city": "Troy",
+      "state": "AL",
+      "zip_code": "36081",
+      "description": "Federally recognized 501(c)3 non-profit, no-kill rescue serving Alabama and surrounding southern states. Rescues dogs, cats, rabbits, guinea pigs, ferrets, birds, and reptiles."
+    },
+    {
+      "name": "Island of Misfits",
+      "type": "rescue",
+      "email": "info@islandofmisfits.org",
+      "phone": null,
+      "website": "https://www.islandofmisfits.org",
+      "address": null,
+      "city": "Fairhope",
+      "state": "AL",
+      "zip_code": "36532",
+      "description": "Nonprofit 501(c)(3) dedicated to rescue, rehabilitation, and rehoming of animals in and around Baldwin County, Alabama. Top-rated Alabama rescue."
+    },
+    {
+      "name": "Paws of Dixie Animal Rescue",
+      "type": "rescue",
+      "email": "info@pawsofdixie.org",
+      "phone": null,
+      "website": "https://www.pawsofdixie.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Non-profit rescue saving unwanted, abandoned, and neglected animals. Educates community on the significance of spaying and neutering."
+    },
+    {
+      "name": "H.A.S.R.A. - Heart of Alabama Save Rescue Adopt",
+      "type": "rescue",
+      "email": "info@hasradog.org",
+      "phone": null,
+      "website": "https://hasradog.org",
+      "address": null,
+      "city": "Killen",
+      "state": "AL",
+      "zip_code": "35645",
+      "description": "501(c)(3) non-profit, no-kill rescue working with the community, taking in dogs that would otherwise end up at animal control facilities or left homeless."
+    },
+    {
+      "name": "Full Circle Rescue and Sanctuary",
+      "type": "rescue",
+      "email": "info@fullcirclerescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "501(c)(3), 100% volunteer-run, foster-based rescue and sanctuary in central Alabama. Mission to prevent cruelty through rescue, rehabilitation, and adoption."
+    },
+    {
+      "name": "Wags and Whiskers Mobile",
+      "type": "rescue",
+      "email": "info@wagsandwhiskersmobile.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36608",
+      "description": "501(c)3 foster-based animal rescue along the Gulf Coast. No brick and mortar facility - all adoptable animals in foster homes."
+    },
+    {
+      "name": "Metro Animal Shelter",
+      "type": "shelter",
+      "email": "info@metroanimalshelter.org",
+      "phone": "(205) 343-4100",
+      "website": "https://www.metroanimalshelter.org",
+      "address": "3140 Northington Court",
+      "city": "Tuscaloosa",
+      "state": "AL",
+      "zip_code": "35406",
+      "description": "501(c)(3) non-profit opened July 1994, funded by City of Tuscaloosa, City of Northport, and Tuscaloosa County Commission."
+    },
+    {
+      "name": "The Haven No-Kill Animal Shelter",
+      "type": "shelter",
+      "email": "info@havenforanimals.org",
+      "phone": "(251) 929-0100",
+      "website": "https://www.havenforanimals.org",
+      "address": "517 North Greeno Road",
+      "city": "Fairhope",
+      "state": "AL",
+      "zip_code": "36532",
+      "description": "Baldwin County's longest-serving no-kill shelter with 95-99% save rate. Over 700 animals annually receive safety, medical treatment, and second chances."
+    },
+    {
+      "name": "Safe Harbor Animal Coalition",
+      "type": "rescue",
+      "email": "info@safeharboranimalcoalition.org",
+      "phone": "(251) 943-1088",
+      "website": "https://safeharboranimalcoalition.org",
+      "address": null,
+      "city": "Foley",
+      "state": "AL",
+      "zip_code": "36535",
+      "description": "Helps TNVR cats in South Baldwin County. Surgery Center is private non-profit, high-volume spay/neuter clinic providing low-cost services."
+    },
+    {
+      "name": "City of Mobile Animal Shelter",
+      "type": "animal_control",
+      "email": "animalshelter@cityofmobile.org",
+      "phone": "(251) 208-2800",
+      "website": "https://www.cityofmobile.org/departments/city-of-mobile-animal-services",
+      "address": "855 Owens Street",
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36604",
+      "description": "City of Mobile municipal animal services. Approximately 1,500 animals brought in annually."
+    },
+    {
+      "name": "Mobile County Animal Shelter",
+      "type": "animal_control",
+      "email": "info@mobilecountyal.gov",
+      "phone": "(251) 574-3647",
+      "website": "https://www.mobilecountyal.gov/animal-control",
+      "address": "7665 Howells Ferry Road",
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36618",
+      "description": "Mobile County Animal Department working in partnership with community for safe, healthy, caring environment for citizens and animals."
+    },
+    {
+      "name": "Friends of the Mobile Animal Shelter (FOMAS)",
+      "type": "nonprofit",
+      "email": "info@fomaspets.org",
+      "phone": null,
+      "website": "https://fomaspets.org",
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36604",
+      "description": "Improves quality of life for shelter pets at City of Mobile Animal Shelter. Finds forever homes for adoptable pets and reduces unwanted pets through spay/neuter programs."
     },
     {
       "name": "Florence Lauderdale Animal Services",
-      "type": "shelter",
+      "type": "animal_control",
       "email": "animalservices@florenceal.org",
       "phone": "(256) 760-6676",
       "website": "https://florenceal.org/public-safety/animal-control/",
@@ -193,7 +373,7 @@
       "city": "Florence",
       "state": "AL",
       "zip_code": "35630",
-      "description": "Receives all stray, abandoned, and surrendered pets in Florence and Lauderdale County. Works with fosters, volunteers, and rescues to rehome thousands of homeless animals yearly."
+      "description": "Receives all stray, abandoned, and surrendered pets in Florence and Lauderdale County. Works with fosters, volunteers, and rescues to rehome thousands annually."
     },
     {
       "name": "Shoals PAWS",
@@ -205,7 +385,7 @@
       "city": "Florence",
       "state": "AL",
       "zip_code": "35630",
-      "description": "All-volunteer group serving Lauderdale, Colbert, and Franklin Counties since 2003. Dedicated to spay/neuter initiatives, TNR, and rescuing animals in need through foster homes."
+      "description": "All-volunteer group serving Lauderdale, Colbert, and Franklin Counties since 2003. Dedicated to spay/neuter initiatives, TNR, and rescuing animals through foster homes."
     },
     {
       "name": "CAAWA - Cullman Area Animal Welfare Association",
@@ -217,7 +397,7 @@
       "city": "Cullman",
       "state": "AL",
       "zip_code": "35055",
-      "description": "A 501(c)3 non-profit, all-volunteer, no-kill organization rescuing dogs and cats in Cullman County to decrease shelter surrenders."
+      "description": "501(c)3 non-profit, all-volunteer, no-kill organization rescuing dogs and cats in Cullman County to decrease shelter surrenders."
     },
     {
       "name": "Decatur Animal Services",
@@ -230,90 +410,6 @@
       "state": "AL",
       "zip_code": "35601",
       "description": "City of Decatur municipal animal services providing animal control, shelter, and adoption services for the Decatur community."
-    },
-    {
-      "name": "Alabama SPCA",
-      "type": "spca",
-      "email": "info@alabamaspca.org",
-      "phone": null,
-      "website": "https://www.alabamaspca.org",
-      "address": null,
-      "city": "Birmingham",
-      "state": "AL",
-      "zip_code": "35209",
-      "description": "A statewide SPCA organization dedicated to animal welfare across Alabama through rescue, adoption, and advocacy programs."
-    },
-    {
-      "name": "Two By Two Rescue League",
-      "type": "rescue",
-      "email": "info@twobytworescue.com",
-      "phone": "(205) 397-8922",
-      "website": "https://twobytworescue.com",
-      "address": null,
-      "city": "Helena",
-      "state": "AL",
-      "zip_code": "35080",
-      "description": "Rescues and re-homes lost, abandoned, and neglected animals while educating the public on responsible pet ownership."
-    },
-    {
-      "name": "Humane Society of Elmore County",
-      "type": "humane_society",
-      "email": "hselmorecounty@gmail.com",
-      "phone": "(334) 567-3377",
-      "website": "https://www.hselmorecounty.org",
-      "address": "255 Central Plank Road",
-      "city": "Wetumpka",
-      "state": "AL",
-      "zip_code": "36092",
-      "description": "Rescues animals, prevents cruelty, promotes responsible pet ownership, and finds loving homes through education and community engagement."
-    },
-    {
-      "name": "4Legs4Justice Animal Rescue",
-      "type": "rescue",
-      "email": "info@4legs4justice.org",
-      "phone": null,
-      "website": "https://4legs4justice.org",
-      "address": null,
-      "city": "Anniston",
-      "state": "AL",
-      "zip_code": "36201",
-      "description": "Partners with Greater Birmingham Humane Society, operating at a facility in McClellan, Anniston to rescue and rehome animals."
-    },
-    {
-      "name": "SAVE-A-PET at the Dothan Animal Shelter",
-      "type": "rescue",
-      "email": "saveapetofdothan@gmail.com",
-      "phone": "(334) 615-4620",
-      "website": null,
-      "address": "500 Pea River Drive",
-      "city": "Dothan",
-      "state": "AL",
-      "zip_code": "36303",
-      "description": "A partnership between the City of Dothan's Animal Shelter and SAVE A PET non-profit rescue, working to minimize euthanasia of adoptable pets."
-    },
-    {
-      "name": "Steel City Cat Rescue",
-      "type": "rescue",
-      "email": "Steelcitycatrescue@gmail.com",
-      "phone": null,
-      "website": null,
-      "address": null,
-      "city": "Birmingham",
-      "state": "AL",
-      "zip_code": "35242",
-      "description": "A cat-focused rescue organization in the Birmingham area dedicated to rescuing and rehoming homeless cats."
-    },
-    {
-      "name": "Rescue Rangers",
-      "type": "rescue",
-      "email": "k9.rescue.rangers@gmail.com",
-      "phone": "(256) 227-4270",
-      "website": null,
-      "address": null,
-      "city": "Decatur",
-      "state": "AL",
-      "zip_code": "35603",
-      "description": "A rescue organization in the Decatur area focused on saving and rehoming dogs in North Alabama."
     },
     {
       "name": "Huntsville Animal Services",
@@ -340,6 +436,150 @@
       "description": "Baldwin County government-operated animal shelter providing animal control and adoption services for Baldwin County residents."
     },
     {
+      "name": "Lee County Animal Shelter",
+      "type": "animal_control",
+      "email": "info@leecountyanimalshelter.org",
+      "phone": "(334) 745-0011",
+      "website": null,
+      "address": null,
+      "city": "Opelika",
+      "state": "AL",
+      "zip_code": "36801",
+      "description": "Open-admissions and low-kill shelter with a Live Release Rate of over 90%."
+    },
+    {
+      "name": "Athens Limestone Animal Shelter",
+      "type": "shelter",
+      "email": "info@athensanimalshelter.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Athens",
+      "state": "AL",
+      "zip_code": "35611",
+      "description": "Shelters unwanted animals from Limestone County delivered by animal control officers and residents."
+    },
+    {
+      "name": "Two By Two Rescue League",
+      "type": "rescue",
+      "email": "info@twobytworescue.com",
+      "phone": "(205) 397-8922",
+      "website": "https://twobytworescue.com",
+      "address": null,
+      "city": "Helena",
+      "state": "AL",
+      "zip_code": "35080",
+      "description": "Faith-based, no-kill rescue saving animal lives for more than 20 years. Mr. Grumplestein's Legacy program provides comprehensive medical care for senior dogs. Grey Muzzle partner."
+    },
+    {
+      "name": "Luna Farms Rescue",
+      "type": "rescue",
+      "email": "info@lunafarmsrescue.org",
+      "phone": null,
+      "website": "https://www.lunafarmsrescue.org",
+      "address": null,
+      "city": "Huntsville",
+      "state": "AL",
+      "zip_code": "35801",
+      "description": "Foster-based rescue committed to reducing overpopulation through adoptions, transports, and spay/neuter programs. Partners with rural shelters to save at-risk senior dogs."
+    },
+    {
+      "name": "A New Leash on Life",
+      "type": "rescue",
+      "email": "info@anewleashonlifeal.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Brownsboro",
+      "state": "AL",
+      "zip_code": "35741",
+      "description": "Saves dogs from high-kill shelters and takes in stray or homeless pets, focusing on rural Alabama shelters. Foster-based organization."
+    },
+    {
+      "name": "Another Chance Dog Rescue",
+      "type": "rescue",
+      "email": "info@anotherchancedogrescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Founded in 2015, spent 10 years improving animal welfare through foster volunteers, transport volunteers, donations, and adoptions."
+    },
+    {
+      "name": "Animal Rescue Foundation (Mobile)",
+      "type": "rescue",
+      "email": "info@arfmobile.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36608",
+      "description": "Nonprofit rescuing homeless or abandoned dogs and cats from overcrowded shelters. Dogs kept in loving foster homes until adopted."
+    },
+    {
+      "name": "Last Chance Dog Rescue Alabama",
+      "type": "rescue",
+      "email": "info@lastchancedogrescueal.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Alabaster",
+      "state": "AL",
+      "zip_code": "35007",
+      "description": "All-volunteer foster home based rescue in central Alabama. Rescues strays, abandoned litters, has TNR program, and pulls from rural shelters."
+    },
+    {
+      "name": "All The Dogs",
+      "type": "rescue",
+      "email": "info@allthedogs.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Columbiana",
+      "state": "AL",
+      "zip_code": "35051",
+      "description": "Animal welfare agency in Shelby County rescuing priority dogs at risk of euthanasia from overcrowded shelters. Foster families help animals decompress and heal."
+    },
+    {
+      "name": "Big Dog Ranch Rescue - Alabama",
+      "type": "rescue",
+      "email": "info@bdrr.org",
+      "phone": null,
+      "website": "https://www.bdrr.org/alabama",
+      "address": null,
+      "city": "Tuskegee",
+      "state": "AL",
+      "zip_code": "36083",
+      "description": "Nation's largest cage-free no-kill dog rescue. New 100-acre no cage, no kill facility in Macon County, Alabama."
+    },
+    {
+      "name": "PAWS of Alabama",
+      "type": "rescue",
+      "email": "info@pawsofalabama.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Montgomery",
+      "state": "AL",
+      "zip_code": "36110",
+      "description": "Non-profit, no-kill, foster-based rescue without physical shelter. Relies on approved fosters to care for animals until they find forever family."
+    },
+    {
+      "name": "River Haven Rescue",
+      "type": "rescue",
+      "email": "info@riverhavenrescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Montgomery",
+      "state": "AL",
+      "zip_code": "36110",
+      "description": "501(c)(3) nonprofit dedicated to rescue, rehabilitation, foster, and adoption of homeless strays while educating the community in the River Region."
+    },
+    {
       "name": "Shoals Animal Advocates",
       "type": "rescue",
       "email": "shoalsanimaladvocates@gmail.com",
@@ -349,7 +589,7 @@
       "city": "Florence",
       "state": "AL",
       "zip_code": "35630",
-      "description": "A 501(c)3 non-profit foster-based rescue promoting the rescuing, fostering and adoption of homeless dogs and cats in Colbert, Lauderdale, and Franklin counties."
+      "description": "501(c)3 non-profit foster-based rescue promoting the rescuing, fostering and adoption of homeless dogs and cats in Colbert, Lauderdale, and Franklin counties."
     },
     {
       "name": "For Paws Rescue",
@@ -361,9 +601,501 @@
       "city": "Auburn",
       "state": "AL",
       "zip_code": "36830",
-      "description": "An animal welfare organization in Auburn founded in 2004, dedicated to rescuing and rehoming animals in the Lee County area."
+      "description": "Animal welfare organization in Auburn founded in 2004, dedicated to rescuing and rehoming animals in the Lee County area."
+    },
+    {
+      "name": "4Legs4Justice Animal Rescue",
+      "type": "rescue",
+      "email": "info@4legs4justice.org",
+      "phone": null,
+      "website": "https://4legs4justice.org",
+      "address": null,
+      "city": "Anniston",
+      "state": "AL",
+      "zip_code": "36201",
+      "description": "Partners with Greater Birmingham Humane Society, operating at a facility in McClellan, Anniston to rescue and rehome animals."
+    },
+    {
+      "name": "SAVE-A-PET at the Dothan Animal Shelter",
+      "type": "rescue",
+      "email": "saveapetofdothan@gmail.com",
+      "phone": "(334) 615-4620",
+      "website": null,
+      "address": "500 Pea River Drive",
+      "city": "Dothan",
+      "state": "AL",
+      "zip_code": "36303",
+      "description": "Partnership between City of Dothan's Animal Shelter and SAVE A PET non-profit rescue, working to minimize euthanasia of adoptable pets."
+    },
+    {
+      "name": "Rescue Rangers",
+      "type": "rescue",
+      "email": "k9.rescue.rangers@gmail.com",
+      "phone": "(256) 227-4270",
+      "website": null,
+      "address": null,
+      "city": "Decatur",
+      "state": "AL",
+      "zip_code": "35603",
+      "description": "Rescue organization in the Decatur area focused on saving and rehoming dogs in North Alabama."
+    },
+    {
+      "name": "Kitty Kat Haven & Rescue",
+      "type": "cat_rescue",
+      "email": "info@kittykathavenrescue.org",
+      "phone": null,
+      "website": "https://kittykathavenrescue.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Registered 501(c)(3) non-profit whose mission is rescue, rehabilitation and adoption of cats of all ages. Increasingly involved in TNR since 2022."
+    },
+    {
+      "name": "Steel City Cat Rescue",
+      "type": "cat_rescue",
+      "email": "Steelcitycatrescue@gmail.com",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35242",
+      "description": "Cat-focused rescue organization in the Birmingham area dedicated to rescuing and rehoming homeless cats."
+    },
+    {
+      "name": "Azalea City Cat Coalition",
+      "type": "cat_rescue",
+      "email": "info@azaleacitycats.org",
+      "phone": null,
+      "website": "https://azaleacitycats.org",
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36608",
+      "description": "Passionate volunteer team serving Baldwin and Mobile Counties. Proactive TNR approach to humanely reduce homeless kittens."
+    },
+    {
+      "name": "PURRfect Partners of Mobile (PPOM)",
+      "type": "cat_rescue",
+      "email": "info@ppomcats.org",
+      "phone": null,
+      "website": "https://www.ppomcats.org",
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36608",
+      "description": "Non-profit cat and kitten rescue committed to providing a safe space for homeless cats."
+    },
+    {
+      "name": "God's Feral Felines",
+      "type": "cat_rescue",
+      "email": "info@godsferalfelines.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Guntersville",
+      "state": "AL",
+      "zip_code": "35976",
+      "description": "TNR group in Marshall County dedicated to managing feral cat populations through trap-neuter-return."
+    },
+    {
+      "name": "Save Our Strays Birmingham",
+      "type": "cat_rescue",
+      "email": "info@saveourstraysbham.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "TNR group in Jefferson County working to manage stray cat populations."
+    },
+    {
+      "name": "Saving Grace Animal Rescue",
+      "type": "cat_rescue",
+      "email": "info@savinggracerescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "TNR group in Jefferson County focused on cat rescue and population management."
+    },
+    {
+      "name": "Bama Bully Rescue",
+      "type": "breed_rescue",
+      "email": "info@bamabully.org",
+      "phone": null,
+      "website": "https://www.bamabully.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Bully breed dog rescue serving Alabama. Works with shelters to pull pit bull type dogs and place in foster care. Best Friends Animal Society partner. Educates on spay/neuter."
+    },
+    {
+      "name": "German Shepherd Rescue of Central Alabama",
+      "type": "breed_rescue",
+      "email": "info@gsrca.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Pike Road",
+      "state": "AL",
+      "zip_code": "36064",
+      "description": "Private 501(c)(3) non-profit rescuing German Shepherds from shelters and abusive situations. All dogs spayed/neutered, heartworm free, and vaccinated before adoption."
+    },
+    {
+      "name": "Helping Shepherds of Every Color Rescue",
+      "type": "breed_rescue",
+      "email": "info@helpingshepherdsofeverycolor.com",
+      "phone": null,
+      "website": "https://www.helpingshepherdsofeverycolor.com",
+      "address": null,
+      "city": "Montgomery",
+      "state": "AL",
+      "zip_code": "36110",
+      "description": "All-volunteer 501(c)3 based in Montgomery taking in German Shepherd dogs of any color and GSD mixes."
+    },
+    {
+      "name": "Sweet Home Doberman Rescue",
+      "type": "breed_rescue",
+      "email": "info@sweethomedobermanrescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Only 501(c)3 Doberman rescue organization in Alabama, founded in 2015. Top-rated Alabama rescue on Sniffspot."
+    },
+    {
+      "name": "K9 ResQ of Alabama",
+      "type": "rescue",
+      "email": "info@k9resqofal.org",
+      "phone": null,
+      "website": "https://www.k9resqofal.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Nonprofit 501(c)(3) organization based in Birmingham dedicated to dog rescue."
+    },
+    {
+      "name": "Alabama Siberian Husky Rescue",
+      "type": "breed_rescue",
+      "email": "info@alsiberianhusky.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Springville",
+      "state": "AL",
+      "zip_code": "35146",
+      "description": "Siberian Husky rescue organization serving Alabama."
+    },
+    {
+      "name": "Chihuahua Toy Breed Rescue & Retirement",
+      "type": "breed_rescue",
+      "email": "info@chihuahuatoybreed.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "LaFayette",
+      "state": "AL",
+      "zip_code": "36862",
+      "description": "Chihuahua and toy breed rescue also serving as retirement home for small dogs."
+    },
+    {
+      "name": "SOS - Save Our Snoopies Beagle Rescue",
+      "type": "breed_rescue",
+      "email": "info@sosbeagle.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Gulf Shores",
+      "state": "AL",
+      "zip_code": "36542",
+      "description": "Alabama Chapter of beagle rescue organization serving Gulf Shores and surrounding areas."
+    },
+    {
+      "name": "Rockin P Rescue - Boxer Rescue",
+      "type": "breed_rescue",
+      "email": "info@rockinprescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Jacksonville",
+      "state": "AL",
+      "zip_code": "36265",
+      "description": "Boxer rescue organization based in Jacksonville, Alabama."
+    },
+    {
+      "name": "Small Paws Rescue - Alabama",
+      "type": "breed_rescue",
+      "email": "info@smallpawsrescue.org",
+      "phone": null,
+      "website": "https://smallpawsrescue.org/state/al/",
+      "address": null,
+      "city": "Statewide",
+      "state": "AL",
+      "zip_code": null,
+      "description": "Small breed rescue organization with Alabama chapter. National organization rescuing small dogs."
+    },
+    {
+      "name": "Hope4Hearts Animal Rescue",
+      "type": "rescue",
+      "email": "info@hope4heartsrescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Mobile",
+      "state": "AL",
+      "zip_code": "36608",
+      "description": "Animal rescue organization serving the Mobile area."
+    },
+    {
+      "name": "Warrior Dog Rescue",
+      "type": "rescue",
+      "email": "info@warriordogrescue.com",
+      "phone": null,
+      "website": "https://warriordogrescue.com",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Dog rescue organization serving Alabama."
+    },
+    {
+      "name": "Alabama Wildlife Center",
+      "type": "wildlife_rehabilitation",
+      "email": "wildlife@awrc.org",
+      "phone": "(205) 663-7930",
+      "website": "https://alabamawildlifecenter.org",
+      "address": "100 Terrace Drive, Oak Mountain State Park",
+      "city": "Pelham",
+      "state": "AL",
+      "zip_code": "35124",
+      "description": "Founded 1977 by Anne Miller. Largest and oldest wildlife rehab center in Alabama. 501(c) since 1981. Cared for 50,000+ injured birds and mammals over 45+ years. Treats 2,000 wild bird patients annually."
+    },
+    {
+      "name": "Alabama Wildlife Rescue (AWR)",
+      "type": "wildlife_rehabilitation",
+      "email": "info@alabamawildliferescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Huntsville",
+      "state": "AL",
+      "zip_code": "35801",
+      "description": "501(c)(3) organization helping sick, injured and orphaned wildlife in North Alabama."
+    },
+    {
+      "name": "Willow Farms Equine Rescue",
+      "type": "horse_rescue",
+      "email": "info@willowfarms.org",
+      "phone": null,
+      "website": "https://willowfarms.org",
+      "address": null,
+      "city": "Loxley",
+      "state": "AL",
+      "zip_code": "36551",
+      "description": "501(c)(3) since 2008. Has helped over 1,000 horses find forever homes. Team of 40+ dedicated volunteers. Mission to give horses second chance at life."
+    },
+    {
+      "name": "Wiregrass Horse Rescue & Sanctuary",
+      "type": "horse_rescue",
+      "email": "info@wiregrasshorserescuesanctuary.org",
+      "phone": null,
+      "website": "https://wiregrasshorserescuesanctuary.org",
+      "address": null,
+      "city": "Dothan",
+      "state": "AL",
+      "zip_code": "36301",
+      "description": "Founded 2013 by Lori Flippo. Rescued or assisted with over 200 livestock rescues in and around Alabama. 100% volunteer operated."
+    },
+    {
+      "name": "Compassion Ranch",
+      "type": "sanctuary",
+      "email": "info@compassionranch.org",
+      "phone": null,
+      "website": "https://compassionranch.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Provides compassionate care for 45+ animals in sanctuary for life - horses, ponies, donkeys, dogs, cats, goat and pig. Home to retired US Army cap horse Hank."
+    },
+    {
+      "name": "Orr Farm Rescue & Sanctuary",
+      "type": "sanctuary",
+      "email": "info@orrfarmrescue.com",
+      "phone": null,
+      "website": "https://orrfarmrescue.com",
+      "address": null,
+      "city": "Waverly",
+      "state": "AL",
+      "zip_code": "36879",
+      "description": "Located outside Waverly, offers 25+ miles of nature trails. Operates solely on donations, sponsorship, fundraising events, and trail use passes."
+    },
+    {
+      "name": "Shorty's Safe Haven",
+      "type": "sanctuary",
+      "email": "info@shortyssafehaven.org",
+      "phone": null,
+      "website": "https://shortyssafehaven.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "501(c)(3) non-profit bringing rescue horses and at-risk, struggling girls ages 10-18 together through transformative experience of working with horses and farm animals."
+    },
+    {
+      "name": "Kindred Hope Rescue and Sanctuary",
+      "type": "sanctuary",
+      "email": "info@kindredhope.org",
+      "phone": null,
+      "website": "https://www.kindredhope.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Founded 2020. Equine assisted therapy program for Veterans, First Responders and community members suffering from anxiety/PTSD."
+    },
+    {
+      "name": "Calico Junction New Beginnings Ranch",
+      "type": "horse_rescue",
+      "email": "info@calicojunctionnewbeginningsranch.org",
+      "phone": null,
+      "website": "http://www.calicojunctionnewbeginningsranch.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Licensed non-profit rescuing unwanted and abused horses, mules and donkeys across middle Tennessee, Alabama and Kentucky."
+    },
+    {
+      "name": "Alabama Spay/Neuter Clinic",
+      "type": "spay_neuter_clinic",
+      "email": "info@alspay.org",
+      "phone": "(205) 956-0012",
+      "website": "https://www.alspay.org",
+      "address": null,
+      "city": "Irondale",
+      "state": "AL",
+      "zip_code": "35210",
+      "description": "501(c)3 nonprofit spay/neuter clinic for cats and dogs dedicated to reducing pet overpopulation and eliminating euthanasia of healthy pets. Feral Cat Program $65."
+    },
+    {
+      "name": "Alabama Animal Alliance Spay/Neuter Clinic",
+      "type": "spay_neuter_clinic",
+      "email": "info@alabamaspayneuter.com",
+      "phone": "(334) 239-7387",
+      "website": "https://www.alabamaspayneuter.com",
+      "address": null,
+      "city": "Montgomery",
+      "state": "AL",
+      "zip_code": "36110",
+      "description": "501(c)(3) nonprofit providing affordable, high quality, high volume spay/neuter. Open to everyone. Grant funds for Medicaid/Food Stamps recipients. 40+ years combined veterinary experience."
+    },
+    {
+      "name": "North Alabama Spay Neuter Clinic",
+      "type": "spay_neuter_clinic",
+      "email": "info@nalspayneuter.org",
+      "phone": null,
+      "website": "https://www.nalspayneuter.org",
+      "address": null,
+      "city": "Huntsville",
+      "state": "AL",
+      "zip_code": "35801",
+      "description": "Non-profit 501(c) clinic. Mission to end overpopulation of companion animals by providing high quality care to community, rescues and shelters."
+    },
+    {
+      "name": "Shelby Spay Neuter",
+      "type": "spay_neuter_clinic",
+      "email": "info@shelbyhumane.org",
+      "phone": null,
+      "website": "https://www.shelbyhumane.org/shelby-spay-neuter",
+      "address": null,
+      "city": "Columbiana",
+      "state": "AL",
+      "zip_code": "35051",
+      "description": "Operated by Shelby Humane. Provides low-cost spay/neuter options to pet owners in Central Alabama. Sometimes offers FREE services through grants."
+    },
+    {
+      "name": "Alabama SPCA",
+      "type": "spca",
+      "email": "info@alabamaspca.org",
+      "phone": null,
+      "website": "https://www.alabamaspca.org",
+      "address": null,
+      "city": "Birmingham",
+      "state": "AL",
+      "zip_code": "35209",
+      "description": "Statewide SPCA organization dedicated to animal welfare across Alabama through rescue, adoption, and advocacy programs."
+    },
+    {
+      "name": "Bullock County Humane Society",
+      "type": "humane_society",
+      "email": "info@bullockcountyhumane.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Union Springs",
+      "state": "AL",
+      "zip_code": "36089",
+      "description": "Serves Montgomery area. Focuses on rehabilitation, care, and adoption support for animals in need."
+    },
+    {
+      "name": "Talladega City Animal Control",
+      "type": "animal_control",
+      "email": "info@talladega.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Talladega",
+      "state": "AL",
+      "zip_code": "35160",
+      "description": "City of Talladega animal control services."
+    },
+    {
+      "name": "Clay County Animal Shelter",
+      "type": "shelter",
+      "email": "info@claycountyal.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Ashland",
+      "state": "AL",
+      "zip_code": "36251",
+      "description": "Animal shelter serving Clay County, Alabama."
+    },
+    {
+      "name": "Alabama Veterinary Medical Foundation Spay/Neuter Program",
+      "type": "state_program",
+      "email": null,
+      "phone": null,
+      "website": "https://www.alvmf.org/spayneuter-program.html",
+      "address": null,
+      "city": "Statewide",
+      "state": "AL",
+      "zip_code": null,
+      "description": "Over 75 veterinarians participate. Net proceeds of Alabama's license plates distributed to help low-income residents spay/neuter their pets."
+    },
+    {
+      "name": "United Spay Alliance - Alabama",
+      "type": "nonprofit",
+      "email": "info@unitedspayalliance.org",
+      "phone": null,
+      "website": "https://www.unitedspayalliance.org/al/",
+      "address": null,
+      "city": "Statewide",
+      "state": "AL",
+      "zip_code": null,
+      "description": "Provides community cats grants and resources for Alabama TNR programs."
     }
   ],
-  "total_count": 30,
-  "notes": "Comprehensive collection of Alabama animal shelters, humane societies, SPCAs, and rescue organizations. Includes major metro areas (Birmingham, Huntsville, Montgomery, Mobile, Tuscaloosa) and regional organizations across the state. Greater Birmingham Humane Society is the oldest (1883) and largest shelter in Alabama."
+  "total_count": 100,
+  "notes": "Exhaustive collection of Alabama animal shelters, humane societies, rescue organizations, wildlife rehabilitators, farm sanctuaries, and spay/neuter clinics. Greater Birmingham Humane Society (founded 1883) is the oldest and largest shelter in Alabama. Mobile SPCA (founded 1885) is one of the oldest continuously operating charitable organizations. Montgomery Humane Society (founded 1920) has over 100 years of service. Alabama Wildlife Center has cared for 50,000+ injured birds and mammals since 1977. Coverage spans all major cities (Birmingham, Huntsville, Montgomery, Mobile, Tuscaloosa, Dothan, Auburn) and rural areas."
 }
