@@ -41,7 +41,7 @@ Helping shelter dogs who have waited the longest find forever homes. Our platfor
 
 ### Directory Structure
 
-\`\`\`
+```
 WaitingTheLongest/
 ├── backend/                  # Python FastAPI backend
 │   ├── app/                  # FastAPI application core
@@ -67,7 +67,7 @@ WaitingTheLongest/
 ├── nginx/                    # Nginx reverse proxy configuration
 ├── systemd/                  # systemd service units
 └── scripts/                  # Deployment and utility scripts
-\`\`\`
+```
 
 ### Technology Stack
 | Component | Technology |
@@ -85,19 +85,19 @@ WaitingTheLongest/
 ## Key Components
 
 ### RescueGroups Ingestor
-**File**: \`backend/ingestors/rescuegroups.py\`
+**File**: `backend/ingestors/rescuegroups.py`
 
 The primary data source for animal data. Connects to the RescueGroups.org API to fetch shelter animal listings.
 
 > **NOTE**: Petfinder does NOT have a public API! We discovered this during development and pivoted to RescueGroups.org as our primary data source.
 
 **Key Classes**:
-- \`RescueGroupsIngestor\`: Main ingestor class with API communication
-- \`IngestedAnimal\`: Dataclass for standardized animal data
-- \`run_full_ingestion()\`: Orchestrates complete ingestion from all sources
+- `RescueGroupsIngestor`: Main ingestor class with API communication
+- `IngestedAnimal`: Dataclass for standardized animal data
+- `run_full_ingestion()`: Orchestrates complete ingestion from all sources
 
 ### Scheduler
-**File**: \`backend/workers/scheduler.py\`
+**File**: `backend/workers/scheduler.py`
 
 Background workers for scheduled operations including data ingestion, status updates, social content generation, and cleanup.
 
@@ -109,7 +109,7 @@ Background workers for scheduled operations including data ingestion, status upd
 - CleanupWorker
 
 ### Video Generator
-**File**: \`backend/tools/video_generator.py\`
+**File**: `backend/tools/video_generator.py`
 
 Creates TikTok/Instagram Reels style 9:16 vertical videos featuring animals who have waited the longest.
 
@@ -121,9 +121,9 @@ Creates TikTok/Instagram Reels style 9:16 vertical videos featuring animals who 
 **Dependencies**: moviepy, pillow, numpy
 
 ### Config
-**File**: \`backend/app/config.py\`
+**File**: `backend/app/config.py`
 
-Pydantic settings for environment configuration. Loads settings from environment variables and \`.env\` file.
+Pydantic settings for environment configuration. Loads settings from environment variables and `.env` file.
 
 ---
 
@@ -132,7 +132,7 @@ Pydantic settings for environment configuration. Loads settings from environment
 ### IngestionWorker
 **Purpose**: Fetches animals from shelter APIs
 
-**Interval**: Every 6 hours (configurable via \`INGEST_INTERVAL_HOURS\`)
+**Interval**: Every 6 hours (configurable via `INGEST_INTERVAL_HOURS`)
 
 **Process**:
 1. Connect to RescueGroups.org API
@@ -169,7 +169,7 @@ Pydantic settings for environment configuration. Loads settings from environment
 
 **Retention**: 30 days
 
-**Directory**: Configured via \`VIDEO_OUTPUT_DIR\`
+**Directory**: Configured via `VIDEO_OUTPUT_DIR`
 
 ---
 
@@ -177,60 +177,60 @@ Pydantic settings for environment configuration. Loads settings from environment
 
 ### Manual Worker Execution
 
-\`\`\`bash
+```bash
 # Run all workers
 python -m backend.workers.scheduler
 
 # From the backend directory
 cd backend
 python -m workers.scheduler
-\`\`\`
+```
 
 ### Cron Configuration Example
 
-\`\`\`cron
+```cron
 # Run workers every 6 hours
 0 */6 * * * cd /opt/waitingthelongest && /opt/waitingthelongest/venv/bin/python -m backend.workers.scheduler >> /var/log/waitingthelongest/workers.log 2>&1
-\`\`\`
+```
 
 ### Running the API Server
 
-\`\`\`bash
+```bash
 # Development
 cd backend
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Production
 gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-\`\`\`
+```
 
 ---
 
 ## Environment Variables
 
-Reference \`.env.example\` for a complete list of environment variables.
+Reference `.env.example` for a complete list of environment variables.
 
 ### Key Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| \`DATABASE_URL\` | Yes | PostgreSQL connection string |
-| \`SECRET_KEY\` | Yes | Application secret key |
-| \`RESCUEGROUPS_API_KEY\` | No | RescueGroups.org API key |
-| \`AMAZON_ASSOCIATE_ID\` | No | Amazon Associates ID (default: waitingthelon-20) |
-| \`REDIS_URL\` | No | Redis connection URL |
-| \`REDIS_PASSWORD\` | No | Redis password |
-| \`INGEST_ENABLED\` | No | Enable/disable data ingestion (default: true) |
-| \`INGEST_INTERVAL_HOURS\` | No | Hours between ingestion runs (default: 6) |
-| \`VIDEO_OUTPUT_DIR\` | No | Path for generated videos |
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `SECRET_KEY` | Yes | Application secret key |
+| `RESCUEGROUPS_API_KEY` | No | RescueGroups.org API key |
+| `AMAZON_ASSOCIATE_ID` | No | Amazon Associates ID (default: waitingthelon-20) |
+| `REDIS_URL` | No | Redis connection URL |
+| `REDIS_PASSWORD` | No | Redis password |
+| `INGEST_ENABLED` | No | Enable/disable data ingestion (default: true) |
+| `INGEST_INTERVAL_HOURS` | No | Hours between ingestion runs (default: 6) |
+| `VIDEO_OUTPUT_DIR` | No | Path for generated videos |
 
 ### Social Media Tokens
 | Variable | Description |
 |----------|-------------|
-| \`TIKTOK_ACCESS_TOKEN\` | TikTok API token |
-| \`INSTAGRAM_ACCESS_TOKEN\` | Instagram API token |
-| \`FACEBOOK_PAGE_TOKEN\` | Facebook Page token |
-| \`AYRSHARE_API_KEY\` | Ayrshare unified posting API key |
+| `TIKTOK_ACCESS_TOKEN` | TikTok API token |
+| `INSTAGRAM_ACCESS_TOKEN` | Instagram API token |
+| `FACEBOOK_PAGE_TOKEN` | Facebook Page token |
+| `AYRSHARE_API_KEY` | Ayrshare unified posting API key |
 
 ---
 
@@ -256,15 +256,14 @@ Additional data coverage beyond RescueGroups.
 
 ## Changelog
 
-### Initial Documentation Creation (2025-12-04)
-- Created comprehensive OWNERS_MANUAL.md
+### December 2025
+- Created comprehensive OWNERS_MANUAL.md documentation
+- Added `backend/__init__.py` to fix import errors
 - Documented project architecture and structure
 - Added worker documentation
 - Documented environment variables
-- Added running instructions
 
-### Version 1.0.0 (2025-01-15)
-- Initial platform release
+### Initial Release
 - Core animal listing with days_waiting sorting
 - RescueGroups.org data ingestion
 - Amazon Associates integration
