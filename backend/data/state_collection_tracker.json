@@ -4,8 +4,8 @@
     "created_at": "2025-12-04",
     "last_updated": "2025-12-04",
     "total_states": 50,
-    "completed_count": 21,
-    "total_shelters_collected": 467
+    "completed_count": 22,
+    "total_shelters_collected": 482
   },
   "states": {
     "AL": {"name": "Alabama", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},
@@ -29,7 +29,7 @@
     "ME": {"name": "Maine", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},
     "MD": {"name": "Maryland", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "MA": {"name": "Massachusetts", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
-    "MI": {"name": "Michigan", "status": "pending", "last_collection": null, "shelter_count": 0},
+    "MI": {"name": "Michigan", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
     "MN": {"name": "Minnesota", "status": "pending", "last_collection": null, "shelter_count": 0},
     "MS": {"name": "Mississippi", "status": "pending", "last_collection": null, "shelter_count": 0},
     "MO": {"name": "Missouri", "status": "pending", "last_collection": null, "shelter_count": 0},
