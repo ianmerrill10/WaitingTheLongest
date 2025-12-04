@@ -34,16 +34,20 @@ from slowapi.errors import RateLimitExceeded
 
 from .config import settings
 from .database import get_db, engine, Base
-from .models import Animal, Observation, Shelter, SuccessStory
+from .models import Animal, Observation, Shelter, SuccessStory, EmailSubscriber
 from .schemas import (
     AnimalListResponse, AnimalDetailResponse,
     SuccessStoryCreate, SuccessStoryResponse,
-    HealthResponse
+    HealthResponse,
+    EmailSubscriberCreate, EmailSubscriberResponse,
+    EmailPreferencesUpdate, PriceAlertCreate, PriceAlertResponse,
+    NewsletterSubscribeResponse, UnsubscribeResponse
 )
 from .crud import (
     paginate_animals, get_animal_detail,
     create_success_story, get_trending_stories
 )
+from .email_marketing import EmailMarketingService
 
 # Import monetization modules
 from monetization.amazon_associates import AmazonAssociates, track_affiliate_click
@@ -411,6 +415,271 @@ async def get_product_recommendations(
         "pet_type": pet_type,
         "disclosure": "As an Amazon Associate, Waiting The Longest earns from qualifying purchases."
     }
+
+
+# =============================================================================
+# Email Marketing Endpoints
+# =============================================================================
+
+@app.post("/api/newsletter/subscribe", response_model=NewsletterSubscribeResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def subscribe_to_newsletter(
+    request: Request,
+    subscriber: EmailSubscriberCreate,
+    db: Session = Depends(get_db)
+):
+    """
+    Subscribe to the Waiting The Longest™ newsletter.
+    
+    Subscribers receive:
+    - Weekly "Longest Waiting" newsletter (Sundays at 10 AM)
+    - Adoption success stories
+    - Pet care tips with affiliate product recommendations
+    - Special offers and updates
+    
+    CAN-SPAM and GDPR compliant. Unsubscribe anytime.
+    """
+    try:
+        created_subscriber = EmailMarketingService.subscribe(db, subscriber)
+        
+        return {
+            "success": True,
+            "message": "Welcome to the pack! Check your email to confirm your subscription.",
+            "subscriber_id": created_subscriber.id,
+            "requires_verification": not created_subscriber.is_verified
+        }
+    except Exception as e:
+        logger.error(f"Newsletter subscription failed: {e}")
+        raise HTTPException(status_code=400, detail="Subscription failed. Please try again.")
+
+
+@app.post("/api/newsletter/unsubscribe", response_model=UnsubscribeResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def unsubscribe_from_newsletter(
+    request: Request,
+    email: str = Query(..., description="Email address to unsubscribe"),
+    token: Optional[str] = Query(None, description="Unsubscribe token for verification"),
+    db: Session = Depends(get_db)
+):
+    """
+    Unsubscribe from marketing emails.
+    
+    We honor unsubscribe requests immediately (CAN-SPAM requires within 10 days).
+    You can resubscribe at any time.
+    """
+    success = EmailMarketingService.unsubscribe(db, email, token)
+    
+    if success:
+        return {
+            "success": True,
+            "message": "You have been unsubscribed. We'll miss you! 🐾"
+        }
+    else:
+        return {
+            "success": False,
+            "message": "Email not found or already unsubscribed."
+        }
+
+
+@app.get("/api/newsletter/verify")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def verify_email(
+    request: Request,
+    email: str = Query(..., description="Email address to verify"),
+    token: str = Query(..., description="Verification token"),
+    db: Session = Depends(get_db)
+):
+    """Verify subscriber email address"""
+    success = EmailMarketingService.verify_email(db, email, token)
+    
+    if success:
+        return {
+            "success": True,
+            "message": "Email verified! You're all set to receive our updates."
+        }
+    else:
+        raise HTTPException(status_code=400, detail="Invalid or expired verification link.")
+
+
+@app.put("/api/newsletter/preferences/{subscriber_id}", response_model=EmailSubscriberResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def update_email_preferences(
+    request: Request,
+    subscriber_id: int,
+    preferences: EmailPreferencesUpdate,
+    db: Session = Depends(get_db)
+):
+    """
+    Update email preferences.
+    
+    Control what types of emails you receive:
+    - Newsletter: Weekly longest waiting pets digest
+    - Product updates: New features and improvements
+    - Adoption alerts: Animals matching your preferences
+    - Affiliate emails: Product recommendations and deals
+    """
+    subscriber = EmailMarketingService.update_preferences(db, subscriber_id, preferences)
+    
+    if not subscriber:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    
+    return subscriber
+
+
+@app.post("/api/alerts", response_model=PriceAlertResponse)
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def create_price_alert(
+    request: Request,
+    alert: PriceAlertCreate,
+    email: str = Query(..., description="Subscriber email address"),
+    db: Session = Depends(get_db)
+):
+    """
+    Create a price or availability alert.
+    
+    Alert types:
+    - price_drop: Get notified when a product drops to your target price
+    - animal_available: Get notified when a specific animal becomes available
+    - new_arrival: Get notified about new arrivals matching your preferences
+    
+    Alerts expire after 90 days.
+    """
+    subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
+    
+    if not subscriber:
+        raise HTTPException(
+            status_code=404, 
+            detail="Please subscribe to newsletter first to set alerts."
+        )
+    
+    if not subscriber.is_active:
+        raise HTTPException(
+            status_code=400,
+            detail="Your subscription is inactive. Please resubscribe to set alerts."
+        )
+    
+    created_alert = EmailMarketingService.create_price_alert(db, subscriber.id, alert)
+    return created_alert
+
+
+@app.get("/api/alerts", response_model=List[PriceAlertResponse])
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_price_alerts(
+    request: Request,
+    email: str = Query(..., description="Subscriber email address"),
+    db: Session = Depends(get_db)
+):
+    """Get all active alerts for a subscriber"""
+    subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
+    
+    if not subscriber:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    
+    alerts = EmailMarketingService.get_active_alerts(db, subscriber.id)
+    return alerts
+
+
+@app.delete("/api/alerts/{alert_id}")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def delete_price_alert(
+    request: Request,
+    alert_id: int,
+    email: str = Query(..., description="Subscriber email address"),
+    db: Session = Depends(get_db)
+):
+    """Deactivate a price alert"""
+    subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
+    
+    if not subscriber:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    
+    success = EmailMarketingService.deactivate_alert(db, alert_id, subscriber.id)
+    
+    if success:
+        return {"success": True, "message": "Alert deactivated"}
+    else:
+        raise HTTPException(status_code=404, detail="Alert not found")
+
+
+@app.post("/api/favorites/{animal_id}/remind")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def start_still_waiting_reminder(
+    request: Request,
+    animal_id: int,
+    email: str = Query(..., description="Subscriber email address"),
+    db: Session = Depends(get_db)
+):
+    """
+    Start "still waiting" reminder sequence for a favorited animal.
+    
+    Sends reminder emails at 3, 7, and 14 days if the animal is still available.
+    Perfect for keeping track of animals you're interested in!
+    """
+    subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
+    
+    if not subscriber:
+        raise HTTPException(
+            status_code=404,
+            detail="Please subscribe to newsletter first to receive reminders."
+        )
+    
+    if not subscriber.adoption_alerts_enabled:
+        raise HTTPException(
+            status_code=400,
+            detail="Please enable adoption alerts in your preferences."
+        )
+    
+    sequence = EmailMarketingService.start_still_waiting_reminder(db, subscriber.id, animal_id)
+    
+    if sequence:
+        return {
+            "success": True,
+            "message": "We'll remind you about this pet! Check your inbox.",
+            "sequence_id": sequence.id
+        }
+    else:
+        raise HTTPException(status_code=404, detail="Animal not found")
+
+
+@app.get("/api/email/stats")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_email_stats(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get email marketing statistics.
+    
+    Returns subscriber counts, open rates, click rates, and comparison to targets.
+    """
+    stats = EmailMarketingService.get_email_stats(db)
+    return stats
+
+
+@app.post("/api/email/track/open/{email_id}")
+async def track_email_open(
+    email_id: int,
+    db: Session = Depends(get_db)
+):
+    """Track email open event (typically called from email tracking pixel)"""
+    EmailMarketingService.track_email_open(db, email_id)
+    # Return 1x1 transparent pixel
+    return JSONResponse(
+        content={},
+        headers={"Content-Type": "image/gif"}
+    )
+
+
+@app.post("/api/email/track/click/{email_id}")
+async def track_email_click(
+    email_id: int,
+    redirect_url: str = Query(..., description="URL to redirect to"),
+    db: Session = Depends(get_db)
+):
+    """Track email click event and redirect"""
+    EmailMarketingService.track_email_click(db, email_id)
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url=redirect_url)
 
 
 # =============================================================================

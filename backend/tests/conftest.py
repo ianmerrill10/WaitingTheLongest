@@ -33,7 +33,10 @@ os.environ["TESTING"] = "1"
 
 from app.main import app
 from app.database import Base, get_db
-from app.models import Animal, Observation, Shelter, SuccessStory, SocialPromotion, AffiliateClick
+from app.models import (
+    Animal, Observation, Shelter, SuccessStory, SocialPromotion, AffiliateClick,
+    EmailSubscriber, EmailSequence, ScheduledEmail, PriceAlert
+)
 
 
 # Use in-memory SQLite for tests - completely isolated from production

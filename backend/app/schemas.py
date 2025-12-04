@@ -239,3 +239,119 @@ class SocialPromotionOut(BaseSchema):
     likes: int
     shares: int
     posted_at: Optional[datetime]
+
+
+# =============================================================================
+# Email Marketing Schemas
+# =============================================================================
+
+class EmailSubscriberCreate(BaseModel):
+    """Create a new email subscriber"""
+    email: EmailStr
+    first_name: Optional[str] = Field(None, max_length=100)
+    last_name: Optional[str] = Field(None, max_length=100)
+    preferred_species: Optional[str] = Field(None, pattern="^(dog|cat|both)$")
+    preferred_location: Optional[str] = Field(None, max_length=100)
+    preferred_age_group: Optional[str] = Field(None, pattern="^(puppy|adult|senior)$")
+    newsletter_enabled: bool = True
+    product_updates_enabled: bool = True
+    adoption_alerts_enabled: bool = True
+    affiliate_emails_enabled: bool = True
+    consent_source: Optional[str] = Field(None, max_length=100)
+
+
+class EmailSubscriberUpdate(BaseModel):
+    """Update subscriber information"""
+    first_name: Optional[str] = Field(None, max_length=100)
+    last_name: Optional[str] = Field(None, max_length=100)
+    preferred_species: Optional[str] = Field(None, pattern="^(dog|cat|both)$")
+    preferred_location: Optional[str] = Field(None, max_length=100)
+    preferred_age_group: Optional[str] = Field(None, pattern="^(puppy|adult|senior)$")
+
+
+class EmailPreferencesUpdate(BaseModel):
+    """Update email preferences"""
+    newsletter_enabled: Optional[bool] = None
+    product_updates_enabled: Optional[bool] = None
+    adoption_alerts_enabled: Optional[bool] = None
+    affiliate_emails_enabled: Optional[bool] = None
+
+
+class EmailSubscriberResponse(BaseSchema):
+    """Email subscriber response"""
+    id: int
+    email: str
+    first_name: Optional[str]
+    last_name: Optional[str]
+    preferred_species: Optional[str]
+    preferred_location: Optional[str]
+    preferred_age_group: Optional[str]
+    is_active: bool
+    is_verified: bool
+    newsletter_enabled: bool
+    product_updates_enabled: bool
+    adoption_alerts_enabled: bool
+    affiliate_emails_enabled: bool
+    signup_date: datetime
+
+
+class PriceAlertCreate(BaseModel):
+    """Create a price/availability alert"""
+    alert_type: str = Field(..., pattern="^(price_drop|animal_available|new_arrival)$")
+    target_type: str = Field(..., pattern="^(product|animal)$")
+    target_id: str = Field(..., max_length=100)
+    target_name: Optional[str] = Field(None, max_length=255)
+    target_price: Optional[float] = Field(None, ge=0)
+
+
+class PriceAlertResponse(BaseSchema):
+    """Price alert response"""
+    id: int
+    alert_type: str
+    target_type: str
+    target_id: str
+    target_name: Optional[str]
+    original_price: Optional[float]
+    target_price: Optional[float]
+    current_price: Optional[float]
+    is_active: bool
+    is_triggered: bool
+    created_at: datetime
+
+
+class ScheduledEmailResponse(BaseSchema):
+    """Scheduled email response"""
+    id: int
+    email_type: str
+    subject: str
+    scheduled_at: datetime
+    status: str
+    sent_at: Optional[datetime]
+    opened_at: Optional[datetime]
+    clicked_at: Optional[datetime]
+
+
+class EmailSequenceResponse(BaseSchema):
+    """Email sequence response"""
+    id: int
+    sequence_type: str
+    current_step: int
+    total_steps: int
+    status: str
+    is_completed: bool
+    started_at: datetime
+    next_email_at: Optional[datetime]
+
+
+class NewsletterSubscribeResponse(BaseModel):
+    """Response for newsletter subscription"""
+    success: bool
+    message: str
+    subscriber_id: Optional[int] = None
+    requires_verification: bool = False
+
+
+class UnsubscribeResponse(BaseModel):
+    """Response for unsubscribe request"""
+    success: bool
+    message: str

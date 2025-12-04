@@ -109,6 +109,32 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60
     RATE_LIMIT_PER_HOUR: int = 1000
 
+    # ==========================================================================
+    # Email Marketing Configuration
+    # ==========================================================================
+    # Email service provider (sendgrid, mailgun, ses)
+    EMAIL_PROVIDER: str = "sendgrid"
+    EMAIL_API_KEY: Optional[str] = None
+    EMAIL_FROM_ADDRESS: str = "hello@waitingthelongest.com"
+    EMAIL_FROM_NAME: str = "Waiting The Longest™"
+
+    # Physical mailing address (CAN-SPAM compliance)
+    EMAIL_MAILING_ADDRESS: str = "Waiting The Longest, 123 Pet Lane, Austin, TX 78701"
+
+    # Email tracking
+    EMAIL_TRACKING_ENABLED: bool = True
+    EMAIL_OPEN_TRACKING: bool = True
+    EMAIL_CLICK_TRACKING: bool = True
+
+    # Newsletter settings
+    NEWSLETTER_DAY: str = "sunday"
+    NEWSLETTER_TIME: str = "10:00"
+
+    # Email sequence timing (in days/hours)
+    WELCOME_SEQUENCE_DAYS: List[int] = [0, 1, 3, 7, 14]
+    ABANDONED_CART_HOURS: List[int] = [1, 3, 7]
+    STILL_WAITING_REMINDER_DAYS: List[int] = [3, 7, 14]
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
