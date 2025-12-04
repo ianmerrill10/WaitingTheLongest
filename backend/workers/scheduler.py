@@ -35,10 +35,12 @@ try:
     from app.database import SessionLocal
     from app.models import Animal, SocialPromotion
     from app.config import settings
+    from app.email_marketing import EmailMarketingService
 except ImportError:
     from ..app.database import SessionLocal
     from ..app.models import Animal, SocialPromotion
     from ..app.config import settings
+    from ..app.email_marketing import EmailMarketingService
 
 logger = logging.getLogger(__name__)
 
@@ -309,12 +311,6 @@ class EmailWorker:
         stats = {"processed": 0, "sent": 0, "failed": 0, "newsletters_scheduled": 0}
 
         try:
-            # Import email service
-            try:
-                from app.email_marketing import EmailMarketingService
-            except ImportError:
-                from ..app.email_marketing import EmailMarketingService
-
             # Get pending emails
             pending_emails = EmailMarketingService.get_pending_emails(db, limit=self.BATCH_SIZE)
             stats["processed"] = len(pending_emails)
@@ -338,7 +334,6 @@ class EmailWorker:
                     stats["failed"] += 1
 
             # Schedule weekly newsletter if it's Sunday
-            from datetime import datetime
             if datetime.now().weekday() == 6:  # Sunday
                 newsletters_scheduled = EmailMarketingService.schedule_weekly_newsletter(db)
                 stats["newsletters_scheduled"] = newsletters_scheduled
@@ -361,12 +356,6 @@ class EmailWorker:
         For development, this is a mock implementation.
         """
         try:
-            # Import settings
-            try:
-                from app.config import settings
-            except ImportError:
-                from ..app.config import settings
-
             # Mock implementation - in production, use actual email provider
             logger.info(
                 f"[MOCK] Sending email: "

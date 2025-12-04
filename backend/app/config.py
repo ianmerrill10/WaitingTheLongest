@@ -135,6 +135,9 @@ class Settings(BaseSettings):
     ABANDONED_CART_HOURS: List[int] = [1, 3, 7]
     STILL_WAITING_REMINDER_DAYS: List[int] = [3, 7, 14]
 
+    # Email retry configuration
+    EMAIL_RETRY_BASE_DELAY_MINUTES: int = 5  # Base delay for exponential backoff
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

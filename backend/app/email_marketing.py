@@ -126,10 +126,16 @@ class EmailMarketingService:
         Subscribe a new email address.
 
         Creates subscriber record and starts welcome sequence.
+        
+        Note: Emails are normalized to lowercase for consistent comparison.
+        The database stores emails in lowercase, enabling index usage during lookups.
         """
+        # Normalize email to lowercase for consistent lookup
+        normalized_email = subscriber_data.email.lower()
+        
         # Check if already subscribed
         existing = db.query(EmailSubscriber).filter(
-            EmailSubscriber.email == subscriber_data.email.lower()
+            EmailSubscriber.email == normalized_email
         ).first()
 
         if existing:
@@ -146,7 +152,7 @@ class EmailMarketingService:
 
         # Create new subscriber
         subscriber = EmailSubscriber(
-            email=subscriber_data.email.lower(),
+            email=normalized_email,
             first_name=subscriber_data.first_name,
             last_name=subscriber_data.last_name,
             preferred_species=subscriber_data.preferred_species,
@@ -582,9 +588,9 @@ class EmailMarketingService:
         if email.retry_count >= email.max_retries:
             email.status = "failed"
         else:
-            # Reschedule for retry
+            # Reschedule for retry with exponential backoff
             email.scheduled_at = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(
-                minutes=5 * (2 ** email.retry_count)  # Exponential backoff
+                minutes=settings.EMAIL_RETRY_BASE_DELAY_MINUTES * (2 ** email.retry_count)
             )
 
         db.commit()
