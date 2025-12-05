@@ -21,13 +21,11 @@ IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 
 import csv
 import json
-import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
 # Directory paths
 MODULE_DIR = Path(__file__).parent
-DATA_DIR = MODULE_DIR.parent / "data"
 OUTPUT_DIR = MODULE_DIR / "output"
 
 # Default output file

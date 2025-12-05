@@ -5,6 +5,8 @@
 # ==============================================================================
 
 # HTTP Client (for future scraping implementation)
+# requests: Used for synchronous HTTP requests and wider compatibility
+# httpx: Used for async HTTP requests when scraping multiple sources in parallel
 requests>=2.31.0
 httpx>=0.25.0
 

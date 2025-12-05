@@ -21,7 +21,7 @@ NOTE: The actual scraping implementation is deferred to a future PR.
 ===============================================================================
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 # Entity type constants
@@ -153,7 +153,9 @@ def normalize_entity(entity: Dict[str, Any]) -> Dict[str, Any]:
         "animal_types": entity.get("animal_types", "").strip(),
         "entity_type": entity.get("entity_type", "").strip().lower(),
         "county": entity.get("county", "").strip(),
-        "collected_at": entity.get("collected_at", datetime.utcnow().isoformat()),
+        "collected_at": entity.get(
+            "collected_at", datetime.now(timezone.utc).isoformat()
+        ),
     }
 
     # Default entity_type to private if not specified
