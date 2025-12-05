@@ -12,7 +12,7 @@
     "AK": {"name": "Alaska", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "AZ": {"name": "Arizona", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "AR": {"name": "Arkansas", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
-    "CA": {"name": "California", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},
+    "CA": {"name": "California", "status": "completed", "last_collection": "2025-12-05", "shelter_count": 100},
     "CO": {"name": "Colorado", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "CT": {"name": "Connecticut", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "DE": {"name": "Delaware", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 15},
