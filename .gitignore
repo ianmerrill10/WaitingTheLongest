@@ -65,3 +65,6 @@ docs/_build/
 *.key
 *.crt
 secrets/
+
+# Agent output files (except .gitkeep)
+backend/agents/output/*.csv

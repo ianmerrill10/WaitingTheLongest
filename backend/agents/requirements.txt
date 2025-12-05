@@ -1,0 +1,31 @@
+# ==============================================================================
+# Waiting The Longest™ - Rescue Entity Scraper Agent Dependencies
+# ==============================================================================
+# Install: pip install -r requirements.txt
+# ==============================================================================
+
+# HTTP Client (for future scraping implementation)
+# requests: Used for synchronous HTTP requests and wider compatibility
+# httpx: Used for async HTTP requests when scraping multiple sources in parallel
+requests>=2.31.0
+httpx>=0.25.0
+
+# HTML Parsing (for future scraping implementation)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Data Processing
+pandas>=2.0.0
+
+# Rate Limiting
+tenacity>=8.2.0
+
+# US Geographic Data
+# Note: We use a custom JSON file for county data instead of external libraries
+# for reliability and offline support
+
+# Optional: If you want to use the `us` library for state data
+# us>=3.0.0
+
+# Testing
+pytest>=7.4.0
