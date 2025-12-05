@@ -5,11 +5,11 @@
     "last_updated": "2025-12-04",
     "total_states": 50,
     "completed_count": 50,
-    "total_shelters_collected": 1133
+    "total_shelters_collected": 1208
   },
   "states": {
     "AL": {"name": "Alabama", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 100},
-    "AK": {"name": "Alaska", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
+    "AK": {"name": "Alaska", "status": "completed", "last_collection": "2025-12-05", "shelter_count": 100},
     "AZ": {"name": "Arizona", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "AR": {"name": "Arkansas", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 25},
     "CA": {"name": "California", "status": "completed", "last_collection": "2025-12-04", "shelter_count": 30},

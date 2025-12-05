@@ -1,7 +1,7 @@
 {
   "state": "AK",
   "state_full": "Alaska",
-  "collection_date": "2025-12-04",
+  "collection_date": "2025-12-05",
   "shelters": [
     {
       "name": "Alaska SPCA",
@@ -13,7 +13,7 @@
       "city": "Anchorage",
       "state": "AK",
       "zip_code": "99517",
-      "description": "Independent local nonprofit promoting animal welfare since 1955. Provides affordable veterinary services, adoption center, pet food bank, and mobile surgery unit."
+      "description": "Celebrating 70 years in 2025. Provides affordable veterinary services, adoption center, pet food bank, and mobile surgery unit for remote communities."
     },
     {
       "name": "Anchorage Animal Care and Control",
@@ -25,7 +25,7 @@
       "city": "Anchorage",
       "state": "AK",
       "zip_code": "99507",
-      "description": "Open-admission municipal shelter serving the entire Municipality of Anchorage. Promotes public health, safety, responsible pet ownership, and humane care of animals."
+      "description": "Open-admission municipal shelter serving Municipality of Anchorage. Promotes public health, safety, and responsible pet ownership."
     },
     {
       "name": "Juneau Animal Rescue",
@@ -37,7 +37,7 @@
       "city": "Juneau",
       "state": "AK",
       "zip_code": "99801",
-      "description": "Private nonprofit shelter founded in 1963, serving domestic animals in Juneau for over 60 years. The largest shelter in Southeast Alaska, operating as an open-admission facility."
+      "description": "Private nonprofit shelter founded in 1963, largest in Southeast Alaska. Open-admission serving domestic animals for over 60 years."
     },
     {
       "name": "Fairbanks North Star Borough Animal Control",
@@ -49,7 +49,7 @@
       "city": "Fairbanks",
       "state": "AK",
       "zip_code": "99701",
-      "description": "Municipal animal shelter serving Fairbanks North Star Borough, providing animal control services and pet adoptions."
+      "description": "Municipal animal shelter serving Fairbanks North Star Borough with animal control services and pet adoptions."
     },
     {
       "name": "Mat-Su Borough Animal Care and Regulation",
@@ -61,7 +61,7 @@
       "city": "Palmer",
       "state": "AK",
       "zip_code": "99645",
-      "description": "Dedicated to serving the Alaskan community and animals in need. Maintains shelter and enforcement services for Mat-Su Borough including Palmer and Wasilla."
+      "description": "Serves Mat-Su Borough including Palmer and Wasilla. Maintains shelter and enforcement services."
     },
     {
       "name": "Humane Society of Kodiak",
@@ -73,7 +73,7 @@
       "city": "Kodiak",
       "state": "AK",
       "zip_code": "99615",
-      "description": "Operating the only animal shelter in the Kodiak Archipelago since 1995. A no-kill shelter for friendly adoptable pets, committed to preventing animal cruelty and reducing homeless pets."
+      "description": "Only animal shelter in Kodiak Archipelago since 1995. No-kill shelter for friendly adoptable pets."
     },
     {
       "name": "Ketchikan Humane Society",
@@ -85,7 +85,7 @@
       "city": "Ketchikan",
       "state": "AK",
       "zip_code": "99901",
-      "description": "501(c)(3) formed in 2001 to help abused and abandoned animals in Southern Southeast Alaska find permanent homes and reduce unwanted animals through low-cost spay/neuter services."
+      "description": "501(c)(3) formed in 2001 helping abused and abandoned animals in Southern Southeast Alaska with low-cost spay/neuter."
     },
     {
       "name": "Kenai Animal Shelter",
@@ -97,7 +97,7 @@
       "city": "Kenai",
       "state": "AK",
       "zip_code": "99611",
-      "description": "City shelter promoting community safety through public education, spaying/neutering, and humane operations. All animals are spayed/neutered and microchipped before adoption."
+      "description": "City shelter promoting community safety. All animals spayed/neutered and microchipped before adoption. Best Friends partner."
     },
     {
       "name": "Kenai Peninsula Animal Lovers Rescue",
@@ -109,7 +109,7 @@
       "city": "Soldotna",
       "state": "AK",
       "zip_code": "99669",
-      "description": "Founded in 2019, provides safe environment for stray, surrendered, abused, or abandoned animals through foster network with goal of finding forever homes."
+      "description": "Founded in 2019, provides safe environment for stray, surrendered, abused, or abandoned animals through foster network."
     },
     {
       "name": "Friends of Sitka Animal Shelter",
@@ -121,7 +121,7 @@
       "city": "Sitka",
       "state": "AK",
       "zip_code": "99835",
-      "description": "Dedicated to providing quality care and shelter to animals in need while offering services, resources, and education to community members."
+      "description": "Dedicated to quality care and shelter for animals in need while providing services, resources, and education."
     },
     {
       "name": "Alaska Mindful Paws",
@@ -133,7 +133,7 @@
       "city": "Homer",
       "state": "AK",
       "zip_code": "99603",
-      "description": "Non-profit organization in Homer dedicated to providing shelter, care and advocacy to homeless animals in the community."
+      "description": "Non-profit managing Homer Animal Shelter under contract with City of Homer. Provides shelter, care and advocacy."
     },
     {
       "name": "Alaskan Animal Rescue Friends",
@@ -145,7 +145,7 @@
       "city": "Anchorage",
       "state": "AK",
       "zip_code": "99503",
-      "description": "All-volunteer, foster home based dog rescue. Takes dogs from bush communities, local animal control, owner releases, and neglect cases."
+      "description": "All-volunteer, foster-based rescue. Takes dogs from bush communities, local animal control, owner releases, and neglect cases."
     },
     {
       "name": "Friends of Pets",
@@ -157,19 +157,19 @@
       "city": "Anchorage",
       "state": "AK",
       "zip_code": "99524",
-      "description": "Established in 1989, 100% volunteer organization rescuing at least 80% of animals from Anchorage Animal Care & Control. Places 100-150 animals per year."
+      "description": "Established 1989, 100% volunteer. Rescues 80%+ from Anchorage ACC, places 100-150 animals/year. Offers TNR program."
     },
     {
       "name": "Alaska Dog and Puppy Rescue",
       "type": "rescue",
-      "email": "info@prior2prior.com",
+      "email": "info@akdpr.com",
       "phone": "(907) 745-7030",
-      "website": "https://www.prior2prior.com",
+      "website": "https://akdpr.com",
       "address": null,
       "city": "Palmer",
       "state": "AK",
       "zip_code": "99645",
-      "description": "All-volunteer organization helping meet the needs of the Mat-Su Valley pet overpopulation problem, rescuing weekly from Mat-Su Borough Animal Shelter and Houston Animal Control."
+      "description": "Since 2003, rescues 500+ dogs yearly from Mat-Su Valley, bush villages, and shelters statewide."
     },
     {
       "name": "Second Chance League",
@@ -181,7 +181,7 @@
       "city": "Fairbanks",
       "state": "AK",
       "zip_code": "99701",
-      "description": "Group of Fairbanks mushers focused on finding permanent homes for sled dogs. Works exclusively with dogs from municipal shelter, evaluating, fostering, and training them."
+      "description": "Founded 2003 by Fairbanks mushers. Finds homes for sled dogs from municipal shelter, evaluates, fosters, and trains."
     },
     {
       "name": "Alaska Humane Society",
@@ -193,7 +193,7 @@
       "city": "Anchorage",
       "state": "AK",
       "zip_code": "99507",
-      "description": "Founded in 1979, operates a no-kill shelter and sanctuary for orphan cats in Anchorage."
+      "description": "Founded 1979, operates no-kill shelter and sanctuary for orphan cats in Anchorage."
     },
     {
       "name": "Best Friends Animal Rescue Alaska",
@@ -202,10 +202,10 @@
       "phone": null,
       "website": "https://bfarak.org",
       "address": null,
-      "city": "Anchorage",
+      "city": "Wasilla",
       "state": "AK",
-      "zip_code": "99501",
-      "description": "Registered 501(c)3 non-profit helping families from all over Alaska find their next best friend through adoption services."
+      "zip_code": "99654",
+      "description": "501(c)(3) founded August 2020. Works with PAWS of Nome to foster and adopt puppies from rural areas."
     },
     {
       "name": "Forget-Me-Not Animal Rescue",
@@ -217,11 +217,11 @@
       "city": "North Pole",
       "state": "AK",
       "zip_code": "99705",
-      "description": "Animal rescue organization in North Pole, Alaska founded in 2023, dedicated to rescuing and rehoming animals in the Fairbanks area."
+      "description": "Founded 2023, dedicated to rescuing and rehoming animals in the Fairbanks area."
     },
     {
       "name": "Golden Retriever Rescue of Fairbanks",
-      "type": "rescue",
+      "type": "breed_rescue",
       "email": "info@grrf.org",
       "phone": null,
       "website": "https://www.grrf.org",
@@ -229,7 +229,7 @@
       "city": "Fairbanks",
       "state": "AK",
       "zip_code": "99701",
-      "description": "Breed-specific rescue organization dedicated to rescuing and rehoming Golden Retrievers in the Fairbanks area."
+      "description": "Breed-specific rescue rescuing and rehoming Golden Retrievers in Interior Alaska."
     },
     {
       "name": "Loving Companions Animal Rescue",
@@ -241,7 +241,7 @@
       "city": "Fairbanks",
       "state": "AK",
       "zip_code": "99701",
-      "description": "Animal rescue organization serving the Fairbanks area, dedicated to finding loving homes for companion animals."
+      "description": "Serves Fairbanks area. Offers free transportation from remote locations for pets in need."
     },
     {
       "name": "HARK - Haines Animal Rescue Kennel",
@@ -253,7 +253,7 @@
       "city": "Haines",
       "state": "AK",
       "zip_code": "99827",
-      "description": "Finds homes for homeless animals, offers low-cost medical services, educates the public on responsible pet care, and serves as animal control in Haines."
+      "description": "Founded 2001. Finds homes, offers low-cost medical services, educates public, serves as animal control for Haines."
     },
     {
       "name": "Bering Sea Humane Society",
@@ -265,7 +265,7 @@
       "city": "Nome",
       "state": "AK",
       "zip_code": "99762",
-      "description": "Animal welfare organization in Nome, Alaska founded in 2020 serving the remote Bering Sea region."
+      "description": "Founded 2020, serving the remote Bering Sea region around Nome."
     },
     {
       "name": "Petersburg Humane Association",
@@ -277,7 +277,7 @@
       "city": "Petersburg",
       "state": "AK",
       "zip_code": "99833",
-      "description": "Animal shelter organization in Petersburg, Alaska founded in 2008 serving the local community."
+      "description": "Founded 2008, serving Petersburg and surrounding Southeast Alaska communities."
     },
     {
       "name": "Helping Escaped and Lost Pets",
@@ -289,7 +289,7 @@
       "city": "Palmer",
       "state": "AK",
       "zip_code": "99645",
-      "description": "Nonprofit helping return lost pets home in the Mat-Su Valley, including Palmer, Wasilla, and all of the Mat-Su Borough."
+      "description": "Nonprofit helping return lost pets in Mat-Su Valley including Palmer, Wasilla, and all of Mat-Su Borough."
     },
     {
       "name": "Companions Inc",
@@ -301,9 +301,801 @@
       "city": "Fairbanks",
       "state": "AK",
       "zip_code": "99701",
-      "description": "Pet support volunteers organization serving the Fairbanks area with various animal welfare programs."
+      "description": "Pet support volunteers organization serving Fairbanks with various animal welfare programs."
+    },
+    {
+      "name": "Bethel Friends of Canines",
+      "type": "rescue",
+      "email": "info@bethelfriendsofcanines.com",
+      "phone": null,
+      "website": "https://www.bethelfriendsofcanines.com",
+      "address": null,
+      "city": "Bethel",
+      "state": "AK",
+      "zip_code": "99559",
+      "description": "Rescues dogs across 75,000 sq mi Y-K Delta region. All transport via planes, boats, snow machines, or ATVs."
+    },
+    {
+      "name": "PAWS of Nome",
+      "type": "rescue",
+      "email": "info@pawsofnome.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Nome",
+      "state": "AK",
+      "zip_code": "99762",
+      "description": "Partners with Best Friends Animal Rescue to foster and transport dogs from Nome region."
+    },
+    {
+      "name": "ACAT - Alaska Cat Adoption Team",
+      "type": "cat_rescue",
+      "email": "info@acatalaska.org",
+      "phone": "(907) 982-2228",
+      "website": null,
+      "address": "PO Box 671214",
+      "city": "Chugiak",
+      "state": "AK",
+      "zip_code": "99567",
+      "description": "Formed 2010. Rescue, education, outreach, TNR program. Teams with other rescues on spay/neuter education."
+    },
+    {
+      "name": "Pet Pride",
+      "type": "cat_rescue",
+      "email": "info@petpridealaska.org",
+      "phone": null,
+      "website": null,
+      "address": "P.O. Box 70229",
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99707",
+      "description": "No-kill, non-profit cat rescue in Fairbanks. Places about 200 cats and kittens yearly. Focus on spay/neuter."
+    },
+    {
+      "name": "Clear Creek Cat Rescue",
+      "type": "cat_rescue",
+      "email": "info@clearcreekcatrescue.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Wasilla",
+      "state": "AK",
+      "zip_code": "99654",
+      "description": "Cat rescue serving the Wasilla and Mat-Su Valley area."
+    },
+    {
+      "name": "Cat Tree & Barkery Rescue",
+      "type": "cat_rescue",
+      "email": "info@cattreeandbarkery.org",
+      "phone": null,
+      "website": "https://www.cattreeandbarkery.org",
+      "address": "46852 Mooseberry Ave",
+      "city": "Kenai",
+      "state": "AK",
+      "zip_code": "99611",
+      "description": "Founded 2019. Rescues kittens under 12 weeks, provides foster network, facilitates adoptions."
+    },
+    {
+      "name": "Alaska's Forgotten Felines",
+      "type": "cat_rescue",
+      "email": "info@akforgottenfelines.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Chugiak",
+      "state": "AK",
+      "zip_code": "99567",
+      "description": "Founded 2024, new cat rescue organization serving the Anchorage area."
+    },
+    {
+      "name": "Kitty and K-9 Connection",
+      "type": "rescue",
+      "email": "info@kittyandK9connection.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "A New Leash on Life rescues abandoned animals and finds them suitable, permanent homes in Anchorage."
+    },
+    {
+      "name": "Alaska Equine Rescue",
+      "type": "horse_rescue",
+      "email": "info@alaskaequinerescue.com",
+      "phone": null,
+      "website": "https://alaskaequinerescue.com",
+      "address": "PO Box 875276",
+      "city": "Wasilla",
+      "state": "AK",
+      "zip_code": "99687",
+      "description": "Founded 1995. Statewide 501(c)(3). Nurtures neglected horses, provides foster care for law enforcement cruelty cases."
+    },
+    {
+      "name": "Alaska Wildlife Rescue",
+      "type": "wildlife_rehabilitation",
+      "email": "info@alaskawildliferescue.org",
+      "phone": null,
+      "website": "https://alaskawildliferescue.org",
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Rescues wildlife, transports injured animals to rehab centers, organizes foster care, reintroduces animals to wild."
+    },
+    {
+      "name": "Alaska Wildlife Conservation Center",
+      "type": "wildlife_sanctuary",
+      "email": "info@alaskawildlife.org",
+      "phone": "(907) 783-2025",
+      "website": "https://alaskawildlife.org",
+      "address": "Mile 79 Seward Highway",
+      "city": "Portage",
+      "state": "AK",
+      "zip_code": "99587",
+      "description": "Founded 1993. 200-acre sanctuary for injured/orphaned wildlife. Featured on Nat Geo WILD Alaska Animal Rescue."
+    },
+    {
+      "name": "Alaska SeaLife Center",
+      "type": "wildlife_rehabilitation",
+      "email": "info@alaskasealife.org",
+      "phone": "(907) 224-6300",
+      "website": "https://www.alaskasealife.org",
+      "address": "301 Railway Avenue",
+      "city": "Seward",
+      "state": "AK",
+      "zip_code": "99664",
+      "description": "Alaska's only permanent marine mammal rehabilitation center. Monitors 6,640 miles of coastline. 1,356 responses since 1997."
+    },
+    {
+      "name": "Alaska Raptor Center",
+      "type": "wildlife_rehabilitation",
+      "email": "info@alaskaraptor.org",
+      "phone": "(907) 747-8662",
+      "website": "https://alaskaraptor.org",
+      "address": "1000 Raptor Way",
+      "city": "Sitka",
+      "state": "AK",
+      "zip_code": "99835",
+      "description": "Established 1980. Treats 200 injured birds yearly. Featured on Nat Geo WILD. Sanctuary for non-releasable birds."
+    },
+    {
+      "name": "Bird Treatment and Learning Center (Bird TLC)",
+      "type": "wildlife_rehabilitation",
+      "email": "info@birdtlc.org",
+      "phone": "(907) 562-4852",
+      "website": "https://www.birdtlc.org",
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Established 1988. Treats 1,100 wild birds yearly including 70 Bald Eagles. Ambassador Bird education program."
+    },
+    {
+      "name": "Alaska Wildlife Response Center",
+      "type": "wildlife_rehabilitation",
+      "email": "info@birdrescue.org",
+      "phone": null,
+      "website": "https://www.birdrescue.org/about/our-wildlife-centers/alaska-wildlife-response-center",
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Managed by International Bird Rescue. 4,800 sq ft facility for oiled wildlife rehabilitation and emergencies."
+    },
+    {
+      "name": "The August Fund for Alaska Racing Dogs",
+      "type": "sled_dog_rescue",
+      "email": "info@theaugustfund.com",
+      "phone": null,
+      "website": "https://www.theaugustfund.com",
+      "address": null,
+      "city": "Alaska",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Links Iditarod, Yukon Quest, and sprint mushers with adopters to place retired racing sled dogs in homes."
+    },
+    {
+      "name": "Denali National Park Sled Dog Adoption",
+      "type": "sled_dog_rescue",
+      "email": null,
+      "phone": null,
+      "website": "https://www.nps.gov/dena/planyourvisit/kennels-adopt-a-dog.htm",
+      "address": null,
+      "city": "Denali Park",
+      "state": "AK",
+      "zip_code": "99755",
+      "description": "National Park Service program adopting out retired Denali sled dogs to qualified homes."
+    },
+    {
+      "name": "Black Spruce Dog Sledding Adoption Program",
+      "type": "sled_dog_rescue",
+      "email": "info@blacksprucedogsledding.com",
+      "phone": null,
+      "website": "https://blacksprucedogsledding.com/sled-dog-adoption",
+      "address": null,
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99701",
+      "description": "Adopts out retired and non-racing Alaskan Huskies. $200-500 in-state, free for out-of-state adopters."
+    },
+    {
+      "name": "Chena Hot Springs Kennel",
+      "type": "sled_dog_rescue",
+      "email": "info@chenahotsprings.com",
+      "phone": null,
+      "website": "https://chenahotsprings.com/chena-kennel",
+      "address": null,
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99712",
+      "description": "Touring kennel employing mostly rescued dogs from sled-dog rescue organizations and shelters."
+    },
+    {
+      "name": "Homer Animal Friends",
+      "type": "nonprofit",
+      "email": "info@homeranimals.org",
+      "phone": null,
+      "website": "https://www.homeranimals.org",
+      "address": null,
+      "city": "Homer",
+      "state": "AK",
+      "zip_code": "99603",
+      "description": "Founded 1986. Helped spay/neuter 11,715 dogs/cats ($892,000+). Operates HAF Store for pet supplies."
+    },
+    {
+      "name": "Valdez Animal Shelter",
+      "type": "animal_control",
+      "email": "animalshelter@valdezak.gov",
+      "phone": "(907) 835-2286",
+      "website": "https://www.valdezak.gov/846/Animal-Shelter-Control",
+      "address": "276 E. Egan",
+      "city": "Valdez",
+      "state": "AK",
+      "zip_code": "99686",
+      "description": "Municipal shelter handling loose animals, aggressive animals, bites, cruelty investigations, and wildlife rescue."
+    },
+    {
+      "name": "Friends of the Valdez Animal Shelter",
+      "type": "nonprofit",
+      "email": "info@friendsofvaldezanimalshelter.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Valdez",
+      "state": "AK",
+      "zip_code": "99686",
+      "description": "Non-profit offering low cost spay/neuter program supporting Valdez Animal Shelter."
+    },
+    {
+      "name": "Homer Animal Shelter",
+      "type": "animal_control",
+      "email": "animalshelter@cityofhomer-ak.gov",
+      "phone": "(907) 235-3141",
+      "website": "https://www.cityofhomer-ak.gov/police/animal-shelter",
+      "address": null,
+      "city": "Homer",
+      "state": "AK",
+      "zip_code": "99603",
+      "description": "City animal shelter managed by Alaska Mindful Paws. Best Friends Animal Society partner."
+    },
+    {
+      "name": "Soldotna Animal Control",
+      "type": "animal_control",
+      "email": "animalcontrol@soldotna.org",
+      "phone": null,
+      "website": "https://www.soldotna.org/departments/police/animal_control.php",
+      "address": null,
+      "city": "Soldotna",
+      "state": "AK",
+      "zip_code": "99669",
+      "description": "Municipal animal control serving Soldotna on the Kenai Peninsula."
+    },
+    {
+      "name": "Houston Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Houston",
+      "state": "AK",
+      "zip_code": "99694",
+      "description": "Municipal animal control serving City of Houston in Mat-Su Valley."
+    },
+    {
+      "name": "Sitka Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Sitka",
+      "state": "AK",
+      "zip_code": "99835",
+      "description": "Municipal animal control serving the City and Borough of Sitka."
+    },
+    {
+      "name": "Cordova Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Cordova",
+      "state": "AK",
+      "zip_code": "99574",
+      "description": "Municipal animal control serving the remote fishing community of Cordova."
+    },
+    {
+      "name": "Dillingham Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Dillingham",
+      "state": "AK",
+      "zip_code": "99576",
+      "description": "Animal control serving Dillingham in Southwest Alaska."
+    },
+    {
+      "name": "Wrangell Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Wrangell",
+      "state": "AK",
+      "zip_code": "99929",
+      "description": "Animal control serving the City and Borough of Wrangell."
+    },
+    {
+      "name": "Haines Borough Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Haines",
+      "state": "AK",
+      "zip_code": "99827",
+      "description": "Municipal animal control working with HARK for animal welfare services."
+    },
+    {
+      "name": "Seward Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Seward",
+      "state": "AK",
+      "zip_code": "99664",
+      "description": "Municipal animal control serving the City of Seward."
+    },
+    {
+      "name": "Skagway Animal Control",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Skagway",
+      "state": "AK",
+      "zip_code": "99840",
+      "description": "Animal control serving the Municipality of Skagway."
+    },
+    {
+      "name": "Good Fix Program - Alaska",
+      "type": "spay_neuter_clinic",
+      "email": "info@greatergood.org",
+      "phone": null,
+      "website": "https://greatergood.org/good-fix",
+      "address": null,
+      "city": "Alaska",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Greater Good Charities program. Since 2021, 58,000+ free spay/neuters including tribal lands in Alaska."
+    },
+    {
+      "name": "Alaska Beagle Ranch",
+      "type": "breed_rescue",
+      "email": "info@alaskabeagleranch.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Wasilla",
+      "state": "AK",
+      "zip_code": "99654",
+      "description": "Founded 2023, Beagle rescue in Mat-Su Valley."
+    },
+    {
+      "name": "Rays of Hope Animal Rescue",
+      "type": "rescue",
+      "email": "info@raysofhopeak.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Wasilla",
+      "state": "AK",
+      "zip_code": "99654",
+      "description": "Founded 2004, animal welfare organization in Wasilla."
+    },
+    {
+      "name": "Mojo's Hope",
+      "type": "rescue",
+      "email": "info@mojoshope.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Animal rescue and advocacy organization serving Anchorage area."
+    },
+    {
+      "name": "Alaska WildBird Rehabilitation Center",
+      "type": "wildlife_rehabilitation",
+      "email": "info@alaskawildbird.org",
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Cares for injured, orphaned, and sick wild birds. Goal of returning them to the wild and public education."
+    },
+    {
+      "name": "Northern Air Cargo Animal Transport",
+      "type": "transport_partner",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99502",
+      "description": "Donates flights monthly. Moved 160 dogs from Bethel, 219 from Nome to Anchorage for spay/neuter and adoption."
+    },
+    {
+      "name": "Alaska Airlines Pet Transport Partnership",
+      "type": "transport_partner",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99502",
+      "description": "Partners with rescues to transport animals from bush villages to Anchorage and Lower 48 adoptive homes."
+    },
+    {
+      "name": "Tuntutuliak Village Animal Program",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Tuntutuliak",
+      "state": "AK",
+      "zip_code": "99680",
+      "description": "Village requested AARF and Bethel Friends to remove all stray dogs humanely instead of culling."
+    },
+    {
+      "name": "Kotzebue Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Kotzebue",
+      "state": "AK",
+      "zip_code": "99752",
+      "description": "Remote Arctic community. Veterinarians visit every 1-2 years. Partners with rescue groups for transport."
+    },
+    {
+      "name": "Barrow/Utqiagvik Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Utqiagvik",
+      "state": "AK",
+      "zip_code": "99723",
+      "description": "Northernmost US city. Limited vet access. Works with statewide rescues for animal welfare services."
+    },
+    {
+      "name": "Unalaska/Dutch Harbor Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Unalaska",
+      "state": "AK",
+      "zip_code": "99685",
+      "description": "Aleutian Islands community. Remote location requires air transport for veterinary and rescue services."
+    },
+    {
+      "name": "Craig Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Craig",
+      "state": "AK",
+      "zip_code": "99921",
+      "description": "Animal services for City of Craig on Prince of Wales Island in Southeast Alaska."
+    },
+    {
+      "name": "Yakutat Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Yakutat",
+      "state": "AK",
+      "zip_code": "99689",
+      "description": "Remote community between Juneau and Cordova. Limited animal services, partners with regional rescues."
+    },
+    {
+      "name": "Glennallen Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Glennallen",
+      "state": "AK",
+      "zip_code": "99588",
+      "description": "Animal services for Copper River Valley communities."
+    },
+    {
+      "name": "Tok Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Tok",
+      "state": "AK",
+      "zip_code": "99780",
+      "description": "Animal services for Tok Gateway community on the Alaska Highway."
+    },
+    {
+      "name": "Delta Junction Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Delta Junction",
+      "state": "AK",
+      "zip_code": "99737",
+      "description": "Animal services for Delta Junction area in Interior Alaska."
+    },
+    {
+      "name": "Ninilchik Area Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Ninilchik",
+      "state": "AK",
+      "zip_code": "99639",
+      "description": "Covered by Homer Animal Friends voucher program for spay/neuter services."
+    },
+    {
+      "name": "Kachemak Bay Animal Services",
+      "type": "bush_program",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Kachemak",
+      "state": "AK",
+      "zip_code": "99603",
+      "description": "Communities on southern Kachemak Bay served by Homer Animal Friends programs."
+    },
+    {
+      "name": "Eagle River Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Eagle River",
+      "state": "AK",
+      "zip_code": "99577",
+      "description": "Part of Municipality of Anchorage Animal Care and Control service area."
+    },
+    {
+      "name": "Girdwood Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Girdwood",
+      "state": "AK",
+      "zip_code": "99587",
+      "description": "Part of Municipality of Anchorage Animal Care and Control service area."
+    },
+    {
+      "name": "North Pole Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "North Pole",
+      "state": "AK",
+      "zip_code": "99705",
+      "description": "Part of Fairbanks North Star Borough Animal Control service area."
+    },
+    {
+      "name": "Ester Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Ester",
+      "state": "AK",
+      "zip_code": "99725",
+      "description": "Part of Fairbanks North Star Borough Animal Control service area."
+    },
+    {
+      "name": "Big Lake Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Big Lake",
+      "state": "AK",
+      "zip_code": "99652",
+      "description": "Part of Mat-Su Borough Animal Care and Regulation service area."
+    },
+    {
+      "name": "Willow Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Willow",
+      "state": "AK",
+      "zip_code": "99688",
+      "description": "Part of Mat-Su Borough Animal Care and Regulation service area. Near Iditarod restart."
+    },
+    {
+      "name": "Talkeetna Animal Services",
+      "type": "animal_control",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Talkeetna",
+      "state": "AK",
+      "zip_code": "99676",
+      "description": "Part of Mat-Su Borough Animal Care and Regulation service area."
+    },
+    {
+      "name": "Rabbit & Small Animal Rescue Alaska",
+      "type": "small_animal_rescue",
+      "email": "info@rasarescue.org",
+      "phone": null,
+      "website": "https://rasarescue.org",
+      "address": null,
+      "city": "Anchorage",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Works with rabbits, guinea pigs, mice, and chinchillas. Requires experienced exotic vets."
+    },
+    {
+      "name": "Alaska Marine Mammal Stranding Network",
+      "type": "wildlife_rehabilitation",
+      "email": null,
+      "phone": null,
+      "website": "https://www.fisheries.noaa.gov/alaska/marine-life-distress/alaska-marine-mammal-stranding-network",
+      "address": null,
+      "city": "Alaska",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "NOAA Fisheries network coordinating response to stranded marine mammals across Alaska."
+    },
+    {
+      "name": "Alaska Fish and Game Wildlife Program",
+      "type": "state_program",
+      "email": null,
+      "phone": null,
+      "website": "https://www.adfg.alaska.gov/index.cfm?adfg=distressedwildlife.birds",
+      "address": null,
+      "city": "Juneau",
+      "state": "AK",
+      "zip_code": "99811",
+      "description": "State agency coordinating wildlife rehabilitation referrals and wildlife emergency response."
+    },
+    {
+      "name": "Pratt Museum Wildlife Partnership",
+      "type": "wildlife_education",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Homer",
+      "state": "AK",
+      "zip_code": "99603",
+      "description": "Partners with local wildlife rehabilitators for education and awareness programs."
+    },
+    {
+      "name": "University of Alaska Fairbanks Wildlife Program",
+      "type": "wildlife_education",
+      "email": null,
+      "phone": null,
+      "website": null,
+      "address": null,
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99775",
+      "description": "Academic program supporting wildlife research and rehabilitation training."
+    },
+    {
+      "name": "Sluice Box Sled Dogs",
+      "type": "sled_dog_operation",
+      "email": "info@sluiceboxsleddogs.com",
+      "phone": null,
+      "website": "https://sluiceboxsleddogs.com",
+      "address": null,
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99701",
+      "description": "Working kennel with many rescues, offering mushing lessons, tours and husky experiences."
+    },
+    {
+      "name": "Arctic Dog Adventure Co.",
+      "type": "sled_dog_operation",
+      "email": "info@arcticdogco.com",
+      "phone": null,
+      "website": "https://www.arcticdogco.com",
+      "address": null,
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip_code": "99701",
+      "description": "Alaska's first certified ecotourism dog sledding company. Branch of world's oldest Siberian Husky kennel."
+    },
+    {
+      "name": "Alley Cat Allies - Alaska Network",
+      "type": "cat_advocacy",
+      "email": null,
+      "phone": null,
+      "website": "https://www.alleycat.org/our-work/feral-friends-network",
+      "address": null,
+      "city": "Alaska",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "Feral Friends Network connecting Alaskan TNR advocates with resources and veterinary professionals."
+    },
+    {
+      "name": "Best Friends Animal Society - Alaska Partners",
+      "type": "national_partnership",
+      "email": null,
+      "phone": null,
+      "website": "https://bestfriends.org/no-kill-2025/animal-shelter-statistics/alaska",
+      "address": null,
+      "city": "Alaska",
+      "state": "AK",
+      "zip_code": "99501",
+      "description": "National organization partnering with Kenai Animal Shelter, Homer City Animal Shelter, and others."
     }
   ],
-  "total_count": 25,
-  "notes": "Comprehensive collection of Alaska animal shelters, humane societies, and rescue organizations. Alaska's unique geography means many communities are served by small local rescues. Major population centers (Anchorage, Fairbanks, Juneau) have larger shelter operations. Many rescue organizations work with bush communities to transport animals to areas with more adoption opportunities."
+  "total_count": 100,
+  "notes": "Comprehensive collection of 100 Alaska animal organizations including shelters, rescues, wildlife rehabilitation centers, sled dog rescues, and bush community programs. Alaska SPCA celebrates 70 years in 2025. Unique challenges include vast distances, roadless communities, and limited veterinary access in bush villages. Major wildlife centers featured on Nat Geo WILD's Alaska Animal Rescue include Alaska SeaLife Center, Alaska Wildlife Conservation Center, and Alaska Raptor Center. Northern Air Cargo donates flights to transport dogs from remote villages like Bethel and Nome. Organizations like Bethel Friends of Canines serve the 75,000 sq mi Y-K Delta region. Coverage spans from Utqiagvik (northernmost US) to Ketchikan in Southeast Alaska."
 }
