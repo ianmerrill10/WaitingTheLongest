@@ -27,367 +27,233 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #E86C3A;
-            --primary-dark: #C85A2E;
-            --secondary-color: #4A90A4;
-            --text-color: #333;
-            --text-light: #666;
-            --bg-color: #FFF9F5;
-            --card-bg: #FFFFFF;
-            --border-color: #E5E5E5;
-            --success-color: #4CAF50;
-            --warning-color: #FF9800;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo span {
-            font-size: 0.75rem;
-            display: block;
-            font-weight: 400;
-            opacity: 0.9;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        nav a:hover {
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            opacity: 0.8;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        /* Pet Grid */
-        .section-title {
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-color);
-        }
-
-        .pet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .pet-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-
-        .pet-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        }
-
-        .pet-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #eee;
-        }
-
-        .pet-info {
-            padding: 1rem;
-        }
-
-        .pet-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .pet-breed {
-            color: var(--text-light);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .days-waiting {
-            background: var(--warning-color);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .days-waiting.long {
-            background: var(--primary-color);
-        }
-
-        .pet-location {
-            color: var(--text-light);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-light);
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Footer */
-        footer {
-            background: var(--text-color);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .footer-links a {
-            color: white;
-            opacity: 0.8;
-            text-decoration: none;
-            margin: 0 1rem;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        .affiliate-disclosure {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            margin-top: 1rem;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav a {
-                margin: 0 0.75rem;
-            }
-
-            .hero h1 {
-                font-size: 1.75rem;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .pet-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                Waiting The Longest™
-                <span>Because Every Day Matters</span>
-            </div>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/success-stories">Success Stories</a>
-                <a href="/resources">Resources</a>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
             </nav>
+            
+            <div class="header-stats-counter" style="display: flex; flex-direction: column; align-items: center; margin-left: 1rem; background: var(--color-background-alt); padding: 0.5rem 1rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 1px;">Animals Tracked</span>
+                <span id="header-tracked-count" style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary);">--</span>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Help Shelter Animals Find Forever Homes</h1>
-        <p>We highlight the animals who have been waiting the longest. Every day matters when you're waiting for love.</p>
-        <a href="#pets" class="btn btn-primary">Meet the Animals</a>
+        <div class="container">
+            <h1 class="hero-title">Help Shelter Animals Find Forever Homes</h1>
+            <p class="hero-subtitle">We highlight the animals who have been waiting the longest. Every day matters when you're waiting for love.</p>
+            <a href="#pets" class="btn btn-primary btn-large">Meet the Animals</a>
 
-        <div class="hero-stats">
-            <div class="stat">
-                <div class="stat-number" id="stat-available">--</div>
-                <div class="stat-label">Animals Waiting</div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value" id="stat-rescued">--</span>
+                    <span class="hero-stat-label">Total Rescued</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value" id="stat-avg-wait">--</span>
+                    <span class="hero-stat-label">Avg Wait (Days)</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value" id="stat-reduction" style="color: var(--color-success);">--</span>
+                    <span class="hero-stat-label">Wait Time Reduced</span>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-number" id="stat-longest">--</div>
-                <div class="stat-label">Longest Wait (Days)</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="stat-adopted">--</div>
-                <div class="stat-label">Success Stories</div>
+            <div style="text-align: center; margin-top: 1rem; color: var(--color-text-light); font-size: 0.9rem;">
+                <p>When we started, the average wait was <span id="stat-historical">--</span> days. Help us bring it down further!</p>
             </div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <main>
-        <section id="pets">
-            <h2 class="section-title">Animals Waiting The Longest</h2>
+    <main id="main-content">
+        <div class="container">
+            <!-- Featured Animal Section -->
+            <section id="featured-animal" class="section featured-section" style="display: none;">
+                <!-- Content injected by JS -->
+            </section>
 
-            <div id="pet-grid" class="pet-grid">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading animals...</p>
+            <section id="pets" class="section">
+                <h2 class="section-title">Animals Waiting The Longest</h2>
+
+                <!-- Filter Bar -->
+                <div class="filters-section">
+                    <div class="filter-form">
+                        <div class="filter-group">
+                            <label for="species-filter" class="filter-label">Species</label>
+                            <select id="species-filter" class="filter-select" onchange="loadAnimals()">
+                                <option value="">All Animals</option>
+                                <option value="dog">Dogs</option>
+                                <option value="cat">Cats</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="age-filter" class="filter-label">Age</label>
+                            <select id="age-filter" class="filter-select" onchange="loadAnimals()">
+                                <option value="">All Ages</option>
+                                <option value="baby">Baby</option>
+                                <option value="young">Young</option>
+                                <option value="adult">Adult</option>
+                                <option value="senior">Senior</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="size-filter" class="filter-label">Size</label>
+                            <select id="size-filter" class="filter-select" onchange="loadAnimals()">
+                                <option value="">All Sizes</option>
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                                <option value="xlarge">Extra Large</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="gender-filter" class="filter-label">Gender</label>
+                            <select id="gender-filter" class="filter-select" onchange="loadAnimals()">
+                                <option value="">All Genders</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="state-filter" class="filter-label">State</label>
+                            <select id="state-filter" class="filter-select" onchange="loadAnimals()">
+                                <option value="">All States</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+
+                <!-- Animals Grid -->
+                <div id="animals-container">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Loading animals...</p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div id="pagination" class="pagination" style="display: none;">
+                    <!-- Pagination buttons added dynamically -->
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-links">
-            <a href="/about">About Us</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact</a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest™</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#shelters">Shelter Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.</p>
+                <p style="margin-top: var(--spacing-sm);">© 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
         </div>
-        <p class="affiliate-disclosure">
-            As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.
-        </p>
-        <p style="margin-top: 1rem; opacity: 0.7;">
-            © 2025 Waiting The Longest™. All rights reserved.
-        </p>
     </footer>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Waiting The Longest™",
+        "alternateName": "Waiting The Longest",
+        "url": "https://waitingthelongest.com",
+        "description": "Help shelter animals who have waited the longest find forever homes",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://waitingthelongest.com/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Waiting The Longest™",
+        "url": "https://waitingthelongest.com",
+        "logo": "https://waitingthelongest.com/images/logo.png",
+        "description": "Helping shelter animals who have waited the longest find forever homes. Because Every Day Matters.",
+        "sameAs": [
+            "https://twitter.com/WaitingLongest",
+            "https://facebook.com/WaitingTheLongest",
+            "https://instagram.com/WaitingTheLongest"
+        ]
+    }
+    </script>
 
     <!-- JavaScript -->
     <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+
         // API Base URL
-        const API_BASE = '/api';
+        const API_BASE = 'http://127.0.0.1:8000/api';
+
+        // Pagination state
+        let currentPage = 1;
+        let totalPages = 1;
+        const PAGE_SIZE = 12;
 
         // Load statistics
         async function loadStats() {
@@ -395,60 +261,302 @@
                 const response = await fetch(`${API_BASE}/stats`);
                 const data = await response.json();
 
-                document.getElementById('stat-available').textContent = data.available_animals || '--';
-                document.getElementById('stat-longest').textContent = data.longest_wait_days || '--';
-                document.getElementById('stat-adopted').textContent = data.success_stories || '--';
+                document.getElementById('stat-rescued').textContent = data.total_rescued || '0';
+                document.getElementById('stat-avg-wait').textContent = data.average_wait_days || '--';
+                document.getElementById('stat-reduction').textContent = `-${data.wait_time_reduction_days || '0'} days`;
+                document.getElementById('stat-historical').textContent = data.historical_avg_wait_days || '--';
+                
+                // Update header counter
+                const headerCounter = document.getElementById('header-tracked-count');
+                if (headerCounter) {
+                    // Animate the number if it changes
+                    const currentVal = parseInt(headerCounter.textContent.replace(/,/g, '')) || 0;
+                    const newVal = data.total_animals || 0;
+                    
+                    if (currentVal !== newVal) {
+                        headerCounter.textContent = newVal.toLocaleString();
+                        // Add a subtle flash effect
+                        headerCounter.style.color = 'var(--color-accent)';
+                        setTimeout(() => {
+                            headerCounter.style.color = 'var(--color-primary)';
+                        }, 500);
+                    }
+                }
             } catch (error) {
                 console.error('Failed to load stats:', error);
             }
         }
 
-        // Load animals
-        async function loadAnimals() {
-            const grid = document.getElementById('pet-grid');
+        // Poll stats every 5 seconds for real-time updates
+        setInterval(loadStats, 5000);
 
+        // Load states for filter
+        async function loadStates() {
             try {
-                const response = await fetch(`${API_BASE}/animals?sort_by=days_waiting&sort_order=desc&page_size=12`);
+                const response = await fetch(`${API_BASE}/animals?page_size=100`);
                 const data = await response.json();
 
                 if (data.items && data.items.length > 0) {
-                    grid.innerHTML = data.items.map(animal => `
-                        <div class="pet-card" onclick="viewAnimal(${animal.id})">
-                            <img
-                                class="pet-image"
-                                src="${animal.photo_url || '/images/placeholder-pet.jpg'}"
-                                alt="${animal.canonical_name || 'Pet'}"
-                                onerror="this.src='/images/placeholder-pet.jpg'"
-                            >
-                            <div class="pet-info">
-                                <div class="pet-name">${animal.canonical_name || 'Unknown'}</div>
-                                <div class="pet-breed">${animal.breed_primary || animal.species}</div>
-                                <span class="days-waiting ${animal.days_waiting > 100 ? 'long' : ''}">
-                                    ${animal.days_waiting} days waiting
+                    const states = [...new Set(data.items.map(a => a.state).filter(s => s))].sort();
+                    const stateSelect = document.getElementById('state-filter');
+
+                    states.forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state;
+                        option.textContent = state;
+                        stateSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to load states:', error);
+            }
+        }
+
+        // Counter Interval
+        let counterInterval;
+
+        // Start live counters
+        function startCounters() {
+            if (counterInterval) clearInterval(counterInterval);
+            
+            function update() {
+                const now = new Date().getTime();
+                
+                document.querySelectorAll('[data-start-date]').forEach(el => {
+                    const startDate = new Date(el.dataset.startDate).getTime();
+                    const diff = now - startDate;
+                    
+                    if (diff > 0) {
+                        const seconds = Math.floor((diff / 1000) % 60);
+                        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                        const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 7);
+                        const weeks = Math.floor((diff / (1000 * 60 * 60 * 24 * 7)) % 4.345); // Approx weeks in month
+                        const months = Math.floor((diff / (1000 * 60 * 60 * 24 * 30.44)) % 12);
+                        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+                        
+                        if (el.classList.contains('live-counter-large')) {
+                            // Update specific elements for the large counter
+                            el.querySelector('.val-years').textContent = years;
+                            el.querySelector('.val-months').textContent = months;
+                            el.querySelector('.val-weeks').textContent = weeks;
+                            el.querySelector('.val-days').textContent = days;
+                            el.querySelector('.val-hours').textContent = hours;
+                            el.querySelector('.val-minutes').textContent = minutes;
+                            el.querySelector('.val-seconds').textContent = seconds;
+                        } else {
+                            // Simple format for cards
+                            el.innerHTML = `
+                                <span class="card-counter-label">Waiting For</span>
+                                <span class="card-counter-text">
+                                    ${years > 0 ? years + 'y ' : ''}${months > 0 ? months + 'm ' : ''}${days}d ${hours}h ${minutes}m ${seconds}s
                                 </span>
-                                <div class="pet-location">
+                            `;
+                        }
+                    }
+                });
+            }
+            
+            update();
+            counterInterval = setInterval(update, 1000);
+        }
+
+        // Load animals with pagination
+        async function loadAnimals(page = 1) {
+            currentPage = page;
+            const container = document.getElementById('animals-container');
+            const featuredContainer = document.getElementById('featured-animal');
+            const paginationContainer = document.getElementById('pagination');
+            
+            // Filters
+            const species = document.getElementById('species-filter').value;
+            const age = document.getElementById('age-filter').value;
+            const size = document.getElementById('size-filter').value;
+            const gender = document.getElementById('gender-filter').value;
+            const state = document.getElementById('state-filter').value;
+
+            // Show loading spinner
+            container.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading animals...</p>
+                </div>
+            `;
+            paginationContainer.style.display = 'none';
+
+            try {
+                let url = `${API_BASE}/animals?sort_by=days_waiting&sort_order=desc&page_size=${PAGE_SIZE}&page=${page}`;
+
+                if (species) url += `&species=${species}`;
+                if (age) url += `&age_group=${age}`;
+                if (size) url += `&size=${size}`;
+                if (gender) url += `&gender=${gender}`;
+                if (state) url += `&state=${state}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    // Calculate total pages
+                    totalPages = Math.ceil((data.total || data.items.length) / PAGE_SIZE);
+                    
+                    let animalsToRender = data.items;
+                    
+                    // Handle Featured Animal (Only on page 1 and no filters active)
+                    const isDefaultView = !species && !age && !size && !gender && !state && page === 1;
+                    
+                    if (isDefaultView && animalsToRender.length > 0) {
+                        const featured = animalsToRender[0];
+                        animalsToRender = animalsToRender.slice(1); // Remove from grid
+                        
+                        featuredContainer.style.display = 'block';
+                        featuredContainer.innerHTML = `
+                            <div class="featured-card">
+                                <div class="featured-photo-container">
+                                    <div class="featured-badge">WAITING ${featured.days_waiting} DAYS</div>
+                                    <img 
+                                        src="${featured.photo_url || 'https://placedog.net/800/600'}" 
+                                        alt="${featured.canonical_name}" 
+                                        class="featured-photo"
+                                        onerror="this.src='https://placedog.net/800/600'"
+                                    >
+                                </div>
+                                <div class="featured-info">
+                                    <div class="featured-label">Longest Waiting Resident</div>
+                                    <h2 class="featured-name">${featured.canonical_name}</h2>
+                                    <p class="featured-breed">${featured.breed_primary || featured.species} • ${featured.age_group || 'Adult'} • ${featured.gender || 'Unknown'}</p>
+                                    
+                                    <div class="live-counter-large" data-start-date="${featured.first_seen_at}">
+                                        <div class="counter-title">Time Waiting For A Home</div>
+                                        <div class="counter-grid">
+                                            <div class="counter-item"><span class="counter-value val-years">0</span><span class="counter-label">Years</span></div>
+                                            <div class="counter-item"><span class="counter-value val-months">0</span><span class="counter-label">Months</span></div>
+                                            <div class="counter-item"><span class="counter-value val-weeks">0</span><span class="counter-label">Weeks</span></div>
+                                            <div class="counter-item"><span class="counter-value val-days">0</span><span class="counter-label">Days</span></div>
+                                        </div>
+                                        <div class="counter-row" style="margin-top: 1rem;">
+                                            <div class="counter-item"><span class="counter-value val-hours">0</span><span class="counter-label">Hours</span></div>
+                                            <div class="counter-item"><span class="counter-value val-minutes">0</span><span class="counter-label">Mins</span></div>
+                                            <div class="counter-item"><span class="counter-value val-seconds">0</span><span class="counter-label">Secs</span></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+                                        ${featured.canonical_name} has been waiting longer than anyone else. 
+                                        Located in ${featured.city || 'Unknown'}, ${featured.state || ''}.
+                                        Please help us find them a forever home today.
+                                    </p>
+                                    
+                                    <button class="btn btn-primary btn-large" onclick="viewAnimal(${featured.id})">Adopt ${featured.canonical_name}</button>
+                                </div>
+                            </div>
+                        `;
+                    } else if (!isDefaultView) {
+                        featuredContainer.style.display = 'none';
+                    }
+
+                    container.innerHTML = animalsToRender.map(animal => `
+                        <div class="animal-card" onclick="viewAnimal(${animal.id})">
+                            <div class="animal-photo">
+                                <img
+                                    src="${animal.photo_url || 'https://placedog.net/400/300'}"
+                                    alt="${animal.canonical_name}"
+                                    onerror="this.src='https://placedog.net/400/300'"
+                                >
+                                <div class="card-counter-overlay" data-start-date="${animal.first_seen_at}">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="animal-info">
+                                <h3 class="animal-name">${animal.canonical_name || 'Unknown'}</h3>
+                                <p class="animal-breed">${animal.breed_primary || animal.species}</p>
+                                <div class="animal-details">
+                                    ${animal.age_group ? `<span class="detail-item">${animal.age_group}</span>` : ''}
+                                    ${animal.gender ? `<span class="detail-item">${animal.gender}</span>` : ''}
+                                    ${animal.size ? `<span class="detail-item">${animal.size}</span>` : ''}
+                                </div>
+                                <div class="pet-location" style="margin-top: var(--spacing-sm); color: var(--color-text-muted); font-size: var(--font-size-sm);">
                                     ${animal.city || ''} ${animal.state || ''}
                                 </div>
                             </div>
                         </div>
                     `).join('');
+
+                    // Render pagination if more than 1 page
+                    if (totalPages > 1) {
+                        renderPagination();
+                        paginationContainer.style.display = 'flex';
+                    }
+                    
+                    // Start counters
+                    startCounters();
+                    
                 } else {
-                    grid.innerHTML = '<p>No animals found. Check back soon!</p>';
+                    container.innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">🐾</div>
+                            <h3>No animals found</h3>
+                            <p>Try adjusting your filters to see more animals.</p>
+                            <button class="clear-filters-btn" onclick="clearFilters()">Clear Filters</button>
+                        </div>
+                    `;
+                    featuredContainer.style.display = 'none';
                 }
             } catch (error) {
                 console.error('Failed to load animals:', error);
-                grid.innerHTML = '<p>Unable to load animals. Please try again later.</p>';
+                container.innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">⚠️</div>
+                        <h3>Unable to load animals</h3>
+                        <p>Please try again later.</p>
+                        <button class="retry-button" onclick="loadAnimals()">Retry</button>
+                    </div>
+                `;
             }
+        }
+
+        // Render pagination controls
+        function renderPagination() {
+            const container = document.getElementById('pagination');
+            let html = '';
+
+            // Previous button
+            html += `<button class="page-btn" onclick="loadAnimals(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="loadAnimals(${i})">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span class="page-ellipsis">...</span>`;
+                }
+            }
+
+            // Next button
+            html += `<button class="page-btn" onclick="loadAnimals(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+
+            container.innerHTML = html;
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            document.getElementById('species-filter').value = '';
+            document.getElementById('age-filter').value = '';
+            document.getElementById('size-filter').value = '';
+            document.getElementById('gender-filter').value = '';
+            document.getElementById('state-filter').value = '';
+            loadAnimals();
         }
 
         // View animal details
         function viewAnimal(id) {
-            window.location.href = `/animal/${id}`;
+            window.location.href = `animal.html?id=${id}`;
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             loadStats();
+            loadStates();
             loadAnimals();
         });
     </script>

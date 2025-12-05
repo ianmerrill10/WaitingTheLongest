@@ -31,14 +31,10 @@ import time
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-try:
-    from app.database import SessionLocal
-    from app.models import Animal, SocialPromotion
-    from app.config import settings
-except ImportError:
-    from ..app.database import SessionLocal
-    from ..app.models import Animal, SocialPromotion
-    from ..app.config import settings
+# Use absolute imports - requires backend/ in PYTHONPATH
+from app.database import SessionLocal
+from app.models import Animal, SocialPromotion
+from app.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -316,6 +312,29 @@ def run_all_workers():
     # Run cleanup
     cleanup = CleanupWorker()
     results["cleanup"] = cleanup.run()
+
+    # Run Knowledge Agent (Daily)
+    # In a real production system, we would check the last run time.
+    # For this implementation, we assume the scheduler runs daily or handles the frequency.
+    try:
+        logger.info("Running Knowledge Agent...")
+        # Import here to avoid path issues depending on how script is run
+        import sys
+        import os
+        
+        # Ensure backend is in path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        backend_dir = os.path.dirname(current_dir)
+        if backend_dir not in sys.path:
+            sys.path.append(backend_dir)
+            
+        from tools.knowledge_agent import KnowledgeAgent
+        agent = KnowledgeAgent()
+        agent.run()
+        results["knowledge_agent"] = "success"
+    except Exception as e:
+        logger.error(f"Knowledge Agent failed: {e}")
+        results["knowledge_agent"] = f"failed: {e}"
 
     logger.info("=" * 60)
     logger.info("Worker run complete")

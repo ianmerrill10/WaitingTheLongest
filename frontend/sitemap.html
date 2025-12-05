@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete sitemap of Waiting The Longest™. Find all pages including pet adoption, success stories, about us, and contact information.">
+    <meta name="keywords" content="sitemap, site map, navigation, pet adoption, shelter animals, website structure">
+    <meta name="robots" content="index, follow">
+    <title>Site Map - Waiting The Longest™</title>
+
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:title" content="Site Map - Waiting The Longest™">
+    <meta property="og:description" content="Navigate all pages of Waiting The Longest™ - helping shelter animals find forever homes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://waitingthelongest.com/sitemap.html">
+    <meta property="og:image" content="https://waitingthelongest.com/images/og-sitemap.jpg">
+    <meta property="og:site_name" content="Waiting The Longest™">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Site Map - Waiting The Longest™">
+    <meta name="twitter:description" content="Navigate all pages of Waiting The Longest™ - helping shelter animals find forever homes.">
+    <meta name="twitter:image" content="https://waitingthelongest.com/images/og-sitemap.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SiteNavigationElement",
+      "name": "Waiting The Longest™ Sitemap",
+      "url": "https://waitingthelongest.com/sitemap.html",
+      "description": "Complete navigation structure for Waiting The Longest™",
+      "hasPart": [
+        {
+          "@type": "WebPage",
+          "name": "Home - Browse Animals",
+          "url": "https://waitingthelongest.com/index.html",
+          "description": "Browse adoptable shelter animals sorted by wait time"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Animal Detail View",
+          "url": "https://waitingthelongest.com/animal.html",
+          "description": "View detailed information about individual animals"
+        },
+        {
+          "@type": "AboutPage",
+          "name": "About Us",
+          "url": "https://waitingthelongest.com/about.html",
+          "description": "Learn about our mission to help longest-waiting shelter animals"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Success Stories",
+          "url": "https://waitingthelongest.com/stories.html",
+          "description": "Read heartwarming adoption success stories"
+        },
+        {
+          "@type": "ContactPage",
+          "name": "Contact Us",
+          "url": "https://waitingthelongest.com/contact.html",
+          "description": "Get in touch with our team or become a shelter partner"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Privacy Policy",
+          "url": "https://waitingthelongest.com/privacy.html",
+          "description": "Our commitment to protecting your privacy"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Terms of Service",
+          "url": "https://waitingthelongest.com/terms.html",
+          "description": "Terms and conditions for using our platform"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Demo",
+          "url": "https://waitingthelongest.com/demo.html",
+          "description": "Interactive demo of our platform features"
+                },
+                {
+                    "@type": "WebPage",
+                    "name": "Shelter Directory & Rescue Data",
+                    "url": "https://waitingthelongest.com/shelters.html",
+                    "description": "Explore licensed Massachusetts rescues, national transport hubs, and AKC breed coordinators."
+                },
+                {
+                    "@type": "WebPage",
+                    "name": "Services & Partner Programs",
+                    "url": "https://waitingthelongest.com/services.html",
+                    "description": "White-glove programs for shelters, transports, and sponsors seeking longest-waiting pet campaigns."
+                },
+                {
+                    "@type": "WebPage",
+                    "name": "Knowledge Center",
+                    "url": "https://waitingthelongest.com/knowledge.html",
+                    "description": "DIY resources, transport checklists, and community education for adopters and shelter partners."
+                },
+                {
+                    "@type": "Blog",
+                    "name": "Blog & Field Notes",
+                    "url": "https://waitingthelongest.com/blog.html",
+                    "description": "Long-form coverage of transport missions, fundraising guides, and policy updates."
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .sitemap-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .sitemap-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sitemap-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .sitemap-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: var(--color-white);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-2xl);
+            flex-shrink: 0;
+        }
+
+        .sitemap-title-wrapper {
+            flex: 1;
+        }
+
+        .sitemap-card h3 {
+            font-size: var(--font-size-lg);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .sitemap-status {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-complete {
+            background: #E8F5E9;
+            color: var(--color-success);
+        }
+
+        .status-progress {
+            background: #FFF3E0;
+            color: var(--color-warning);
+        }
+
+        .sitemap-card p {
+            color: var(--color-text-light);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .sitemap-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-primary);
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .sitemap-link:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .sitemap-intro {
+            max-width: 800px;
+            margin: 0 auto var(--spacing-2xl);
+            text-align: center;
+        }
+
+        .sitemap-intro p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-light);
+            line-height: 1.8;
+        }
+
+        .sitemap-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .sitemap-section h2 {
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-2xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .sitemap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            <nav class="nav" id="main-nav" aria-label="Main navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Site Map</h1>
+            <p>Navigate all pages and features of Waiting The Longest™</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <section class="content-section">
+            <div class="container">
+                <!-- Introduction -->
+                <div class="sitemap-intro">
+                    <p>
+                        Welcome to our complete site map. Below you'll find all pages on Waiting The Longest™,
+                        organized to help you quickly navigate to the information you need. Each page is designed
+                        to help connect shelter animals with loving families.
+                    </p>
+                </div>
+
+                <!-- Main Pages Section -->
+                <div class="sitemap-section">
+                    <h2>Main Pages</h2>
+                    <div class="sitemap-grid">
+                        <!-- Home Page -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🏠</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Home / Browse Animals</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Browse adoptable shelter animals sorted by wait time. Filter by species, location,
+                                age, and more. Features real-time shelter data and urgent adoption alerts for
+                                longest-waiting pets.
+                            </p>
+                            <a href="index.html" class="sitemap-link">
+                                Visit Home Page →
+                            </a>
+                        </article>
+
+                        <!-- Animal Detail -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🐕</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Animal Detail View</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                View comprehensive information about individual animals including photos,
+                                personality traits, medical history, shelter information, and direct contact
+                                options for adoption inquiries.
+                            </p>
+                            <a href="animal.html" class="sitemap-link">
+                                View Example Animal →
+                            </a>
+                        </article>
+
+                        <!-- About Us -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">ℹ️</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>About Us</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Learn about our mission to help longest-waiting shelter animals find forever homes.
+                                Discover how we work, why wait time matters, and meet the team behind the platform.
+                            </p>
+                            <a href="about.html" class="sitemap-link">
+                                Learn About Us →
+                            </a>
+                        </article>
+
+                        <!-- Success Stories -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">❤️</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Success Stories</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Read heartwarming stories from families who adopted longest-waiting animals.
+                                Submit your own adoption success story and inspire others to adopt shelter pets.
+                            </p>
+                            <a href="stories.html" class="sitemap-link">
+                                Read Stories →
+                            </a>
+                        </article>
+
+                        <!-- Contact -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">📧</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Contact Us</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Get in touch with our team, report issues, or inquire about becoming a shelter
+                                partner. Includes contact form, email addresses, and information for rescue
+                                organizations.
+                            </p>
+                            <a href="contact.html" class="sitemap-link">
+                                Contact Us →
+                            </a>
+                        </article>
+
+                        <!-- Demo -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🎯</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Demo Page</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Interactive demonstration of platform features, functionality, and user interface.
+                                Explore sample data and see how our system works to connect adopters with pets.
+                            </p>
+                            <a href="demo.html" class="sitemap-link">
+                                Try Demo →
+                            </a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Programs & Resource Hubs -->
+                <div class="sitemap-section">
+                    <h2>Programs & Resource Hubs</h2>
+                    <div class="sitemap-grid">
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🛠️</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Services & Partner Programs</h3>
+                                    <span class="sitemap-status status-progress">Shipping Weekly</span>
+                                </div>
+                            </div>
+                            <p>
+                                White-glove offerings for municipal shelters and transport teams. Includes campaign planning,
+                                press support, and embedded social media help for animals who have waited the longest.
+                            </p>
+                            <a href="services.html" class="sitemap-link">
+                                Explore Services →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🧠</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Knowledge Center</h3>
+                                    <span class="sitemap-status status-progress">Always Growing</span>
+                                </div>
+                            </div>
+                            <p>
+                                A self-serve library of transport checklists, emergency foster guides, and fundraising templates.
+                                Perfect for boots-on-the-ground volunteers who need answers fast.
+                            </p>
+                            <a href="knowledge.html" class="sitemap-link">
+                                Visit Knowledge Hub →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">📰</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Blog & Field Notes</h3>
+                                    <span class="sitemap-status status-progress">New Posts Monthly</span>
+                                </div>
+                            </div>
+                            <p>
+                                Long-form field updates from transports, fundraising spotlights, and deep dives into state-by-state
+                                legislation impacting the animals we advocate for.
+                            </p>
+                            <a href="blog.html" class="sitemap-link">
+                                Read The Blog →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🛣️</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Shelter Directory & Rescue Data</h3>
+                                    <span class="sitemap-status status-complete">Powered by API</span>
+                                </div>
+                            </div>
+                            <p>
+                                Newly expanded hub featuring Massachusetts partners, national transport corridors, and AKC
+                                safety-net contacts fed by the `/api/resources/rescues` endpoint for programmatic access.
+                            </p>
+                            <a href="shelters.html" class="sitemap-link">
+                                Browse Directory →
+                            </a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Accounts & Utility -->
+                <div class="sitemap-section">
+                    <h2>Accounts & Utility Pages</h2>
+                    <div class="sitemap-grid">
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🔐</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Partner Login</h3>
+                                    <span class="sitemap-status status-progress">Beta Access</span>
+                                </div>
+                            </div>
+                            <p>
+                                Secure portal for shelter partners to view contact info, upload animals, and manage
+                                donation overlays. Currently limited to onboarding partners.
+                            </p>
+                            <a href="login.html" class="sitemap-link">
+                                Go to Login →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">✨</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Create Partner Account</h3>
+                                    <span class="sitemap-status status-progress">Invite Only</span>
+                                </div>
+                            </div>
+                            <p>
+                                Intake form for new shelters and rescues. Collects vet references, transport capacity,
+                                and social links so we can prioritize the longest-waiting pets in your care.
+                            </p>
+                            <a href="signup.html" class="sitemap-link">
+                                Request Access →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">📝</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Article Detail Template</h3>
+                                    <span class="sitemap-status status-complete">CMS Ready</span>
+                                </div>
+                            </div>
+                            <p>
+                                Living template for spotlight posts. Supports hero art, pull quotes, rescue data embeds,
+                                and call-to-action cards that tie back to featured animals.
+                            </p>
+                            <a href="article.html" class="sitemap-link">
+                                View Article Template →
+                            </a>
+                        </article>
+
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🚨</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>404 / Error Handling</h3>
+                                    <span class="sitemap-status status-complete">Tracked</span>
+                                </div>
+                            </div>
+                            <p>
+                                Custom 404 page with quick recovery links back to the animal directory, success stories,
+                                and shelter resources so no visitor hits a dead end.
+                            </p>
+                            <a href="404.html" class="sitemap-link">
+                                Preview 404 Experience →
+                            </a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Legal & Information Pages -->
+                <div class="sitemap-section">
+                    <h2>Legal & Information</h2>
+                    <div class="sitemap-grid">
+                        <!-- Privacy Policy -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🔒</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Privacy Policy</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Our commitment to protecting your privacy. Learn how we collect, use, and safeguard
+                                your personal information when using Waiting The Longest™.
+                            </p>
+                            <a href="privacy.html" class="sitemap-link">
+                                Read Privacy Policy →
+                            </a>
+                        </article>
+
+                        <!-- Terms of Service -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">📄</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Terms of Service</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Terms and conditions for using our platform. Understand your rights and
+                                responsibilities when browsing pets, contacting shelters, and using our services.
+                            </p>
+                            <a href="terms.html" class="sitemap-link">
+                                Read Terms of Service →
+                            </a>
+                        </article>
+
+                        <!-- Site Map -->
+                        <article class="sitemap-card">
+                            <div class="sitemap-card-header">
+                                <div class="sitemap-icon" aria-hidden="true">🗺️</div>
+                                <div class="sitemap-title-wrapper">
+                                    <h3>Site Map</h3>
+                                    <span class="sitemap-status status-complete">100% Complete</span>
+                                </div>
+                            </div>
+                            <p>
+                                Complete navigation structure of Waiting The Longest™. You are currently viewing
+                                this page - find links to all sections of our website organized by category.
+                            </p>
+                            <a href="sitemap.html" class="sitemap-link" aria-current="page">
+                                You Are Here
+                            </a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Quick Navigation -->
+                <div class="sitemap-section">
+                    <div class="content-card" style="max-width: 800px; margin: 0 auto;">
+                        <h2>Need Help Finding Something?</h2>
+                        <p>
+                            If you can't find what you're looking for in the sitemap above, here are some helpful resources:
+                        </p>
+                        <ul>
+                            <li><strong>Looking to adopt?</strong> Start with our <a href="index.html">Browse Animals</a> page to see all available pets sorted by wait time.</li>
+                            <li><strong>Need playbooks or training?</strong> Dive into the <a href="knowledge.html">Knowledge Center</a> for transport checklists, fundraising tips, and volunteer guides.</li>
+                            <li><strong>Shelter or rescue organization?</strong> Pair the <a href="services.html">Services & Partner Programs</a> overview with our <a href="contact.html#shelters">Partner Information</a> to join the network.</li>
+                            <li><strong>Hunting for data?</strong> Use the <a href="shelters.html">Shelter Directory & Rescue Data</a> to find Massachusetts partners, transport hubs, and AKC contacts.</li>
+                            <li><strong>Recently adopted?</strong> Share your <a href="stories.html">Success Story</a> and inspire other potential adopters.</li>
+                            <li><strong>Have questions?</strong> Visit our <a href="contact.html">Contact Page</a> to get in touch with our team.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Every adoption saves a life and opens up shelter space for another animal in need. Browse our longest-waiting pets today.</p>
+                <a href="index.html" class="btn btn-primary btn-large">Browse Available Pets</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest™</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="sitemap.html">Site Map</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#shelters">Shelter Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.</p>
+                <p style="margin-top: var(--spacing-sm);">© 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

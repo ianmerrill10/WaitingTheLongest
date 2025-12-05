@@ -19,7 +19,24 @@ management and validation.
 
 from pydantic_settings import BaseSettings
 from typing import List, Optional
+from pathlib import Path
 import os
+
+
+def _resolve_env_file() -> Optional[str]:
+    """Resolve .env file path supporting both repo root and backend folder."""
+    backend_dir = Path(__file__).resolve().parent.parent
+    candidates = [
+        backend_dir.parent / ".env",  # repository root
+        backend_dir / ".env",         # backend/.env (legacy location)
+    ]
+    for path in candidates:
+        if path.exists():
+            return str(path)
+    return None
+
+
+ENV_FILE = _resolve_env_file()
 
 
 class Settings(BaseSettings):
@@ -78,10 +95,17 @@ class Settings(BaseSettings):
     CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:8000",
+        "http://localhost:8080",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:8080",
+        "http://127.0.0.1:5500",  # Live Server
+        "http://localhost:5500",  # Live Server
         "https://waitingthelongest.com",
         "https://www.waitingthelongest.com",
         "https://waitedthelongest.com",
         "https://www.waitedthelongest.com",
+        "*", # Allow all for development
     ]
 
     # JWT Settings
@@ -110,7 +134,7 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_HOUR: int = 1000
 
     class Config:
-        env_file = ".env"
+        env_file = ENV_FILE or ".env"
         env_file_encoding = "utf-8"
         case_sensitive = True
 

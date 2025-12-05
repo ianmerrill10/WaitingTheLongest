@@ -15,7 +15,7 @@ IMPORTANT: Any changes to this file MUST be documented in OWNERS_MANUAL.md
 """
 
 from pydantic import BaseModel, Field, HttpUrl, EmailStr
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 from datetime import datetime
 
 
@@ -39,6 +39,13 @@ class HealthResponse(BaseModel):
     database: str
     timestamp: str
     version: str
+
+
+class ReadinessResponse(HealthResponse):
+    """Readiness probe response with extended diagnostics"""
+    uptime_seconds: float
+    rescue_directory_version: str
+    checks: Dict[str, str] = Field(default_factory=dict)
 
 
 # =============================================================================
@@ -239,3 +246,97 @@ class SocialPromotionOut(BaseSchema):
     likes: int
     shares: int
     posted_at: Optional[datetime]
+
+
+# =============================================================================
+# Contact Form Schemas
+# =============================================================================
+
+class ContactSubmissionCreate(BaseModel):
+    """Create a contact form submission"""
+    name: str = Field(..., min_length=1, max_length=200, description="Sender's name")
+    email: EmailStr = Field(..., description="Sender's email address")
+    subject: str = Field(..., min_length=1, max_length=300, description="Message subject")
+    message: str = Field(..., min_length=10, max_length=5000, description="Message content")
+
+
+class ContactSubmissionResponse(BaseModel):
+    """Contact form submission response"""
+    success: bool
+    message: str
+    submission_id: int
+
+
+# =============================================================================
+# Shelter Schemas
+# =============================================================================
+
+class ShelterBase(BaseModel):
+    """Base shelter fields"""
+    name: str
+    city: Optional[str] = None
+    state: Optional[str] = None
+
+
+class ShelterListItem(BaseSchema):
+    """Shelter item for list view"""
+    id: int
+    name: str
+    city: Optional[str]
+    state: Optional[str]
+    email: Optional[str]
+    phone: Optional[str]
+    website: Optional[str]
+    animal_count: int = 0
+
+
+class ShelterDetailResponse(BaseSchema):
+    """Detailed shelter response with animals"""
+    id: int
+    name: str
+    source: Optional[str]
+    email: Optional[str]
+    phone: Optional[str]
+    website: Optional[str]
+    address: Optional[str]
+    city: Optional[str]
+    state: Optional[str]
+    zip_code: Optional[str]
+    latitude: Optional[float]
+    longitude: Optional[float]
+    total_animals: int
+    animals: List[AnimalListItem] = []
+
+
+class ShelterListResponse(BaseModel):
+    """Paginated shelter list response"""
+    items: List[ShelterListItem]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
+
+# =============================================================================
+# Products/Affiliate Schemas
+# =============================================================================
+
+class ProductListItem(BaseModel):
+    """Product item for list view"""
+    product_id: str
+    name: str
+    category: str
+    pet_type: str
+    price_range: str
+    affiliate_url: str
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+
+
+class ProductListResponse(BaseModel):
+    """Product list response"""
+    products: List[ProductListItem]
+    count: int
+    pet_type: Optional[str]
+    category: Optional[str]
+    disclosure: str = "As an Amazon Associate, Waiting The Longest earns from qualifying purchases."

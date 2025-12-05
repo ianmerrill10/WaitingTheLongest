@@ -56,3 +56,4 @@ isort==5.13.2
 
 # Logging
 structlog==23.2.0
+beautifulsoup4==4.12.3

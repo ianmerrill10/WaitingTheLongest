@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Waiting The Longest™ Knowledge Library - Expert advice on pet care, breed information, and training tips.">
+    <title>Knowledge Library - Waiting The Longest™</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .library-header {
+            background-color: var(--color-background-alt);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 1rem;
+        }
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+        }
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .topic-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+            transition: transform 0.2s;
+        }
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .topic-image {
+            height: 160px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .topic-content {
+            padding: 1.5rem;
+        }
+        .topic-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+        .topic-desc {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .article-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .article-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .article-item:last-child {
+            border-bottom: none;
+        }
+        .article-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+        .article-meta {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link active">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="header-stats-counter" style="display: flex; flex-direction: column; align-items: center; margin-left: 1rem; background: var(--color-background-alt); padding: 0.5rem 1rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 1px;">Animals Tracked</span>
+                <span id="header-tracked-count" style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary);">--</span>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <div class="library-header">
+        <div class="container">
+            <h1>Knowledge Library</h1>
+            <p>Everything you need to know about adoption, care, and training.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search articles, breeds, tips...">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container section">
+        <div class="topic-grid">
+            <!-- Topic 1: Adoption Guides -->
+            <div class="topic-card">
+                <div class="topic-image">🏠</div>
+                <div class="topic-content">
+                    <h3 class="topic-title">Adoption Guides</h3>
+                    <p class="topic-desc">Step-by-step guides to help you navigate the adoption process.</p>
+                    <ul class="article-list" id="list-adoption-guides">
+                        <li class="article-item">Loading articles...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 2: Breed Information -->
+            <div class="topic-card">
+                <div class="topic-image">🐕</div>
+                <div class="topic-content">
+                    <h3 class="topic-title">Breed Information</h3>
+                    <p class="topic-desc">Learn about different breeds and their specific needs.</p>
+                    <ul class="article-list" id="list-breed-information">
+                        <li class="article-item">Loading articles...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 3: Training & Behavior -->
+            <div class="topic-card">
+                <div class="topic-image">🎓</div>
+                <div class="topic-content">
+                    <h3 class="topic-title">Training & Behavior</h3>
+                    <p class="topic-desc">Tips and tricks for a well-behaved and happy pet.</p>
+                    <ul class="article-list" id="list-training-behavior">
+                        <li class="article-item">Loading articles...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 4: Health & Wellness -->
+            <div class="topic-card">
+                <div class="topic-image">🩺</div>
+                <div class="topic-content">
+                    <h3 class="topic-title">Health & Wellness</h3>
+                    <p class="topic-desc">Keeping your furry friend healthy and active.</p>
+                    <ul class="article-list" id="list-health-wellness">
+                        <li class="article-item">Loading articles...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Waiting The Longest™. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const data = await response.json();
+                
+                // Update header counter
+                const headerCounter = document.getElementById('header-tracked-count');
+                if (headerCounter) {
+                    const currentVal = parseInt(headerCounter.textContent.replace(/,/g, '')) || 0;
+                    const newVal = data.total_animals || 0;
+                    
+                    if (currentVal !== newVal) {
+                        headerCounter.textContent = newVal.toLocaleString();
+                        headerCounter.style.color = 'var(--color-accent)';
+                        setTimeout(() => {
+                            headerCounter.style.color = 'var(--color-primary)';
+                        }, 500);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            setInterval(loadStats, 5000);
+            loadArticles();
+        });
+
+        async function loadArticles() {
+            const apiUrl = 'http://127.0.0.1:8000/api/articles';
+            console.log('Fetching articles from:', apiUrl);
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch articles: ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log('Articles data received:', data);
+                // Handle both array (legacy) and object with items (new) formats
+                const articles = Array.isArray(data) ? data : (data.items || []);
+                renderArticles(articles);
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                // Show error state in lists
+                const lists = document.querySelectorAll('.article-list');
+                lists.forEach(list => {
+                    list.innerHTML = `<li class="article-item" style="color: red;">Failed to load articles. Error: ${error.message}</li>`;
+                });
+            }
+        }
+
+        function renderArticles(articles) {
+            // Map categories to list IDs
+            const categoryMap = {
+                'Adoption Guides': 'list-adoption-guides',
+                'Breed Information': 'list-breed-information',
+                'Training & Behavior': 'list-training-behavior',
+                'Health & Wellness': 'list-health-wellness'
+            };
+
+            // Clear existing lists
+            Object.values(categoryMap).forEach(id => {
+                const list = document.getElementById(id);
+                if (list) list.innerHTML = '';
+            });
+
+            // Populate lists
+            articles.forEach(article => {
+                const listId = categoryMap[article.category];
+                const list = document.getElementById(listId);
+                
+                if (list) {
+                    const li = document.createElement('li');
+                    li.className = 'article-item';
+                    li.innerHTML = `
+                        <a href="article.html?id=${article.slug}" class="article-link">
+                            ${article.title} 
+                            <span class="article-meta">${article.read_time || '5 min read'}</span>
+                        </a>
+                    `;
+                    list.appendChild(li);
+                }
+            });
+
+            // Handle empty lists
+            Object.values(categoryMap).forEach(id => {
+                const list = document.getElementById(id);
+                if (list && list.children.length === 0) {
+                    list.innerHTML = '<li class="article-item" style="color: var(--color-text-muted);">No articles yet.</li>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

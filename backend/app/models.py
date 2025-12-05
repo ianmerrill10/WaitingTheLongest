@@ -206,6 +206,8 @@ class Shelter(Base):
     email = Column(String(200), nullable=True)
     phone = Column(String(50), nullable=True)
     website = Column(Text, nullable=True)
+    description = Column(Text, nullable=True)
+    last_verified_at = Column(DateTime, default=datetime.utcnow)
 
     # Location
     address = Column(String(300), nullable=True)
@@ -217,6 +219,15 @@ class Shelter(Base):
 
     # Stats
     total_animals = Column(Integer, default=0)
+
+    # Social media (for rescue/shelter registry)
+    facebook_url = Column(Text, nullable=True)
+    instagram_url = Column(Text, nullable=True)
+    twitter_url = Column(Text, nullable=True)
+    tiktok_url = Column(Text, nullable=True)
+
+    # Organization type (shelter, rescue, sanctuary, municipal, etc.)
+    org_type = Column(String(50), nullable=True)
 
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -343,3 +354,60 @@ class AffiliateClick(Base):
 
     # Timestamp
     clicked_at = Column(DateTime, default=datetime.utcnow)
+
+
+class ContactSubmission(Base):
+    """
+    Contact form submissions from users.
+    
+    Stores inquiries, feedback, and partnership requests.
+    """
+    __tablename__ = "contact_submissions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    
+    # Contact info
+    name = Column(String(200), nullable=False)
+    email = Column(String(200), nullable=False, index=True)
+    subject = Column(String(300), nullable=False)
+    message = Column(Text, nullable=False)
+    
+    # Metadata
+    ip_hash = Column(String(64), nullable=True)  # Hashed for privacy
+    user_agent = Column(Text, nullable=True)
+    
+    # Status tracking
+    is_read = Column(Boolean, default=False)
+    is_responded = Column(Boolean, default=False)
+    responded_at = Column(DateTime, nullable=True)
+    
+    # Timestamps
+    submitted_at = Column(DateTime, default=datetime.utcnow)
+    
+    __table_args__ = (
+        Index('idx_contact_email', 'email'),
+        Index('idx_contact_submitted', 'submitted_at'),
+    )
+
+
+# =============================================================================
+# Knowledge Library Models
+# =============================================================================
+
+class Article(Base):
+    """
+    Knowledge Library Article.
+    """
+    __tablename__ = "articles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    slug = Column(String(200), unique=True, index=True)
+    title = Column(String(200), nullable=False)
+    category = Column(String(100), index=True, nullable=False)
+    content = Column(Text, nullable=False)
+    read_time = Column(String(50), default="5 min read")
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    is_published = Column(Boolean, default=True)
+    views = Column(Integer, default=0)
+

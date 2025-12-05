@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" id="meta-description" content="View adoptable pet details on Waiting The Longest™ - Learn about this shelter animal waiting for a forever home.">
+    <meta name="keywords" content="pet adoption, shelter animals, rescue pets, adopt a dog, adopt a cat">
+    <meta name="author" content="Waiting The Longest™">
+    <title id="page-title">Animal Details - Waiting The Longest™</title>
+
+    <!-- Open Graph / Social (updated dynamically) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" id="og-url" content="https://waitingthelongest.com/animal.html">
+    <meta property="og:title" id="og-title" content="Adoptable Pet - Waiting The Longest™">
+    <meta property="og:description" id="og-description" content="Meet this shelter animal waiting for a forever home.">
+    <meta property="og:image" id="og-image" content="https://waitingthelongest.com/images/og-image.jpg">
+    <meta property="og:site_name" content="Waiting The Longest™">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="Adoptable Pet - Waiting The Longest™">
+    <meta name="twitter:description" id="twitter-description" content="Meet this shelter animal waiting for a forever home.">
+    <meta name="twitter:image" id="twitter-image" content="https://waitingthelongest.com/images/og-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="animal-detail-page">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loading-container" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading animal details...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-container" class="error-message" style="display: none;">
+                <div class="error-icon">😿</div>
+                <h2>Animal Not Found</h2>
+                <p>We couldn't find the animal you're looking for. They may have already been adopted!</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: var(--spacing-lg);">Browse Available Pets</a>
+            </div>
+
+            <!-- Animal Details -->
+            <div id="animal-container" style="display: none;">
+                <div class="animal-detail-grid">
+                    <!-- Photo Gallery -->
+                    <div class="animal-gallery">
+                        <img id="main-photo" class="animal-main-image" src="" alt="Animal photo">
+                        <div id="thumbnails" class="animal-thumbnails">
+                            <!-- Thumbnails will be added dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Animal Info -->
+                    <div class="animal-detail-info">
+                        <div class="days-waiting-large" id="days-waiting">
+                            <span>⏰</span>
+                            <span id="live-counter">--</span>
+                        </div>
+                        
+                        <h1 class="animal-name-large" id="animal-name">Loading...</h1>
+                        <p class="animal-breed-large" id="animal-breed">Loading...</p>
+                        
+                        <div class="animal-attributes" id="attributes">
+                            <!-- Attributes will be added dynamically -->
+                        </div>
+                        
+                        <div class="animal-description">
+                            <h3>About Me</h3>
+                            <p id="animal-description">Loading description...</p>
+                        </div>
+                        
+                        <div class="shelter-info" id="shelter-info">
+                            <h4>🏠 Shelter Information</h4>
+                            <p id="shelter-name">Loading...</p>
+                            <p id="shelter-location">Loading...</p>
+                            <p id="shelter-contact">Loading...</p>
+                        </div>
+                        
+                        <div class="adopt-cta">
+                            <a href="#" id="adopt-link" class="btn btn-primary btn-large btn-block" target="_blank">
+                                Inquire About Adoption 💕
+                            </a>
+                            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-top: var(--spacing-sm);">
+                                You'll be connected directly with the shelter
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Recommendations -->
+                <section class="product-recommendations">
+                    <h3>🛒 Prepare for Your New Friend</h3>
+                    <p class="affiliate-disclosure">
+                        As an Amazon Associate, we earn from qualifying purchases. These recommendations help support our mission.
+                    </p>
+                    <div id="products-grid" class="products-grid">
+                        <!-- Products will be loaded dynamically -->
+                    </div>
+                </section>
+
+                <!-- Similar Animals -->
+                <section class="content-section" style="margin-top: var(--spacing-2xl); padding: 0;">
+                    <h3 style="margin-bottom: var(--spacing-lg);">Other Animals Waiting</h3>
+                    <div id="similar-animals" class="stories-grid">
+                        <!-- Similar animals will be loaded dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest™</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#shelters">Shelter Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.</p>
+                <p style="margin-top: var(--spacing-sm);">© 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+        const AFFILIATE_TAG = 'waitingthelon-20';
+        let currentAnimal = null;
+
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+
+        function getAnimalIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        function showError() {
+            document.getElementById('loading-container').style.display = 'none';
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('animal-container').style.display = 'none';
+        }
+
+        function showAnimal() {
+            document.getElementById('loading-container').style.display = 'none';
+            document.getElementById('error-container').style.display = 'none';
+            document.getElementById('animal-container').style.display = 'block';
+        }
+
+        function updatePageTitle(name) {
+            document.title = `${name} - Waiting The Longest™`;
+        }
+
+        function startLiveCounter(firstSeenAt) {
+            const startDate = new Date(firstSeenAt);
+            const counterElement = document.getElementById('live-counter');
+
+            function updateCounter() {
+                const now = new Date();
+                const diff = now - startDate;
+
+                if (diff < 0) {
+                    counterElement.textContent = "Just arrived!";
+                    return;
+                }
+
+                const seconds = Math.floor(diff / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
+                
+                const years = Math.floor(days / 365);
+                const remainingDays = days % 365;
+                const months = Math.floor(remainingDays / 30); // Approx
+                const daysLeft = remainingDays % 30;
+                
+                const hoursLeft = hours % 24;
+                const minutesLeft = minutes % 60;
+                const secondsLeft = seconds % 60;
+
+                let timeString = '';
+                if (years > 0) timeString += `${years}y `;
+                if (months > 0) timeString += `${months}m `;
+                if (daysLeft > 0) timeString += `${daysLeft}d `;
+                timeString += `${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+
+                counterElement.textContent = timeString + " waiting";
+            }
+
+            updateCounter();
+            setInterval(updateCounter, 1000);
+        }
+
+        // Update meta tags dynamically for SEO and social sharing
+        function updateMetaTags(animal) {
+            const name = animal.canonical_name || 'Adoptable Pet';
+            const breed = animal.breed_primary || animal.species || 'Pet';
+            const days = animal.days_waiting || 0;
+            const location = `${animal.city || ''}, ${animal.state || ''}`.trim().replace(/^,|,$/g, '');
+            const photoUrl = animal.photo_url || 'https://waitingthelongest.com/images/og-image.jpg';
+
+            const title = `${name} - ${breed} - ${days} Days Waiting | Waiting The Longest™`;
+            const description = `${name} has been waiting ${days} days for a forever home. ${breed} in ${location}. Adopt today and give them the love they deserve!`;
+            const url = `https://waitingthelongest.com/animal.html?id=${animal.id}`;
+
+            // Update title
+            document.getElementById('page-title').textContent = title;
+
+            // Update meta description
+            document.getElementById('meta-description').setAttribute('content', description);
+
+            // Update Open Graph
+            document.getElementById('og-url').setAttribute('content', url);
+            document.getElementById('og-title').setAttribute('content', title);
+            document.getElementById('og-description').setAttribute('content', description);
+            document.getElementById('og-image').setAttribute('content', photoUrl);
+
+            // Update Twitter
+            document.getElementById('twitter-title').setAttribute('content', title);
+            document.getElementById('twitter-description').setAttribute('content', description);
+            document.getElementById('twitter-image').setAttribute('content', photoUrl);
+
+            // Add structured data for this animal
+            addStructuredData(animal);
+        }
+
+        // Add JSON-LD structured data for the animal
+        function addStructuredData(animal) {
+            const existingScript = document.getElementById('animal-structured-data');
+            if (existingScript) existingScript.remove();
+
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'animal-structured-data';
+
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": animal.canonical_name || 'Adoptable Pet',
+                "description": `${animal.canonical_name || 'This pet'} is a ${animal.breed_primary || animal.species} that has been waiting ${animal.days_waiting} days for adoption.`,
+                "image": animal.photo_url || 'https://placedog.net/400/300',
+                "brand": {
+                    "@type": "Organization",
+                    "name": "Waiting The Longest™"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "availability": "https://schema.org/InStock",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "description": "Adoption fee varies by shelter"
+                },
+                "additionalProperty": [
+                    { "@type": "PropertyValue", "name": "Species", "value": animal.species || "Unknown" },
+                    { "@type": "PropertyValue", "name": "Breed", "value": animal.breed_primary || "Unknown" },
+                    { "@type": "PropertyValue", "name": "Age", "value": animal.age_group || "Unknown" },
+                    { "@type": "PropertyValue", "name": "Days Waiting", "value": animal.days_waiting || 0 }
+                ]
+            };
+
+            script.textContent = JSON.stringify(structuredData);
+            document.head.appendChild(script);
+        }
+
+        // Render photo thumbnails
+        function renderThumbnails(photos, mainPhotoUrl) {
+            const container = document.getElementById('thumbnails');
+
+            // If no additional photos, hide thumbnails
+            if (!photos || photos.length <= 1) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'flex';
+            container.innerHTML = photos.map((photo, index) => `
+                <img
+                    src="${photo}"
+                    alt="Photo ${index + 1}"
+                    class="animal-thumbnail ${photo === mainPhotoUrl ? 'active' : ''}"
+                    onclick="changeMainPhoto('${photo}')"
+                    onerror="this.style.display='none'"
+                >
+            `).join('');
+        }
+
+        // Change main photo when thumbnail clicked
+        function changeMainPhoto(photoUrl) {
+            document.getElementById('main-photo').src = photoUrl;
+
+            // Update active state on thumbnails
+            document.querySelectorAll('.animal-thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src === photoUrl) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+
+        function renderAttributes(animal) {
+            const attributes = [
+                { icon: '🐾', label: 'Species', value: animal.species || 'Unknown' },
+                { icon: '📅', label: 'Age', value: animal.age_group || 'Unknown' },
+                { icon: animal.gender === 'male' ? '♂️' : '♀️', label: 'Gender', value: animal.gender || 'Unknown' },
+                { icon: '📏', label: 'Size', value: animal.size || 'Unknown' },
+                { icon: '🎨', label: 'Color', value: animal.color_primary || 'Unknown' },
+                { icon: '💉', label: 'Spayed/Neutered', value: animal.is_spayed_neutered ? 'Yes' : 'Unknown' },
+                { icon: '💊', label: 'Vaccinated', value: animal.is_vaccinated ? 'Yes' : 'Unknown' },
+                { icon: '🏡', label: 'House Trained', value: animal.is_house_trained ? 'Yes' : 'Unknown' }
+            ];
+
+            return attributes.map(attr => `
+                <div class="attribute-item">
+                    <div class="attribute-icon">${attr.icon}</div>
+                    <div>
+                        <div class="attribute-label">${attr.label}</div>
+                        <div class="attribute-value">${attr.value}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getDefaultProducts(species) {
+            const dogProducts = [
+                { name: 'Premium Dog Food', category: 'Food', price_range: '$30-60', asin: 'B07H8XHGZQ' },
+                { name: 'Orthopedic Dog Bed', category: 'Bedding', price_range: '$40-80', asin: 'B07DNFGDWC' },
+                { name: 'Interactive Toy Set', category: 'Toys', price_range: '$15-30', asin: 'B073WSJD7P' },
+                { name: 'Adjustable Dog Harness', category: 'Walking', price_range: '$20-35', asin: 'B07GJVLP8D' },
+                { name: 'Stainless Steel Bowls', category: 'Feeding', price_range: '$10-20', asin: 'B00MVFSMSM' }
+            ];
+
+            const catProducts = [
+                { name: 'Premium Cat Food', category: 'Food', price_range: '$25-50', asin: 'B00DCZYWT0' },
+                { name: 'Cat Tree Tower', category: 'Furniture', price_range: '$40-100', asin: 'B07WNPBK88' },
+                { name: 'Interactive Cat Toys', category: 'Toys', price_range: '$10-25', asin: 'B07D3S38ZJ' },
+                { name: 'Self-Cleaning Litter Box', category: 'Litter', price_range: '$100-300', asin: 'B07Z7GGVDN' },
+                { name: 'Cat Carrier', category: 'Travel', price_range: '$25-50', asin: 'B00DOOU8V8' }
+            ];
+
+            return species && species.toLowerCase() === 'cat' ? catProducts : dogProducts;
+        }
+
+        function renderProducts(species) {
+            const products = getDefaultProducts(species);
+            const grid = document.getElementById('products-grid');
+            
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-category">${product.category}</div>
+                    <div class="product-price">${product.price_range}</div>
+                    <a href="https://www.amazon.com/dp/${product.asin}?tag=${AFFILIATE_TAG}" 
+                       target="_blank" 
+                       rel="noopener sponsored"
+                       class="product-link">
+                        Shop on Amazon
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function renderSimilarAnimals(animals) {
+            const grid = document.getElementById('similar-animals');
+            
+            if (!animals || animals.length === 0) {
+                grid.innerHTML = '<p>No other animals found.</p>';
+                return;
+            }
+
+            grid.innerHTML = animals.slice(0, 3).map(animal => {
+                const photoUrl = animal.photo_url || 
+                    (animal.species === 'Cat' ? 'https://placekitten.com/400/300' : 'https://placedog.net/400/300');
+                
+                return `
+                    <div class="story-card-large" style="cursor: pointer;" onclick="window.location.href='animal.html?id=${animal.id}'">
+                        <img src="${photoUrl}" alt="${animal.canonical_name}" class="story-image" 
+                             onerror="this.src='https://placedog.net/400/300'">
+                        <div class="story-content">
+                            <div class="story-meta">
+                                <span class="story-pet-name-large">${animal.canonical_name || 'Unknown'}</span>
+                                <span class="story-badge">${animal.days_waiting} days</span>
+                            </div>
+                            <p class="story-excerpt">${animal.breed_primary || animal.species} • ${animal.city || ''}, ${animal.state || ''}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function loadAnimal(id) {
+            try {
+                const response = await fetch(`${API_BASE}/animals/${id}`);
+                
+                if (!response.ok) {
+                    throw new Error('Animal not found');
+                }
+                
+                const animal = await response.json();
+                currentAnimal = animal;
+                
+                // Update page title and meta tags
+                updatePageTitle(animal.canonical_name || 'Animal Details');
+                updateMetaTags(animal);
+
+                // Set main photo
+                let photoUrl = 'https://placedog.net/600/400';
+                if (animal.photos && animal.photos.length > 0) {
+                    photoUrl = animal.photos[0];
+                } else if (animal.photo_url) {
+                    photoUrl = animal.photo_url;
+                } else if (animal.species === 'Cat') {
+                    photoUrl = 'https://placekitten.com/600/400';
+                }
+                
+                document.getElementById('main-photo').src = photoUrl;
+                document.getElementById('main-photo').alt = `Photo of ${animal.canonical_name}`;
+                document.getElementById('main-photo').onerror = function() {
+                    this.src = animal.species === 'Cat' ? 'https://placekitten.com/600/400' : 'https://placedog.net/600/400';
+                };
+
+                // Render thumbnails if multiple photos available
+                const photos = animal.photos || (animal.photo_url ? [animal.photo_url] : []);
+                renderThumbnails(photos, photoUrl);
+                
+                // Set basic info
+                // document.getElementById('days-count').textContent = animal.days_waiting || '--';
+                document.getElementById('animal-name').textContent = animal.canonical_name || 'Unknown';
+                document.getElementById('animal-breed').textContent = 
+                    `${animal.breed_primary || 'Unknown Breed'}${animal.breed_secondary ? ' / ' + animal.breed_secondary : ''} • ${animal.species || 'Pet'}`;
+                
+                // Set attributes
+                document.getElementById('attributes').innerHTML = renderAttributes(animal);
+                
+                // Set description
+                let description = animal.description;
+                
+                if (!description) {
+                     description = `${animal.canonical_name || 'This pet'} has been waiting ${animal.days_waiting || 'many'} days for a loving home. ` +
+                    `${animal.canonical_name ? animal.canonical_name : 'They'} is a ${animal.age_group || ''} ${animal.gender || ''} ${animal.breed_primary || animal.species || 'pet'} ` +
+                    `who would love to meet you! Contact the shelter for more information about this wonderful ${animal.species || 'pet'}.`;
+                }
+                
+                // Clean up description HTML
+                // Create a temporary div to decode HTML entities and strip tags safely if needed
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = description;
+                
+                // Remove images, scripts, styles
+                const scripts = tempDiv.getElementsByTagName('script');
+                while(scripts.length > 0) scripts[0].parentNode.removeChild(scripts[0]);
+                
+                const styles = tempDiv.getElementsByTagName('style');
+                while(styles.length > 0) styles[0].parentNode.removeChild(styles[0]);
+                
+                const images = tempDiv.getElementsByTagName('img');
+                while(images.length > 0) images[0].parentNode.removeChild(images[0]);
+
+                // Get the cleaned HTML
+                let cleanDescription = tempDiv.innerHTML;
+                
+                // Basic cleanup for common issues
+                cleanDescription = cleanDescription
+                    .replace(/<div/g, '<p')
+                    .replace(/<\/div>/g, '</p>')
+                    .replace(/&nbsp;/g, ' ');
+
+                document.getElementById('animal-description').innerHTML = cleanDescription;
+                
+                // Start live counter
+                startLiveCounter(animal.first_seen_at);
+                
+                // Set shelter info
+                const shelter = animal.shelter_info || {};
+                document.getElementById('shelter-name').textContent = shelter.name || 'Contact shelter for details';
+                
+                const city = shelter.city || (animal.observations && animal.observations[0] ? animal.observations[0].city : '');
+                const state = shelter.state || (animal.observations && animal.observations[0] ? animal.observations[0].state : '');
+                
+                document.getElementById('shelter-location').textContent = 
+                    `📍 ${city || ''}, ${state || 'Location unavailable'}`;
+                    
+                document.getElementById('shelter-contact').textContent = 
+                    shelter.email ? `📧 ${shelter.email}` : (shelter.phone ? `📞 ${shelter.phone}` : '');
+                
+                // Set adopt link
+                if (animal.adoption_url) {
+                    document.getElementById('adopt-link').href = animal.adoption_url;
+                } else if (shelter.website) {
+                    document.getElementById('adopt-link').href = shelter.website;
+                } else {
+                    document.getElementById('adopt-link').href = 'contact.html';
+                    document.getElementById('adopt-link').target = '_self';
+                }
+                
+                // Load products
+                renderProducts(animal.species);
+                
+                // Show animal
+                showAnimal();
+                
+                // Load similar animals
+                loadSimilarAnimals(animal.species, id);
+                
+            } catch (error) {
+                console.error('Error loading animal:', error);
+                showError();
+            }
+        }
+
+        async function loadSimilarAnimals(species, excludeId) {
+            try {
+                const params = new URLSearchParams({
+                    sort_by: 'days_waiting',
+                    sort_order: 'desc',
+                    page_size: 4
+                });
+                if (species) params.set('species', species);
+                
+                const response = await fetch(`${API_BASE}/animals?${params.toString()}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const filtered = data.items ? data.items.filter(a => a.id != excludeId) : [];
+                    renderSimilarAnimals(filtered);
+                }
+            } catch (error) {
+                console.error('Error loading similar animals:', error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const animalId = getAnimalIdFromUrl();
+            
+            if (!animalId) {
+                showError();
+                return;
+            }
+            
+            loadAnimal(animalId);
+        });
+    </script>
+</body>
+</html>

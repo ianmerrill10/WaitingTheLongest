@@ -22,13 +22,15 @@ import pytest
 from fastapi import status
 from unittest.mock import patch, MagicMock
 
+from app.data.rescue_directory import RESCUE_DIRECTORY
+
 
 class TestRootEndpoints:
     """Test root and health endpoints"""
     
     def test_root_endpoint(self, client):
         """Test root endpoint returns API info"""
-        response = client.get("/")
+        response = client.get("/api")
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert data["name"] == "Waiting The Longest™ API"
@@ -56,6 +58,24 @@ class TestRootEndpoints:
         required_fields = ["status", "database", "timestamp", "version"]
         for field in required_fields:
             assert field in data, f"Missing required field: {field}"
+
+    def test_lightweight_healthz(self, client):
+        """Lightweight probe should respond quickly with ok status"""
+        response = client.get("/healthz")
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert data["status"] == "ok"
+        assert "timestamp" in data
+        assert data["version"] == "1.0.0"
+
+    def test_readyz_endpoint(self, client):
+        """Readiness probe reports dependency checks and uptime"""
+        response = client.get("/readyz")
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert "uptime_seconds" in data and data["uptime_seconds"] >= 0
+        assert "rescue_directory_version" in data
+        assert "checks" in data and "database" in data["checks"]
 
 
 class TestAnimalListEndpoint:
@@ -558,6 +578,91 @@ class TestAffiliateEndpoints:
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert data["count"] <= 3
+
+
+class TestRescueResourcesEndpoint:
+    """Test curated rescue directory endpoint"""
+
+    def test_rescue_resources_structure(self, client):
+        """Response should include metadata and section counts"""
+        response = client.get("/api/resources/rescues")
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert "metadata" in data
+        assert "states" in data and "massachusetts" in data["states"]
+        assert len(data["states"]["massachusetts"]) >= 1
+        assert "counts" in data
+        assert data["counts"]["state_entries"] >= 1
+
+    def test_rescue_resources_state_filter(self, client):
+        """State query narrows payload to requested state"""
+        response = client.get("/api/resources/rescues", params={"state": "MA"})
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert list(data["states"].keys()) in (["massachusetts"], [])
+        if data["states"]:
+            assert data["counts"]["state_groups"] == 1
+
+    def test_rescue_resources_network_filter(self, client):
+        """network_region query returns only matching corridor"""
+        response = client.get("/api/resources/rescues", params={"network_region": "southern_source"})
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert list(data["national"].keys()) in (["southern_source"], [])
+        if data["national"]:
+            assert len(data["national"]["southern_source"]) >= 1
+
+    def test_rescue_resources_breed_filter(self, client):
+        """Breed filter restricts AKC network entries"""
+        response = client.get("/api/resources/rescues", params={"breed": "Husky"})
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert data["akc_network"]
+        assert all("husky" in entry["breed"].lower() for entry in data["akc_network"])
+
+    def test_rescue_resources_counts_match_dataset(self, client):
+        """Summary counts should mirror the source dataset"""
+        response = client.get("/api/resources/rescues")
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+
+        expected_state_groups = len(RESCUE_DIRECTORY.get("states", {}))
+        expected_state_entries = sum(len(entries) for entries in RESCUE_DIRECTORY.get("states", {}).values())
+        expected_network_regions = len(RESCUE_DIRECTORY.get("national", {}))
+        expected_network_entries = sum(len(entries) for entries in RESCUE_DIRECTORY.get("national", {}).values())
+        expected_akc_entries = len(RESCUE_DIRECTORY.get("akc_network", []))
+
+        counts = data.get("counts", {})
+        assert counts.get("state_groups") == expected_state_groups
+        assert counts.get("state_entries") == expected_state_entries
+        assert counts.get("network_regions") == expected_network_regions
+        assert counts.get("network_entries") == expected_network_entries
+        assert counts.get("akc_entries") == expected_akc_entries
+        assert data["metadata"]["version"] == RESCUE_DIRECTORY["metadata"]["version"]
+
+    def test_rescue_resources_can_skip_counts(self, client):
+        """include_counts=false should omit expensive aggregation"""
+        response = client.get("/api/resources/rescues", params={"include_counts": "false"})
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        assert "counts" not in data
+
+    def test_rescue_resources_sets_etag_and_honors_conditional(self, client):
+        """Endpoint should expose cache headers and support conditional GETs"""
+        initial = client.get("/api/resources/rescues")
+        assert initial.status_code == status.HTTP_200_OK
+        etag = initial.headers.get("etag")
+        cache_control = initial.headers.get("cache-control")
+        assert etag, "ETag header should be present"
+        assert cache_control and "max-age" in cache_control
+
+        conditional = client.get(
+            "/api/resources/rescues",
+            headers={"if-none-match": etag}
+        )
+        assert conditional.status_code == status.HTTP_304_NOT_MODIFIED
+        assert conditional.content == b""
+        assert conditional.headers.get("etag") == etag
 
 
 class TestErrorHandling:

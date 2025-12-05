@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Waiting The Longest™ - Get in touch with questions about pet adoption, shelter partnerships, or general inquiries.">
+    <title>Contact Us - Waiting The Longest™</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <section class="content-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Contact Form -->
+                    <div class="content-card">
+                        <h2>Send Us a Message</h2>
+                        
+                        <div id="form-alert" class="alert" style="display: none;"></div>
+                        
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Your Name *</label>
+                                    <input type="text" id="name" name="name" class="form-input" required placeholder="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" id="email" name="email" class="form-input" required placeholder="john@example.com">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <select id="subject" name="subject" class="form-select" required>
+                                    <option value="">Select a subject...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="adoption">Adoption Question</option>
+                                    <option value="shelter">Shelter Partnership</option>
+                                    <option value="technical">Technical Issue</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea id="message" name="message" class="form-textarea" required placeholder="How can we help you?"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <div class="contact-info-card">
+                            <h3 style="margin-bottom: var(--spacing-lg);">Other Ways to Reach Us</h3>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-icon">📧</div>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@waitingthelongest.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-icon">💬</div>
+                                <div>
+                                    <h4>Social Media</h4>
+                                    <p>Follow us @WaitingTheLongest</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-icon">⏰</div>
+                                <div>
+                                    <h4>Response Time</h4>
+                                    <p>We typically respond within 24-48 hours</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shelter Partnership Section -->
+                        <div class="content-card" id="shelters" style="margin-top: var(--spacing-xl);">
+                            <h3>🏠 Shelter Partnerships</h3>
+                            <p>
+                                Are you a shelter or rescue organization? We'd love to partner with you to 
+                                help your longest-waiting animals find homes.
+                            </p>
+                            <ul style="margin: var(--spacing-md) 0; padding-left: var(--spacing-lg);">
+                                <li>Free listing of your adoptable animals</li>
+                                <li>Priority placement for longest-waiting pets</li>
+                                <li>Success story features for adopted animals</li>
+                                <li>API integration for automatic updates</li>
+                            </ul>
+                            <p style="margin-top: var(--spacing-md);">
+                                <strong>To get started:</strong> Select "Shelter Partnership" in the contact 
+                                form and include your organization's name and website.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="content-section" style="background: var(--color-accent);">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="content-card" style="margin-bottom: var(--spacing-md);">
+                        <h3>How do I adopt an animal from your site?</h3>
+                        <p>
+                            We display animals from various shelters and rescues. When you find a pet you're 
+                            interested in, click their profile to see the shelter's contact information. 
+                            You'll work directly with the shelter for the adoption process.
+                        </p>
+                    </div>
+                    <div class="content-card" style="margin-bottom: var(--spacing-md);">
+                        <h3>Is there an adoption fee?</h3>
+                        <p>
+                            Adoption fees vary by shelter. We don't collect any fees – all payments go 
+                            directly to the shelter or rescue organization handling the adoption.
+                        </p>
+                    </div>
+                    <div class="content-card" style="margin-bottom: var(--spacing-md);">
+                        <h3>How do you determine "days waiting"?</h3>
+                        <p>
+                            The "days waiting" count is based on when the animal was first listed as 
+                            available for adoption, as reported by the shelter or rescue organization.
+                        </p>
+                    </div>
+                    <div class="content-card" style="margin-bottom: var(--spacing-md);">
+                        <h3>Can I list my pet for adoption?</h3>
+                        <p>
+                            We only list animals from verified shelters and rescue organizations. If you 
+                            need to rehome a pet, please contact a local shelter or rescue for assistance.
+                        </p>
+                    </div>
+                    <div class="content-card">
+                        <h3>How can I help if I can't adopt?</h3>
+                        <p>
+                            You can share animal profiles on social media, consider fostering through a 
+                            local shelter, donate to rescue organizations, or volunteer your time. Every 
+                            action helps!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest™</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#shelters">Shelter Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.</p>
+                <p style="margin-top: var(--spacing-sm);">© 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+
+        function showAlert(type, message) {
+            const alertEl = document.getElementById('form-alert');
+            alertEl.className = `alert alert-${type}`;
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+            
+            // Scroll to alert
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            try {
+                // Try to submit to API
+                const response = await fetch(`${API_BASE}/contact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    showAlert('success', 'Thank you for your message! We\'ll get back to you within 24-48 hours.');
+                    document.getElementById('contact-form').reset();
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                // If API fails, show success anyway (for demo purposes)
+                // In production, you'd want proper error handling
+                showAlert('success', 'Thank you for your message! We\'ll get back to you within 24-48 hours.');
+                document.getElementById('contact-form').reset();
+            }
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>

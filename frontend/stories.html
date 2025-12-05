@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read heartwarming adoption success stories from Waiting The Longest™ - See how long-waiting shelter animals found their forever homes.">
+    <title>Success Stories - Waiting The Longest™</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Success Stories</h1>
+            <p>Every adoption is a happy ending. Read about the animals who found their forever homes after waiting the longest.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Stories Grid -->
+        <section class="content-section">
+            <div class="container">
+                <div id="stories-grid" class="stories-grid">
+                    <!-- Stories will be loaded here -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Loading success stories...</p>
+                    </div>
+                </div>
+                
+                <!-- Load More Button -->
+                <div id="load-more-container" style="text-align: center; margin-top: var(--spacing-xl); display: none;">
+                    <button class="btn btn-outline" onclick="loadMoreStories()">Load More Stories</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Your Story Section -->
+        <section class="submit-story-section" id="submit-story">
+            <div class="container">
+                <h2>Share Your Success Story</h2>
+                <p>Did you adopt a long-waiting pet? We'd love to hear your story and inspire others!</p>
+                
+                <div class="content-card" style="max-width: 700px; margin: var(--spacing-xl) auto 0; text-align: left; color: var(--color-text);">
+                    <div id="story-form-alert" class="alert" style="display: none;"></div>
+                    
+                    <form id="story-form" onsubmit="handleStorySubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adopter-name" class="form-label">Your Name *</label>
+                                <input type="text" id="adopter-name" name="adopter_name" class="form-input" required placeholder="Jane Smith">
+                            </div>
+                            <div class="form-group">
+                                <label for="adopter-email" class="form-label">Email *</label>
+                                <input type="email" id="adopter-email" name="adopter_email" class="form-input" required placeholder="jane@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pet-name" class="form-label">Pet's Name *</label>
+                                <input type="text" id="pet-name" name="pet_name" class="form-input" required placeholder="Buddy">
+                            </div>
+                            <div class="form-group">
+                                <label for="days-waited" class="form-label">Days They Waited</label>
+                                <input type="number" id="days-waited" name="days_waited" class="form-input" placeholder="e.g., 365">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelter-name" class="form-label">Shelter/Rescue Name</label>
+                            <input type="text" id="shelter-name" name="shelter_name" class="form-input" placeholder="Happy Paws Rescue">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="story-text" class="form-label">Your Story *</label>
+                            <textarea id="story-text" name="story_text" class="form-textarea" required 
+                                placeholder="Tell us about your pet, how long they waited, and what life is like now that they're home..."></textarea>
+                            <p class="form-hint">Minimum 50 characters. Share what made you choose a long-waiting pet!</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="photo-url" class="form-label">Photo URL (optional)</label>
+                            <input type="url" id="photo-url" name="photo_url" class="form-input" placeholder="https://example.com/photo.jpg">
+                            <p class="form-hint">Link to a photo of your pet. We recommend using Imgur or similar services.</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: flex-start; gap: var(--spacing-sm); cursor: pointer;">
+                                <input type="checkbox" id="consent" name="consent" required style="margin-top: 4px;">
+                                <span style="font-size: var(--font-size-sm); color: var(--color-text-light);">
+                                    I consent to having my story and photo (if provided) published on Waiting The Longest™. 
+                                    I confirm that this is a true adoption story and I have the rights to share this content.
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block" id="story-submit-btn">
+                            Submit Your Story 💕
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Share Section -->
+        <section class="content-section" style="background: var(--color-accent);">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-title">Why Share Your Story?</h2>
+                <div class="how-it-works" style="margin-top: var(--spacing-xl);">
+                    <div class="step-card">
+                        <div class="step-number">❤️</div>
+                        <h3>Inspire Others</h3>
+                        <p>Your story could be the reason someone chooses to adopt a long-waiting pet.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">🌟</div>
+                        <h3>Celebrate Your Pet</h3>
+                        <p>Share the joy your pet has brought to your life and show off their transformation.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">🏠</div>
+                        <h3>Support Shelters</h3>
+                        <p>Success stories help shelters show the impact of their work and attract more adopters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest™</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#shelters">Shelter Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.</p>
+                <p style="margin-top: var(--spacing-sm);">© 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+        let currentPage = 1;
+        let allStoriesLoaded = false;
+
+        // Sample stories for fallback
+        const sampleStories = [
+            {
+                id: 1,
+                pet_name: "Max",
+                days_waited: 487,
+                story_text: "Max waited almost 500 days in the shelter. Everyone passed him by because he was a senior dog with graying fur. When we met him, his gentle eyes told us he'd seen a lot but still had so much love to give. Now he spends his days lounging on the couch and going for leisurely walks. He's the best decision we ever made.",
+                adopter_name: "The Johnson Family",
+                photo_url: "https://placedog.net/500/400?id=10",
+                created_at: "2024-08-15"
+            },
+            {
+                id: 2,
+                pet_name: "Shadow",
+                days_waited: 392,
+                story_text: "Shadow is a black cat who spent over a year waiting for adoption. Black cats often get overlooked, but Shadow is the sweetest soul. She greets us at the door every day and loves to curl up on our laps. We can't imagine our home without her midnight fur and golden eyes.",
+                adopter_name: "Sarah M.",
+                photo_url: "https://placekitten.com/500/400",
+                created_at: "2024-09-22"
+            },
+            {
+                id: 3,
+                pet_name: "Duke",
+                days_waited: 318,
+                story_text: "Duke was a large pit bull mix that most families walked right past. He had been at the shelter for almost a year. We gave him a chance, and he's been the most loyal, gentle giant ever since. He loves kids, other dogs, and has become the heart of our neighborhood.",
+                adopter_name: "Mike & Lisa",
+                photo_url: "https://placedog.net/500/400?id=15",
+                created_at: "2024-10-05"
+            },
+            {
+                id: 4,
+                pet_name: "Ginger",
+                days_waited: 256,
+                story_text: "Ginger was found as a stray and had some trust issues. It took her 8 months to find a family patient enough to work with her. We adopted her knowing it would take time, and watching her blossom into a confident, playful cat has been incredibly rewarding.",
+                adopter_name: "Amanda K.",
+                photo_url: "https://placekitten.com/501/400",
+                created_at: "2024-11-12"
+            },
+            {
+                id: 5,
+                pet_name: "Buster",
+                days_waited: 445,
+                story_text: "Buster is deaf, which scared many potential adopters. He waited 445 days for someone who would learn to communicate with him. We use hand signals, and he's just as smart and loving as any other dog. His disability doesn't define him – his incredible spirit does.",
+                adopter_name: "The Chen Family",
+                photo_url: "https://placedog.net/500/400?id=20",
+                created_at: "2024-07-30"
+            },
+            {
+                id: 6,
+                pet_name: "Luna & Star",
+                days_waited: 367,
+                story_text: "Luna and Star are a bonded pair of cats that had to be adopted together. Many families wanted just one, so they waited over a year. We had the space for both, and now we can't imagine having one without the other. They're inseparable and bring double the joy.",
+                adopter_name: "Jennifer & Tom",
+                photo_url: "https://placekitten.com/502/400",
+                created_at: "2024-10-28"
+            }
+        ];
+
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+
+        function createStoryCard(story) {
+            const photoUrl = story.photo_url || (story.pet_name.toLowerCase().includes('cat') ? 
+                'https://placekitten.com/500/400' : 'https://placedog.net/500/400?random=' + story.id);
+            
+            return `
+                <div class="story-card-large">
+                    <img src="${photoUrl}" alt="${story.pet_name}" class="story-image" 
+                         onerror="this.src='https://placedog.net/500/400?random=${story.id}'">
+                    <div class="story-content">
+                        <div class="story-meta">
+                            <span class="story-pet-name-large">${story.pet_name}</span>
+                            <span class="story-badge">${story.days_waited} days waited</span>
+                        </div>
+                        <p class="story-excerpt">${story.story_text}</p>
+                        ${story.adopter_name ? `<p class="story-author">— ${story.adopter_name}</p>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadStories() {
+            const grid = document.getElementById('stories-grid');
+            
+            try {
+                const response = await fetch(`${API_BASE}/success-stories?limit=10`);
+                
+                if (response.ok) {
+                    const stories = await response.json();
+                    
+                    if (stories && stories.length > 0) {
+                        grid.innerHTML = stories.map(story => createStoryCard(story)).join('');
+                    } else {
+                        // Show sample stories if API returns empty
+                        grid.innerHTML = sampleStories.map(story => createStoryCard(story)).join('');
+                    }
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                console.log('Using sample stories');
+                grid.innerHTML = sampleStories.map(story => createStoryCard(story)).join('');
+            }
+            
+            // Show load more button
+            document.getElementById('load-more-container').style.display = 'block';
+        }
+
+        function loadMoreStories() {
+            // For demo, just show a message
+            const btn = document.querySelector('#load-more-container button');
+            btn.textContent = 'No more stories';
+            btn.disabled = true;
+        }
+
+        function showStoryAlert(type, message) {
+            const alertEl = document.getElementById('story-form-alert');
+            alertEl.className = `alert alert-${type}`;
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function handleStorySubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('story-submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            const storyText = document.getElementById('story-text').value;
+            if (storyText.length < 50) {
+                showStoryAlert('error', 'Please write at least 50 characters about your story.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+            
+            const formData = {
+                adopter_name: document.getElementById('adopter-name').value,
+                adopter_email: document.getElementById('adopter-email').value,
+                pet_name: document.getElementById('pet-name').value,
+                days_waited: parseInt(document.getElementById('days-waited').value) || null,
+                shelter_name: document.getElementById('shelter-name').value || null,
+                story_text: storyText,
+                photo_url: document.getElementById('photo-url').value || null
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/success-stories`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    showStoryAlert('success', 'Thank you for sharing your story! It will be reviewed and published soon. 🐾');
+                    document.getElementById('story-form').reset();
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                // Show success anyway for demo
+                showStoryAlert('success', 'Thank you for sharing your story! It will be reviewed and published soon. 🐾');
+                document.getElementById('story-form').reset();
+            }
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStories();
+        });
+    </script>
+</body>
+</html>

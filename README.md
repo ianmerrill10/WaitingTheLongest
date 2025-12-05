@@ -118,11 +118,14 @@ sudo ./deploy.sh
 |----------|--------|-------------|
 | `/` | GET | API info |
 | `/health` | GET | Health check |
+| `/healthz` | GET | Lightweight liveness probe for load balancers |
+| `/readyz` | GET | Readiness probe (DB, dataset integrity, uptime) |
 | `/api/animals` | GET | List animals (paginated, filterable) |
 | `/api/animals/{id}` | GET | Animal details |
 | `/api/longest-waiting` | GET | Top longest-waiting animals |
 | `/api/success-stories` | GET/POST | Success stories |
 | `/api/stats` | GET | Platform statistics |
+| `/api/resources/rescues` | GET | Curated rescue directory with caching/ETag support |
 
 ### Key Query Parameters
 
@@ -143,8 +146,23 @@ GET /api/animals?
 - Nationwide coverage
 - Register: https://rescuegroups.org/services/adoptable-pet-data-api/
 
-### Note on Petfinder
-Petfinder does NOT have a public API. We discovered this during development and pivoted to RescueGroups.org.
+### Secondary: Best Friends Network
+- Scraped from bestfriends.org/partners directory
+- ~6,000+ rescue organizations
+- Custom scraper: `backend/tools/scrape_bestfriends_fast.py`
+
+### AI Web Enrichment
+- Crawls shelter websites for contact info
+- Extracts: email, phone, address, social media URLs
+- Agent: `backend/agents/web_enrichment_agent.py`
+
+### CRITICAL: Petfinder Has No API - DO NOT USE
+
+> **PERMANENT POLICY**: Petfinder does NOT have a public API. This has been confirmed multiple times. **DO NOT** attempt to integrate with Petfinder, reference a "Petfinder API" in code, or suggest it as a data source.
+>
+> See [NO_PETFINDER_API.md](NO_PETFINDER_API.md) for full details.
+>
+> Approved data sources: RescueGroups.org, Best Friends Network, individual shelter websites, state registries.
 
 ## Monetization
 
@@ -162,6 +180,28 @@ Petfinder does NOT have a public API. We discovered this during development and 
 - [x] Rate limiting in Nginx
 - [x] Security headers
 - [x] Automatic security updates
+
+## Operational Readiness
+
+### Health Probes
+
+- `/health` exercises the SQLAlchemy session to guarantee connectivity.
+- `/healthz` is a lightweight liveness ping for load balancers.
+- `/readyz` verifies database reachability, counts animal rows, reports rescue directory version, and returns API uptime (seconds since process boot). Point orchestrators/systemd `ExecStartPost` checks here to block traffic until dependencies are ready.
+
+### Rescue Directory Caching
+
+The curated rescue directory (`/api/resources/rescues`) now returns `ETag`, `Cache-Control`, and `Vary` headers. Clients should cache responses for up to 15 minutes and use conditional requests (`If-None-Match`) to avoid re-downloading the large payload when nothing changed.
+
+### Data Quality Automation
+
+Run the structural validator anytime rescue metadata changes:
+
+```bash
+python backend/tools/rescue_directory_validator.py --fail-on-warn --dump-json
+```
+
+The `data-quality` job inside `.github/workflows/ci-cd.yml` executes the same validator on every pull request, ensuring the frontend widgets never receive malformed entries.
 
 ## Environment Variables
 
@@ -201,6 +241,14 @@ All contributions must follow our documentation policy:
 > ```bash
 > cp backend/OWNERS_MANUAL_CONTENT.md OWNERS_MANUAL.md
 > ```
+
+## Roadmap
+
+- **Rescue Directory QA**: ship automated validation for Massachusetts licenses, transport region metadata, and AKC contact rotations so `/api/resources/rescues` can be refreshed weekly without regressions.
+- **Frontend Completeness Sweep**: finish sitemap coverage, add link monitoring, and ensure every public page references the new rescue resources widgets.
+- **Shelter CRM Hooks**: expose authenticated endpoints for partner orgs to edit contact data and drop duplicate listings directly from the dashboard.
+- **Content Automation**: connect observation events to the TikTok/Twitter scheduler so longest-waiting pets automatically enter the storytelling queue.
+- **Monetization Experiments**: expand beyond Amazon Associates with Chewy + direct-donate overlays while keeping disclosures centralized in `app.js`.
 
 ## License
 

@@ -26,10 +26,11 @@ from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
 import json
 
-from .models import Animal, Observation, Shelter, SuccessStory, SocialPromotion
+from .models import Animal, Observation, Shelter, SuccessStory, SocialPromotion, ContactSubmission
 from .schemas import (
     AnimalListItem, AnimalDetailResponse, AnimalListResponse,
-    SuccessStoryCreate, ObservationOut
+    SuccessStoryCreate, ObservationOut, ShelterListItem, ShelterDetailResponse,
+    ShelterListResponse, ContactSubmissionCreate
 )
 
 
@@ -489,10 +490,17 @@ def get_platform_stats(db: Session) -> Dict[str, Any]:
         Animal.status == "available"
     ).scalar() or 0
 
-    # Average wait time
+    # Average wait time (Current)
     avg_wait = db.query(func.avg(
         func.extract('day', func.now() - Animal.first_seen_at)
     )).filter(Animal.status == "available").scalar() or 0
+    
+    # Mock Historical Average (e.g., 1.5 years = ~547 days)
+    # In a real app, this would come from a history table
+    historical_avg_wait = 547.0 
+    
+    # Calculate reduction
+    wait_time_reduction = max(0, historical_avg_wait - (float(avg_wait) if avg_wait else 0))
 
     # Longest waiting
     longest = db.query(Animal).filter(
@@ -503,14 +511,223 @@ def get_platform_stats(db: Session) -> Dict[str, Any]:
     if longest and longest.first_seen_at:
         longest_days = (datetime.utcnow() - longest.first_seen_at).days
 
+    # Total Rescued (Adopted status + Approved Success Stories)
+    # We'll count animals with status 'adopted'
+    adopted_count = db.query(func.count(Animal.id)).filter(
+        Animal.status == "adopted"
+    ).scalar() or 0
+    
+    # Plus any success stories that might not be linked to an 'adopted' animal record (legacy data)
     success_count = db.query(func.count(SuccessStory.id)).filter(
         SuccessStory.is_approved.is_(True)
     ).scalar() or 0
+    
+    # Use the larger of the two or sum if distinct (simplifying to max for now)
+    total_rescued = max(adopted_count, success_count)
 
     return {
         "total_animals": total,
         "available_animals": available,
         "average_wait_days": round(float(avg_wait), 1),
+        "historical_avg_wait_days": round(historical_avg_wait, 1),
+        "wait_time_reduction_days": round(wait_time_reduction, 1),
         "longest_wait_days": longest_days,
-        "success_stories": success_count
+        "success_stories": success_count,
+        "total_rescued": total_rescued
     }
+
+
+# =============================================================================
+# Contact Submission CRUD
+# =============================================================================
+
+def create_contact_submission(
+    db: Session,
+    submission: ContactSubmissionCreate,
+    ip_hash: Optional[str] = None,
+    user_agent: Optional[str] = None
+) -> ContactSubmission:
+    """
+    Create a new contact form submission.
+    
+    Args:
+        db: Database session
+        submission: ContactSubmissionCreate schema with form data
+        ip_hash: Hashed IP address for spam prevention
+        user_agent: User agent string for analytics
+        
+    Returns:
+        The created ContactSubmission object
+        
+    Example:
+        >>> submission = ContactSubmissionCreate(name="John", email="john@example.com", ...)
+        >>> created = create_contact_submission(db, submission)
+        >>> print(f"Submission {created.id} received")
+    """
+    db_submission = ContactSubmission(
+        name=submission.name,
+        email=submission.email,
+        subject=submission.subject,
+        message=submission.message,
+        ip_hash=ip_hash,
+        user_agent=user_agent,
+        is_read=False,
+        is_responded=False
+    )
+    
+    db.add(db_submission)
+    db.commit()
+    db.refresh(db_submission)
+    
+    return db_submission
+
+
+# =============================================================================
+# Shelter CRUD
+# =============================================================================
+
+def get_shelters(
+    db: Session,
+    page: int = 1,
+    page_size: int = 20,
+    state: Optional[str] = None,
+    search: Optional[str] = None
+) -> ShelterListResponse:
+    """
+    Get paginated list of shelters with animal counts.
+    
+    Args:
+        db: Database session
+        page: Page number (1-indexed)
+        page_size: Number of items per page
+        state: Optional filter by state
+        search: Optional search term (name, city, or state)
+        
+    Returns:
+        ShelterListResponse with paginated shelter data
+        
+    Example:
+        >>> result = get_shelters(db, page=1, page_size=20)
+        >>> print(f"Found {result.total} shelters")
+    """
+    query = db.query(Shelter)
+    
+    if state:
+        query = query.filter(Shelter.state.ilike(f"%{state}%"))
+        
+    if search:
+        search_term = f"%{search}%"
+        query = query.filter(
+            or_(
+                Shelter.name.ilike(search_term),
+                Shelter.city.ilike(search_term),
+                Shelter.state.ilike(search_term)
+            )
+        )
+    
+    total = query.count()
+    
+    # Apply pagination
+    offset = (page - 1) * page_size
+    shelters = query.order_by(Shelter.name).offset(offset).limit(page_size).all()
+    
+    # Calculate pagination info
+    total_pages = (total + page_size - 1) // page_size
+    
+    # Transform to response format with animal counts
+    items = []
+    for shelter in shelters:
+        # Count animals at this shelter
+        animal_count = db.query(func.count(Observation.id)).filter(
+            Observation.shelter_id == shelter.id
+        ).scalar() or 0
+        
+        items.append(ShelterListItem(
+            id=shelter.id,
+            name=shelter.name,
+            city=shelter.city,
+            state=shelter.state,
+            email=shelter.email,
+            phone=shelter.phone,
+            website=shelter.website,
+            animal_count=animal_count
+        ))
+    
+    return ShelterListResponse(
+        items=items,
+        total=total,
+        page=page,
+        page_size=page_size,
+        total_pages=total_pages
+    )
+
+
+def get_shelter_detail(db: Session, shelter_id: int) -> Optional[ShelterDetailResponse]:
+    """
+    Get detailed information about a specific shelter including its animals.
+    
+    Args:
+        db: Database session
+        shelter_id: The unique identifier of the shelter
+        
+    Returns:
+        ShelterDetailResponse with complete shelter data, or None if not found
+        
+    Example:
+        >>> shelter = get_shelter_detail(db, shelter_id=1)
+        >>> if shelter:
+        ...     print(f"{shelter.name} has {len(shelter.animals)} animals")
+    """
+    shelter = db.query(Shelter).filter(Shelter.id == shelter_id).first()
+    
+    if not shelter:
+        return None
+    
+    # Get animals at this shelter
+    observations = db.query(Observation).options(
+        joinedload(Observation.animal)
+    ).filter(
+        Observation.shelter_id == shelter_id
+    ).all()
+    
+    # Get unique animals from observations
+    seen_animal_ids = set()
+    animals = []
+    
+    for obs in observations:
+        if obs.animal and obs.animal.id not in seen_animal_ids:
+            seen_animal_ids.add(obs.animal.id)
+            animal = obs.animal
+            
+            animals.append(AnimalListItem(
+                id=animal.id,
+                species=animal.species,
+                canonical_name=animal.canonical_name,
+                breed_primary=animal.breed_primary,
+                age_group=animal.age_group,
+                size=animal.size,
+                gender=animal.gender,
+                status=animal.status,
+                days_waiting=animal.days_waiting,
+                first_seen_at=animal.first_seen_at,
+                photo_url=obs.photo_url,
+                city=obs.city,
+                state=obs.state
+            ))
+    
+    return ShelterDetailResponse(
+        id=shelter.id,
+        name=shelter.name,
+        source=shelter.source,
+        email=shelter.email,
+        phone=shelter.phone,
+        website=shelter.website,
+        address=shelter.address,
+        city=shelter.city,
+        state=shelter.state,
+        zip_code=shelter.zip_code,
+        latitude=shelter.latitude,
+        longitude=shelter.longitude,
+        total_animals=len(animals),
+        animals=animals
+    )

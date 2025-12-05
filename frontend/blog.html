@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Waiting The Longest™ Blog - News, updates, and stories from the world of animal rescue.">
+    <title>Blog - Waiting The Longest™</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .blog-header {
+            background-color: var(--color-background-alt);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .blog-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .blog-image {
+            height: 200px;
+            background-color: #e2e8f0;
+            background-size: cover;
+            background-position: center;
+        }
+        .blog-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .blog-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+            line-height: 1.4;
+        }
+        .blog-excerpt {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        .read-more {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="header-stats-counter" style="display: flex; flex-direction: column; align-items: center; margin-left: 1rem; background: var(--color-background-alt); padding: 0.5rem 1rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 1px;">Animals Tracked</span>
+                <span id="header-tracked-count" style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary);">--</span>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <div class="blog-header">
+        <div class="container">
+            <h1>The Rescue Blog</h1>
+            <p>Stories, updates, and insights from the front lines of animal rescue.</p>
+        </div>
+    </div>
+
+    <main class="container section">
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <article class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1544568100-847a948585b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">October 24, 2023 • Rescue Stories</div>
+                    <h2 class="blog-title">Why Senior Dogs Make the Best Companions</h2>
+                    <p class="blog-excerpt">Puppies are cute, but senior dogs bring a special kind of love and gratitude to a home. Here are 5 reasons to consider adopting a senior.</p>
+                    <a href="#" class="read-more">Read Article →</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">October 18, 2023 • Tips & Advice</div>
+                    <h2 class="blog-title">Preparing Your Home for a Rescue Dog</h2>
+                    <p class="blog-excerpt">Bringing a new dog home is exciting, but it requires preparation. Learn how to dog-proof your house and set up a safe space.</p>
+                    <a href="#" class="read-more">Read Article →</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">October 10, 2023 • Community</div>
+                    <h2 class="blog-title">Community Spotlight: The Volunteers Behind the Scenes</h2>
+                    <p class="blog-excerpt">Meet the dedicated individuals who spend their weekends walking dogs, cleaning kennels, and organizing adoption events.</p>
+                    <a href="#" class="read-more">Read Article →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Waiting The Longest™. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const data = await response.json();
+                
+                // Update header counter
+                const headerCounter = document.getElementById('header-tracked-count');
+                if (headerCounter) {
+                    const currentVal = parseInt(headerCounter.textContent.replace(/,/g, '')) || 0;
+                    const newVal = data.total_animals || 0;
+                    
+                    if (currentVal !== newVal) {
+                        headerCounter.textContent = newVal.toLocaleString();
+                        headerCounter.style.color = 'var(--color-accent)';
+                        setTimeout(() => {
+                            headerCounter.style.color = 'var(--color-primary)';
+                        }, 500);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            setInterval(loadStats, 5000);
+        });
+    </script>
+</body>
+</html>

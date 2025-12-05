@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Waiting The Longest™ - Shelter Directory. Find contact information for animal shelters and rescues.">
+    <meta name="keywords" content="animal shelters, rescue groups, shelter directory, contact shelter">
+    <meta name="author" content="Waiting The Longest™">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://waitingthelongest.com/shelters.html">
+    <meta property="og:title" content="Shelter Directory - Waiting The Longest™">
+    <meta property="og:description" content="Find contact information for animal shelters and rescues.">
+    <meta property="og:image" content="https://waitingthelongest.com/images/og-image.jpg">
+
+    <title>Shelter Directory - Waiting The Longest™</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=3">
+    <style>
+        .shelter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .shelter-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #eee;
+        }
+        .shelter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .shelter-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .shelter-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .shelter-contact {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+        .contact-item a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        .shelter-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        .stat-badge {
+            background: #f7fafc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid #edf2f7;
+        }
+
+        .network-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .network-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .network-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #fdfdfd;
+        }
+
+        .network-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .network-region {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #2b6cb0;
+            background: #ebf8ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .network-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: #4a5568;
+        }
+
+        .akc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .akc-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        }
+
+        .akc-card h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .akc-contact-list {
+            margin-top: 1rem;
+        }
+
+        .akc-contact-list .contact-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <div>
+                    Waiting The Longest™
+                    <span class="tagline">Because Every Day Matters</span>
+                </div>
+            </a>
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="shelters.html" class="nav-link active">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="stories.html" class="nav-link">Success Stories</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 4rem 0; min-height: auto;">
+        <div class="container">
+            <h1 class="hero-title">Shelter Directory</h1>
+            <p class="hero-subtitle">Connect with the dedicated organizations working tirelessly to save lives.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container">
+            <section class="section">
+                <!-- Search/Filter -->
+                <div class="filters-section">
+                    <div class="filter-form" style="max-width: 600px;">
+                        <div class="filter-group" style="flex: 1;">
+                            <label for="shelter-search" class="filter-label">Search Shelters</label>
+                            <input type="text" id="shelter-search" class="filter-select" placeholder="Search by name, city, or state..." oninput="debounceLoadShelters()">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="shelters-grid" class="shelter-grid">
+                    <!-- Shelters will be loaded here -->
+                    <div class="loading-spinner"></div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <!-- Pagination controls will be injected here -->
+                </div>
+            </section>
+
+            <section class="section" aria-labelledby="rescue-directory-overview">
+                <div class="rescue-summary-heading">
+                    <h2 id="rescue-directory-overview">Directory Snapshot</h2>
+                    <p>Live counts across Massachusetts partners, national transport hubs, and AKC breed coordinators.</p>
+                </div>
+                <div id="rescue-directory-summary" class="rescue-summary-panel">
+                    <p class="rescue-summary-message">Loading directory insights...</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Massachusetts Adoption & Rescue Partners</h2>
+                <p>Verified organizations licensed to operate or import animals within the Commonwealth.</p>
+                <div id="curated-rescue-grid" class="shelter-grid"></div>
+            </section>
+
+            <section class="section">
+                <h2>National Transport & Regional Lifeline</h2>
+                <p>High-volume partners powering the Southern-to-Northeastern rescue pipeline and municipal collaborations.</p>
+                <div id="national-transport-sections"></div>
+            </section>
+
+            <section class="section">
+                <h2>AKC Breed-Specific Safety Net</h2>
+                <p>Specialized rescue contacts for medical or behavioral needs tied to specific breeds.</p>
+                <div id="akc-network-grid" class="akc-grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Waiting The Longest™</h3>
+                    <p>Helping shelter animals find their forever homes. Because every day matters.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shelters.html">Shelter Info</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="stories.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="Twitter">TW</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Waiting The Longest™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadShelters();
+            if (window.loadRescueDirectoryHighlights) {
+                window.loadRescueDirectoryHighlights();
+            }
+        });
+
+        let searchTimeout;
+        function debounceLoadShelters() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                state.page = 1; // Reset to first page on search
+                loadShelters();
+            }, 500);
+        }
+    </script>
+</body>
+</html>

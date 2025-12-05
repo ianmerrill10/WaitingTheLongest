@@ -31,10 +31,8 @@ from PIL import Image
 import imagehash
 from io import BytesIO
 
-try:
-    from app.config import settings
-except ImportError:
-    from ..app.config import settings
+# Use absolute import - requires backend/ in PYTHONPATH
+from app.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -108,6 +106,39 @@ class RescueGroupsIngestor:
         except requests.RequestException as e:
             logger.error(f"RescueGroups API error: {e}")
             return {"status": "error", "data": {}}
+
+    def _is_valid_animal(self, animal: IngestedAnimal) -> bool:
+        """
+        Filter out non-specific animal listings (e.g. 'Foster Needed', 'Adoption Event')
+        and listings that are clearly not available animals.
+        """
+        name_lower = animal.name.lower()
+        
+        # Keywords that indicate this is NOT a specific animal listing
+        invalid_keywords = [
+            "foster needed",
+            "fosters needed",
+            "foster home",
+            "adoption event",
+            "read first",
+            "sponsor me",
+            "donation",
+            "volunteer",
+            "transport needed",
+            "fundraiser",
+            "happy tail",
+            "success story"
+        ]
+        
+        # Check name for invalid keywords
+        if any(keyword in name_lower for keyword in invalid_keywords):
+            return False
+
+        # Filter out plural names indicating multiple animals/litters
+        if name_lower in ["kittens", "puppies", "cats", "dogs", "litter", "various"]:
+            return False
+
+        return True
 
     def fetch_animals(
         self,
@@ -185,7 +216,9 @@ class RescueGroupsIngestor:
 
         for animal_id, animal_data in data.items():
             try:
-                animals.append(self._parse_animal(animal_data))
+                animal = self._parse_animal(animal_data)
+                if self._is_valid_animal(animal):
+                    animals.append(animal)
             except Exception as e:
                 logger.warning(f"Failed to parse animal {animal_id}: {e}")
                 continue
@@ -196,14 +229,22 @@ class RescueGroupsIngestor:
     def _parse_animal(self, data: Dict) -> IngestedAnimal:
         """Parse RescueGroups animal data into standardized format"""
 
-        # Extract photos
+        # Extract photos - handle dict or list formats from API
         photos = []
-        if data.get("animalPictures"):
-            for pic in data["animalPictures"]:
-                if pic.get("large"):
-                    photos.append(pic["large"])
-                elif pic.get("original"):
-                    photos.append(pic["original"])
+        pictures = data.get("animalPictures", [])
+        # Handle dict format (keyed by picture ID)
+        if isinstance(pictures, dict):
+            pictures = list(pictures.values())
+
+        for pic in pictures:
+            # Handle dict format with 'url' key
+            if isinstance(pic, dict):
+                url = pic.get("url") or pic.get("large") or pic.get("original")
+                if url:
+                    photos.append(url)
+            # Handle string format (direct URL)
+            elif isinstance(pic, str):
+                photos.append(pic)
 
         # Map age groups
         age_map = {
@@ -289,6 +330,27 @@ class AdoptAPetIngestor:
     pass
 
 
+def _extract_photo_url(photo) -> Optional[str]:
+    """Extract URL string from photo (handles both string and dict formats)"""
+    if photo is None:
+        return None
+    if isinstance(photo, str):
+        return photo
+    if isinstance(photo, dict):
+        return photo.get("url") or photo.get("large") or photo.get("original")
+    return None
+
+
+def _extract_photo_urls(photos: List) -> List[str]:
+    """Extract all URL strings from photos list"""
+    urls = []
+    for photo in photos:
+        url = _extract_photo_url(photo)
+        if url:
+            urls.append(url)
+    return urls
+
+
 def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, int]:
     """
     Run full ingestion from all configured sources.
@@ -322,6 +384,11 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                     breed=animal_data.breed
                 )
 
+                # Extract photo URLs (handles both string and dict formats)
+                photo_urls = _extract_photo_urls(animal_data.photos) if animal_data.photos else []
+                main_photo_url = photo_urls[0] if photo_urls else None
+                photo_gallery = json.dumps(photo_urls) if photo_urls else None
+
                 if existing:
                     # Update existing animal
                     merge_animal_observation(db, existing, {
@@ -330,8 +397,8 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         "shelter_name": animal_data.shelter_name,
                         "name": animal_data.name,
                         "description": animal_data.description,
-                        "photo_url": animal_data.photos[0] if animal_data.photos else None,
-                        "photo_gallery_json": json.dumps(animal_data.photos) if animal_data.photos else None,
+                        "photo_url": main_photo_url,
+                        "photo_gallery_json": photo_gallery,
                         "city": animal_data.city,
                         "state": animal_data.state,
                         "zip_code": animal_data.zip_code,
@@ -366,8 +433,8 @@ def run_full_ingestion(db, species: str = "all", limit: int = 100) -> Dict[str, 
                         shelter_name=animal_data.shelter_name,
                         name=animal_data.name,
                         description=animal_data.description,
-                        photo_url=animal_data.photos[0] if animal_data.photos else None,
-                        photo_gallery_json=json.dumps(animal_data.photos) if animal_data.photos else None,
+                        photo_url=main_photo_url,
+                        photo_gallery_json=photo_gallery,
                         city=animal_data.city,
                         state=animal_data.state,
                         zip_code=animal_data.zip_code,

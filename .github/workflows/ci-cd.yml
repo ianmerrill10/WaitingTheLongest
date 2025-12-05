@@ -59,12 +59,31 @@ jobs:
         run: flake8 backend/ --max-line-length=100 --ignore=E501,W503
 
   # ============================================
+  # DATA QUALITY VALIDATION
+  # ============================================
+  data-quality:
+    name: 🧼 Data Quality
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Validate rescue directory structure
+        run: |
+          python backend/tools/rescue_directory_validator.py --fail-on-warn --dump-json
+
+  # ============================================
   # UNIT TESTS
   # ============================================
   test:
     name: 🧪 Unit Tests
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [lint, data-quality]
     
     services:
       postgres:
