@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dog Breeds Knowledge Library - Learn about 170+ dog breeds, their temperaments, exercise needs, and training tips.">
+    <meta name="keywords" content="dog breeds, dog training, dog care, pet adoption, breed information">
+    <meta name="author" content="Waiting The Longest">
+
+    <title>Dog Breeds Library - Waiting The Longest</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=3">
+
+    <style>
+        .breeds-hero {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+        }
+
+        .breeds-hero h1 {
+            font-size: var(--font-size-4xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .breeds-hero p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breeds-filters {
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-xl) 0;
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .breeds-filters input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+        }
+
+        .breeds-filters select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            background: var(--color-white);
+        }
+
+        .breeds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .breed-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+            cursor: pointer;
+        }
+
+        .breed-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .breed-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--color-accent);
+        }
+
+        .breed-card-content {
+            padding: var(--spacing-md);
+        }
+
+        .breed-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .breed-card-name {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .breed-card-group {
+            font-size: var(--font-size-xs);
+            background: var(--color-primary-light);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .breed-card-temperament {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-sm);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .breed-card-stats {
+            display: flex;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-sm);
+        }
+
+        .breed-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--color-text-muted);
+        }
+
+        .breed-stat-icon {
+            font-size: 1rem;
+        }
+
+        /* Breed Detail Modal */
+        .breed-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .breed-modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: var(--spacing-xl);
+        }
+
+        .breed-modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .breed-modal-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: var(--color-white);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+        }
+
+        .breed-modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .breed-modal-body {
+            padding: var(--spacing-xl);
+        }
+
+        .breed-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .breed-modal-title {
+            font-size: var(--font-size-3xl);
+            margin: 0;
+        }
+
+        .breed-modal-origin {
+            color: var(--color-text-light);
+            font-size: var(--font-size-sm);
+        }
+
+        .breed-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breed-info-item {
+            background: var(--color-accent);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        .breed-info-label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .breed-info-value {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .breed-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breed-section-title {
+            font-size: var(--font-size-lg);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: var(--spacing-xs);
+        }
+
+        .breed-section p {
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        .facts-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .facts-list li {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text-light);
+        }
+
+        .facts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .facts-list li::before {
+            content: "...";
+            color: var(--color-primary);
+            font-weight: bold;
+            margin-right: var(--spacing-sm);
+        }
+
+        .breed-count {
+            text-align: center;
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        @media (max-width: 768px) {
+            .breeds-filters {
+                flex-direction: column;
+            }
+
+            .breeds-filters input[type="text"],
+            .breeds-filters select {
+                width: 100%;
+            }
+
+            .breeds-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">...</span>
+                <div>
+                    Waiting The Longest
+                    <span class="tagline">Help shorten the road home</span>
+                </div>
+            </a>
+
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="knowledge.html" class="nav-link">Knowledge</a>
+                <a href="breeds.html" class="nav-link active">Dog Breeds</a>
+                <a href="shelters.html" class="nav-link">Shelter Info</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">...</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="breeds-hero">
+        <div class="container">
+            <h1>Dog Breeds Library</h1>
+            <p>Explore our comprehensive guide to 170+ dog breeds. Learn about their temperaments, exercise needs, and find the perfect match for your lifestyle.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Filters -->
+        <div class="breeds-filters">
+            <input type="text" id="breed-search" placeholder="Search breeds..." oninput="filterBreeds()">
+            <select id="breed-group-filter" onchange="filterBreeds()">
+                <option value="">All Groups</option>
+            </select>
+            <select id="exercise-filter" onchange="filterBreeds()">
+                <option value="">Exercise Level</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <p class="breed-count">Showing <span id="breed-count">0</span> breeds</p>
+
+        <!-- Breeds Grid -->
+        <div id="breeds-grid" class="breeds-grid">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading breeds...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Breed Detail Modal -->
+    <div id="breed-modal" class="breed-modal" onclick="closeModal(event)">
+        <div class="breed-modal-content" onclick="event.stopPropagation()">
+            <button class="breed-modal-close" onclick="closeModal()">x</button>
+            <img id="modal-image" class="breed-modal-image" src="" alt="">
+            <div class="breed-modal-body">
+                <div class="breed-modal-header">
+                    <div>
+                        <h2 id="modal-title" class="breed-modal-title"></h2>
+                        <p id="modal-origin" class="breed-modal-origin"></p>
+                    </div>
+                    <span id="modal-group" class="breed-card-group"></span>
+                </div>
+
+                <div class="breed-info-grid">
+                    <div class="breed-info-item">
+                        <div class="breed-info-label">Life Span</div>
+                        <div id="modal-lifespan" class="breed-info-value"></div>
+                    </div>
+                    <div class="breed-info-item">
+                        <div class="breed-info-label">Height</div>
+                        <div id="modal-height" class="breed-info-value"></div>
+                    </div>
+                    <div class="breed-info-item">
+                        <div class="breed-info-label">Weight</div>
+                        <div id="modal-weight" class="breed-info-value"></div>
+                    </div>
+                    <div class="breed-info-item">
+                        <div class="breed-info-label">Exercise Needs</div>
+                        <div id="modal-exercise" class="breed-info-value"></div>
+                    </div>
+                </div>
+
+                <div class="breed-section">
+                    <h3 class="breed-section-title">About</h3>
+                    <p id="modal-description"></p>
+                </div>
+
+                <div class="breed-section">
+                    <h3 class="breed-section-title">Temperament</h3>
+                    <p id="modal-temperament"></p>
+                </div>
+
+                <div class="breed-section">
+                    <h3 class="breed-section-title">Originally Bred For</h3>
+                    <p id="modal-bred-for"></p>
+                </div>
+
+                <div class="breed-section">
+                    <h3 class="breed-section-title">Training Tips</h3>
+                    <p id="modal-training"></p>
+                </div>
+
+                <div id="modal-facts-section" class="breed-section" style="display: none;">
+                    <h3 class="breed-section-title">Fun Facts</h3>
+                    <ul id="modal-facts" class="facts-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Waiting The Longest</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: var(--font-size-sm);">
+                        Helping shelter animals find forever homes since 2024. Because every day matters.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Browse Pets</a></li>
+                        <li><a href="breeds.html">Dog Breeds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2025 Waiting The Longest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+        let allBreeds = [];
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('main-nav').classList.toggle('active');
+        }
+
+        // Load breed groups for filter
+        async function loadBreedGroups() {
+            try {
+                const response = await fetch(`${API_BASE}/breed-groups`);
+                const data = await response.json();
+
+                const select = document.getElementById('breed-group-filter');
+                data.groups.forEach(group => {
+                    const option = document.createElement('option');
+                    option.value = group.name;
+                    option.textContent = `${group.name} (${group.count})`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Failed to load breed groups:', error);
+            }
+        }
+
+        // Load all breeds
+        async function loadBreeds() {
+            const container = document.getElementById('breeds-grid');
+
+            try {
+                const response = await fetch(`${API_BASE}/breeds?limit=200`);
+                const data = await response.json();
+
+                allBreeds = data.breeds;
+                renderBreeds(allBreeds);
+            } catch (error) {
+                console.error('Failed to load breeds:', error);
+                container.innerHTML = `
+                    <div class="error-message">
+                        <p>Failed to load breeds. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render breeds grid
+        function renderBreeds(breeds) {
+            const container = document.getElementById('breeds-grid');
+            document.getElementById('breed-count').textContent = breeds.length;
+
+            if (breeds.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <p>No breeds found matching your criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = breeds.map(breed => `
+                <div class="breed-card" onclick="openBreedModal(${breed.id})">
+                    <img
+                        class="breed-card-image"
+                        src="${breed.image_url || 'https://placedog.net/400/300'}"
+                        alt="${breed.name}"
+                        onerror="this.src='https://placedog.net/400/300'"
+                    >
+                    <div class="breed-card-content">
+                        <div class="breed-card-header">
+                            <h3 class="breed-card-name">${breed.name}</h3>
+                            ${breed.breed_group ? `<span class="breed-card-group">${breed.breed_group}</span>` : ''}
+                        </div>
+                        <p class="breed-card-temperament">${breed.temperament || 'Temperament information not available'}</p>
+                        <div class="breed-card-stats">
+                            <span class="breed-stat">
+                                <span class="breed-stat-icon">...</span>
+                                ${breed.life_span || 'N/A'}
+                            </span>
+                            <span class="breed-stat">
+                                <span class="breed-stat-icon">...</span>
+                                ${breed.exercise_needs || 'Medium'}
+                            </span>
+                            ${breed.apartment_friendly ? '<span class="breed-stat"><span class="breed-stat-icon">...</span> Apartment OK</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter breeds
+        function filterBreeds() {
+            const searchTerm = document.getElementById('breed-search').value.toLowerCase();
+            const groupFilter = document.getElementById('breed-group-filter').value;
+            const exerciseFilter = document.getElementById('exercise-filter').value;
+
+            const filtered = allBreeds.filter(breed => {
+                const matchesSearch = !searchTerm ||
+                    breed.name.toLowerCase().includes(searchTerm) ||
+                    (breed.temperament && breed.temperament.toLowerCase().includes(searchTerm));
+
+                const matchesGroup = !groupFilter || breed.breed_group === groupFilter;
+                const matchesExercise = !exerciseFilter || breed.exercise_needs === exerciseFilter;
+
+                return matchesSearch && matchesGroup && matchesExercise;
+            });
+
+            renderBreeds(filtered);
+        }
+
+        // Open breed modal
+        async function openBreedModal(breedId) {
+            const modal = document.getElementById('breed-modal');
+
+            try {
+                const response = await fetch(`${API_BASE}/breeds/${breedId}`);
+                const data = await response.json();
+                const breed = data.breed;
+
+                document.getElementById('modal-image').src = breed.image_url || 'https://placedog.net/800/400';
+                document.getElementById('modal-title').textContent = breed.name;
+                document.getElementById('modal-origin').textContent = breed.origin ? `Origin: ${breed.origin}` : '';
+                document.getElementById('modal-group').textContent = breed.breed_group || 'Mixed';
+                document.getElementById('modal-lifespan').textContent = breed.life_span || 'N/A';
+                document.getElementById('modal-height').textContent = breed.height?.imperial ? `${breed.height.imperial} inches` : 'N/A';
+                document.getElementById('modal-weight').textContent = breed.weight?.imperial ? `${breed.weight.imperial} lbs` : 'N/A';
+                document.getElementById('modal-exercise').textContent = breed.exercise_needs || 'Medium';
+                document.getElementById('modal-description').textContent = breed.description || 'No description available.';
+                document.getElementById('modal-temperament').textContent = breed.temperament || 'N/A';
+                document.getElementById('modal-bred-for').textContent = breed.bred_for || 'Information not available.';
+                document.getElementById('modal-training').textContent = breed.training_tips || 'Start training early and keep sessions short but frequent for best results.';
+
+                // Handle facts
+                const factsSection = document.getElementById('modal-facts-section');
+                const factsList = document.getElementById('modal-facts');
+
+                if (data.facts && data.facts.length > 0) {
+                    factsSection.style.display = 'block';
+                    factsList.innerHTML = data.facts.map(f => `<li>${f.fact}</li>`).join('');
+                } else {
+                    factsSection.style.display = 'none';
+                }
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (error) {
+                console.error('Failed to load breed details:', error);
+            }
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (event && event.target !== document.getElementById('breed-modal')) return;
+
+            const modal = document.getElementById('breed-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBreedGroups();
+            loadBreeds();
+        });
+    </script>
+</body>
+</html>

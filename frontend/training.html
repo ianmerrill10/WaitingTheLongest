@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dog Training Guide - Learn effective training techniques for all dog breeds, from basic commands to advanced behavior training.">
+    <meta name="keywords" content="dog training, puppy training, dog behavior, obedience training, dog commands, positive reinforcement">
+    <meta name="author" content="Waiting The Longest">
+
+    <title>Dog Training Guide - Waiting The Longest</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=3">
+
+    <style>
+        .training-hero {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+        }
+
+        .training-hero h1 {
+            font-size: var(--font-size-4xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .training-hero p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .training-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .training-category-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+            cursor: pointer;
+        }
+
+        .training-category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .training-category-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .training-category-card h3 {
+            font-size: var(--font-size-xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .training-category-card p {
+            color: var(--color-text-light);
+            font-size: var(--font-size-sm);
+        }
+
+        .training-section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .training-section:nth-child(even) {
+            background: var(--color-gray-50);
+        }
+
+        .training-section h2 {
+            font-size: var(--font-size-3xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .training-section-subtitle {
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: var(--font-size-lg);
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .training-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .training-tip-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .training-tip-card h4 {
+            font-size: var(--font-size-lg);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .training-tip-card p {
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        .command-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .command-item {
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .command-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .command-content h5 {
+            font-size: var(--font-size-base);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .command-content p {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+
+        .breed-training-filters {
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .breed-training-filters select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            background: var(--color-white);
+            min-width: 200px;
+        }
+
+        .breed-training-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .breed-training-header {
+            display: flex;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        }
+
+        .breed-training-image {
+            width: 150px;
+            height: 150px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+        }
+
+        .breed-training-info h3 {
+            font-size: var(--font-size-2xl);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .breed-training-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .breed-training-tag {
+            background: var(--color-white);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+
+        .breed-training-content {
+            padding: var(--spacing-lg);
+        }
+
+        .breed-training-content h4 {
+            font-size: var(--font-size-lg);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .breed-training-content p {
+            color: var(--color-text-light);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .breed-training-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .breed-training-content ul li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-lg);
+            position: relative;
+            color: var(--color-text-light);
+        }
+
+        .breed-training-content ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--color-text-light);
+        }
+
+        .no-results span {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .training-stages {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            margin: var(--spacing-xl) 0;
+        }
+
+        @media (max-width: 900px) {
+            .training-stages {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .training-stages {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .training-stage {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .training-stage::after {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .training-stage:last-child::after {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .training-stage::after {
+                display: none;
+            }
+        }
+
+        .stage-number {
+            width: 40px;
+            height: 40px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .training-stage h4 {
+            font-size: var(--font-size-lg);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .training-stage p {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+        }
+
+        .difficulty-easy {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .difficulty-medium {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .difficulty-hard {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        @media (max-width: 768px) {
+            .breed-training-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="nav-logo">WTL</span>
+                <span>Waiting The Longest</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shelters.html">Shelters</a>
+                <a href="breeds.html">Dog Breeds</a>
+                <a href="training.html" class="active">Training</a>
+                <a href="knowledge.html">Knowledge</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="training-hero">
+        <div class="container">
+            <h1>Dog Training Guide</h1>
+            <p>Master the art of dog training with our comprehensive guides. From basic commands to breed-specific techniques, we'll help you build a strong bond with your furry friend.</p>
+        </div>
+    </section>
+
+    <!-- Training Categories -->
+    <section class="training-section">
+        <div class="container">
+            <h2>Training Categories</h2>
+            <p class="training-section-subtitle">Choose a training area to explore detailed guides and techniques</p>
+
+            <div class="training-categories">
+                <div class="training-category-card" onclick="scrollToSection('basic-commands')">
+                    <div class="training-category-icon">🎯</div>
+                    <h3>Basic Commands</h3>
+                    <p>Essential commands every dog should know: sit, stay, come, down, and heel</p>
+                </div>
+                <div class="training-category-card" onclick="scrollToSection('house-training')">
+                    <div class="training-category-icon">🏠</div>
+                    <h3>House Training</h3>
+                    <p>Potty training, crate training, and establishing routines</p>
+                </div>
+                <div class="training-category-card" onclick="scrollToSection('socialization')">
+                    <div class="training-category-icon">🐕‍🦺</div>
+                    <h3>Socialization</h3>
+                    <p>Help your dog become comfortable with people, animals, and new environments</p>
+                </div>
+                <div class="training-category-card" onclick="scrollToSection('behavior')">
+                    <div class="training-category-icon">🧠</div>
+                    <h3>Behavior Correction</h3>
+                    <p>Address common behavioral issues like barking, jumping, and chewing</p>
+                </div>
+                <div class="training-category-card" onclick="scrollToSection('leash-training')">
+                    <div class="training-category-icon">🦮</div>
+                    <h3>Leash Training</h3>
+                    <p>Teach loose-leash walking and eliminate pulling</p>
+                </div>
+                <div class="training-category-card" onclick="scrollToSection('breed-specific')">
+                    <div class="training-category-icon">📚</div>
+                    <h3>Breed-Specific Tips</h3>
+                    <p>Training tailored to your dog's breed characteristics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Philosophy -->
+    <section class="training-section" style="background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);">
+        <div class="container">
+            <h2>Our Training Philosophy</h2>
+            <p class="training-section-subtitle">Positive reinforcement is at the heart of effective dog training</p>
+
+            <div class="training-stages">
+                <div class="training-stage">
+                    <div class="stage-number">1</div>
+                    <h4>Patience</h4>
+                    <p>Every dog learns at their own pace. Stay calm and consistent.</p>
+                </div>
+                <div class="training-stage">
+                    <div class="stage-number">2</div>
+                    <h4>Reward</h4>
+                    <p>Use treats, praise, and play to reinforce desired behaviors.</p>
+                </div>
+                <div class="training-stage">
+                    <div class="stage-number">3</div>
+                    <h4>Consistency</h4>
+                    <p>Use the same commands and rules every time for clarity.</p>
+                </div>
+                <div class="training-stage">
+                    <div class="stage-number">4</div>
+                    <h4>Practice</h4>
+                    <p>Short, frequent sessions are more effective than long ones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Basic Commands Section -->
+    <section id="basic-commands" class="training-section">
+        <div class="container">
+            <h2>Basic Commands</h2>
+            <p class="training-section-subtitle">These foundational commands create the building blocks for all future training</p>
+
+            <div class="command-list">
+                <div class="command-item">
+                    <div class="command-icon">1</div>
+                    <div class="command-content">
+                        <h5>Sit <span class="difficulty-badge difficulty-easy">Easy</span></h5>
+                        <p>Hold a treat above your dog's nose, move it back over their head. As they look up, their bottom naturally lowers. Say "sit" and reward immediately.</p>
+                    </div>
+                </div>
+                <div class="command-item">
+                    <div class="command-icon">2</div>
+                    <div class="command-content">
+                        <h5>Stay <span class="difficulty-badge difficulty-medium">Medium</span></h5>
+                        <p>Start with your dog in "sit". Hold your palm out and say "stay". Take one step back, then return and reward. Gradually increase distance and duration.</p>
+                    </div>
+                </div>
+                <div class="command-item">
+                    <div class="command-icon">3</div>
+                    <div class="command-content">
+                        <h5>Come <span class="difficulty-badge difficulty-medium">Medium</span></h5>
+                        <p>Use a happy voice and say "come" while backing away. Reward enthusiastically when they reach you. Practice in safe, enclosed areas first.</p>
+                    </div>
+                </div>
+                <div class="command-item">
+                    <div class="command-icon">4</div>
+                    <div class="command-content">
+                        <h5>Down <span class="difficulty-badge difficulty-medium">Medium</span></h5>
+                        <p>From "sit", hold a treat to their nose, then slowly lower it to the ground. As they follow it down, say "down" and reward when elbows touch floor.</p>
+                    </div>
+                </div>
+                <div class="command-item">
+                    <div class="command-icon">5</div>
+                    <div class="command-content">
+                        <h5>Heel <span class="difficulty-badge difficulty-hard">Advanced</span></h5>
+                        <p>Keep your dog at your left side while walking. Use treats to lure them into position. Say "heel" and reward for staying beside you without pulling.</p>
+                    </div>
+                </div>
+                <div class="command-item">
+                    <div class="command-icon">6</div>
+                    <div class="command-content">
+                        <h5>Leave It <span class="difficulty-badge difficulty-medium">Medium</span></h5>
+                        <p>Hold a treat in your closed fist. When your dog stops trying to get it, say "leave it" and give them a different treat. Essential for safety.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- House Training Section -->
+    <section id="house-training" class="training-section">
+        <div class="container">
+            <h2>House Training</h2>
+            <p class="training-section-subtitle">Establish good habits from day one with these proven techniques</p>
+
+            <div class="training-tips-grid">
+                <div class="training-tip-card">
+                    <h4>🕐 Establish a Schedule</h4>
+                    <p>Take your dog outside first thing in the morning, after meals, after naps, and before bed. Puppies need to go out every 2-3 hours. Consistency is key - use the same door and the same spot in your yard.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🎉 Celebrate Success</h4>
+                    <p>When your dog goes potty outside, praise them enthusiastically and give a treat immediately. The reward must come right after the behavior so they understand what they're being praised for.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🏠 Crate Training</h4>
+                    <p>Dogs naturally avoid soiling their sleeping area. A properly-sized crate (big enough to stand, turn, lie down) helps with house training. Never use it as punishment - it should be a safe, comfortable den.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>👀 Watch for Signs</h4>
+                    <p>Learn to recognize when your dog needs to go: sniffing the floor, circling, whining, or heading toward the door. Interrupt accidents with a gentle "oops!" and immediately take them outside.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🧹 Clean Accidents Properly</h4>
+                    <p>Use an enzymatic cleaner to eliminate odors completely. Dogs are drawn to spots where they've gone before. Regular cleaners may seem effective to us but dogs can still detect the scent.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>⏳ Be Patient</h4>
+                    <p>Most puppies aren't fully house trained until 4-6 months old. Some breeds take longer. Never punish accidents - it only teaches your dog to hide when they need to go, making training harder.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Socialization Section -->
+    <section id="socialization" class="training-section">
+        <div class="container">
+            <h2>Socialization</h2>
+            <p class="training-section-subtitle">The critical period for socialization is 3-14 weeks, but it's never too late to start</p>
+
+            <div class="training-tips-grid">
+                <div class="training-tip-card">
+                    <h4>👥 People Exposure</h4>
+                    <p>Introduce your dog to people of all ages, sizes, and appearances. Include people wearing hats, sunglasses, uniforms, and using wheelchairs or walkers. Make each encounter positive with treats and calm praise.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🐕 Other Dogs</h4>
+                    <p>Start with calm, well-socialized dogs. Puppy classes are excellent for controlled introductions. Watch body language - loose, wiggly bodies are good; stiff postures or prolonged staring are warning signs.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🌍 New Environments</h4>
+                    <p>Expose your dog to different surfaces (grass, gravel, metal grates), sounds (traffic, construction, appliances), and places (parks, pet stores, outdoor cafes). Go at their pace.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🚗 Car Travel</h4>
+                    <p>Start with short trips to fun destinations. Use a secure crate or safety harness. Never leave dogs in parked cars. Associate the car with positive experiences, not just vet visits.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>✋ Handling Exercises</h4>
+                    <p>Get your dog comfortable with having their ears, paws, mouth, and tail touched. This makes vet visits and grooming much easier. Pair handling with treats and keep sessions short.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>😰 Signs of Stress</h4>
+                    <p>Watch for tucked tail, ears back, lip licking, yawning, or trying to escape. If your dog is stressed, increase distance from the trigger and go slower. Never force interactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Behavior Correction Section -->
+    <section id="behavior" class="training-section">
+        <div class="container">
+            <h2>Behavior Correction</h2>
+            <p class="training-section-subtitle">Address common behavioral issues with positive, effective methods</p>
+
+            <div class="training-tips-grid">
+                <div class="training-tip-card">
+                    <h4>🔊 Excessive Barking</h4>
+                    <p>Identify the trigger (boredom, alert, attention-seeking). Don't yell - it sounds like you're barking too! Teach "quiet" by waiting for silence, marking it, and rewarding. Address the underlying cause.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>⬆️ Jumping on People</h4>
+                    <p>Turn away and ignore your dog when they jump. Only give attention when all four paws are on the ground. Teach an incompatible behavior like "sit to greet." Consistency from all family members is crucial.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🦴 Destructive Chewing</h4>
+                    <p>Provide plenty of appropriate chew toys. Puppy-proof your space. When you catch them chewing something wrong, redirect to an appropriate item and praise. More exercise often reduces destructive behavior.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🍽️ Food Guarding</h4>
+                    <p>Approach while your dog eats and drop high-value treats in their bowl. This teaches that people approaching = good things. Never punish guarding - it makes it worse. Consult a professional for severe cases.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>😟 Separation Anxiety</h4>
+                    <p>Build independence gradually. Practice short absences and slowly increase duration. Don't make departures emotional. Provide enrichment toys when alone. Severe cases may need professional help and possibly medication.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🏃 Counter Surfing</h4>
+                    <p>Management is key - don't leave food unattended. Teach "off" and "leave it." Reward four paws on the floor. Never let them succeed at getting food from counters, as intermittent rewards make behaviors harder to stop.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leash Training Section -->
+    <section id="leash-training" class="training-section">
+        <div class="container">
+            <h2>Leash Training</h2>
+            <p class="training-section-subtitle">Enjoy walks together with proper leash manners</p>
+
+            <div class="training-tips-grid">
+                <div class="training-tip-card">
+                    <h4>🎽 Equipment Matters</h4>
+                    <p>Use a front-clip harness or head halter for pullers. Avoid retractable leashes during training. A 6-foot leash gives enough freedom while maintaining control. Ensure collar/harness fits properly.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🏠 Start Indoors</h4>
+                    <p>Practice leash skills in your house or yard first where there are fewer distractions. Get your dog comfortable wearing the leash before adding the challenge of new environments.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🛑 Be a Tree</h4>
+                    <p>When your dog pulls, stop moving completely. Wait for slack in the leash, then continue walking. Your dog learns that pulling = stopping, while loose leash = forward movement.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>↩️ Change Direction</h4>
+                    <p>When your dog pulls ahead, do a u-turn and walk the other way. This teaches them to pay attention to where you're going. Reward them for checking in with you during walks.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🏆 Reward Position</h4>
+                    <p>Carry treats and reward your dog frequently for walking beside you. Start with continuous rewards, then gradually space them out. Mark and treat the moment they're in the right position.</p>
+                </div>
+                <div class="training-tip-card">
+                    <h4>🐕 Sniff Breaks</h4>
+                    <p>Walks are enriching for dogs - let them sniff! Use "go sniff" as a reward for good walking. Balance training time with free exploration time. A tired nose is a tired dog.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breed-Specific Training Section -->
+    <section id="breed-specific" class="training-section">
+        <div class="container">
+            <h2>Breed-Specific Training</h2>
+            <p class="training-section-subtitle">Training tips tailored to your dog's unique characteristics</p>
+
+            <div class="breed-training-filters">
+                <select id="breedGroupFilter" onchange="loadBreedTraining()">
+                    <option value="">Select a Breed Group</option>
+                </select>
+                <select id="breedFilter" onchange="showBreedTraining()">
+                    <option value="">Select a Breed</option>
+                </select>
+            </div>
+
+            <div id="breedTrainingContainer">
+                <div class="no-results">
+                    <span>🐕</span>
+                    <p>Select a breed group and breed above to see specific training recommendations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Resources -->
+    <section class="training-section" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);">
+        <div class="container">
+            <h2>Additional Resources</h2>
+            <p class="training-section-subtitle">Explore our other resources to help you and your dog succeed</p>
+
+            <div class="training-categories">
+                <a href="breeds.html" class="training-category-card" style="text-decoration: none;">
+                    <div class="training-category-icon">📖</div>
+                    <h3>Breed Library</h3>
+                    <p>Learn about 170+ dog breeds, their temperaments, and characteristics</p>
+                </a>
+                <a href="index.html" class="training-category-card" style="text-decoration: none;">
+                    <div class="training-category-icon">🏠</div>
+                    <h3>Adopt a Dog</h3>
+                    <p>Find your perfect match from shelter dogs waiting for homes</p>
+                </a>
+                <a href="blog.html" class="training-category-card" style="text-decoration: none;">
+                    <div class="training-category-icon">📰</div>
+                    <h3>Pet Blog</h3>
+                    <p>Articles on pet care, training tips, and heartwarming stories</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="nav-logo">WTL</span>
+                        <span>Waiting The Longest</span>
+                    </div>
+                    <p>Help shorten the road home</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shelters.html">Shelters</a></li>
+                        <li><a href="breeds.html">Dog Breeds</a></li>
+                        <li><a href="training.html">Training</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="knowledge.html">Knowledge Base</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Waiting The Longest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+        let allBreeds = [];
+        let breedGroups = [];
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Load breed groups and breeds
+        async function loadBreedData() {
+            try {
+                // Fetch breed groups
+                const groupsRes = await fetch(`${API_BASE}/breed-groups`);
+                if (groupsRes.ok) {
+                    breedGroups = await groupsRes.json();
+                    populateBreedGroupFilter();
+                }
+
+                // Fetch all breeds for filtering
+                const breedsRes = await fetch(`${API_BASE}/breeds?limit=200`);
+                if (breedsRes.ok) {
+                    const data = await breedsRes.json();
+                    allBreeds = data.breeds || [];
+                }
+            } catch (error) {
+                console.error('Error loading breed data:', error);
+            }
+        }
+
+        // Populate breed group dropdown
+        function populateBreedGroupFilter() {
+            const select = document.getElementById('breedGroupFilter');
+            breedGroups.forEach(group => {
+                if (group) {
+                    const option = document.createElement('option');
+                    option.value = group;
+                    option.textContent = group;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Load breeds when group is selected
+        function loadBreedTraining() {
+            const groupFilter = document.getElementById('breedGroupFilter').value;
+            const breedSelect = document.getElementById('breedFilter');
+
+            // Clear and reset breed select
+            breedSelect.innerHTML = '<option value="">Select a Breed</option>';
+
+            if (!groupFilter) {
+                document.getElementById('breedTrainingContainer').innerHTML = `
+                    <div class="no-results">
+                        <span>🐕</span>
+                        <p>Select a breed group and breed above to see specific training recommendations</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Filter breeds by group
+            const filteredBreeds = allBreeds.filter(b => b.breed_group === groupFilter);
+
+            filteredBreeds.forEach(breed => {
+                const option = document.createElement('option');
+                option.value = breed.id;
+                option.textContent = breed.name;
+                breedSelect.appendChild(option);
+            });
+        }
+
+        // Show breed-specific training
+        async function showBreedTraining() {
+            const breedId = document.getElementById('breedFilter').value;
+
+            if (!breedId) {
+                document.getElementById('breedTrainingContainer').innerHTML = `
+                    <div class="no-results">
+                        <span>🐕</span>
+                        <p>Select a breed above to see specific training recommendations</p>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/breeds/${breedId}`);
+                if (!res.ok) throw new Error('Failed to fetch breed');
+
+                const breed = await res.json();
+                renderBreedTraining(breed);
+            } catch (error) {
+                console.error('Error loading breed training:', error);
+                document.getElementById('breedTrainingContainer').innerHTML = `
+                    <div class="no-results">
+                        <span>😕</span>
+                        <p>Unable to load training information. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render breed training card
+        function renderBreedTraining(breed) {
+            const container = document.getElementById('breedTrainingContainer');
+
+            // Generate training tips based on breed characteristics
+            const trainingTips = generateTrainingTips(breed);
+
+            container.innerHTML = `
+                <div class="breed-training-card">
+                    <div class="breed-training-header">
+                        <img src="${breed.image_url || 'https://placedog.net/400/400?random=' + breed.id}"
+                             alt="${breed.name}"
+                             class="breed-training-image"
+                             onerror="this.src='https://placedog.net/400/400?random=${breed.id}'">
+                        <div class="breed-training-info">
+                            <h3>${breed.name}</h3>
+                            <div class="breed-training-meta">
+                                ${breed.breed_group ? `<span class="breed-training-tag">${breed.breed_group}</span>` : ''}
+                                ${breed.exercise_needs ? `<span class="breed-training-tag">Exercise: ${capitalize(breed.exercise_needs)}</span>` : ''}
+                                ${breed.origin ? `<span class="breed-training-tag">Origin: ${breed.origin}</span>` : ''}
+                            </div>
+                            <p style="color: var(--color-text-light); font-size: var(--font-size-sm);">
+                                ${breed.temperament || 'Temperament information not available'}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="breed-training-content">
+                        <h4>Training Overview</h4>
+                        <p>${breed.training_tips || generateDefaultTrainingTips(breed)}</p>
+
+                        <h4>Key Training Considerations</h4>
+                        <ul>
+                            ${trainingTips.map(tip => `<li>${tip}</li>`).join('')}
+                        </ul>
+
+                        ${breed.bred_for ? `
+                        <h4>Bred For</h4>
+                        <p>${breed.bred_for} - Understanding your dog's original purpose helps in training. Use activities that tap into their natural instincts.</p>
+                        ` : ''}
+
+                        <h4>Exercise Requirements</h4>
+                        <p>${getExerciseDescription(breed.exercise_needs || 'moderate')}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generate training tips based on breed characteristics
+        function generateTrainingTips(breed) {
+            const tips = [];
+            const temperament = (breed.temperament || '').toLowerCase();
+            const breedGroup = (breed.breed_group || '').toLowerCase();
+
+            // Intelligence-based tips
+            if (temperament.includes('intelligent') || temperament.includes('clever') || temperament.includes('smart')) {
+                tips.push('This breed is highly intelligent - keep training sessions varied to prevent boredom');
+                tips.push('Mental stimulation through puzzle toys and games is essential');
+            }
+
+            // Energy-based tips
+            if (breed.exercise_needs === 'high' || temperament.includes('energetic') || temperament.includes('active')) {
+                tips.push('High energy requires ample exercise before training sessions for better focus');
+                tips.push('Consider dog sports like agility, flyball, or dock diving');
+            }
+
+            // Stubborn breeds
+            if (temperament.includes('stubborn') || temperament.includes('independent')) {
+                tips.push('Patience is key - this breed may take longer to train but they will get there');
+                tips.push('Make training fun and rewarding to motivate this independent thinker');
+            }
+
+            // Sensitive breeds
+            if (temperament.includes('sensitive') || temperament.includes('gentle')) {
+                tips.push('Use only positive reinforcement - harsh corrections can damage trust');
+                tips.push('Keep your tone upbeat and encouraging');
+            }
+
+            // Working dogs
+            if (breedGroup.includes('working') || breedGroup.includes('herding')) {
+                tips.push('This breed thrives with a job to do - give them tasks and responsibilities');
+                tips.push('Structure and routine help this breed feel secure');
+            }
+
+            // Terriers
+            if (breedGroup.includes('terrier')) {
+                tips.push('High prey drive may make recall challenging - always train in safe areas');
+                tips.push('Channel their determination with engaging, fast-paced training');
+            }
+
+            // Hounds
+            if (breedGroup.includes('hound')) {
+                tips.push('Strong scent drive means training recall requires extra patience and high-value rewards');
+                tips.push('Use their nose - scent games can be great training tools');
+            }
+
+            // Toy breeds
+            if (breedGroup.includes('toy')) {
+                tips.push('Small dogs need training too - avoid "small dog syndrome" by setting clear boundaries');
+                tips.push('Use tiny treat pieces to avoid overfeeding during training');
+            }
+
+            // Add general tips if we don't have enough specific ones
+            if (tips.length < 3) {
+                tips.push('Start training early and be consistent with commands and expectations');
+                tips.push('Short, frequent training sessions (5-10 minutes) are most effective');
+                tips.push('End each session on a positive note to build enthusiasm for future sessions');
+            }
+
+            return tips.slice(0, 6); // Return max 6 tips
+        }
+
+        // Generate default training tips
+        function generateDefaultTrainingTips(breed) {
+            const group = breed.breed_group || 'mixed';
+            const defaults = {
+                'Herding': 'Herding breeds are intelligent and eager to please, making them highly trainable. They need mental stimulation and a job to do. Channel their herding instincts with activities like agility or trick training.',
+                'Working': 'Working breeds are strong, intelligent, and task-oriented. They excel with consistent training and clear leadership. Early socialization is crucial. They often do well with obedience, protection work, or cart pulling.',
+                'Sporting': 'Sporting breeds are active and love to please. They respond well to positive reinforcement and need plenty of exercise. Field work, fetch games, and dock diving are excellent outlets.',
+                'Hound': 'Hounds can be independent thinkers with strong prey drives. Training requires patience and high-value rewards. Their excellent noses make scent work and tracking great activities.',
+                'Terrier': 'Terriers are feisty, confident, and determined. Training requires a sense of humor and consistent boundaries. Keep sessions fun and fast-paced. They excel at earthdog trials and barn hunt.',
+                'Toy': 'Toy breeds are often clever and affectionate. Don\'t let their small size excuse bad behavior - they need training like any dog. Use small treats and be mindful of their delicate size.',
+                'Non-Sporting': 'This diverse group includes many different temperaments. Assess your individual dog\'s needs and tailor training accordingly. What works for a Poodle may not work for a Bulldog.',
+                'mixed': 'Every dog is an individual. Observe your dog\'s natural tendencies and strengths, then tailor training to match. Positive reinforcement and consistency are key regardless of breed.'
+            };
+
+            return defaults[group] || defaults['mixed'];
+        }
+
+        // Get exercise description
+        function getExerciseDescription(level) {
+            const descriptions = {
+                'low': 'This breed has lower exercise needs, making them suitable for apartments and less active owners. Short daily walks and some playtime will keep them happy. However, mental stimulation through training and puzzle toys is still important.',
+                'moderate': 'This breed requires regular exercise to stay healthy and happy. Plan for at least 30-60 minutes of activity daily, including walks, play sessions, and training. They adapt well to various living situations with adequate exercise.',
+                'high': 'This is a high-energy breed that needs significant daily exercise. Plan for 1-2 hours of activity including vigorous walks, runs, hikes, or play. Without adequate exercise, they may develop behavioral issues. Consider dog sports for additional outlets.'
+            };
+            return descriptions[level] || descriptions['moderate'];
+        }
+
+        // Capitalize first letter
+        function capitalize(str) {
+            return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadBreedData);
+    </script>
+</body>
+</html>

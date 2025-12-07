@@ -1,0 +1,592 @@
+Operational Analysis and Comprehensive Directory of the American Kennel Club Rescue Network
+Executive Summary
+The American Kennel Club (AKC) Rescue Network constitutes the most extensive and specialized alliance of canine welfare organizations in the United States. Formally recognized in 2013, this decentralized infrastructure is comprised of over 450 unique rescue groups representing 160 distinct breeds. Unlike generic shelters which must accommodate all species and breeds often without specialized resources, the AKC Rescue Network operates on a breed-specific mandate. This ensures that animals with distinct physiological, behavioral, and genetic needs—from the airway management of brachycephalic breeds to the high-drive containment requirements of herding dogs—are rehabilitated by domain experts.
+This report serves as an exhaustive directory and operational analysis of this network. It aggregates contact protocols, organizational hierarchies, and rescue contexts for every breed currently listed in the available AKC Rescue Network documentation. Beyond a simple list, this document analyzes the "rescue context" for each breed—generating insight into why specific breeds enter the welfare system and the logistical burdens placed on their respective rescue organizations.
+The data presented herein suggests a tiered system of rescue operations:
+* National Parent Clubs: These entities (e.g., the Golden Retriever Club of America) often function as funding and policy hubs, offering grants and trusted breeder referrals.
+* Regional Independent 501(c)(3)s: These groups (e.g., "Southern California Pomeranian Rescue") execute the physical labor of rescue, fostering, and vetting.
+* State-Level Coordinator Networks: Seen prominently in breeds like the Japanese Chin, where individual volunteers manage specific territories under a national umbrella.
+The following directory is organized alphabetically by breed, providing a master list of all identified organizations, their operational footprint, and direct contact details.
+Section I: Operational Infrastructure and AKC Support
+Before analyzing specific breed divisions, it is requisite to document the central administrative support provided by the AKC. These departments offer the regulatory framework, database capabilities, and funding mechanisms that allow decentralized breed rescues to function.
+Central Administrative Contacts
+The efficacy of the Rescue Network relies on a symbiotic relationship with AKC corporate departments, which manage breeder compliance, club accreditation, and lost pet recovery.
+| Department | Function | Contact Protocol | Source |
+|---|---|---|---|
+| Customer Service | Primary intake for general inquiries and navigation to specific rescue coordinators. | Phone: (919) 233-9767
+Hours: Mon-Fri 8:30-8:00 ET
+Email: info@akc.org |  |
+| Club Relations | Manages accreditation of parent clubs that sponsor rescue groups. | Phone: (212) 696-8211
+Email: clubrelations@akc.org |  |
+| AKC Reunite | Critical infrastructure for microchipping and lost pet recovery, reducing rescue intake. | Phone: (800) 252-7894
+Fax: (919) 816-3828 |  |
+| Canine Health Foundation | Funds research into breed-specific pathologies, aiding rescues in medical triage. | Phone: (888) 682-9696
+Fax: (919) 334-4011 |  |
+| Government Relations | Assists rescues in navigating breed-specific legislation (BSL) and animal welfare laws. | Phone: (919) 816-3720 |  |
+| Compliance | Ensures integrity within the network and investigates operational complaints. | Phone: (919) 816-3546
+Email: compliancediv@akc.org |  |
+Section II: The 'A' Breeds – Analysis and Directory
+The "A" cohort represents a dichotomy in rescue requirements: the high-maintenance grooming needs of the Afghan Hound versus the intense behavioral management required for the Akita and Airedale Terrier.
+Affenpinscher
+Rescue Context: The Affenpinscher, or "Monkey Dog," is a toy breed with a terrier-like constitution. Rescue intakes are often driven by the breed's fearlessness and vocal nature, which can be overwhelming for owners anticipating a docile lapdog. They are structurally delicate but behaviorally robust, requiring fosters who can manage "big dog" attitudes in small bodies.
+* Affenpinscher Rescue of America
+   * Operational Status: Active.
+   * Contact Note: While specific contact details were not provided in the immediate dataset, the National Club typically oversees these operations directly.
+Afghan Hound
+Rescue Context: The Afghan Hound presents one of the most significant logistical challenges in the rescue network due to its coat. A neglected Afghan Hound requires hours of professional grooming or shaving to resolve matting, often costing rescues hundreds of dollars per intake. Furthermore, their sighthound independence makes them flight risks, necessitating foster homes with high, secure fencing.
+| Organization | Contact Person | Contact Details | Jurisdiction | Source |
+|---|---|---|---|---|
+| Afghan Hound Club of America | Martha Powell | Ph: 877-237-3728
+Email: affierescue@aol.com | National |  |
+| Greater Twin Cities Afghan Hound Club | Susan Weatherhead | Ph: 651-428-1706
+Email: sweatherhead@comcast.net
+Addr: 7194 Clear Ridge, Centerville, MN 55038 | MN/Midwest |  |
+| North East Afghan Hound Rescue | Pamela Wall | Ph: 978-774-8966
+Email: neahr@comcast.net
+Addr: P.O. Box 424, Hathorne, MA 01937 | Northeast US |  |
+Airedale Terrier
+Rescue Context: Known as the "King of Terriers," Airedales are surrendered largely due to their high energy and dominance. They are working dogs that require significant mental stimulation. The rescue network for Airedales is remarkably dense, suggesting a high volume of activity and a well-organized response to the breed's popularity and challenging temperament.
+Directory of Airedale Rescue Units:
+* Starting Over Airedale Rescue / New Beginnings Airedale Rescue
+   * Description: A foundational group serving the Midwest, coordinating a volunteer network across 14 states (AR, CO, IL, IN, IA, KS, KY, MI, MN, MS, MO, NE, OH, WI) and Ontario. This immense scope highlights the migratory nature of rescued Airedales in the central US.
+   * Contact: Pat Chmelar, President
+   * Phone: 231-798-4846
+* Sunshine Airedalers of Florida
+   * Description: Dedicated to the Florida peninsula, managing high-heat concerns for this heavy-coated terrier.
+   * President: Sara Schlossman (Cell: 407-625-2660)
+   * Vice President: Cindy Trumble (Ph: 727-525-2203 / Cell: 727-455-7270)
+* New England Airedale Rescue, Inc.
+   * Description: Serves the historic stronghold of the breed in the Northeast.
+   * Contact: Barbara Curtiss
+   * Phone: 860-927-3420
+   * Email: sculptaire@snet.net
+* Southwest Airedale Terrier Rescue
+   * Description: Covers the vast desert regions (AZ, NM, NV, UT), where transport logistics are the primary hurdle.
+   * Phone: 800-688-1402
+   * Email: swat.rescue@gmail.com
+* NC AireRescue
+   * Contact: Debbie Butler
+   * Phone: 336-288-2499 or 336-681-4967
+* Airedale Rescue and Adoption of the Delaware Valley
+   * Region: PA, NJ, DE.
+   * Email: Airedale@epix.net
+* Airedale Rescue Group of the Southeast
+   * Region: NC, SC, GA, TN, AL.
+   * Contacts: Barbara Yager (803.547.2829), Christina Prange (919.605.4563)
+* Texas Airedale Rescue Team
+   * Contacts: Becky Preston (512-630-7073), Cheryl Silver (512-454-7219)
+Akita
+Rescue Context: Akitas are large, powerful guardians with a primitive temperament. Rescue organizations for Akitas are some of the most rigorous in the entire network regarding adopter screening. They must filter for experience with resource guarding and dog-aggression, common reasons for surrender. The network is highly segmented regionally, reflecting the difficulty of transporting large, potentially aggressive dogs across state lines.
+| Organization | Region/Scope | Contact Details | Source |
+|---|---|---|---|
+| Akita Club of America | National | Elizabeth Fulghum: 480-518-5296, efulghum@paradigm-eng.com |  |
+| Akita Advocates Relocation Team Arizona | Arizona | Deb Harlow: 602-88-AKITA, AARTA.AkitaAdvocates@gmail.com |  |
+| Akita Rescue Mid-Atlantic Coast (ARMAC) | DE, MD, DC, PA, VA, WV | Jodi Marcus: 703-730-0844, info@akitarescue.org |  |
+| Akita Rescue Society of Florida | Southeast US | Dorie Sparkman: 904-302-3980, doriesparkman@gmail.com |  |
+| Akita Rescue of Western New York | Western NY | Nancy Lamm: 914-747-4252, arwny@roadrunner.com |  |
+| Akita SOS (Save Our Seniors) | Senior Focus | Kathy Dewees: 914-747-4252, akitasos@akitasos.com |  |
+| Big East Akita Rescue | Northeast US | Jo Ann Dimon: 609-388-7004, bigeastakitarescue@verizon.net |  |
+| Midwest Akita Rescue | Midwest | Deanna O'Brien: 773-594-9302, marsakita@sbcglobal.net |  |
+| Rakki-Inu Akita Rescue | Mid-Atlantic | Kira Brown: 757-831-4200, rakki.inu.akita.rescue@gmail.com |  |
+| Washington Akita Group | Pacific NW | Troy/Cecille Juresko: 509-467-0460, washingtonakitagroup@earthlink.net |  |
+| Western Great Lakes Akita Rescue | Great Lakes | Fred Mennecke: 414-840-2339, akitahelpr@earthlink.net |  |
+| Georgia Akita Rescue Division | Georgia | Jenna Stegin: 404-435-6882, jenna@georgiaakitarescuedivision.org |  |
+| Namaste Akita Rescue Alliance | CA, NV | Diane Fong-Uego: adopt1@sbcglobal.net |  |
+| Recovering our Akitas Rescue | WA, OR | Linda Lopossa: wildwnd-trk@msn.ccom |  |
+| SWAT (South West Akita Tactical Rescue) | Southwest US | Patrice Lim: 602-525-8472, patricelimakitalover@gmail.com |  |
+American Staffordshire Terrier
+Rescue Context: Often legally entangled due to Breed Specific Legislation (BSL), AmStaff rescues operate partly as welfare organizations and partly as legal advocacy groups. Their primary burden is finding housing-compliant homes and combating stigma.
+* American Staffordshire Terrier Club of America: Joyce Martin, 408-776-8271.
+Australian Cattle Dog
+Rescue Context: Intense herding dogs that nip at heels and require jobs. They are frequently returned to shelters for "biting" (herding) children or destroying property due to boredom.
+* Australian Cattle Dog Rescue, Inc. / Sweetwater Valley Dog Rescue: 423-536-8119, hammsh1969@hotmail.com.
+* K9 Resources and Rescues: Dana Rochat, 951-572-2372, rescues@gmail.com.
+Azawakh
+Rescue Context: A rare African sighthound. Rescue needs are minimal due to low population, but highly specialized due to the breed's primitive guarding nature.
+* American Azawakh Association: Sue Hamm, 1605 Wood Road, Rudolph, WI 54475, shamm@wctc.net.
+Section III: The 'B' Breeds – Analysis and Directory
+The "B" breeds include high-volume rescue populations like the Beagle and Basset Hound, driven by their popularity as pets and their tendency to wander.
+Barbet
+Rescue Context: A rare French water dog. The National Club manages all displacements internally.
+* Barbet Club of America: Ellen Rich, (248) 978-2715, eredavi@aol.com.
+Basenji
+Rescue Context: The "barkless" dog is an escape artist with a high prey drive. Rescues often require 6-foot fences and are strict about containment.
+* Basenji Club of America: Joe Carlson, 954-815-2143, ernursero@aol.com.
+* Basenji Rescue & Transport, Inc..
+Basset Hound
+Rescue Context: Bassets are prone to expensive medical issues (ears, skin, back) that often lead to economic surrender. The rescue network is state-centric to manage the volume.
+* Basset Hound Club of America: Sandra Wittenberg, bhcs.cs@gmail.com.
+   * Affiliates: Basset Hound Rescue of Alabama, Arizona Basset Hound Rescue, Belly Rubs Basset Rescue (AR), Golden Gate Basset Rescue (NorCal), Basset Hound Rescue of Southern California, San Diego Basset Hound Rescue, Daphneyland Basset Rescue (CA), High Country Basset Rescue (CO), New England Basset Hound Rescue (CT).
+Beagle
+Rescue Context: Beagles are one of the most common dogs in rescue due to their use in research laboratories and their tendency to follow scents away from home.
+* Beagle Rescue League: P.O. Box 424, Yardley, PA 19067, 866-739-0350, info@beaglerescueleague.org.
+* Arizona Beagle Rescue: P.O. Box 61193, Phoenix, AZ 85082, 623-977-1355, adoptions@azbeaglerescue.com.
+* Sue Dreamhouse Rescue: 5331 Monterey Road, Batavia, OH 45103, 513-484-9840.
+Bearded Collie
+Rescue Context: High-maintenance coats and high energy "bounce" define the rescue intake for Beardies.
+* Bearded Collie Club of America: Patty Halverson (mrsphbeardie@gmail.com), Kay Sakoski (kaysak@yahoo.com).
+Bedlington Terrier
+Rescue Context: Prone to Copper Storage Disease, a genetic liver condition. Rescues must be adept at managing this lifelong medical condition.
+* Bedlington Terrier Wellness & Rescue Association: Linda M. Freeman (703-405-9115, lmfreeman1959@gmail.com), Lucy Heyman (281-353-4292, lucy@carilloncares.com).
+Bernese Mountain Dog
+Rescue Context: A giant breed with a heartbreakingly short lifespan, often surrendering due to owner lifestyle changes or the high cost of veterinary care for cancer, which plagues the breed.
+* Bernese Mountain Dog Club of America: bmdrescue@clearwater.net.
+* Bernese Mountain Dog Club of Watchung: bmdcwrescue@yahoo.com (NJ, NY, Eastern PA).
+* Blue Ridge Bernese Mountain Dog Club: Dawn Gabig, 660-342-6555, dawngabig@gmail.com.
+* Mountain Dog Club of Northeastern Illinois: Laurie Boyle, lboyle90@comcast.net.
+Bichon Frise
+Rescue Context: Often surrendered due to grooming neglect or housebreaking difficulties.
+* Bichon Frise Club of America Charitable Trust: Zandra Kern, 866-473-0722, bfcarerescue@gmail.com.
+Bloodhound
+Rescue Context: Their tracking drive is relentless, often leading them to roam. They are large, drool-heavy dogs that require patient owners, a rarity found by breed-specific rescuers.
+| Organization | Contact | Details | Source |
+|---|---|---|---|
+| American Bloodhound Club | Leanne Dayvolt | 770-836-8428, sebr@bellsouth.net |  |
+| Northern California Bloodhound Rescue | Pam Herranz | 916-396-5341, pamh@ncbhr.org |  |
+| Pacific Rim Bloodhound Club | Suzi Paine | 253-535-1408, themaja@comcast.net |  |
+| Southeast Bloodhound Rescue | Leanne Dayvolt | 770-836-8428, dayvolt@bellsouth.net |  |
+| South Central Bloodhound Club | Lindsey Norman | 307-630-1234, adopt@southcentralbloodhounds.org |  |
+| South West Bloodhound Rescue | Susan LaCroix Hamil | 949-494-1076, CAH20372@aol.com |  |
+| Helpless Hounds Dog Rescue | General Intake | 918-518-1167, helplesshounds@gmail.com |  |
+Borzoi
+Rescue Context: Large sighthounds that are startlingly fast and sensitive. They do not fare well in traditional kennel environments.
+* Borzoi Club of America Rescue: Dedra Jones, 225-927-6303, lagniappehounds@att.net.
+* National Borzoi Rescue Foundation: Carol Backers, 231-409-2129, borzoirescue@reagan.com.
+* Borzoi Club of Northern California: Nancy Joeckel, PO Box 1850 Rogue River, OR 97537.
+Bouvier des Flandres
+Rescue Context: Strong-willed herders requiring firm leadership.
+* American Bouvier Rescue League: Marica Proud, 641-715-3900 ext 81724#, Natlcoord@abrl.org.
+Boykin Spaniel
+Rescue Context: The state dog of South Carolina, compact and energetic.
+* Boykin Spaniel Club & Breeders Association: Melody Bacon, 281-686-8922, contact@TheBoykinSpanielClub.com.
+Briard
+Rescue Context: A large French sheepdog with a double coat that mats easily.
+* Briard Club of America Rescue Trust: Constance K. Hardy, 480-991-4718, briardrescuetrust@comcast.net.
+* Briard Rescue and Haven: Debra Morrow, 602-228-2495, briards.us@gmail.com.
+Brittany
+Rescue Context: High-energy bird dogs that can be hyperactive in non-working homes.
+* American Brittany Rescue: Terry Mixdorf, terrymixdorf@gmail.com.
+* National Brittany Rescue & Adoption Network: Susan E. Spaid, 814-771-6720, Brittsrgr8@gmail.com.
+Bulldog
+Rescue Context: Bulldogs face severe health challenges (respiratory, orthopedic). Rescues often spend thousands per dog on surgery.
+* Bulldog Club of America Rescue Network: 833-223-3833. (Coordinates state-level reps).
+Section IV: The 'C' Breeds – Analysis and Directory
+The "C" breeds include high-volume rescues like the Chihuahua and Cocker Spaniel, as well as the specialized Cane Corso.
+Cairn Terrier
+Rescue Context: The "Toto" dog, known for tenacity and digging.
+* Cairn Terrier Club of America: Patricia Gould, 406-459-8290, CairnPup@gmail.com.
+* Col. Potter Cairn Rescue Network:.
+Cane Corso
+Rescue Context: A powerful guardian breed that requires experienced handling. Rescues screen heavily for liability and capability.
+* Must Love Corso Rescue: info@mustlovecorsosrescue.org. Contact: Kathy Cressia (kathy.cressia@sbcglobal.net).
+Cardigan Welsh Corgi
+Rescue Context: The Corgi with the tail. Less common than Pembrokes, but shares the heeler's nip.
+* Cardigan Welsh Corgi National Rescue Trust:.
+Catahoula Leopard Dog
+Rescue Context: A high-drive American working dog, often too much dog for the average family.
+* Catahoula Rescue:.
+Cavalier King Charles Spaniel
+Rescue Context: Prone to Mitral Valve Disease (MVD) and Syringomyelia. Rescues act as hospices as much as rehoming agencies.
+* ACKCS Rescue Trust, Inc.: Renee Bruns, cavalierrescue@cox.net.
+Cesky Terrier
+Rescue Context: A rare terrier breed.
+* American Cesky Terrier Fanciers Association Rescue: Barbara Hopler, 973-586-3033, Sambarbs@aol.com.
+Chesapeake Bay Retriever
+Rescue Context: The most protective of retrievers, bred for icy waters.
+* American Chesapeake Club:
+   * East: Jane Peabody, RescEast@amchessieclub.org
+   * Central: Gina Stevens, RescCent@amchessieclub.org
+   * West: Camille Druge, RescWest@amchessieclub.org.
+Chihuahua
+Rescue Context: The second most common breed in US shelters. Rescues deal with volume, hoarding cases, and dental disease.
+* Chihuahua Club of America: Lynnie Bunten, 210-889-0780, lynnie@texaskachina.com.
+Chinese Crested
+Rescue Context: Hairless and coated varieties, requiring specific skin care.
+* American Chinese Crested Club Rescue: Marlene Ponder, mponderPDA@aol.com.
+Chinese Shar-Pei
+Rescue Context: Known for skin issues (mange, allergies) and eye problems (entropion). Rescues are experts in dermatological care.
+* Chinese Shar-Pei Club of America: Debby Smith, 713-302-2912, sharpeirescue@prodigy.net.
+* California Chinese Shar-Pei Rescue (Homeward Bound): rpayne@shasta.com.
+* North American Shar-Pei Rescue: Debby Smith, trouvaille@prodigy.net.
+* SOSHARPEI, Inc.: Vicki Goldrich, 757-697-PAWS, info@virginiasharpeirescue.org.
+* Mid-Atlantic Chinese Shar-Pei Rescue: Joyce Hanes, 301-881-1221, macspro@aol.com.
+* Pei People Shar Pei Rescue: (SoCal, NV, AZ) info@peipeople.com.
+Chinook
+Rescue Context: A rare sled dog breed.
+* Chinook Club of America: Joan McMahon, 937-434-9995, rollingoakchinooks@sbcglobal.net.
+Chow Chow
+Rescue Context: Aloof and protective, Chows are often misunderstood in shelters as aggressive when they are simply discerning.
+* Chow Chow Club: Elaine Albert, 631-361-9496, chowwelfare@gmail.com.
+* Houston Chow Chow Connection: Krissey Vlantes, chowmail.hccc@gmail.com.
+Cocker Spaniel
+Rescue Context: High grooming needs lead to severe matting and surrender. Ear infections are chronic.
+* American Spaniel Club: Becki Buss, ascfrescue@yahoo.com.
+* DFW Cocker Spaniel Rescue: 972-994-1133, dfwcsr@gmail.com.
+* Oldies But Goodies Cocker Rescue: Cindy Readal, Info@cockerspanielrescue.com.
+* Second Chance Cocker Rescue (CA): 805-687-4674, elizabeth.mazzetti@gmail.com.
+Collie
+Rescue Context: The "Lassie" dog. Highly vocal and sensitive herders. The network is vast and well-funded.
+| Organization | Region | Contact | Source |
+|---|---|---|---|
+| Collie Club of America | National/PA | Ruth Ayres: 412-364-5742 |  |
+| Collie Rescue League of New England | NE | Diane Mancini: crlneinfo@aol.com |  |
+| Collie Rescue of Austin | TX | 512-515-5494, shertomkennels@starband.net |  |
+| Collie Rescue of the Carolinas | NC/SC | Jean Smith: 336-785-0406, jsmith27107@triad.rr.com |  |
+| Houston Collie Rescue | TX | Vickey Willard: 281-564-6852, houcollierescue@yahoo.com |  |
+| Minnesota Wisconsin Collie Rescue | MN/WI | 612-869-0480, collietalk@yahoo.com |  |
+| Southwest Collie Rescue | NM | Kathleen Wallis: 575-430-2361, katwallis1@msn.com |  |
+| Tri-County Collie Rescue | MI | Beth Nemoff: 248-408-0238, BSNemoff@gmail.com |  |
+| Tri-State Collie Rescue | OH/KY/IN/WV | 740-917-9446, Lassie5900@aol.com |  |
+| Wisconsin Collie Rescue | WI | rescue@wisconsincollierescue.org |  |
+| ColliesFlorida Rescue | FL | colliesflorida@mac.com |  |
+| Friends of Collies and Shelties | FL | Faith Martin: collielady@comcast.net |  |
+| Gulf Coast Sheltie & Collie Rescue | MS/AL/FL | Jan Nickerson: 850-626-3466 |  |
+| Almost Home Dog Rescue of Ohio | Midwest | 614-766-1001, crakich4@gmail.com |  |
+| Freedom Collie Rescue | TX | freedomcollierescue@yahoo.com |  |
+| Collie Rescue of Indiana | IN | Mary Beuchat: sykomare@aol.com |  |
+| Southland Collie Rescue | SoCal | Sue Baldwin: info.collie@gmail.com |  |
+| Collie Rescue (VA/MD) | VA/MD | Linda Zeswitz: 703-579-9931, info@savecollies.org |  |
+Coton de Tulear
+Rescue Context: A companion breed from Madagascar.
+* United States of America Coton De Tulear Club: usactcinc@gmail.com.
+Curly-Coated Retriever
+Rescue Context: The oldest retriever breed.
+* Curly-Coated Retriever Club of America: Leslie Puppo, 707-245-7537, avanticcrs@yahoo.com.
+Section V: The 'D' Breeds – Analysis and Directory
+Dachshund
+Rescue Context: While popular, Dachshunds account for a high percentage of veterinary surrenders due to Intervertebral Disc Disease (IVDD). Rescues like "Denver Dachshunds" often function as rehabilitation centers for paralyzed dogs.
+* Dachshund Club of America: Connie Fisher, fshltd@wildblue.net.
+* Denver Dachshunds Rescue and Transport (CO): 720-635-0723, Denverdachshunds@yahoo.com.
+* Tennessee Dachshund Rescue: Leslie Crickenberger, 931-881-7338, tndachshundrescue@gmail.com.
+Dalmatian
+Rescue Context: Dalmatians require a low-purine diet to prevent urinary stones. Rescues must educate adopters strictly on this dietary need to prevent recurrence.
+* Dalmatian Club of America: Cindy Bowman, 317-850-7878.
+Dandie Dinmont Terrier
+Rescue Context: A rare, curvy-shaped terrier.
+* Dandie Dinmont Terrier Breed Rescue: Joan Rezzolla, 561-994-0062, JoanieRee2ddt@msn.com.
+Doberman Pinscher
+Rescue Context: Dobermans are sensitive guardians. They are often surrendered due to housing insurance bans or lack of training.
+* Doberman Pinscher Club of America Rescue: Pam Gray, DPCARescue@dpca.org.
+Dogo Argentino
+Rescue Context: A pack-hunting mastiff. Rescues must ensure solitary placement or highly experienced handlers.
+* DC Dogos Inc. Rescue: 877-400-DOGO, info@dcdogos.org.
+Dogue de Bordeaux
+Rescue Context: The French Mastiff. High maintenance due to size and drool.
+* Dogue de Bordeaux Rescue Inc.: Pamela Cortese, 651-408-5618, info@ddbrescue.org.
+Section VI: The 'E' Breeds – Analysis and Directory
+English Cocker Spaniel
+Rescue Context: Distinct from the American Cocker, requiring different grooming patterns.
+* English Cocker Spaniel Club of America: Karen Kirby, 317-339-1546.
+English Foxhound
+Rescue Context: Rare in pet homes, usually kept in packs.
+* Carolina Coonhound Rescue: (Acts as the rescue liaison).
+English Setter
+Rescue Context: Elegant gun dogs that are prone to wandering.
+* ESAA Rescue Trust: Maryl Aldrich, esaarttrustee.maryl@yahoo.com.
+* Lone Star English Setter Club (TX): Jennifer Stastny, 512-572-3635, jenstas@tisd.net.
+* Monterey Bay English Setter Club: Heathrowes@aol.com.
+* Above and Beyond English Setter Rescue: Bonnie Girard, 610-367-1803.
+* Ohio English Setter Rescue: Nikki Linkous.
+English Springer Spaniel
+Rescue Context: High energy and "Springer Rage" (a rare genetic behavioral issue) are screened for by rescues.
+* English Springer Spaniel Field Trial Association: Judy Manley, vistahknls@aol.com.
+English Toy Spaniel
+Rescue Context: A quiet, brachycephalic toy breed.
+* English Toy Spaniel Club of America:.
+Entlebucher Mountain Dog
+Rescue Context: A high-energy cattle driver, not a couch potato.
+* National Entlebucher Mountain Dog Association (NEMDA): rescue@NEMDA.org.
+Estrela Mountain Dog
+Rescue Context: A large guardian breed from Portugal.
+* Estrela Mountain Dog Association of America: rescue@emdaa.com.
+Eurasier
+Rescue Context: A Spitz type developed for companionship.
+* United States Eurasier Club: Jackie Murtha, rescue@useurasierclub.org.
+Section VII: The 'F' Breeds – Analysis and Directory
+Field Spaniel
+Rescue Context: A rare spaniel breed.
+* Field Spaniel Society of America: Lee Hildebrand, 518-766-5348, wawayanda@taconic.net.
+Finnish Lapphund
+Rescue Context: A reindeer herder, vocal and shedding.
+* Lappy Ever After: Patricia Brockmire, lappyeverafter@gmail.com.
+Finnish Spitz
+Rescue Context: The "Barking Bird Dog." Noise complaints are a common surrender reason.
+* Finnish Spitz Club of America:.
+Flat-Coated Retriever
+Rescue Context: The "Peter Pan" of retrievers, forever a puppy. High cancer rates in the breed make rescue a potential hospice situation.
+* Flat-Coated Retriever Society of America: Jackie Capes, 603-547-8607.
+Fox Terrier (Smooth and Wire)
+Rescue Context: High prey drive terriers.
+* American Fox Terrier Club: Sheila Thulin, 815-236-5244, Tophat@me.com.
+* Wire Fox Terrier Rescue Midwest: Maribeth Knierim, knierim@msn.com.
+French Bulldog
+Rescue Context: Specifically noted as a crisis breed in rescue due to popularity explosion. Rescues are overwhelmed with dogs needing airway surgery (BOAS) and spinal surgery (IVDD).
+* French Bull Dog Club of America: Pat Kosinar, pkosinar@sunflower.com.
+* French Bulldog Rescue Network: Ruth Chiger, 305-935-6106, jschiger@aol.com.
+* Chicago French Bulldog Rescue: Mary Scheffke, mary@frenchieporvous.org.
+* Indiana Bulldog Rescue: Nikki Schoolcraft, 317-645-7966, Nikki.schoolcraft@indianabulldogrescue.com.
+---
+Section VIII: The 'G' Breeds – German Shepherds & Great Danes
+This section encompasses the largest volume of rescues in the network. The German Shepherd Dog (GSD) and Great Dane operate with massive, decentralized infrastructures to handle the intake volume.
+German Shepherd Dog
+Rescue Context: GSDs are the second most popular breed but often the most surrendered working breed. Issues include shedding, separation anxiety, and protection drive. The network is segmented by metro area to manage the population.
+| Organization | Region | Contact | Source |
+|---|---|---|---|
+| German Shepherd Dog Club of America | National | agsra.org |  |
+| German Shepherd Resource and Rescue Center | MA | Stephanie: Info@germanshepherdcenter.org |  |
+| Austin German Shepherd Dog Rescue | TX | austingermanshepherdrescue.org |  |
+| Blue Angel GSD Rescue | TX (San Antonio) | Ellen Stovall: blueangelrescue@aol.com |  |
+| Coastal German Shepherd Rescue | SoCal | Teresa Baltao: 760-726-9888, baltao@sbcglobal.net |  |
+| German Shepherd Rescue of Northern CA | NorCal | 1-866-SAVE-GSD |  |
+| K-9 Services German Shepherd Rescue | FL | Middleburg/Orange Park |  |
+| North Louisiana German Shepherd Rescue | LA | Becky Kaase: 318-914-0974 |  |
+| Oregon German Shepherd Rescue | OR | oregongsdr@aol.com |  |
+| Serendipity GSD Rescue | MO | 573-418-7666, Serendipity.email@gmail.com |  |
+| Virginia German Shepherd Rescue | VA/DC/MD | 703-435-2840, info@shepherdrescue.org |  |
+| Save Our Shepherds Rescue | TN (Memphis) | SOS@SaveOurShepherds.org |  |
+| Greater California GSD Rescue | Central CA | 877-268-0255, info@gcgsr.org |  |
+| GSD Rescue of Las Vegas | NV | 702-430-1881 |  |
+| Shepherds Hope Rescue | NY | Donna Jiricek: bluemoonblue@optonline.net |  |
+| Mid-Atlantic German Shepherd Rescue | MD | magsr.org |  |
+| Hominy Valley GSD Rescue | NC | Kristen Barton: 828-301-0387 |  |
+| Second Chance GSD Rescue Houston | TX | info@secondchanceshepherds.org |  |
+| GSD Rescue of Central Texas | TX | gsdrescuectx@yahoo.com |  |
+| Golden State GSD Rescue | NorCal | gsgsrescue.org |  |
+| Give a Dog a Home | TX (San Antonio) | Jenny Cope: giveadogahome@live.com |  |
+| Canine Pet Rescue | GA (Atlanta) | Carla Brown: 1-855-435-7473, apply@caninepetrescue.com |  |
+| Tier Haven Rescue | KY | tierhavenrescue@gmail.com |  |
+| Sauver Des Chiens | LA | foster@sauverdeschiens.org |  |
+| Gilligan’s Rescue | TX | 409-790-3507, gilligans.gs.rescue@gmail.com |  |
+| Alaska Shepherd Rescue | AK | Kristen Donchess: akherderlovers3@outlook.com |  |
+| All Shepherd Rescue | MD | Candice Bagrosky: 410-775-6473 |  |
+| True North GSD Rescue | PNW | rescue@truenorthgsdrescue.org |  |
+German Shorthaired Pointer
+Rescue Context: High-energy gun dogs that require vast exercise.
+* German Shorthaired Pointer Club of America: gspca.org.
+German Spitz
+Rescue Context: Rare in the US.
+* German Spitz Club of America: GermanSpitzClubAmerica@gmail.com.
+German Wirehaired Pointer
+Rescue Context: rough-coated hunters.
+* German Wirehaired Pointer Club of America: nationalgwprescue.com.
+Giant Schnauzer
+Rescue Context: A dominant working breed.
+* Giant Schnauzer Club of America: Joanne Thompson, 970-224-2527, tho0123@earthlink.net.
+* Hertha Thomas-Zagari Giant Schnauzer Rescue: 303-988-6564, gntsnzr1@yahoo.com.
+* Schnauzer Rescue of the Carolinas: 828-726-1510, info@schnauzerrescueofthecarolinas.org.
+Great Dane
+Rescue Context: "Gentle Giants" that face bloating and heart issues. Feeding costs are a major factor in rescue.
+* Great Dane Club of America: Kathie Shea, 610-255-4052, kdanegirl@aol.com.
+* Great Dane Rescue, Inc.: 734-454-3683 (MI/IN/OH/IL).
+* Great Dane Club of San Diego: Bonnie Lynd (619-561-9408, Danemania2@aol.com).
+* Great Dane Rescue of the Carolinas: 704-697-9706.
+* Helping Hands Dane Rescue (AR): 501-796-3878.
+* Mid-Atlantic Great Dane Rescue: MaryFran Cini, 410-945-5454, danemom1111@gmail.com.
+* Coastal Maine Great Dane Rescue: Betti & Roger Curran, 207-729-0679, coastaldanes@gmail.com.
+* San Antonio Great Dane Rescue: Joellen Cockcroft, 210-724-3461.
+* Upper Midwest Great Dane Rescue: Matt Boudinot, 763-210-1978, contact@thegreatdanerescue.com.
+* P.A.W.S. of Austin: Prima Mosi, dogs@pawsofaustin.org.
+* Dane Outreach (WA): 206-654-5111, admin@daneoutreach.org.
+* Giant Hearts Giant Dog Rescue (VA): Melissa Thomas, 804-442-6801, giantheartdogs@gmail.com.
+* Northwest Great Dane Rescue (WA): Sandee Elliott, nwgdrescue@gmail.com.
+* Great Dane Friends of Ruff Love (NC/SC): info@greatdanefriends.com.
+* Gentle Giants Great Dane Rescue (FL): Jackelyn Osorio, 754-610-DOGS.
+* OZR Great Dane Rescue (FL): Stephanie Hettema, 561-757-0661.
+Great Pyrenees
+Rescue Context: Livestock guardians that bark at night and roam.
+* Great Pyrenees Club of America:
+   * West: Kevin Brown, 919-200-1535, rescue-west@gpcaonline.org
+   * Central: Marinie Loven-Bell, 612-379-0010, central@gpcaonline.org
+   * East: Janet Ingram, 540-731-8692, rescue-east@gpcaonline.org.
+* National Great Pyrenees Rescue: info@nationalpyr.org.
+* Great Pyrenees Rescue of Montana: Carole McLaughlin, 406-370-3308, GreatPyrRescueMT@Yahoo.com.
+Greater Swiss Mountain Dog
+Rescue Context: Large draft dogs.
+* Greater Swiss Mountain Dog Rescue Foundation: Pat Saxon, 941-322-9294, rescue@gsmdrescue.org.
+Greyhound
+Rescue Context: The only breed with a dedicated "racing retirement" infrastructure separate from typical welfare.
+* Greyhound Club of America: Carolyn Phillips, 727-796-7757, jphilli7@tampabay.rr.com.
+* Greyhound Rescue & Rehabilitation (NY): Christine Johnson, 914-763-2221, Greytest1@aol.com.
+* National Greyhound Adoption Network: 800-446-8637.
+* NY Greyhound Adoptions: 518-885-4960, theff@nycap.rr.com.
+* Greyhound Pets of America FL: 561-478-3006.
+* Greyhound Rescue Foundation of Tennessee: greyhoundrescuefoundationoftn@yahoo.com.
+* Grateful Greyhounds (NY): 516-735-5070, greyhoundsavior@optonline.net.
+* Greyhound Friends of North Carolina: 336-643-0233, adopt@greyhoundfriends.com.
+* Greyhound Friends of NJ: 732-356-4370, info@greyhoundfriendsnj.org.
+Section IX: The 'H' through 'L' Breeds
+Ibizan Hound
+Rescue Context: A deer-hunting sighthound.
+* Ibizan Hound Club of the United States: ihcus.org.
+Icelandic Sheepdog
+Rescue Context: A barking herder.
+* National Icelandic Sheepdog Rescue Alliance: nisrabod@gmail.com.
+Irish Setters & Spaniels
+Rescue Context: High energy sporting dogs.
+* Irish Red and White Setter Association: Tammy Ciesla, 1701 Savoy Rd, Windsor MA.
+* Irish Setter Club of America: Deanna Cuchiaro, 908-462-2044, shrescue1@aol.com.
+* Save Our Setters: Alissa Thomas, 901-827-3563, Info@saveoursetters.org.
+* Irish Terrier Club of America: Thea Lahti, 603-505-1218, tlahti1@comcast.net.
+* Irish Water Spaniel Club of America: Lisa Schaitberger, 262-308-6723, bogdogs@gmail.com.
+* Irish Wolfhound Club of America: Melanie Mercer, 214-641-6578, vetmel1300@aol.com.
+* Italian Greyhound Club of America Rescue: igrescue.com.
+Japanese Chin
+Rescue Context: The JCCA maintains a massive state-level volunteer network to manage this delicate breed.
+* National Coordinators: George and Carleen Peterson (501-681-6836).
+* Key State Reps:
+   * CA: Michelle Pennington, 805-798-0223.
+   * FL: Karen McKeown, 219-743-7856.
+   * NY/NJ/PA: Kris Farnoly, 609-410-5497.
+   * TX: Pepper Trangmar, 903-262-4344.
+   * WA: Dana Baldinger, 425-255-7119.
+Keeshond
+Rescue Context: Plush-coated "velcro" dogs.
+* Keeshond Club of America: Tawn Sinclair, 310-457-3569.
+* Heart of America Keeshond Club (MO): Joy Crisler, 816-812-7355, showmedawgs@gmail.com.
+* Keeshond Rescue of the Central States (IL): Dina Zinnes, 217-278-7245, d-zinnes@uiuc.edu.
+* Keeshond Affiliated Rescuers Of The Mid Atlantic (VA): Patti Hansen, Bena, VA.
+* Southern California Keeshond Rescue: Susan McCoy, 805-527-4096, adopt@foreverkees.org.
+* Suncoast Keeshond Rescue (FL): Dee Wingfield, 727-534-9002, deewingfield@gmail.com.
+* Komondor Club of America: Joyce Henderson, 803-927-7530, balkihen@outlook.com.
+* Kuvasz Club of America: secretary@kuvaszclubofamerica.org.
+Labrador Retriever
+Rescue Context: High energy adolescents are the primary intake.
+* Peak Lab Rescue (NC): Sharon Gesser, info@peaklabrescue.com.
+Lakeland Terrier
+* United States Lakeland Terrier Club: Sara Peterka, 320-295-2787, speterka@embarqmail.com.
+Leonberger
+* Leo Rescue Pals: 866-757-7257.
+Lhasa Apso
+* American Lhasa Apso Club Rescue: Helen Zeppenfeld Brown, 814-624-5136, lhasas@bkvsoap.com.
+Löwchen
+* Löwchen Club of America: Wendy Russell, 253-904-8422, kharayork@aol.com.
+Section X: The 'M' through 'P' Breeds
+Maltese
+Rescue Context: Prone to dental disease and separation anxiety.
+* Northcentral Maltese Rescue: Mary Palmer, 262-800-3323, Malteserescue@hotmail.com.
+Manchester Terrier
+* American Manchester Terrier Club: Michelle Barlak, michelle@maximaldog.com.
+Mastiff
+Rescue Context: Giant breed costs.
+* Mastiff Club of America: Mary Lynn Speer, 715-265-7800, kinsmen@dishup.us.
+* MCOA Rescue Foundation: Chuck Cuthbert, 440-639-0316, rydalmtmastiffs@aol.com.
+* El Paso County Canine Rescue (CO): elpasocountycanine@gmail.com.
+Miniature Pinscher
+* IMPS (Internet Miniature Pinscher Service): Jeff Watchmaker, jeff@rescueminpins.com.
+* Miniature Pinscher Rescue: 866-513-3346, minpinrescue@aristotle.net.
+Miniature Schnauzer
+* American Miniature Schnauzer Club: rescue@amsc.us.
+* Schnauzer Love Rescue (SE US): 205-853-6709.
+* New Jersey Schnauzer Rescue Network: info@njsrn.org.
+Old English Sheepdog
+Rescue Context: High grooming requirements.
+* Old English Sheepdog Club of America: Jeanne Conkright, 713-819-4870, jcconkright@me.com.
+Papillon
+Rescue Context: Delicate but high energy.
+* PapAdopters & Placement Service: 248-231-5076, info@papadopters.com.
+* Papillon Haven Rescue: 501-865-4442, jorolan@catc.net.
+* Papillon Pals Rescue: Tami Steinle, 904-477-6829, papillonpals@comcast.net.
+Pekingese
+* Pekingese Club of America: Dorothy Cooper, codoan@aol.com.
+Pembroke Welsh Corgi
+* Pembroke Welsh Corgi Club of America: Mary Day, STLH20@earthlink.com.
+* Pet's Second Chance for Life (MO): Linda Moore, 314-422-2350, corgisandclaire@gmail.com.
+Peruvian Inca Orchid
+* PIO Club of the US: Lizabeth Molly, 917-262-0626, pioclub@yahoo.com.
+Pointer
+* PointerRescue.Org: Nancy Mori, 609-327-4670, nancy.alcorn@pointerrescue.org.
+Pomeranian
+* American Pomeranian Club: Linda Lewis, lindaandpoms@gmail.com.
+* Displaced Pets Rescue (OR): 503-703-2923, christy@displacedpetsrescue.com.
+* Second Chance Poms (TX): rescue@secondchancepoms.org.
+* Southern California Pomeranian Rescue: socalpomrescue@coapc.com.
+* Nor Cal Pom Rescue: NorCalPomRescue@gmail.com.
+* Recycled Pomeranians (TX): info@recycledpomeranians.com.
+Poodle
+Rescue Context: One of the smartest breeds, requiring stimulation.
+* Poodle Club of America: cindy@maprescue.org (Text: 410-963-0079).
+* San Diego Poodle Club Rescue: Patricia Elliot, 951-453-4802.
+* Portuguese Water Dog Club of America Rescue: rescue@pwdca.org.
+Pug
+Rescue Context: High medical costs for eyes and breathing.
+| Organization | Region | Contact | Source |
+|---|---|---|---|
+| Pug Dog Club of America | National | Jason Huff: 812-454-4953 |  |
+| Alabama Pug Rescue | AL | Pam Mayes: pugsrescued@aol.com |  |
+| Delaware Valley Pug Rescue | PA | 610-268-5574, helpingpugs@verizon.net |  |
+| Pug Lovers Rescue | SC | June Larson: 803-980-7729, rescue@hushpug.com |  |
+| Pug Rescue of Sacramento | NorCal | 925-974-PUGS, rescue@pugpros.org |  |
+| DFW Pug Rescue Club | TX | 817-329-4885, dfwprc@verizon.net |  |
+| Southwest Idaho Pug Rescue | ID | Stacy Ford: 208-209-3430, stacy@swiprescue.com |  |
+| APARN (Arizona Pug Rescue) | AZ | 480-964-3126, arizonapugrescue@yahoo.com |  |
+| Seattle Pug Rescue | WA | Sherry Vadheim: 253-655-PUGS |  |
+| Tiny Paws Pug Rescue | CA (Aptos) | Kim Smith: info@tinypawspugrescue.org |  |
+Puli & Pumi
+Rescue Context: Hungarian herders with corded coats (Puli) or terrier temperaments (Pumi).
+* Puli Club of America: Jane Slade-Exum, pulimom@aol.com.
+* Hungarian Pumi Club of America: Emma Coombes, 512-496-2347, dismissed.zebra@gmail.com.
+Section XI: The 'R' through 'Z' Breeds
+Rhodesian Ridgeback
+* Rhodesian Ridgeback Rescue, Inc.: Anne Jones, 770-655-7557, alchemyaj@gmail.com.
+Rottweiler
+* Gulfstream Guardian Angels Rottweiler Rescue (FL): Grace Acosta, 786-295-0829, GARotts@aol.com.
+* MidAmerica Rottweiler Rescue: info@adoptarott.org.
+* Rottweiler Hearts Rescue (NC): 919-282-6169, info@rottweilerheartsrescue.org.
+* Rotten Rottie Rescue (AZ): Shelly Froehlich, 480-567-4328, Rottenrottierescue@gmail.com.
+Saint Bernard
+* Saint Bernard Rescue Group: saintsrgreat6@gmail.com.
+Saluki
+* Saluki Club of America: Sara Winstead, salukis777@aol.com.
+Samoyed
+* Central Florida Samoyed Rescue: Laura Segers, 813-685-0121, FLRescueSams@aol.com.
+* MidAtlantic Samoyed Rescue: Danielle Buchheister, 410-279-5244, eisbearsamoyeds@juno.com.
+Scottish Deerhound
+* Scottish Deerhound Club of America: Deborah Hughes, 810-471-0321, alldogshome@gmail.com.
+Sealyham Terrier
+* Sealyhams Forever Foundation: Lisa Wright, 816-565-0600, lisa@sealyham.us.
+Shetland Sheepdog (Sheltie)
+Rescue Context: High volume herding breed rescue.
+* National Sheltie Rescue Network: Natalie Whalen, 309-824-0107, info@nationalsheltierescue.org.
+* Triangle Sheltie Rescue (NC): triangleshelties@gmail.com.
+* Gulf Coast Sheltie & Collie Rescue: Jan Nickerson, 850-626-3466.
+Siberian Husky
+Rescue Context: Escape artists that are surrendered frequently.
+* Siberian Husky Rescue/Referral of CA: Marilyn Lassagne, rescue@shrrca.com.
+* Epic Blue Acres (NY): Jennifer, 716-791-3367, Epic_blue@juno.com.
+* MUSH Rescue (GA): adopt@mushrescue.com.
+* Texas Husky Rescue: 1-877-TX-HUSKY, contact@texashuskyrescue.org.
+* Siberian Husky Assist Rescue (VA/TN): 276-494-3153, siberianhuskyrescue@yahoo.com.
+* Adopt A Husky (IL/MN): 262-909-2244, adoptahusky@adoptahusky.com.
+* AZ Husky Rescue: 602-908-0363, arizonahuskyrescue@gmail.com.
+* Delaware Valley Siberian Husky Rescue (PA): 877-876-2644, info@siberianhuskyrescue.org.
+Skye Terrier
+* Skye Terrier Club of America: Rebecca Jackson, 515-663-9567, rjackson@iastate.edu.
+Soft Coated Wheaten Terrier
+* National Wheaten Terrier Rescue: Sue Goldberg, 908-647-0907, brandongroup20@gmail.com.
+Spanish Water Dog
+* Spanish Water Dog Club of America: David Milstein, 954-817-6753, swdca.rescueeast@gmail.com.
+Standard Schnauzer
+* Standard Schnauzer Club of America: Mark Shaw, mnshaw@gmail.com.
+Sussex Spaniel
+* Rescue Contact: Diane Chase, 860-908-2841, SSCArescue@gmail.com.
+Swedish Vallhund
+* Swedish Vallhund Club of America: Pam Abrath, 262-443-0234, fantasisv@gmail.com.
+Tibetan Mastiff
+* Tibetan Mastiff Rescue, Inc. (TN): Elizabeth Justus, 865-607-5453, libbyjustus@gmail.com.
+Tibetan Spaniel
+* TSCA Rescue & Health Trust: info@tstrust.org.
+Weimaraner
+* Weimaraner Club of America: Rebecca Weimer, 618-236-1466, wffrescue@aol.com.
+Welsh Springer Spaniel
+* Welsh Springer Spaniel Club of America: Shannon Gandee, 304-373-0260, heatherstone@wirefire.com.
+Wire Fox Terrier
+* Wire Fox Terrier Rescue Midwest: Maribeth Knierim, knierim@msn.com.
+Wirehaired Pointing Griffon
+* AWPGA Rescue Team: martha.ingram1@gmail.com.
+Xoloitzcuintli
+* Xoloitzcuintli Club of America: Shannon Larson/Kay Lawson, 760-220-7708, xolorescueleague@yahoo.ca.
+Yorkshire Terrier
+* Yorkshire Terrier Club of America: Barbara Meskan, YorkRescue@aol.com.
+* Yorkshire Terrier National Rescue: MaryElizabeth Dugmore, ytnr@yorkierescue.com.
+Conclusion
+This directory represents the current operational status of the AKC Rescue Network. The data indicates a robust, volunteer-driven system that manages thousands of displacements annually. The segmentation of larger breeds (German Shepherds, Great Danes) into state-level chapters contrasts with the centralized, national management of rarer breeds (Barbet, Xoloitzcuintli). This structure ensures that resources are allocated efficiently, with high-volume breeds receiving localized infrastructure and low-volume breeds benefiting from centralized expertise.

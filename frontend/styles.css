@@ -2,7 +2,7 @@
  * ============================================================================
  * Waiting The Longest™ - Stylesheet
  * ============================================================================
- * "Because Every Day Matters"
+ * "Help shorten the road home"
  * 
  * Mobile-first responsive design for the Waiting The Longest platform.
  * Optimized for accessibility (WCAG 2.1 AA) and performance.
@@ -2025,5 +2025,118 @@ button {
 .rescue-summary-message {
     color: var(--color-text-light);
     margin: 0;
+}
+
+/* =============================================================================
+   SPECIES CHAMPIONS SECTION
+   ============================================================================= */
+
+.species-champions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.species-champion-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.species-champion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.species-champion-photo {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.species-champion-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.species-champion-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.species-emoji {
+    font-size: 1.25rem;
+}
+
+.species-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.species-champion-info {
+    padding: var(--spacing-md);
+}
+
+.species-champion-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.species-champion-breed {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin: 0 0 var(--spacing-md) 0;
+}
+
+.species-champion-wait {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.species-champion-wait .wait-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-warning);
+}
+
+.species-champion-wait .wait-label {
+    font-size: var(--font-size-sm);
+    color: #92400E;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .species-champions-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: var(--spacing-md);
+    }
+
+    .species-champion-photo {
+        height: 150px;
+    }
 }
 

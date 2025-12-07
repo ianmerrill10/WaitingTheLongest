@@ -538,6 +538,232 @@ def get_platform_stats(db: Session) -> Dict[str, Any]:
 
 
 # =============================================================================
+# Longest-Waiting Rankings (CORE FEATURE!)
+# =============================================================================
+
+def get_featured_animal(db: Session) -> Optional[Dict[str, Any]]:
+    """
+    Get THE animal that has been waiting the longest across ALL species.
+
+    This is the featured animal for the homepage - the one who has waited
+    the longest and deserves the most visibility.
+
+    Returns:
+        Dict with animal details including days_waiting, or None if no animals
+    """
+    animal = db.query(Animal).options(
+        selectinload(Animal.observations)
+    ).filter(
+        Animal.status == "available"
+    ).order_by(
+        asc(Animal.first_seen_at)  # Oldest first = longest waiting
+    ).first()
+
+    if not animal:
+        return None
+
+    # Get photo and location from first observation
+    photo_url = None
+    city = None
+    state = None
+    shelter_name = None
+    listing_url = None
+
+    if animal.observations:
+        obs = animal.observations[0]
+        photo_url = obs.photo_url
+        city = obs.city
+        state = obs.state
+        shelter_name = obs.shelter_name
+        listing_url = obs.listing_url
+
+    return {
+        "id": animal.id,
+        "name": animal.canonical_name,
+        "species": animal.species,
+        "breed": animal.breed_primary,
+        "age_group": animal.age_group,
+        "size": animal.size,
+        "gender": animal.gender,
+        "days_waiting": animal.days_waiting,
+        "first_seen_at": animal.first_seen_at.isoformat() if animal.first_seen_at else None,
+        "photo_url": photo_url,
+        "city": city,
+        "state": state,
+        "shelter_name": shelter_name,
+        "listing_url": listing_url
+    }
+
+
+def get_longest_waiting_by_species(db: Session) -> Dict[str, Dict[str, Any]]:
+    """
+    Get the longest-waiting animal for EACH species.
+
+    Returns a dict keyed by species with the longest-waiting animal for each.
+    This powers the "Longest Waiting Dog", "Longest Waiting Cat", etc. sections.
+
+    Returns:
+        Dict mapping species -> animal details
+
+    Example:
+        >>> rankings = get_longest_waiting_by_species(db)
+        >>> print(f"Longest waiting dog: {rankings['dog']['name']} - {rankings['dog']['days_waiting']} days")
+    """
+    # Get all distinct species with available animals
+    species_list = db.query(Animal.species).filter(
+        Animal.status == "available"
+    ).distinct().all()
+
+    results = {}
+
+    for (species,) in species_list:
+        animal = db.query(Animal).options(
+            selectinload(Animal.observations)
+        ).filter(
+            Animal.status == "available",
+            Animal.species == species
+        ).order_by(
+            asc(Animal.first_seen_at)
+        ).first()
+
+        if animal:
+            # Get details from observation
+            photo_url = None
+            city = None
+            state = None
+            shelter_name = None
+            listing_url = None
+
+            if animal.observations:
+                obs = animal.observations[0]
+                photo_url = obs.photo_url
+                city = obs.city
+                state = obs.state
+                shelter_name = obs.shelter_name
+                listing_url = obs.listing_url
+
+            results[species] = {
+                "id": animal.id,
+                "name": animal.canonical_name,
+                "species": species,
+                "breed": animal.breed_primary,
+                "age_group": animal.age_group,
+                "size": animal.size,
+                "gender": animal.gender,
+                "days_waiting": animal.days_waiting,
+                "first_seen_at": animal.first_seen_at.isoformat() if animal.first_seen_at else None,
+                "photo_url": photo_url,
+                "city": city,
+                "state": state,
+                "shelter_name": shelter_name,
+                "listing_url": listing_url
+            }
+
+    return results
+
+
+def get_top_waiting_animals(
+    db: Session,
+    species: Optional[str] = None,
+    limit: int = 10
+) -> List[Dict[str, Any]]:
+    """
+    Get top N longest-waiting animals, optionally filtered by species.
+
+    Args:
+        db: Database session
+        species: Optional filter (e.g., "dog", "cat")
+        limit: Number of animals to return (default 10)
+
+    Returns:
+        List of animal dicts sorted by days waiting (longest first)
+    """
+    query = db.query(Animal).options(
+        selectinload(Animal.observations)
+    ).filter(
+        Animal.status == "available"
+    )
+
+    if species:
+        query = query.filter(Animal.species == species)
+
+    animals = query.order_by(
+        asc(Animal.first_seen_at)
+    ).limit(limit).all()
+
+    results = []
+    for animal in animals:
+        photo_url = None
+        city = None
+        state = None
+        shelter_name = None
+        listing_url = None
+
+        if animal.observations:
+            obs = animal.observations[0]
+            photo_url = obs.photo_url
+            city = obs.city
+            state = obs.state
+            shelter_name = obs.shelter_name
+            listing_url = obs.listing_url
+
+        results.append({
+            "id": animal.id,
+            "name": animal.canonical_name,
+            "species": animal.species,
+            "breed": animal.breed_primary,
+            "age_group": animal.age_group,
+            "size": animal.size,
+            "gender": animal.gender,
+            "days_waiting": animal.days_waiting,
+            "first_seen_at": animal.first_seen_at.isoformat() if animal.first_seen_at else None,
+            "photo_url": photo_url,
+            "city": city,
+            "state": state,
+            "shelter_name": shelter_name,
+            "listing_url": listing_url
+        })
+
+    return results
+
+
+def get_species_stats(db: Session) -> List[Dict[str, Any]]:
+    """
+    Get statistics for each species including count and longest wait.
+
+    Returns:
+        List of dicts with species, count, and longest_wait_days
+    """
+    from sqlalchemy import func as sql_func
+
+    # Get counts per species
+    species_counts = db.query(
+        Animal.species,
+        sql_func.count(Animal.id).label('count'),
+        sql_func.min(Animal.first_seen_at).label('oldest_first_seen')
+    ).filter(
+        Animal.status == "available"
+    ).group_by(Animal.species).all()
+
+    results = []
+    for species, count, oldest in species_counts:
+        longest_days = 0
+        if oldest:
+            longest_days = (datetime.now(timezone.utc).replace(tzinfo=None) - oldest).days
+
+        results.append({
+            "species": species,
+            "count": count,
+            "longest_wait_days": longest_days
+        })
+
+    # Sort by count descending
+    results.sort(key=lambda x: x['count'], reverse=True)
+
+    return results
+
+
+# =============================================================================
 # Contact Submission CRUD
 # =============================================================================
 
@@ -586,6 +812,24 @@ def create_contact_submission(
 # Shelter CRUD
 # =============================================================================
 
+# State name to code mapping for search
+STATE_NAME_TO_CODE = {
+    "alabama": "AL", "alaska": "AK", "arizona": "AZ", "arkansas": "AR",
+    "california": "CA", "colorado": "CO", "connecticut": "CT", "delaware": "DE",
+    "florida": "FL", "georgia": "GA", "hawaii": "HI", "idaho": "ID",
+    "illinois": "IL", "indiana": "IN", "iowa": "IA", "kansas": "KS",
+    "kentucky": "KY", "louisiana": "LA", "maine": "ME", "maryland": "MD",
+    "massachusetts": "MA", "michigan": "MI", "minnesota": "MN", "mississippi": "MS",
+    "missouri": "MO", "montana": "MT", "nebraska": "NE", "nevada": "NV",
+    "new hampshire": "NH", "new jersey": "NJ", "new mexico": "NM", "new york": "NY",
+    "north carolina": "NC", "north dakota": "ND", "ohio": "OH", "oklahoma": "OK",
+    "oregon": "OR", "pennsylvania": "PA", "rhode island": "RI", "south carolina": "SC",
+    "south dakota": "SD", "tennessee": "TN", "texas": "TX", "utah": "UT",
+    "vermont": "VT", "virginia": "VA", "washington": "WA", "west virginia": "WV",
+    "wisconsin": "WI", "wyoming": "WY", "district of columbia": "DC"
+}
+
+
 def get_shelters(
     db: Session,
     page: int = 1,
@@ -595,35 +839,48 @@ def get_shelters(
 ) -> ShelterListResponse:
     """
     Get paginated list of shelters with animal counts.
-    
+
     Args:
         db: Database session
         page: Page number (1-indexed)
         page_size: Number of items per page
         state: Optional filter by state
         search: Optional search term (name, city, or state)
-        
+
     Returns:
         ShelterListResponse with paginated shelter data
-        
+
     Example:
         >>> result = get_shelters(db, page=1, page_size=20)
         >>> print(f"Found {result.total} shelters")
     """
     query = db.query(Shelter)
-    
+
     if state:
-        query = query.filter(Shelter.state.ilike(f"%{state}%"))
-        
+        # Convert full state name to code if needed
+        state_lower = state.lower().strip()
+        state_code = STATE_NAME_TO_CODE.get(state_lower, state)
+        query = query.filter(Shelter.state.ilike(f"%{state_code}%"))
+
     if search:
+        search_lower = search.lower().strip()
         search_term = f"%{search}%"
-        query = query.filter(
-            or_(
-                Shelter.name.ilike(search_term),
-                Shelter.city.ilike(search_term),
-                Shelter.state.ilike(search_term)
+
+        # Check if search term is a state name
+        state_code = STATE_NAME_TO_CODE.get(search_lower)
+
+        if state_code:
+            # Search is a full state name - filter by state code
+            query = query.filter(Shelter.state == state_code)
+        else:
+            # Regular search across name, city, and state
+            query = query.filter(
+                or_(
+                    Shelter.name.ilike(search_term),
+                    Shelter.city.ilike(search_term),
+                    Shelter.state.ilike(search_term)
+                )
             )
-        )
     
     total = query.count()
     

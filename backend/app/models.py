@@ -53,6 +53,12 @@ class Species(str, enum.Enum):
     """Supported animal species"""
     DOG = "dog"
     CAT = "cat"
+    RABBIT = "rabbit"
+    BIRD = "bird"
+    SMALL_ANIMAL = "small_animal"  # hamsters, guinea pigs, ferrets, etc.
+    REPTILE = "reptile"
+    HORSE = "horse"
+    FARM_ANIMAL = "farm_animal"  # pigs, goats, chickens, etc.
     OTHER = "other"
 
 
@@ -72,6 +78,36 @@ class PromotionStatus(str, enum.Enum):
     UPLOADING = "uploading"
     POSTED = "posted"
     FAILED = "failed"
+
+
+# =============================================================================
+# User & Auth Models
+# =============================================================================
+
+class User(Base):
+    """
+    User account for authentication and personalization.
+    Supports OAuth login (Google, Facebook, etc.).
+    """
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    full_name = Column(String(255))
+    picture = Column(String(500))
+    
+    # OAuth fields
+    provider = Column(String(50), nullable=False)  # google, facebook, etc.
+    provider_id = Column(String(255), nullable=False)
+    
+    is_active = Column(Boolean, default=True)
+    is_admin = Column(Boolean, default=False)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    last_login = Column(DateTime(timezone=True), onupdate=func.now())
+
+    # Relationships
+    # favorites = relationship("Favorite", back_populates="user")
 
 
 # =============================================================================
@@ -410,4 +446,122 @@ class Article(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     is_published = Column(Boolean, default=True)
     views = Column(Integer, default=0)
+
+
+# =============================================================================
+# Dog Knowledge Library Models
+# =============================================================================
+
+class DogBreed(Base):
+    """
+    Dog breed information from TheDogAPI.
+
+    Used for the Knowledge Library and Training sections.
+    """
+    __tablename__ = "dog_breeds"
+
+    id = Column(Integer, primary_key=True, index=True)
+    external_id = Column(Integer, unique=True, index=True)  # TheDogAPI ID
+
+    # Basic Info
+    name = Column(String(100), index=True, nullable=False)
+    breed_group = Column(String(100), nullable=True)  # e.g., "Sporting", "Hound", "Working"
+
+    # Physical Characteristics
+    height_imperial = Column(String(50), nullable=True)  # e.g., "23 - 24"
+    height_metric = Column(String(50), nullable=True)    # e.g., "58 - 61"
+    weight_imperial = Column(String(50), nullable=True)  # e.g., "55 - 70"
+    weight_metric = Column(String(50), nullable=True)    # e.g., "25 - 32"
+
+    # Life & Temperament
+    life_span = Column(String(50), nullable=True)        # e.g., "10 - 12 years"
+    temperament = Column(Text, nullable=True)            # Comma-separated traits
+
+    # Origin & Purpose
+    origin = Column(String(200), nullable=True)          # Country of origin
+    bred_for = Column(Text, nullable=True)               # Original purpose
+
+    # Media
+    image_url = Column(Text, nullable=True)              # Reference image URL
+    image_id = Column(String(50), nullable=True)         # TheDogAPI image ID
+
+    # Wikipedia/Reference link
+    reference_url = Column(Text, nullable=True)
+
+    # Computed/Added content for Knowledge Library
+    description = Column(Text, nullable=True)            # Generated description
+    training_tips = Column(Text, nullable=True)          # Training advice
+    exercise_needs = Column(String(50), nullable=True)   # Low/Medium/High
+    grooming_needs = Column(String(50), nullable=True)   # Low/Medium/High
+    good_with_kids = Column(Boolean, nullable=True)
+    good_with_pets = Column(Boolean, nullable=True)
+    apartment_friendly = Column(Boolean, nullable=True)
+
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_breed_name', 'name'),
+        Index('idx_breed_group', 'breed_group'),
+    )
+
+
+class DogBreedImage(Base):
+    """
+    Additional images for dog breeds from TheDogAPI.
+    """
+    __tablename__ = "dog_breed_images"
+
+    id = Column(Integer, primary_key=True, index=True)
+    breed_id = Column(Integer, ForeignKey("dog_breeds.id"), index=True)
+
+    image_id = Column(String(50), unique=True)  # TheDogAPI image ID
+    url = Column(Text, nullable=False)
+    width = Column(Integer, nullable=True)
+    height = Column(Integer, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class DogFact(Base):
+    """
+    Dog facts from TheDogAPI.
+    Used for fun facts in the Knowledge Library.
+    """
+    __tablename__ = "dog_facts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    external_id = Column(Integer, unique=True, index=True)  # TheDogAPI fact ID
+
+    fact = Column(Text, nullable=False)
+    title = Column(String(300), nullable=True)
+    breed_id = Column(Integer, ForeignKey("dog_breeds.id"), nullable=True, index=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class DogHealthTip(Base):
+    """
+    Dog health tips from TheDogAPI.
+    Used for the Training and Health sections.
+    """
+    __tablename__ = "dog_health_tips"
+
+    id = Column(Integer, primary_key=True, index=True)
+    external_id = Column(Integer, unique=True, index=True)  # TheDogAPI tip ID
+
+    category = Column(String(100), index=True, nullable=True)  # e.g., "Disease Prevention"
+    title = Column(String(300), nullable=False)
+    description = Column(Text, nullable=False)
+    breed_id = Column(Integer, ForeignKey("dog_breeds.id"), nullable=True, index=True)
+
+    # Sources/references
+    sources_json = Column(JSON, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_health_tip_category', 'category'),
+    )
 

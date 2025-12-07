@@ -229,9 +229,36 @@ All contributions must follow our documentation policy:
 - Add header comments to new Python files
 - See `backend/DOCUMENTATION_REQUIREMENTS.md` for full guidelines
 
+## AI Agent System
+
+This project includes a comprehensive **AI Agent Army** with 83 specialized agents for automated operations:
+
+- **50 State Agents** - One for each US state, discovering shelters and rescues
+- **32 Specialized Agents** - Marketing, social media, data processing, monitoring, and more
+- **1 Orchestrator** - Central command coordinating all agents
+
+### Quick Agent Commands
+
+```bash
+# View agent system status
+python -m agents.orchestrator --status
+
+# List all agents
+python -m agents.orchestrator --list-agents
+
+# Run shelter discovery for a state
+python -m agents.state_agents.state_agent --state NY
+
+# Run system health check
+python -m agents.specialized.debugging_agent --health
+```
+
+**See [backend/agents/AGENTREADME.md](backend/agents/AGENTREADME.md) for complete agent documentation, including all commands, handlers, and integration guide.**
+
 ## Documentation
 
 - **OWNERS_MANUAL.md** - Comprehensive system guide (see note below)
+- **backend/agents/AGENTREADME.md** - AI Agent System documentation
 - **backend/OWNERS_MANUAL_CONTENT.md** - Full manual content (copy to OWNERS_MANUAL.md)
 - **backend/DOCUMENTATION_REQUIREMENTS.md** - Documentation policy
 - **.github/PULL_REQUEST_TEMPLATE.md** - PR checklist

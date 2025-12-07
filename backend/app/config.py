@@ -86,6 +86,15 @@ class Settings(BaseSettings):
     INSTAGRAM_ACCESS_TOKEN: Optional[str] = None
     FACEBOOK_PAGE_TOKEN: Optional[str] = None
 
+    # OAuth Login Configuration
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    FACEBOOK_CLIENT_ID: Optional[str] = None
+    FACEBOOK_CLIENT_SECRET: Optional[str] = None
+    
+    # Session Secret (for OAuth state)
+    SESSION_SECRET_KEY: str = "CHANGE_THIS_TO_A_SECURE_RANDOM_STRING_FOR_SESSIONS"
+
     # Ayrshare (unified social posting)
     AYRSHARE_API_KEY: Optional[str] = None
 
@@ -126,6 +135,19 @@ class Settings(BaseSettings):
     INGEST_ENABLED: bool = True
     INGEST_PAGE_LIMIT: int = 50
     INGEST_INTERVAL_HOURS: int = 6
+
+    # ==========================================================================
+    # External API Keys
+    # ==========================================================================
+    RESCUEGROUPS_API_KEY: Optional[str] = None
+    SERPAPI_KEY: Optional[str] = None
+
+    # TheDogAPI (Dog breeds, images, knowledge library)
+    # Rate limits: 100 req/60s, 200 burst, 10,000/month
+    THEDOGAPI_KEY: Optional[str] = None
+    THEDOGAPI_KEY_2: Optional[str] = None
+    THEDOGAPI_KEY_3: Optional[str] = None
+    THEDOGAPI_KEY_4: Optional[str] = None
 
     # ==========================================================================
     # Rate Limiting

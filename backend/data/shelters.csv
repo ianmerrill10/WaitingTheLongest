@@ -1,0 +1,369 @@
+Number,State,State_Code,Organization_Name,Type,Email,Phone,Website,Address,City,Zip_Code,Description
+TX001,Texas,TX,Dallas Animal Services,Municipal,,,"dallasanimalservices.org",,Dallas,,Municipal. The primary open-intake shelter for the City of Dallas. Handles all stray intake and animal control enforcement within city limits. High-volume facility.
+TX002,Texas,TX,SPCA of Texas,Private Non-Profit,spca@spca.org,214-742-7722,"spca.org",,Dallas,,Private Non-Profit. Major regional agency handling cruelty investigations for multiple counties. Contracts to house animals for cities like Hutchins and Rockwall.
+TX003,Texas,TX,Operation Kindness,Private Non-Profit,,972-418-7297,"operationkindness.org",,Carrollton,,Private Non-Profit. The largest and oldest no-kill shelter in North Texas. Provides extensive medical care adoption and food pantries.
+TX004,Texas,TX,Fort Worth Animal Care & Control,Municipal,,,"fortworthtexas.gov",,Fort Worth,,Municipal. Operates multiple campuses (Chuck & Brenda Silcox Center North Animal Campus) to manage animal control for Fort Worth.
+TX005,Texas,TX,Humane Society of North Texas,Private Non-Profit,,817-332-6341,"hsnt.org",,Fort Worth,,Private Non-Profit. Large agency advocating for animal protection providing vet care and conducting cruelty investigations.
+TX006,Texas,TX,Collin County Animal Services,Municipal,,,"collincountytx.gov",,McKinney,,Municipal. Serves unincorporated Collin County and contract cities including Anna Celina Fairview Lavon Lucas Melissa Nevada Princeton Prosper and Weston.
+TX007,Texas,TX,Arlington Animal Services,Municipal,,,"arlingtontx.gov",,Arlington,,Municipal. City shelter providing adoption sterilization and control services for Arlington residents.
+TX008,Texas,TX,Richardson Animal Shelter,Municipal,,,"cor.net/animalshelter",,Richardson,,Municipal. Open facility known for its volunteer programs and community education.
+TX009,Texas,TX,Grand Prairie Animal Services,Municipal,gpasinfo@gptx.org,972-237-8575,,,Grand Prairie,,Municipal. Operates the Prairie Paws Adoption Center. Handles animal complaints adoptions and fostering.
+TX010,Texas,TX,Tri-City Animal Shelter,Municipal,,,"cedarhilltx.com",,Cedar Hill,,Municipal (Regional). A cooperative facility serving the cities of Cedar Hill DeSoto and Duncanville.
+TX011,Texas,TX,Irving Animal Services,Municipal,,,"cityofirving.org",,Irving,,Municipal. City shelter managing animal control and adoptions for Irving.
+TX012,Texas,TX,Garland Animal Services,Municipal,,,"garlandanimalservices.org",,Garland,,Municipal. Provides sheltering and control services for the City of Garland.
+TX013,Texas,TX,Mesquite Animal Shelter,Municipal,,,"cityofmesquite.com",,Mesquite,,Municipal. City facility for stray intake and adoption services.
+TX014,Texas,TX,Carrollton Animal Services,Municipal,,,"cityofcarrollton.com",,Carrollton,,Municipal. The citys animal control division distinct from Operation Kindness.
+TX015,Texas,TX,Denton Animal Services,Municipal,,,"cityofdenton.com",,Denton,,Municipal. City shelter serving Denton. Handles local impoundments and adoptions.
+TX016,Texas,TX,Lewisville Animal Shelter,Municipal,,,"cityoflewisville.com",,Lewisville,,Municipal. Provides animal services and sheltering for Lewisville residents.
+TX017,Texas,TX,Plano Animal Services,Municipal,,,"plano.gov",,Plano,,Municipal. City shelter responsible for animal control and sheltering in Plano.
+TX018,Texas,TX,North Richland Hills Animal Adoption Center,Municipal,,,"nrhtx.com",,North Richland Hills,,Municipal. Serves North Richland Hills. Known for modern facilities and adoption focus.
+TX019,Texas,TX,Wylie Animal Services,Municipal,,972-442-8110,,,Wylie,,Municipal. DSHS-inspected facility serving the City of Wylie.
+TX020,Texas,TX,Little Elm Animal Services,Municipal,thoofnagle@littleelm.org,972-377-1898,,,Little Elm,,Municipal. Town shelter supported by the non-profit Friends of the Little Elm Animal Shelter.
+TX021,Texas,TX,Allen Animal Control,Municipal,,,"cityofallen.org",,Allen,,Municipal. City division responsible for animal control and sheltering.
+TX022,Texas,TX,The Colony Animal Services,Municipal,,,"thecolonytx.gov",,The Colony,,Municipal. Animal services division for The Colony.
+TX023,Texas,TX,Coppell Animal Services,Municipal,,,"coppelltx.gov",,Coppell,,Municipal. City shelter and control services.
+TX024,Texas,TX,Flower Mound Animal Services,Municipal,,,"flower-mound.com",,Flower Mound,,Municipal. Serves the Town of Flower Mound.
+TX025,Texas,TX,Grapevine Animal Services,Municipal,,,"animalservices.grapevinetexas.gov",,Grapevine,,Municipal. Shelter and control services for Grapevine.
+TX026,Texas,TX,Keller Animal Services,Municipal,,,"cityofkeller.com",,Keller,,Municipal. Serves Keller handling adoptions and control.
+TX027,Texas,TX,Weatherford/Parker County Animal Shelter,Municipal,,,"weatherfordtx.gov",,Weatherford,,Municipal. Large facility serving Weatherford and Parker County west of DFW.
+TX028,Texas,TX,Wise County Animal Control,Municipal,,,"co.wise.tx.us",,Decatur,,Municipal. County agency overseeing animal control and sheltering for Decatur and Wise County.
+TX029,Texas,TX,Waxahachie Animal Control,Municipal,,,"waxahachie.com",,Waxahachie,,Municipal. City shelter serving Waxahachie.
+TX030,Texas,TX,Rockwall Animal Services,Municipal,,,"rockwall.com",,Rockwall,,Municipal. City division for animal services. Some services may contract with SPCA of Texas.
+TX031,Texas,TX,Rowlett Animal Shelter,Municipal,,,"ci.rowlett.tx.us",,Rowlett,,Municipal. City shelter for Rowlett.
+TX032,Texas,TX,Seagoville Animal Services,Municipal,,,"seagoville.us",,Seagoville,,Municipal. Shelter services for Seagoville.
+TX033,Texas,TX,East Lake Pet Orphanage,Private Non-Profit,,,"eastlakepetorphanage.com",,Dallas,,Private Non-Profit. A rescue organization connecting people and pets providing medical care and rehabilitation.
+TX034,Texas,TX,BARC Animal Shelter & Adoptions,Municipal,BARCadoptions@houstontx.gov,832-395-9084,,,Houston,,Municipal. The City of Houstons primary shelter. Required by law to accept all strays. Managing high-volume intake and rabies control.
+TX035,Texas,TX,Houston Humane Society,Private Non-Profit,,713-433-6421,"houstonhumane.org",,Houston,,Private Non-Profit. Large organization offering low-cost medical services cruelty investigations and adoption.
+TX036,Texas,TX,Houston SPCA,Private Non-Profit,,713-869-7722,"houstonspca.org",,Houston,,Private Non-Profit. The largest animal protection agency in the region. Handles cruelty investigations disaster response and wildlife rehabilitation.
+TX037,Texas,TX,Harris County Pets (HCPHES),Municipal,,281-999-3191,,,Houston,,Municipal. Shelter for unincorporated Harris County. Distinct from BARC. Focuses on public health rabies control and licensing.
+TX038,Texas,TX,Citizens for Animal Protection (CAP),Private Non-Profit,info@cap4pets.org,281-497-0591,,,Houston,,Private Non-Profit. Major shelter on the west side of Houston offering adoption fostering and education programs.
+TX039,Texas,TX,Friends For Life,Private Non-Profit,,,"friends4life.org",,Houston,,Private Non-Profit. No-kill shelter and rescue focused on behavioral rehabilitation and keeping pets in homes. Operates a pet food pantry.
+TX040,Texas,TX,Special Pals,Private Non-Profit,info@specialpals.org,281-579-7387,,,Houston,,Private Non-Profit. Oldest no-kill shelter in the metro area. Focuses on high-volume adoption and rescue transfers.
+TX041,Texas,TX,Fort Bend County Animal Services,Municipal,,281-342-1512,,,Rosenberg,,Municipal. County facility serving Fort Bend. Actively engaging in Dogs Playing for Life and community outreach.
+TX042,Texas,TX,Rosenberg Animal Control,Municipal,,832-595-3490,,,Rosenberg,,Municipal. Control agency for the City of Rosenberg.
+TX043,Texas,TX,Sugar Land Animal Services,Municipal,,281-275-2364,,,Sugar Land,,Municipal. Shelter for the City of Sugar Land. Emphasizes reunification of lost pets.
+TX044,Texas,TX,Missouri City Animal Control,Municipal,,281-403-8707,,,Missouri City,,Municipal. Services for Missouri City focusing on public safety and code enforcement.
+TX045,Texas,TX,Bay Area SPCA,Private Non-Profit,info@bayaeapetadoptions.org,281-339-2086,,,San Leon,,Private Non-Profit. Galveston Countys only no-kill shelter serving the Bay Area/Gulf Coast region.
+TX046,Texas,TX,Galveston Island Humane Society,Private Non-Profit,,,"galvestonhumane.org",,Galveston,,Private Non-Profit. Contracts with the City of Galveston to provide municipal sheltering services.
+TX047,Texas,TX,Three Little Pitties Rescue,Private Rescue,,,"threelittlepittiesrescue.org",,Friendswood,,Private Rescue. Major transport-focused rescue. Rehabilitates dogs/cats in TX and transports them to the PNW and East Coast.
+TX048,Texas,TX,ADORE Houston,Private Rescue,info@adorehouston.org,,,,Houston,,Private Rescue. All Dogs Official Rescue Enterprise. Focuses on rescue and adoption.
+TX049,Texas,TX,Animal Justice League,Private Rescue,info@animaljusticeleague.org,,,,Houston,,Private Rescue. Rescue group focused on saving homeless animals in Houston.
+TX050,Texas,TX,Houston Pets Alive!,Private Rescue,,,"houstonpetsalive.org",,Houston,,Private Rescue. Focuses on saving at-risk animals from municipal shelters modeled after Austin Pets Alive!.
+TX051,Texas,TX,Scouts Honor Rescue,Private Rescue,info@scoutshonor.org,,,,Houston,,Private Rescue. Foster-based rescue in Houston.
+TX052,Texas,TX,Second Chance Pets,Private Rescue,pets2adopt@yahoo.com,,,,League City,,Private Rescue. Rescue group serving the League City area.
+TX053,Texas,TX,Wag Again Rescue,Private Rescue,info@wagagain.dog,,,,Pearland,,Private Rescue. Pearland-based rescue group.
+TX054,Texas,TX,A Smart Rescue,Private Rescue,Public_Relations@SMARTPetz.com,,,,Spring,,Private Rescue. Rescue and sanctuary serving North Harris and Montgomery Counties.
+TX055,Texas,TX,Abandoned Animal Rescue (AAR),Private Rescue,,281-789-4142,,,Magnolia,,Private Rescue. Shelter and rescue serving the Magnolia area.
+TX056,Texas,TX,Corridor Rescue,Private Rescue,info@corridorrescue.org,,,,Houston,,Private Rescue. Focuses on the Corridor of Cruelty area in Northeast Houston.
+TX057,Texas,TX,Cypress Lucky Mutt Rescue,Private Rescue,luckymuttrescuecypress@gmail.com,,,,Cypress,,Private Rescue. Foster-based rescue in Cypress.
+TX058,Texas,TX,Day of the Dogs,Private Rescue,Info.dayofthedogs@gmail.com,,,,Cypress,,Private Rescue. Rescue organization in Cypress.
+TX059,Texas,TX,Fuzzy Texan Animal Rescue,Private Rescue,,512-766-7374,,,Houston,,Private Rescue. Focuses on special needs dogs and cats.
+TX060,Texas,TX,H.A.R.T. (Houston Animal Rescue Team),Private Rescue,1hartrescue@gmail.com,,,,Houston,,Private Rescue. Foster-based rescue team.
+TX061,Texas,TX,Heart of the Underdog,Private Rescue,heartoftheunderdog.rescue@gmail.com,,,,Houston,,Private Rescue. Focuses on helping overlooked or underdog animals.
+TX062,Texas,TX,Mission For Paws,Private Rescue,missionforpaws@att.net,,,,Pasadena,,Private Rescue. Rescue group operating in Pasadena.
+TX063,Texas,TX,Pup Squad Animal Rescue,Private Rescue,PupSquadAdoption@gmail.com,,,,Houston,,Private Rescue. Focuses on mother dogs with nursing litters and orphaned puppies.
+TX064,Texas,TX,Texas Animal Society,Private Rescue,info@texasanimalsociety.com,,,,Spring,,Private Rescue. Spring-based rescue organization.
+TX065,Texas,TX,City of La Porte Animal Services,Municipal,,,"laportetx.gov",,La Porte,,Municipal. City shelter services for La Porte.
+TX066,Texas,TX,League City Animal Shelter,Municipal,,,"leaguecitytx.gov",,League City,,Municipal. City shelter managing adoptions and animal control.
+TX067,Texas,TX,Pearland Animal Services,Municipal,,,"pearlandtx.gov",,Pearland,,Municipal. City shelter for Pearland.
+TX068,Texas,TX,Pasadena Animal Control,Municipal,,,"pasadenatx.gov",,Pasadena,,Municipal. Large municipal shelter for the City of Pasadena.
+TX069,Texas,TX,Austin Animal Center,Municipal,,311,"austintexas.gov",,Austin,,Municipal. The primary shelter for the City of Austin and Travis County. Mandated to maintain a >95% live release rate. Open intake.
+TX070,Texas,TX,Austin Pets Alive! (APA!),Private Non-Profit,,,"austinpetsalive.org",,Austin,,Private Non-Profit. Pioneering no-kill organization that saves the most at-risk animals from the municipal shelter. Operates innovative programs for Parvo and neonates.
+TX071,Texas,TX,Austin Humane Society,Private Non-Profit,,,"austinhumanesociety.org",,Austin,,Private Non-Profit. Austins longest-standing private shelter. Focuses on prevention education adoption and disaster response.
+TX072,Texas,TX,San Antonio Animal Care Services,Municipal,,,"sa.gov/acs",,San Antonio,,Municipal. Primary open-intake shelter for the City of San Antonio. Operates with a focus on public safety and live release through partnerships.
+TX073,Texas,TX,Animal Defense League of Texas,Private Non-Profit,,210-655-1481,"adltexas.org",,San Antonio,,Private Non-Profit. Established in 1934 this is a major no-kill shelter providing medical treatment and adoption services on a large campus.
+TX074,Texas,TX,San Antonio Humane Society,Private Non-Profit,,210-226-7461,"sahumane.org",,San Antonio,,Private Non-Profit. No-kill shelter operating independently of the city. Offers spay/neuter clinics and community education.
+TX075,Texas,TX,Bexar County Animal Control,Municipal,bexaranimalcare@bexar.org,210-335-9000,,,San Antonio,,Municipal. Serves unincorporated Bexar County. Primarily public safety/health.
+TX076,Texas,TX,Williamson County Regional Animal Shelter,Municipal,wcras@wilco.org,512-943-3322,,,Georgetown,,Municipal. Collaborative shelter serving Round Rock Cedar Park Leander Hutto and the County. The only open-intake no-kill shelter in this specific area.
+TX077,Texas,TX,Texas Humane Heroes,Private Non-Profit,info@texashumaneheroes.org,512-260-3602,,,Leander,,Private Non-Profit. Regional organization with adoption centers in Leander and Killeen. Focuses on transferring animals from overcrowding rural shelters.
+TX078,Texas,TX,PAWS Shelter of Central Texas,Private Non-Profit,,,"pawsshelter.org",,Kyle,,Private Non-Profit. Operates two campuses in Hays County. Provides refuge and adoption for homeless animals.
+TX079,Texas,TX,San Marcos Animal Shelter,Municipal,,512-805-2650,,,San Marcos,,Municipal. Regional facility serving San Marcos and Hays County. Licensed quarantine facility.
+TX080,Texas,TX,Central Texas SPCA,Private Non-Profit,info@centraltexasspca.org,512-260-7722,,,Cedar Park,,Private Non-Profit. A private no-kill shelter operating in Williamson County. Distinct from the SPCA of Texas.
+TX081,Texas,TX,Killeen Animal Services,Municipal,,254-526-4455,,,Killeen,,Municipal. Open intake facility for the City of Killeen. Partners with local rescues for transfers.
+TX082,Texas,TX,Lampasas Animal Shelter,Municipal,,,"lampasas.org",,Lampasas,,Municipal. Collaborative effort between City and County. Staffed by Animal Control Officers.
+TX083,Texas,TX,Hill Country SPCA,Private Non-Profit,,,"hillcountryspca.com",,Fredericksburg,,Private Non-Profit. Serving the Hill Country region. Focuses on adoption and community assistance.
+TX084,Texas,TX,Highland Lakes SPCA,Private Non-Profit,,,"highlandlakesspca.org",,Marble Falls,,Private Non-Profit. No-kill shelter serving Burnet County and surrounding areas.
+TX085,Texas,TX,New Braunfels Animal Services,Municipal,,,"nbtexas.org",,New Braunfels,,Municipal. City shelter managing animal control and adoptions for New Braunfels.
+TX086,Texas,TX,Humane Society of the New Braunfels Area,Private Non-Profit,,,"hsnba.org",,New Braunfels,,Private Non-Profit. Partners with the city to increase live outcomes.
+TX087,Texas,TX,Guadalupe County Humane Society,Private Non-Profit,,,"gchsanimals.com",,Seguin,,Private Non-Profit. Serving Guadalupe County.
+TX088,Texas,TX,Seguin Animal Services,Municipal,,,"seguintexas.gov",,Seguin,,Municipal. City animal control and shelter.
+TX089,Texas,TX,Lockhart Animal Shelter,Municipal,,512-398-4401,,,Lockhart,,Municipal. City shelter for Lockhart.
+TX090,Texas,TX,Bastrop County Animal Shelter,Municipal,,,"co.bastrop.tx.us",,Bastrop,,Municipal. County shelter serving the Bastrop area.
+TX091,Texas,TX,Lubbock Animal Services,Municipal,,,,,,Lubbock,,Municipal. The primary high-volume intake facility for the South Plains region. Handles animal control for the City of Lubbock.
+TX092,Texas,TX,Amarillo Animal Management & Welfare,Municipal,,,,,,Amarillo,,Municipal. Serves the Panhandle region. Operates the city shelter and enforces animal ordinances.
+TX093,Texas,TX,Amarillo SPCA,Private Non-Profit,,,,,,Amarillo,,Private Non-Profit. Private shelter serving Amarillo and the Panhandle.
+TX094,Texas,TX,Midland Animal Services,Municipal,,,,,,Midland,,Municipal. City facility handling animal control and adoptions for Midland.
+TX095,Texas,TX,Grand Companions Humane Society,Private Non-Profit,,,,,,Fort Davis,,Private Non-Profit. Serving the Davis Mountains/Big Bend region. Critical resource in a very sparse area.
+TX096,Texas,TX,San Angelo Animal Services,Municipal,,,,,,San Angelo,,Municipal. City shelter for San Angelo.
+TX097,Texas,TX,Concho Valley PAWS,Private Non-Profit,,,,,,San Angelo,,Private Non-Profit. Partners with San Angelo Animal Services to facilitate adoptions and transfers.
+TX098,Texas,TX,Abilene Animal Services,Municipal,,,,,,Abilene,,Municipal. City shelter for Abilene.
+TX099,Texas,TX,All Kind Animal Initiative,Private Non-Profit,,,,,,Abilene,,Private Non-Profit. Works to improve animal welfare in Abilene through shelter support and programs.
+TX100,Texas,TX,Rescue the Animals SPCA,Private Non-Profit,,,,,,Abilene,,Private Non-Profit. A major rescue in the Big Country region focusing on rehabilitation and adoption.
+TX101,Texas,TX,Odessa Animal Control,Municipal,,,,,,Odessa,,Municipal. Serves Ector County area with animal control and sheltering.
+TX102,Texas,TX,Humane Society of Odessa,Private Non-Profit,,,,,,Odessa,,Private Non-Profit. Private shelter and adoption center in Odessa.
+TX103,Texas,TX,Waco Animal Shelter,Municipal,,,,,,Waco,,Municipal. Regional shelter serving the City of Waco and McLennan County.
+TX104,Texas,TX,Humane Society of Central Texas,Private Non-Profit,,,,,,Waco,,Private Non-Profit. Adoption partner for the City of Waco shelter.
+TX105,Texas,TX,Corpus Christi Animal Care Services,Municipal,,,,,,Corpus Christi,,Municipal. Major municipal hub for the Coastal Bend region.
+TX106,Texas,TX,Gulf Coast Humane Society,Private Non-Profit,,,,,,Corpus Christi,,Private Non-Profit. Private shelter serving the Coastal Bend.
+TX107,Texas,TX,Palm Valley Animal Society,Private Non-Profit,,,,,,Edinburg,,Private Non-Profit. Operates the municipal shelter for Edinburg/Hidalgo County. High intake facility near the border.
+TX108,Texas,TX,Laredo Animal Protective Services,Non-Profit/Municipal,,,,,,Laredo,,Non-Profit/Municipal. Manages animal control facility for Laredo.
+TX109,Texas,TX,Humane Society of Harlingen,Private Non-Profit,,,,,,Harlingen,,Private Non-Profit. Serves the Harlingen area in the Rio Grande Valley.
+TX110,Texas,TX,Yaqui Animal Rescue,Private Rescue,,,,,,Sullivan City,,Private Rescue. Rescue ranch in the Rio Grande Valley focusing on stray and neglected animals.
+TX111,Texas,TX,Humane Society of Wichita County,Private Non-Profit,,,,,,Wichita Falls,,Private Non-Profit. Private shelter serving North Texas/Red River area.
+TX112,Texas,TX,P.E.T.S. Clinic,Non-Profit,,,,,,Wichita Falls,,Non-Profit. Focuses on low-cost spay/neuter and wellness to prevent overpopulation.
+TX113,Texas,TX,Nacogdoches Animal Services,Municipal,,,,,,Nacogdoches,,Municipal. City shelter for Nacogdoches.
+TX114,Texas,TX,Saint Francis Rescue,Private Rescue,contact@stfrancisrescuenac.com,,,,Nacogdoches,,Private Rescue. Local rescue partner.
+TX115,Texas,TX,Humane Society of East Texas,Private Non-Profit,,,,,,Tyler,,Private Non-Profit. Regional shelter serving Tyler and Smith County.
+TX116,Texas,TX,Longview Animal Care and Adoption Center,Municipal,,,,,,Longview,,Municipal. City facility serving Longview.
+TX117,Texas,TX,Austin German Shepherd Rescue,Breed-Specific Rescue,,,,,,Austin,,Foster-based rescue rehabilitates GSDs in Central TX.
+TX118,Texas,TX,Greater Houston German Shepherd Dog Rescue,Breed-Specific Rescue,,,,,,Houston,,Focused on GSDs in the southeast region.
+TX119,Texas,TX,Good Shepherd Rescue of North Texas,Breed-Specific Rescue,,,,,,Dallas,,Specialized GSD rescue in DFW.
+TX120,Texas,TX,German Shepherd Rescue of Central Texas,Breed-Specific Rescue,,,,,,Austin,,Rescues GSDs from high-kill shelters.
+TX121,Texas,TX,North Texas German Shepherd Rescue,Breed-Specific Rescue,,,,,,Dallas,,GSD rescue in DFW area.
+TX122,Texas,TX,Border Collie Rescue & Rehab,Breed-Specific Rescue,,,,,,Texas,,Specialized in behavioral needs of Border Collies.
+TX123,Texas,TX,Ruff Mutt Border Collie Rescue,Breed-Specific Rescue,,,,,,Garland,,Foster-based Border Collie rescue in DFW.
+TX124,Texas,TX,Houston Collie Rescue,Breed-Specific Rescue,,,,,,Houston,,Focuses on Collies and Border Collies.
+TX125,Texas,TX,Border Collie Rescue Texas,Breed-Specific Rescue,,,,,,Texas,,Statewide Border Collie network.
+TX126,Texas,TX,South Texas Aussie Rescue,Breed-Specific Rescue,,,,,,San Antonio,,Australian Shepherd rescue in Southern region.
+TX127,Texas,TX,Mini Aussie Rescue & Support,Breed-Specific Rescue,,,,,,Texas,,Statewide. Focuses on Miniature Australian Shepherds.
+TX128,Texas,TX,Second Time Around Aussie Rescue,Breed-Specific Rescue,,,,,,Fort Worth,,Specialized Aussie rescue.
+TX129,Texas,TX,Texas Cattle Dog Rescue,Breed-Specific Rescue,,,,,,Texas,,Statewide. Focuses on Blue/Red Heelers (ACDs).
+TX130,Texas,TX,Texas Great Pyrenees Rescue,Breed-Specific Rescue,,,,,,Texas,,Statewide. Critical for livestock guardian dogs.
+TX131,Texas,TX,SPIN (Saving Pyrs in Need),Breed-Specific Rescue,,,,,,Dallas,,DFW based Great Pyrenees rescue.
+TX132,Texas,TX,Great Pyrenees Rescue Society,Breed-Specific Rescue,,,,,,Houston,,Rescues and rehabs Great Pyrenees statewide.
+TX133,Texas,TX,Lone Star Pyrs & Paws,Breed-Specific Rescue,,,,,,Texas,,Rescue focusing on Pyrenees mixes.
+TX134,Texas,TX,Austin Boxer Rescue,Breed-Specific Rescue,,,,,,Austin,,Boxer rescue with Alamo Chapter in San Antonio.
+TX135,Texas,TX,Legacy Boxer Rescue,Breed-Specific Rescue,,,,,,Dallas,,Specialized Boxer rescue in DFW.
+TX136,Texas,TX,Lone Star Boxer Rescue,Breed-Specific Rescue,,,,,,Houston,,Boxer rescue in Houston.
+TX137,Texas,TX,Houston Boxer Rescue,Breed-Specific Rescue,,,,,,Houston,,Dedicated to Boxers in the metro area.
+TX138,Texas,TX,Rejection Collection Boxer Rescue,Breed-Specific Rescue,,,,,,Texas,,Rescue for hard-to-place Boxers.
+TX139,Texas,TX,Doberman Rescue of North Texas,Breed-Specific Rescue,,,,,,Grand Prairie,,Specialized Doberman rescue in DFW.
+TX140,Texas,TX,Lone Star Doberman Rescue,Breed-Specific Rescue,,,,,,Fort Worth,,Fort Worth based Doberman rescue.
+TX141,Texas,TX,San Antonio Doberman Rescue,Breed-Specific Rescue,,,,,,San Antonio,,San Antonio area Doberman rescue.
+TX142,Texas,TX,Southern States Rescued Rottweilers,Breed-Specific Rescue,,,,,,Texas,,Regional Rottweiler rescue covering Texas.
+TX143,Texas,TX,Rotts Across Texas,Breed-Specific Rescue,,,,,,Texas,,Specialized Rottweiler rescue.
+TX144,Texas,TX,Heart of Texas Lab Rescue,Breed-Specific Rescue,,,,,,Austin,,Labrador rescue in Austin/Central Texas.
+TX145,Texas,TX,DFW Lab Rescue,Breed-Specific Rescue,,,,,,Dallas,,Labrador rescue in DFW area.
+TX146,Texas,TX,Houston Labrador Retriever Rescue,Breed-Specific Rescue,,,,,,Houston,,Labrador rescue in Houston.
+TX147,Texas,TX,Lone Star Lab Rescue,Breed-Specific Rescue,,,,,,Dallas,,DFW based Labrador rescue.
+TX148,Texas,TX,Golden Beginnings Golden Retriever Rescue,Breed-Specific Rescue,,,,,,Houston,,Dedicated to Goldens in Houston.
+TX149,Texas,TX,Golden Retriever Rescue of North Texas,Breed-Specific Rescue,,,,,,Dallas,,Golden rescue in DFW area.
+TX150,Texas,TX,Gold Ribbon Rescue,Breed-Specific Rescue,,,,,,Austin,,Golden Retriever rescue in Austin/Central Texas.
+TX151,Texas,TX,Retrieve a Golden of Texas,Breed-Specific Rescue,,,,,,Dallas,,Statewide/DFW Golden rescue.
+TX152,Texas,TX,Houston Beagle and Hound Rescue,Breed-Specific Rescue,,,,,,Houston,,Rescues Beagles and Hounds.
+TX153,Texas,TX,DFW Beagle Buddies,Breed-Specific Rescue,,,,,,Dallas,,Specialized Beagle rescue in DFW.
+TX154,Texas,TX,Greyhound Adoption League of Texas (GALT),Breed-Specific Rescue,,,,,,Texas,,Statewide. Major group rehoming retired racers and strays.
+TX155,Texas,TX,Austin Greyhound Adoption,Breed-Specific Rescue,,,,,,Austin,,Central Texas Greyhound chapter.
+TX156,Texas,TX,Greyhounds Unlimited,Breed-Specific Rescue,,,,,,Tyler,,Greyhound rescue in East Texas.
+TX157,Texas,TX,German Shorthaired Pointer Rescue of North Texas,Breed-Specific Rescue,,,,,,Dallas,,Specialized GSP rescue in DFW.
+TX158,Texas,TX,Brittany Rescue in Texas (BRIT),Breed-Specific Rescue,,,,,,Fort Worth,,Fort Worth/Statewide Brittany Spaniel rescue.
+TX159,Texas,TX,Weimaraner Rescue of Texas,Breed-Specific Rescue,,,,,,Dallas,,Statewide Weimaraner rescue.
+TX160,Texas,TX,Texas Vizsla Rescue,Breed-Specific Rescue,,,,,,Texas,,Specialized in Vizslas.
+TX161,Texas,TX,DFW Cocker Spaniel Rescue,Breed-Specific Rescue,,,,,,Dallas,,Cocker Spaniel rescue in DFW.
+TX162,Texas,TX,Cocker Spaniel Rescue of East Texas,Breed-Specific Rescue,,,,,,Houston,,Cocker rescue in Houston/Sugar Land.
+TX163,Texas,TX,Gulf Coast Cocker Spaniel Rescue,Breed-Specific Rescue,,,,,,Houston,,Cocker rescue in Houston area.
+TX164,Texas,TX,Chihuahua Rescue & Transport,Breed-Specific Rescue,,,,,,Dallas,,DFW/Statewide national group with Texas presence.
+TX165,Texas,TX,Texas Little Cuties Rescue,Breed-Specific Rescue,,,,,,Plano,,Focuses on small dogs.
+TX166,Texas,TX,Central Texas Dachshund Rescue,Breed-Specific Rescue,,,,,,Austin,,Major rescue for wiener dogs in Austin/SA.
+TX167,Texas,TX,Dachshund Lovers of Texas,Breed-Specific Rescue,,,,,,Texas,,Statewide Dachshund network.
+TX168,Texas,TX,Diamond Dachshund Rescue of Texas,Breed-Specific Rescue,,,,,,San Antonio,,Dachshund rescue in San Antonio area.
+TX169,Texas,TX,Dachshund Rescue of Houston,Breed-Specific Rescue,,,,,,Houston,,Dachshund rescue in Houston.
+TX170,Texas,TX,PugHearts of Houston,Breed-Specific Rescue,,,,,,Houston,,Very large and active Pug rescue.
+TX171,Texas,TX,DFW Pug Rescue,Breed-Specific Rescue,,,,,,Dallas,,Specialized Pug rescue in DFW.
+TX172,Texas,TX,Austin Pug Rescue,Breed-Specific Rescue,,,,,,Austin,,Pug rescue in Austin.
+TX173,Texas,TX,San Antonio Pug Rescue,Breed-Specific Rescue,,,,,,San Antonio,,Pug rescue in San Antonio.
+TX174,Texas,TX,Miniature Schnauzer Rescue of Houston,Breed-Specific Rescue,,,,,,Houston,,Specialized in Mini Schnauzers.
+TX175,Texas,TX,Miniature Schnauzer Rescue of North Texas,Breed-Specific Rescue,,,,,,Dallas,,Mini Schnauzer rescue in DFW.
+TX176,Texas,TX,Schnauzer & Friends Rescue,Breed-Specific Rescue,,,,,,San Antonio,,Schnauzer rescue in San Antonio.
+TX177,Texas,TX,Tzu Zoo Rescue,Breed-Specific Rescue,,,,,,Dallas,,Shih Tzu and Lhasa Apso rescue in DFW.
+TX178,Texas,TX,Lone Star Shih Tzu & Lhasa Apso Rescue,Breed-Specific Rescue,,,,,,Houston,,Shih Tzu rescue in Houston.
+TX179,Texas,TX,United Yorkie Rescue,Breed-Specific Rescue,,,,,,Texas,,Statewide Yorkie rescue.
+TX180,Texas,TX,Yorkie Rescue Houston,Breed-Specific Rescue,,,,,,Houston,,Yorkie rescue in Houston.
+TX181,Texas,TX,American Boston Terrier Rescue,Breed-Specific Rescue,,,,,,Gainesville,,Boston Terrier rescue in North Texas.
+TX182,Texas,TX,Boston Terrier Rescue of North Texas,Breed-Specific Rescue,,,,,,Dallas,,Boston Terrier rescue in DFW.
+TX183,Texas,TX,Lone Star Bulldog Club Rescue,Breed-Specific Rescue,,,,,,Dallas,,English and French Bulldogs in DFW.
+TX184,Texas,TX,San Antonio Bulldog Rescue,Breed-Specific Rescue,,,,,,San Antonio,,Specialized in Bulldogs.
+TX185,Texas,TX,Austin Bully Butt Rescue,Breed-Specific Rescue,,,,,,Austin,,Bulldog rescue in Austin.
+TX186,Texas,TX,Love-A-Bull,Breed-Specific Rescue,,,,,,Austin,,Advocacy and rescue for Pit Bulls.
+TX187,Texas,TX,Brave Bully Rescue,Breed-Specific Rescue,,,,,,Houston,,Pit Bull rescue in Houston.
+TX188,Texas,TX,Guardian Pit Bull Rescue,Breed-Specific Rescue,,,,,,The Woodlands,,Pit Bull advocacy and rescue.
+TX189,Texas,TX,The Pittie Project PNW,Breed-Specific Rescue,,,,,,Texas,,Texas/PNW transport focused Pit Bull rescue.
+TX190,Texas,TX,Shadow Cats,Cat Rescue/TNR,,,,,,Round Rock,,Sanctuary for special needs cats (FeLV+) and major TNR advocate/resource in Central Texas.
+TX191,Texas,TX,Austin Siamese Rescue,Cat Rescue,,,,,,Austin,,Specializes in Siamese Oriental and Colorpoint breeds.
+TX192,Texas,TX,Save A Purrfect Cat Rescue,Cat Rescue,saveacat@comcast.net,,,,Houston,,Cat adoption and rescue group.
+TX193,Texas,TX,Purr Paws Rescue,Cat Rescue,info@purrpawsrescue.org,,,,Houston,,Foster-based cat rescue.
+TX194,Texas,TX,LMN Feline Rescue,Cat Rescue,lmnfelinerescue@hotmail.com,,,,Humble,,Cats-only rescue in the Houston area.
+TX195,Texas,TX,Homeless & Orphaned Pets Endeavor (HOPE),Cat Rescue/TNR,hppl@hppl.org,,,,Houston,,Feline-focused rescue and TNR support.
+TX196,Texas,TX,San Antonio Feral Cat Coalition,TNR Advocacy,,,,,,San Antonio,,Focuses on TNR education trap loans and sterilization.
+TX197,Texas,TX,Street Cat Rescue,Cat Rescue,,,,,,Round Rock,,Small rescue for strays in Williamson County.
+TX198,Texas,TX,Thundering Paws Animal Sanctuary,Sanctuary,,,,,,Dripping Springs,,No-kill sanctuary and adoption center in the Hill Country.
+TX199,Texas,TX,Barn Cats Inc.,Working Cat Program,,,,,,Lewisville,,Specializes in relocating feral/unadoptable cats to barns as working rodent control.
+TX200,Texas,TX,Cat Matchers,Cat Rescue,,,,,,Dallas,,Foster-based cat rescue active in North Texas.
+TX201,Texas,TX,A Voice for All Paws,Rescue,,,,,,Dallas,,Rescue group active in the DFW area.
+TX202,Texas,TX,Texas Bengal and Exotic Cat Rescue,Specialty Rescue,,,,,,Dallas,,Specialized in Bengal and exotic hybrid cats.
+TX203,Texas,TX,Edgar and Ivys Cat Sanctuary,Sanctuary,,,,,,Corpus Christi,,Cage-free sanctuary for special needs and feral cats.
+TX204,Texas,TX,Bear Den Cat Sanctuary,Sanctuary,,,,,,San Antonio,,Provides permanent home for homeless/feral cats near San Antonio.
+TX205,Texas,TX,Bluebonnet Equine Humane Society,Equine Rescue,,,,,,Texas,,Equine rescue part of the broader rescue network.
+TX206,Texas,TX,Peaceful Valley Donkey Rescue,Sanctuary,,,,,,San Angelo,,The largest donkey rescue in the US. Rescues abused and neglected donkeys.
+TX207,Texas,TX,SARA Sanctuary,Sanctuary,,,,,,Seguin,,Rescues all species (pigs dogs cats) for lifetime care. No-kill.
+TX208,Texas,TX,My Pig Filled Life,Sanctuary,,,,,,Texas,,Specialized in rescuing mini-pigs.
+TX209,Texas,TX,Safe in Austin,Sanctuary,,,,,,Leander,,Judgement free sanctuary for special needs animals and children.
+TX210,Texas,TX,San Antonio Pets Alive!,Private Non-Profit,,,"sanantoniopetsalive.org",,San Antonio,,High-volume rescue created to pull at-risk animals from city euthanasia lists.
+MA001,Massachusetts,MA,4 Paws Stronger Inc.,Import Rescue,publics20.lm@gmail.com,,,,Massachusetts,,Import-licensed rescue focusing on pulling dogs from high-kill southern shelters for NE placement.
+MA002,Massachusetts,MA,A Home for Weary Wanderers,Local Rescue,ppdwalking12@gmail.com,,,,Massachusetts,,Local foster network dedicated to rehoming surrendered and stray animals within the Commonwealth.
+MA003,Massachusetts,MA,A Place For Ace,Import Rescue,admin@aplaceforace.org,,,,Massachusetts,,Rescue focused on medical rehabilitation and behavioral support for at-risk dogs.
+MA004,Massachusetts,MA,Ahimsa Haven Animal Rescue,Local Rescue,info@ahimsahaven.org,,,,Templeton,,Foster-based rescue guided by the principle of non-violence serving local surrenders.
+MA005,Massachusetts,MA,All Sentient Beings,Local Rescue,wishfulwhiskers2017@gmail.com,,,,Massachusetts,,Holistic welfare organization assisting with local animal crisis situations and rehoming.
+MA006,Massachusetts,MA,American Lab Rescue Inc.,Import Rescue,info@americanlabrescue.com,,,,Connecticut/Massachusetts,,Breed-specific import rescue specializing in Labrador Retrievers transported from the South.
+MA007,Massachusetts,MA,Angelcat Haven Feline Rescue,Local Rescue,angela@angelcathaven.com,,,,Plainville,,Primarily feline rescue that occasionally assists with small dog placement and community support.
+MA008,Massachusetts,MA,Angels Helping Animals Worldwide,Import Rescue,angelshelpinganimalsmv@gmail.com,,,,Marthas Vineyard,,Island-based rescue importing dogs from high-need areas providing quarantine and vet care.
+MA009,Massachusetts,MA,Animal Protection Center of SE Mass,Import Shelter,k.heise@apcsm.org,,,,Brockton,,Major regional shelter offering adoption education and animal control services for Brockton area.
+MA010,Massachusetts,MA,Animal Rescue Front Inc.,Import Rescue,chris@animalrescuefront.org,,,,Massachusetts,,Volunteer rescue group facilitating the transport and adoption of homeless dogs.
+MA011,Massachusetts,MA,Animal Rescue League of Boston,Import Shelter,edoyle@arlboston.org,,,,Boston,,Historic shelter (est. 1899) providing law enforcement rescue services and veterinary care.
+MA012,Massachusetts,MA,Animal Rescue League of Fall River,Import Shelter,john@arlfr.org,,,,Fall River,,Private shelter serving the South Coast region with adoption and cruelty prevention services.
+MA013,Massachusetts,MA,Animal Rescue Merrimack Valley,Local Rescue,christenharrison@yahoo.com,,,,Merrimack Valley,,Network of volunteers facilitating adoptions and spay/neuter in the Merrimack Valley.
+MA014,Massachusetts,MA,Animal Shelter of Marthas Vineyard,Local Shelter,ldawley@animalshelterofmv.org,,,,Edgartown,,Local shelter serving the island communitys stray and surrendered animals.
+MA015,Massachusetts,MA,Baypath Humane Society,Import Shelter,ejefferis@baypathhumane.org,,,,Hopkinton,,Shelter known for strong behavioral programs and partnerships with transport networks.
+MA016,Massachusetts,MA,Berkshire Humane Society,Import Shelter,jperreault@berkshirehumane.org,,,,Pittsfield,,Serves Western MA with shelter services pet food banks and wellness clinics.
+MA017,Massachusetts,MA,Better Together Dog Rescue,Import Rescue,bettertogetherdogrescue@gmail.com,,,,Massachusetts,,Foster-based rescue emphasizing the bond between humans and companion animals.
+MA018,Massachusetts,MA,Big Wave Dog Rescue Inc.,Import Rescue,info@bigwavedogrescue.com,,,,Massachusetts,,Rescue dedicated to saving dogs from overcrowded shelters and finding foster placements.
+MA019,Massachusetts,MA,Black Dog Rescue Alliance,Local Rescue,treasurer@blinddogrescue.com,,,,Massachusetts,,Specialized rescue for blind and visually impaired dogs providing lifetime support.
+MA020,Massachusetts,MA,Bostons Forgotten Felines,Local Rescue,cindy@bostonsforgottenfelines.org,,,,Boston,,Urban rescue primarily for cats assisting with community animal welfare needs.
+MA021,Massachusetts,MA,Brown Dog Coalition And Rescue,Import Rescue,adoptions@browndogcoalition.com,,,,Hopkinton,,Foster-based rescue partnering with southern shelters to transport adoptable family dogs.
+MA022,Massachusetts,MA,Buddy Dog Humane Society,Import Shelter,info@buddydoghs.org,,,,Sudbury,,Long-standing shelter (est. 1961) offering no-kill care for dogs and cats.
+MA023,Massachusetts,MA,Bullied Breeds Rescue Inc.,Local Rescue,info@bulliedbreedsrescue.org,,,,Massachusetts,,Advocacy and rescue group for Pit Bull type dogs and other stigmatized breeds.
+MA024,Massachusetts,MA,Cape Ann Animal Aid,Import Shelter,info@capeannanimalaid.org,,,,Gloucester,,High-volume transport shelter saving thousands of animals annually from out-of-state.
+MA025,Massachusetts,MA,Dakin Humane Society,Import Shelter,springfield@dakinhumane.org,,,,Springfield,,Major resource center for the Pioneer Valley offering high-volume spay/neuter and adoption.
+MA026,Massachusetts,MA,Double Dog Rescue Inc.,Import Rescue,jeanf@doubledogrescue.org,,,,Massachusetts,,Volunteer group rescuing dogs from the South and placing them in New England fosters.
+MA027,Massachusetts,MA,Final Victory Animal Rescue,Import Rescue,savingscdogs@gmail.com,,,,Massachusetts,,Aggressive rescue operation pulling dogs from high-kill lists in SC for transport to MA.
+MA028,Massachusetts,MA,Gals Best Pal Inc.,Local Rescue,,,,,Worcester,,Highly rated foster-based rescue in Worcester known for dedicated volunteer care.
+MA029,Massachusetts,MA,Last Hope K9 Rescue,Import Rescue,info@lasthopek9.org,,,,Boston,,Foster-based all-breed rescue dedicated to saving abandoned neglected and abused dogs.
+MA030,Massachusetts,MA,MSPCA-Angell,Import Shelter,info@mspca.org,,,,Boston,,One of the oldest humane societies in the US combining a world-class veterinary hospital with sheltering.
+MA031,Massachusetts,MA,Northeast Coonhound Rescue,Import Rescue,info@necoonhoundrescue.org,,,,Massachusetts,,Breed-specific rescue serving coonhounds and beagles in the New England area.
+MA032,Massachusetts,MA,Sweet Paws Rescue,Import Rescue,info@sweetpawsrescue.org,,,,Groveland,,Grassroots rescue working closely with partners in Mississippi and Alabama.
+MA033,Massachusetts,MA,Worcester Animal Rescue League,Import Shelter,info@worcesterarl.org,,,,Worcester,,Limited-admission shelter serving Worcester county with adoption and boarding services.
+NY001,New York,NY,Mohawk Hudson Humane Society,Private Shelter,,,,,Albany,,Oldest and largest animal protection org in the Capital Region; open admission for strays.
+NY002,New York,NY,German Shepherd Rescue of NY,Breed-Specific Rescue,,,,,Albany,,Breed-specific rescue for GSDs focusing on training and experienced handler placement.
+NY003,New York,NY,Free To Be Me Rescue,Private Rescue,,,,,Albany,,Foster-based rescue taking in dogs of all breeds from high-intake shelters.
+NY004,New York,NY,Noahs Kingdom Humane Society,Private Shelter,,,,,Albany,,Volunteer-run organization assisting homeless animals through foster care and adoption.
+NY005,New York,NY,One Love Puppy Rescue,Private Rescue,,,,,Albany,,Specializes in the rescue and transport of puppies from overcrowded southern shelters.
+NY006,New York,NY,Protectors of Paws & Claws,Private Rescue,,,,,Albany,,Community-based rescue providing foster care and adoption events in the Albany area.
+NY007,New York,NY,Allegany County SPCA,Private Shelter,,,,,Allegany,,Rural shelter providing animal control housing and adoption for Allegany County.
+NY008,New York,NY,Celebration of Canine Lives,Sanctuary,,,,,Allegany,,Sanctuary focusing on senior dogs and those with medical needs requiring hospice care.
+NY009,New York,NY,Adore A Bullie Paws & Claws,Private Rescue,,,,,Bronx,,Rescue advocating for bully breeds via education rescue and community outreach.
+NY010,New York,NY,Bronx Tails Cat Rescue,Cat Rescue,,,,,Bronx,,Primarily feline but part of the NYC coalition for animal welfare.
+NY011,New York,NY,Broome County Humane Society,Private Shelter,,,,,Broome,,Non-profit shelter preventing cruelty and finding homes for companion animals.
+NY012,New York,NY,Pibbles and More Animal Rescue,Private Rescue,,,,,Broome,,Multi-state foster rescue focusing on pit bulls and large breeds.
+NY013,New York,NY,Chautauqua County Humane Society,Private Shelter,,,,,Chautauqua,,Provides shelter adoption and low-cost spay/neuter to Western NY.
+NY014,New York,NY,Northern Chautauqua Canine Rescue,Private Rescue,,,,,Chautauqua,,Volunteer-run no-kill shelter helping dogs in northern Chautauqua County.
+NY015,New York,NY,Chemung County Humane Society,Municipal,,,,,Chemung,,Operates the municipal shelter for the county handling strays and cruelty cases.
+NY016,New York,NY,Elmore SPCA,Private Shelter,,,,,Clinton,,Private shelter serving the rural North Country with adoption and cruelty intervention.
+NY017,New York,NY,Columbia-Greene Humane Society,Private Shelter,,,,,Columbia,,Regional shelter serving two counties; known for surrender prevention programs.
+NY018,New York,NY,Mr. Bones & Company,Private Rescue,,,,,Columbia,,Rescue known for One Lucky Pup program taking on severe medical/abuse cases.
+NY019,New York,NY,Animal Farm Foundation,Private Non-Profit,,,,,Dutchess,,Nationally recognized for securing equal treatment for pit bull dogs.
+NY020,New York,NY,Dutchess County SPCA,Private Shelter,,,,,Dutchess,,No-kill shelter providing adoption and humane law enforcement to the Hudson Valley.
+NY021,New York,NY,Animal Rescue Foundation (ARF),Private Rescue,,,,,Dutchess,,No-kill volunteer rescue center in Beacon NY housing cats and dogs.
+NY022,New York,NY,Hudson Valley Animal Rescue,Sanctuary,,,,,Dutchess,,Sanctuary and rescue that also handles wildlife rehab and offers low-cost vet services.
+NY023,New York,NY,Pawsafe Animal Rescue,Private Rescue,,,,,Dutchess,,Specializes in transport of puppies from southern shelters to NY/CT fosters.
+NY024,New York,NY,ASPCA,Private Non-Profit,,,,,New York City,,National headquarters; operates adoption center and massive cruelty intervention team.
+NY025,New York,NY,Animal Care Centers of NYC (ACC),Municipal,,,,,New York City,,The open-admissions municipal shelter system for all five boroughs of NYC.
+NY026,New York,NY,Bideawee,Private Shelter,,,,,New York,,One of the oldest humane organizations (est. 1903) operating shelters and pet memorial parks.
+NY027,New York,NY,North Shore Animal League America,Private Shelter,,,,,Port Washington,,Worlds largest no-kill animal rescue and adoption organization.
+PA001,Pennsylvania,PA,Luzerne County SPCA,Private Shelter,,,"spcaluzernecounty.org",,Wilkes-Barre,,Independent 501(c)(3) serving Luzerne County; community funded not affiliated with ASPCA.
+PA002,Pennsylvania,PA,Animal Friends,Private Shelter,,,"animalfriendspgh.org",,Pittsburgh,,Major non-profit focused on ending overpopulation through low-cost spay/neuter and rescue.
+PA003,Pennsylvania,PA,Brandywine Valley SPCA,Private Shelter,,,"bvspca.org",,West Chester,,Large shelter system with multiple campuses; holds animal control contracts in PA and DE.
+PA004,Pennsylvania,PA,Pennsylvania SPCA,Private Shelter,,,"pspca.org",,Philadelphia,,Oldest animal welfare org in the state with full law enforcement powers for cruelty cases.
+PA005,Pennsylvania,PA,ACCT Philly,Municipal,,,"acctphilly.org",,Philadelphia,,The open-intake animal control provider for the City of Philadelphia.
+PA006,Pennsylvania,PA,Australian Cattle Dog Rescue Assc.,Breed-Specific Rescue,treasurer@acdra.org,,,,Cheswick,,National breed rescue HQ based in PA serving ACDs across the East Coast.
+PA007,Pennsylvania,PA,Beagle Rescue League Inc.,Breed-Specific Rescue,info@beaglerescueleague.org,,,,Yardley,,Breed rescue serving PA/NJ dedicated to rehabbing laboratory and hunting beagles.
+FL001,Florida,FL,Alaqua Animal Refuge,Private Shelter,,,,,Walton,,Massive 100-acre no-kill refuge in the Panhandle; rescues dogs cats farm animals.
+FL002,Florida,FL,Animal Control of West Florida,Contracted,,,,,Washington,,Private entity holding municipal contracts; high transfer-out rate to save lives.
+FL003,Florida,FL,Abandoned Pet Rescue Inc.,Private Shelter,,,,,Fort Lauderdale,,Private no-kill shelter in Fort Lauderdale providing medical care for strays.
+FL004,Florida,FL,Animal Aid Inc.,Private Shelter,,,,,Broward,,Non-profit adoption center/clinic focusing on emergency medical cases.
+FL005,Florida,FL,Animal Refuge Center,Sanctuary,,,,,Fort Myers,,Fort Myers largest no-kill shelter; sanctuary model for rehab.
+FL006,Florida,FL,Alachua County Animal Resources,Municipal,,,,,Gainesville,,Progressive municipal shelter in Gainesville; high save rates via university partnerships.
+FL007,Florida,FL,The London Sanctuary,Sanctuary,,,,,Jacksonville,,Nonprofit exclusive hound rescue/sanctuary for senior/medical needs hounds.
+FL008,Florida,FL,Golden Rescue South Florida,Breed-Specific Rescue,,,,,Miami,,Foster-based rescue for Golden Retrievers and mixes in South FL.
+FL009,Florida,FL,Big Cat Rescue,Sanctuary,,,,,Tampa,,Major sanctuary for exotic cats; key player in animal welfare legislation.
+FL010,Florida,FL,Save the Manatee Club,Private Non-Profit,,,,,Florida,,Major FL animal org; partners on disaster response affecting all species.
+FL011,Florida,FL,Humane Society of Tampa Bay,Private Shelter,,,,,Tampa,,Open-admission private shelter (independent of HSUS) with high adoption volume.
+FL012,Florida,FL,Jacksonville Humane Society,Private Shelter,,,,,Jacksonville,,National leader in shelter medicine and community safety net programs.
+FL013,Florida,FL,Peggy Adams Animal Rescue League,Private Shelter,,,,,Palm Beach,,Large private shelter providing adoption and high-volume spay/neuter.
+VA001,Virginia,VA,180 Degree Rescue,Private Rescue,,,,,Virginia,,Turns around lives of neglected dogs through medical care/training.
+VA002,Virginia,VA,4 Paws Rescue Team Inc.,Private Rescue,,,,,Northern Virginia,,Volunteer-based; serving Northern Virginia/DC metro area.
+VA003,Virginia,VA,A Forever Home Rescue,Private Rescue,,,,,Northern Virginia,,High-volume foster rescue in Northern VA; weekly adoption events.
+VA004,Virginia,VA,Albemarle County Animal Control,Municipal,,,,,Charlottesville,,Enforces animal laws; operates shelter for Charlottesville region.
+VA005,Virginia,VA,Alexandria Animal Welfare League,Contracted,,,,,Alexandria,,Non-profit contracted to run city animal control/shelter services.
+VA006,Virginia,VA,Angels of Assisi,Private Shelter,,,,,Roanoke,,Roanoke safety net org; low-cost vet services and adoption.
+VA007,Virginia,VA,Animal Welfare League of Arlington,Contracted,,,,,Arlington,,Provides control/sheltering for Arlington; high community engagement.
+VA008,Virginia,VA,Basset Rescue of Old Dominion,Breed-Specific Rescue,,,,,Virginia,,Dedicated to Basset Hounds; serves VA and surrounding states.
+VA009,Virginia,VA,Beagle Rescue (BREW),Breed-Specific Rescue,,,,,Northern Virginia,,Large rescue network for Beagles in NOVA and DC area.
+VA010,Virginia,VA,Bully Paws Pit Bull Patriots,Breed-Specific Rescue,,,,,Virginia,,Advocate for bully breeds; fights breed-discriminatory legislation.
+VA011,Virginia,VA,Caring For Creatures,Sanctuary,,,,,Palmyra,,Palmyra sanctuary providing life care for unadoptable animals.
+VA012,Virginia,VA,Caspers Rescue,Private Rescue,,,,,Virginia,,Small foster group; focuses on dogs from rural southern VA shelters.
+VA013,Virginia,VA,Fairfax County Animal Shelter,Municipal,,,,,Fairfax,,Resource-rich municipal shelter; high save rates/foster programs.
+VA014,Virginia,VA,Heritage Humane Society,Private Shelter,,,,,Williamsburg,,Serves Williamsburg area; houses stray and surrendered pets.
+VA015,Virginia,VA,Homeless Animals Rescue Team,Private Rescue,,,,,Northern Virginia,,No-kill rescue in NOVA operating since 1990.
+VA016,Virginia,VA,Lynchburg Humane Society,Private Shelter,,,,,Lynchburg,,Pet-centric community center; no-kill status for Lynchburg.
+VA017,Virginia,VA,Portsmouth Humane Society,Private Shelter,,,,,Portsmouth,,Oldest welfare org in VA; serves Hampton Roads area.
+VA018,Virginia,VA,Richmond Animal Care & Control,Municipal,,,,,Richmond,,Open-admission shelter for Richmond; aggressive cruelty work.
+VA019,Virginia,VA,Richmond SPCA,Private Shelter,,,,,Richmond,,National leader in no-kill philosophy; high-volume clinic.
+OH001,Ohio,OH,911 Dog Rescue Inc.,Private Rescue,amysadoptables@yahoo.com,,,,Eastlake,,Foster-based rescue serving Lake County; urgent shelter pulls.
+OH002,Ohio,OH,ADOPT Pet Rescue Inc.,Private Rescue,adopt@adoptpetrescue.org,,,,Westerville,,Finding homes for dogs in the Columbus metro area.
+OH003,Ohio,OH,Adopt A Pit Rescue,Breed-Specific Rescue,admin@adoptapitrescue.org,,,,Germantown,,Advocate/rescue for Pit Bull type dogs in Dayton area.
+OH004,Ohio,OH,Akita Owners Rescue Foundation,Breed-Specific Rescue,marsakita@sbcglobal.net,,,,Chardon,,Breed-specific Akita rescue; handles behavioral needs.
+OH005,Ohio,OH,All Tails Rescue,Private Rescue,gm@alltails.com,,,,Pataskala,,General all-breed rescue operating in Licking County.
+OH006,Ohio,OH,Almost Home Dog Rescue of Ohio,Private Rescue,crakich4@gmail.com,,,,Dublin,,Extensive foster network in Central OH; focus on Collies/Shelties.
+OH007,Ohio,OH,Animal House Rescue,Private Rescue,animalhouserescu@aol.com,,,,Wauseon,,Rescue serving Fulton County rural areas.
+OH008,Ohio,OH,Animal Protection League of Mercer,Private Shelter,info@aplmercer.com,,,,Celina,,Shelter and adoption services for Mercer County.
+OH009,Ohio,OH,Berean Animal Rescue Fund,Private Shelter,jmccarty@bereaanimalrescue.com,,,,Columbia Station,,ARF is a no-time-limit shelter; adoption and outreach.
+OH010,Ohio,OH,Buckeye Border Collie Rescue,Breed-Specific Rescue,lassie9@bright.net,,,,Tiffin,,Border Collie specialist; assesses herding drive.
+OH011,Ohio,OH,Buckeye Bulldog Rescue,Breed-Specific Rescue,info@buckeyebulldogrescue.org,,,,Grove City,,English/French Bulldog rescue; high-medical needs cases.
+OH012,Ohio,OH,Citizens for Humane Action (CHA),Private Shelter,adopt@chaanimalshelter.org,,,,Columbus,,Volunteer-run shelter operating in NE Columbus since 1975.
+OH013,Ohio,OH,Cleveland Animal Protective League,Private Shelter,,,"clevelandapl.org",,Cleveland,,Large humane society; law enforcement powers in Cuyahoga.
+OH014,Ohio,OH,Franklin County Dog Shelter,Municipal,,,"franklincountydogs.com",,Columbus,,High-volume municipal shelter for stray dogs in Columbus.
+OH015,Ohio,OH,Toledo Area Humane Society,Private Shelter,,,"toledohumane.org",,Maumee,,Oldest regional welfare org; cruelty investigation/adoption.
+IL001,Illinois,IL,American Brittany Rescue Inc.,Breed-Specific Rescue,,,,,Illinois,,National breed rescue with strong IL presence.
+IL002,Illinois,IL,Chicago English Bulldog Rescue,Breed-Specific Rescue,,,,,Chicago,,Rescues English Bulldogs often puppy mill surrenders.
+IL003,Illinois,IL,PAWS Chicago,Private Shelter,,,,,Chicago,,Nationally renowned no-kill shelter; massive adoption center.
+MI001,Michigan,MI,Dalis To The Rescue,Private Rescue,,,,,Lansing,,Foster rescue running a low-cost community spay/neuter clinic.
+MI002,Michigan,MI,Detroit Bulldog Rescue,Breed-Specific Rescue,,,,,Detroit,,Breed-specific rescue serving the Detroit metro area.
+MI003,Michigan,MI,Michigan Humane,Private Shelter,,,,,Detroit,,Large legacy shelter; comprehensive care and cruelty investigation.
+MI004,Michigan,MI,Midwest Border Collie Rescue,Breed-Specific Rescue,,,,,Michigan/Illinois,,Rescue network for herding dogs across the upper Midwest.
+MN001,Minnesota,MN,Emotional Rescue LLC,Private Rescue,,,,,Minneapolis,,Specializes in rehabilitating homeless dogs with severe medical needs.
+CA001,California,CA,Bunnys Buddies,Private Rescue,,,,,San Diego,,Rescues dogs from international slaughterhouses/high-kill shelters.
+CA002,California,CA,Doggie Protective Services (DPS),Private Rescue,,,,,Huntington Beach,,High-volume foster rescue; strict vetting and adoption support.
+CA003,California,CA,FurryTail Endings Animal Rescue,Private Rescue,,,,,Huntington Beach,,Saves dogs from high-kill shelters/streets; focus on perfect matches.
+CA004,California,CA,Frosted Faces Foundation,Sanctuary,,,,,Ramona,,Specializes in senior dogs; provides lifelong medical care.
+CA005,California,CA,Koalition of Rescuers (KORAL),Private Rescue,,,,,El Cajon,,Saves German Shepherds/large breeds from euthanasia lists.
+CA006,California,CA,Marin Humane,Private Shelter,,,,,Novato,,Wealthy shelter (Assets $17m); extensive behavior/training programs.
+CA007,California,CA,Pasadena Humane,Municipal,,,,,Pasadena,,Animal control for LA-area cities; high community engagement.
+CA008,California,CA,San Diego Humane Society,Private Shelter,,,,,San Diego,,Massive org (Assets $72m); county safety net with multiple campuses.
+CA009,California,CA,SF SPCA,Private Shelter,,,,,San Francisco,,No-kill pioneer; visionary shelter medicine and behavior programs.
+CA010,California,CA,Wagging Dog Rescue,Private Rescue,,,,,Southern California,,Volunteer group restoring unwanted family pets to homes.
+CA011,California,CA,Wags and Walks,Private Rescue,,,,,Los Angeles,,Rescue showcasing family potential of shelter dogs.
+CA012,California,CA,LA Animal Services,Municipal,,,,,Los Angeles,,Municipal system operating 6 shelters; massive intake volume.
+CA013,California,CA,Riverside County Animal Services,Municipal,,,,,Riverside,,Large municipal agency serving vast geographic area; high intake.
+CA014,California,CA,Animal Friends Rescue Project,Private Rescue,,,,,Pacific Grove,,Nonprofit finding homes for stray/abused animals in Monterey.
+CA015,California,CA,Peace of Mind Dog Rescue,Private Rescue,,,,,Pacific Grove,,Resource/advocate for senior dogs and senior people.
+CA016,California,CA,Hitchcock Road Animal Services,Municipal,,,,,Salinas,,Municipal shelter for Monterey County and surrounding cities.
+AZ001,Arizona,AZ,Sky Sanctuary Rescue,Private Rescue,,,,,Phoenix,,Captures/rehabs stray and feral street dogs in Phoenix.
+AZ002,Arizona,AZ,Arizona Beagle Rescue,Breed-Specific Rescue,,,,,Phoenix,,Breed-specific rescue for Beagles in the desert southwest.
+AZ003,Arizona,AZ,Arizona Border Collie Rescue,Breed-Specific Rescue,,,,,Arizona,,Specialist for high-energy herding dogs in AZ.
+OR001,Oregon,OR,Oregon Humane Society,Private Shelter,,,,,Portland,,Oldest West shelter (Assets $28m); absorbs rural OR intake.
+OR002,Oregon,OR,South Coast Humane Society,Private Shelter,,,,,Brookings,,Progressive rescue helping via low-cost wellness services.
+WA001,Washington,WA,Mikeys Chance Canine Rescue,Private Rescue,,,,,Spokane,,Safe haven for dogs in desperate circumstances in Tri-Cities.
+WA002,Washington,WA,Seattle Humane,Private Shelter,,,,,Bellevue,,Major adoption hub offering pet food banks/vet education.
+AK001,Alaska,AK,HARK (Haines Animal Rescue),Private Rescue,,,,,Haines,,Promotes pet/wildlife interests in Alaskan community.
+NAT001,National,US,Australian Cattle Dog Rescue Assc.,Breed-Specific Rescue,treasurer@acdra.org,,,,East Coast,,National breed rescue specializes in Heelers.
+NAT002,National,US,Border Collie Society of America,Breed-Specific Rescue,,,,,National,,Parent club rescue network.
+NAT003,National,US,American Brittany Rescue,Breed-Specific Rescue,,,,,National,,Network for Brittany Spaniels.
+NAT004,National,US,Beagle Freedom Project,Breed-Specific Rescue,,,,,National,,Rescues lab testing Beagles; advocates for legislation.
+NAT005,National,US,Bulldog Club of America Rescue,Breed-Specific Rescue,,,,,National,,Official rescue arm of the national breed club.
+NAT006,National,US,Southern California Bulldog Rescue,Breed-Specific Rescue,,,,,California,,High-volume rescue for English Bulldogs (medical heavy).
+NAT007,National,US,Mid-Atlantic Great Dane Rescue,Breed-Specific Rescue,,,,,NY-VA,,Covers NY-VA for giant breeds.
+NAT008,National,US,Akita Rescue Mid-Atlantic Coast,Breed-Specific Rescue,,,,,DE-MD-DC-PA-VA-WV,,Serving DE MD DC PA VA WV.
+NAT009,National,US,Big East Akita Rescue,Breed-Specific Rescue,,,,,Northeast,,Serving NY NJ PA New England.
+NAT010,National,US,Colorado Beagle Rescue,Breed-Specific Rescue,,,,,Colorado,,Support for beagles in the Rockies.
+NAT011,National,US,Triangle Beagle Rescue,Breed-Specific Rescue,,,,,North Carolina,,Serves the Research Triangle area of NC.
+NAT012,National,US,Glen Highland Farm,Breed-Specific Rescue,,,,,New York,,Famous Border Collie rescue/camp.

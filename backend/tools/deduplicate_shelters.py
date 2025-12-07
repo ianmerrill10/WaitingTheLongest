@@ -227,15 +227,24 @@ def run_deduplication(dry_run: bool = True):
         merged_count = 0
         deleted_ids = set()
 
-        for i, (s1, s2, reason) in enumerate(duplicates[:50]):  # Limit to first 50
+        def safe_str(s):
+            """Convert to ASCII-safe string for Windows console."""
+            if s is None:
+                return 'None'
+            return str(s).encode('ascii', 'replace').decode('ascii')
+
+        for i, (s1, s2, reason) in enumerate(duplicates):  # Process all duplicates
             if s1['id'] in deleted_ids or s2['id'] in deleted_ids:
                 continue
 
-            print(f"Duplicate #{i+1} ({reason}):")
-            print(f"  [A] ID {s1['id']}: {s1['name']} ({s1['city']}, {s1['state']}) - {s1['source']}")
-            print(f"      Phone: {s1['phone']} | Email: {s1['email']}")
-            print(f"  [B] ID {s2['id']}: {s2['name']} ({s2['city']}, {s2['state']}) - {s2['source']}")
-            print(f"      Phone: {s2['phone']} | Email: {s2['email']}")
+            try:
+                print(f"Duplicate #{i+1} ({safe_str(reason)}):")
+                print(f"  [A] ID {s1['id']}: {safe_str(s1['name'])} ({safe_str(s1['city'])}, {s1['state']}) - {s1['source']}")
+                print(f"      Phone: {s1['phone']} | Email: {s1['email']}")
+                print(f"  [B] ID {s2['id']}: {safe_str(s2['name'])} ({safe_str(s2['city'])}, {s2['state']}) - {s2['source']}")
+                print(f"      Phone: {s2['phone']} | Email: {s2['email']}")
+            except UnicodeEncodeError:
+                print(f"Duplicate #{i+1} (encoding issue in display)")
 
             if not dry_run:
                 # Keep the one with more data, merge from the other

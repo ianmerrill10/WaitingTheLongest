@@ -2,7 +2,7 @@
  * ============================================================================
  * Waiting The Longest™ - Frontend Application
  * ============================================================================
- * "Because Every Day Matters"
+ * "Help shorten the road home"
  * 
  * This is the main JavaScript application for the Waiting The Longest platform.
  * It handles:
@@ -142,6 +142,7 @@ const api = {
         const queryParams = new URLSearchParams();
         
         if (params.search) queryParams.set('search', params.search);
+        if (params.state) queryParams.set('state', params.state);
         if (params.page) queryParams.set('page', params.page);
         if (params.pageSize) queryParams.set('page_size', params.pageSize);
         
@@ -982,6 +983,8 @@ if (document.readyState === 'loading') {
 // Export for use in HTML
 window.app = app;
 window.api = api;
+window.state = state;
+window.loadShelters = loadShelters;
 
 /**
  * Load and display shelters
@@ -992,12 +995,16 @@ async function loadShelters() {
     
     const searchInput = document.getElementById('shelter-search');
     const searchTerm = searchInput ? searchInput.value : '';
+
+    const stateInput = document.getElementById('shelter-state');
+    const stateFilter = stateInput ? stateInput.value : '';
     
     container.innerHTML = '<div class="loading-spinner"></div>';
     
     try {
         const response = await api.getShelters({
             search: searchTerm,
+            state: stateFilter,
             page: state.page,
             pageSize: state.pageSize
         });

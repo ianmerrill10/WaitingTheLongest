@@ -20,6 +20,7 @@ Tagline: "Because Every Day Matters"
 from fastapi import FastAPI, Depends, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.sessions import SessionMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import Optional, List
@@ -37,7 +38,7 @@ from slowapi.errors import RateLimitExceeded
 
 from .config import settings
 from .database import get_db, engine, Base
-from .models import Animal, Observation, Shelter, SuccessStory, ContactSubmission, Article
+from .models import Animal, Observation, Shelter, SuccessStory, ContactSubmission, Article, DogBreed, DogFact, DogHealthTip, User
 from .schemas import (
     AnimalListResponse, AnimalDetailResponse,
     SuccessStoryCreate, SuccessStoryResponse,
@@ -50,12 +51,16 @@ from .schemas_article import ArticleResponse, ArticleListResponse, ArticleCreate
 from .crud import (
     paginate_animals, get_animal_detail,
     create_success_story, get_trending_stories,
-    create_contact_submission, get_shelters, get_shelter_detail
+    create_contact_submission, get_shelters, get_shelter_detail,
+    get_featured_animal, get_longest_waiting_by_species,
+    get_top_waiting_animals, get_species_stats
 )
+from .partner_api import partner_router
+from .auth import router as auth_router
 from .data.rescue_directory import RESCUE_DIRECTORY
 
 # Import monetization modules
-from backend.monetization.amazon_associates import AmazonAssociates, track_affiliate_click
+from ..monetization.amazon_associates import AmazonAssociates, track_affiliate_click
 
 # Configure rate limiter
 limiter = Limiter(key_func=get_remote_address)
@@ -121,6 +126,9 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+# Session Middleware (Required for OAuth)
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET_KEY)
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -129,6 +137,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include Routers
+app.include_router(partner_router)
+app.include_router(auth_router)
 
 
 # =============================================================================
@@ -293,6 +305,103 @@ async def longest_waiting_animals(
     return {
         "message": "These animals have been waiting the longest for their forever homes",
         "animals": result.items,
+        "mission": "Because Every Day Matters"
+    }
+
+
+@app.get("/api/featured-animal")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_featured_animal_endpoint(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get THE animal that has waited the longest across all species.
+
+    This is the featured animal displayed prominently on the homepage
+    to maximize their adoption visibility. This is the HEART of our mission!
+    """
+    featured = get_featured_animal(db)
+
+    if not featured:
+        return {
+            "featured": None,
+            "message": "No animals currently available",
+            "mission": "Because Every Day Matters"
+        }
+
+    return {
+        "featured": featured,
+        "message": f"{featured['name']} has been waiting {featured['days_waiting']} days for a forever home",
+        "mission": "Because Every Day Matters"
+    }
+
+
+@app.get("/api/longest-waiting/by-species")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_longest_waiting_by_species_endpoint(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get the longest-waiting animal for EACH species type.
+
+    Returns the champion waiter for dogs, cats, rabbits, birds, etc.
+    Each species has its own featured longest-waiting animal.
+    """
+    by_species = get_longest_waiting_by_species(db)
+
+    return {
+        "by_species": by_species,
+        "count": len(by_species),
+        "message": "These animals have waited the longest in their species",
+        "mission": "Because Every Day Matters"
+    }
+
+
+@app.get("/api/species-stats")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_species_stats_endpoint(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get statistics for each species including counts and wait times.
+
+    Returns aggregated data showing how many animals of each species
+    are waiting and their average/max wait times.
+    """
+    stats = get_species_stats(db)
+
+    return {
+        "stats": stats,
+        "count": len(stats),
+        "message": "Statistics by species",
+        "mission": "Because Every Day Matters"
+    }
+
+
+@app.get("/api/top-waiting")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_top_waiting_endpoint(
+    request: Request,
+    species: Optional[str] = Query(None, description="Filter by species (dog/cat/rabbit/bird/etc.)"),
+    limit: int = Query(10, ge=1, le=50, description="Number of animals to return"),
+    db: Session = Depends(get_db)
+):
+    """
+    Get the top N longest-waiting animals, optionally filtered by species.
+
+    Returns a ranked list of animals who have waited the longest,
+    ordered from most days waiting to least.
+    """
+    animals = get_top_waiting_animals(db, species=species, limit=limit)
+
+    return {
+        "animals": animals,
+        "count": len(animals),
+        "species_filter": species,
+        "message": "These animals need your help the most",
         "mission": "Because Every Day Matters"
     }
 
@@ -801,6 +910,215 @@ def create_article(article: ArticleCreate, db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=400, detail=str(e))
     return db_article
+
+
+# =============================================================================
+# Dog Knowledge Library Endpoints
+# =============================================================================
+
+@app.get("/api/breeds")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def list_dog_breeds(
+    request: Request,
+    breed_group: Optional[str] = Query(None, description="Filter by breed group (e.g., Sporting, Hound, Working)"),
+    search: Optional[str] = Query(None, description="Search by breed name"),
+    limit: int = Query(100, ge=1, le=200, description="Maximum number of results"),
+    db: Session = Depends(get_db)
+):
+    """
+    List all dog breeds with optional filtering.
+
+    Returns comprehensive breed information including temperament,
+    exercise needs, and training tips.
+    """
+    query = db.query(DogBreed)
+
+    if breed_group:
+        query = query.filter(DogBreed.breed_group.ilike(f"%{breed_group}%"))
+
+    if search:
+        query = query.filter(DogBreed.name.ilike(f"%{search}%"))
+
+    breeds = query.order_by(DogBreed.name).limit(limit).all()
+
+    return {
+        "breeds": [
+            {
+                "id": b.id,
+                "name": b.name,
+                "breed_group": b.breed_group,
+                "height": {"imperial": b.height_imperial, "metric": b.height_metric},
+                "weight": {"imperial": b.weight_imperial, "metric": b.weight_metric},
+                "life_span": b.life_span,
+                "temperament": b.temperament,
+                "origin": b.origin,
+                "bred_for": b.bred_for,
+                "image_url": b.image_url,
+                "description": b.description,
+                "exercise_needs": b.exercise_needs,
+                "grooming_needs": b.grooming_needs,
+                "good_with_kids": b.good_with_kids,
+                "apartment_friendly": b.apartment_friendly
+            }
+            for b in breeds
+        ],
+        "count": len(breeds)
+    }
+
+
+@app.get("/api/breeds/{breed_id}")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_dog_breed(
+    request: Request,
+    breed_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    Get detailed information about a specific dog breed.
+
+    Includes description, training tips, and health considerations.
+    """
+    breed = db.query(DogBreed).filter(DogBreed.id == breed_id).first()
+
+    if not breed:
+        raise HTTPException(status_code=404, detail="Breed not found")
+
+    # Get facts for this breed
+    facts = db.query(DogFact).filter(DogFact.breed_id == breed_id).limit(10).all()
+
+    # Get health tips for this breed
+    health_tips = db.query(DogHealthTip).filter(DogHealthTip.breed_id == breed_id).limit(10).all()
+
+    return {
+        "breed": {
+            "id": breed.id,
+            "name": breed.name,
+            "breed_group": breed.breed_group,
+            "height": {"imperial": breed.height_imperial, "metric": breed.height_metric},
+            "weight": {"imperial": breed.weight_imperial, "metric": breed.weight_metric},
+            "life_span": breed.life_span,
+            "temperament": breed.temperament,
+            "origin": breed.origin,
+            "bred_for": breed.bred_for,
+            "image_url": breed.image_url,
+            "description": breed.description,
+            "training_tips": breed.training_tips,
+            "exercise_needs": breed.exercise_needs,
+            "grooming_needs": breed.grooming_needs,
+            "good_with_kids": breed.good_with_kids,
+            "good_with_pets": breed.good_with_pets,
+            "apartment_friendly": breed.apartment_friendly
+        },
+        "facts": [{"id": f.id, "fact": f.fact, "title": f.title} for f in facts],
+        "health_tips": [
+            {"id": t.id, "category": t.category, "title": t.title, "description": t.description}
+            for t in health_tips
+        ]
+    }
+
+
+@app.get("/api/dog-facts")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_dog_facts(
+    request: Request,
+    breed_id: Optional[int] = Query(None, description="Filter by breed ID"),
+    random: bool = Query(False, description="Get random facts"),
+    limit: int = Query(10, ge=1, le=50, description="Number of facts to return"),
+    db: Session = Depends(get_db)
+):
+    """
+    Get dog facts - fun and educational content for the knowledge library.
+
+    Can be filtered by breed or returned randomly.
+    """
+    query = db.query(DogFact)
+
+    if breed_id:
+        query = query.filter(DogFact.breed_id == breed_id)
+
+    if random:
+        from sqlalchemy.sql.expression import func
+        facts = query.order_by(func.random()).limit(limit).all()
+    else:
+        facts = query.limit(limit).all()
+
+    return {
+        "facts": [
+            {
+                "id": f.id,
+                "fact": f.fact,
+                "title": f.title,
+                "breed_id": f.breed_id
+            }
+            for f in facts
+        ],
+        "count": len(facts)
+    }
+
+
+@app.get("/api/health-tips")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_health_tips(
+    request: Request,
+    category: Optional[str] = Query(None, description="Filter by category"),
+    breed_id: Optional[int] = Query(None, description="Filter by breed ID"),
+    limit: int = Query(20, ge=1, le=100, description="Number of tips to return"),
+    db: Session = Depends(get_db)
+):
+    """
+    Get dog health tips for training and care guidance.
+
+    Can be filtered by category or breed.
+    """
+    query = db.query(DogHealthTip)
+
+    if category:
+        query = query.filter(DogHealthTip.category.ilike(f"%{category}%"))
+
+    if breed_id:
+        query = query.filter(DogHealthTip.breed_id == breed_id)
+
+    tips = query.limit(limit).all()
+
+    return {
+        "tips": [
+            {
+                "id": t.id,
+                "category": t.category,
+                "title": t.title,
+                "description": t.description,
+                "breed_id": t.breed_id
+            }
+            for t in tips
+        ],
+        "count": len(tips)
+    }
+
+
+@app.get("/api/breed-groups")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_breed_groups(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get list of all breed groups with counts.
+
+    Useful for building filter interfaces.
+    """
+    from sqlalchemy import func
+
+    groups = db.query(
+        DogBreed.breed_group, func.count(DogBreed.id)
+    ).group_by(DogBreed.breed_group).all()
+
+    return {
+        "groups": [
+            {"name": g[0] or "Unknown", "count": g[1]}
+            for g in sorted(groups, key=lambda x: x[1], reverse=True)
+        ],
+        "total_groups": len(groups)
+    }
 
 
 # =============================================================================
