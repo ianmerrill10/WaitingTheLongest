@@ -11,6 +11,10 @@
 - Generates social media content for TikTok/Instagram to drive adoptions
 - Monetizes through ethical affiliate marketing (Amazon Associates)
 
+## 🤖 AI Agent Context
+
+> **For AI Agents:** Before working on this project, read **[PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)** - the single source of truth containing completed work, task queue, known issues, and development guidelines.
+
 ## Key Information
 
 | Item | Value |
@@ -19,6 +23,7 @@
 | **Secondary Domain** | WaitedTheLongest.com (redirects to primary) |
 | **Amazon Associate ID** | waitingthelon-20 |
 | **Server** | IONOS VPS (67.217.244.241) |
+| **AI Context File** | [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) |
 
 ## Tech Stack
 

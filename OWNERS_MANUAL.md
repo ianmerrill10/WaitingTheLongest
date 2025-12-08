@@ -1,5 +1,9 @@
 # Owners Manual
 
+> **🤖 AI Agents:** For task tracking and development context, see **[PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)**
+
+---
+
 ## 2025-12-04
 
 - Added a curated rescue directory data module (`backend/app/data/rescue_directory.py`) and exposed it through a new FastAPI route `/api/resources/rescues`. The endpoint supports optional filters (`state`, `network_region`, `breed`) and returns summary counts for frontend widgets. Any future changes to the dataset structure should stay backward compatible with the existing response shape used by `frontend/shelters.html`.

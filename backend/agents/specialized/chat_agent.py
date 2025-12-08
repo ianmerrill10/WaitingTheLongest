@@ -3,9 +3,34 @@
 ===============================================================================
 Chat Support Agent - User Chat Support
 ===============================================================================
-Handles user chat support and FAQ responses.
+Handles user chat support and FAQ responses for Waiting The Longest website visitors.
+
+Features:
+- Real-time chat message handling
+- FAQ-based automatic responses
+- Keyword detection and smart matching
+- Conversation history tracking
+- Multi-user session management
+- Integration with adoption matching
+- Context-aware response generation
+
+Usage Example:
+    agent = ChatSupportAgent()
+
+    # Handle user message
+    response = await agent.handle_message({
+        'user_id': 'user123',
+        'message': 'How do I adopt a dog?'
+    })
+    print(response['response'])
+
+    # Get FAQ list
+    faq = await agent.request_from_agent('chat_support', 'get_faq', {})
 
 Cooperates with: Librarian, Notification, AdoptionMatcher
+
+Author: Waiting The Longest Development Team
+Last Updated: 2025-12-07
 ===============================================================================
 """
 
@@ -18,6 +43,29 @@ from agents.protocols import CooperativeMixin, DataCategory
 
 
 class ChatSupportAgent(CooperativeMixin, BaseAgent):
+    """
+    User chat support and FAQ agent.
+
+    Provides automated chat support for website visitors using keyword
+    matching and FAQ responses. Maintains conversation history for context.
+
+    Attributes:
+        conversations: Dictionary mapping user_id to conversation history
+        faq: Dictionary of FAQ keywords and answers
+
+    Supported Commands:
+        handle_message: Process and respond to a user chat message
+        get_faq: Retrieve FAQ database
+
+    Examples:
+        >>> agent = ChatSupportAgent()
+        >>> # Handle chat message
+        >>> response = await agent.handle_message({
+        ...     'user_id': 'user123',
+        ...     'message': 'What are your adoption fees?'
+        ... })
+        >>> print(response['response'])
+    """
     def __init__(self):
         BaseAgent.__init__(self, agent_id="chat_support", agent_name="Chat Support Agent",
                           agent_type="specialized_agent", description="User chat support")
@@ -33,6 +81,15 @@ class ChatSupportAgent(CooperativeMixin, BaseAgent):
         self.register_handler('get_faq', self._handle_faq)
 
     async def execute_task(self, task: AgentTask) -> AgentResult:
+        """
+        Execute a chat support task.
+
+        Args:
+            task: AgentTask with task_type ('handle_message') and user message data
+
+        Returns:
+            AgentResult with chat response
+        """
         if task.task_type == "handle_message":
             result = await self.handle_message(task.payload)
         else:
@@ -40,6 +97,12 @@ class ChatSupportAgent(CooperativeMixin, BaseAgent):
         return AgentResult(success=True, message="Chat task completed", data=result)
 
     async def run(self) -> AgentResult:
+        """
+        Main chat support execution loop.
+
+        Returns:
+            AgentResult with completion status
+        """
         self.logger.info("Chat Support Agent starting")
         while self.status.value == "running":
             await self.process_messages()
@@ -49,6 +112,27 @@ class ChatSupportAgent(CooperativeMixin, BaseAgent):
         return AgentResult(success=True, message="Chat Agent completed")
 
     async def handle_message(self, params: Dict) -> Dict:
+        """
+        Process a user chat message and generate response.
+
+        Uses keyword matching against FAQ database to provide automatic
+        responses. Falls back to general help messages if no match found.
+
+        Args:
+            params: Dictionary containing:
+                - user_id (str): Unique user identifier
+                - message (str): User's message text
+
+        Returns:
+            Dictionary with bot response and user_id
+
+        Examples:
+            >>> response = await agent.handle_message({
+            ...     'user_id': 'user123',
+            ...     'message': 'What are your adoption fees?'
+            ... })
+            >>> print(response['response'])
+        """
         user_id = params.get('user_id', 'anonymous')
         message = params.get('message', '').lower()
 
@@ -75,6 +159,9 @@ class ChatSupportAgent(CooperativeMixin, BaseAgent):
         return {'response': response, 'user_id': user_id}
 
     async def _handle_message(self, payload: Dict) -> Dict:
+        """Handler for inter-agent chat message requests."""
         return await self.handle_message(payload)
+
     async def _handle_faq(self, payload: Dict) -> Dict:
+        """Handler for inter-agent FAQ retrieval requests."""
         return {'faq': self.faq}

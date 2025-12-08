@@ -223,6 +223,183 @@ const api = {
 };
 
 // =============================================================================
+// LAZY LOADING & PERFORMANCE
+// =============================================================================
+
+/**
+ * Lazy loading for images using Intersection Observer
+ */
+const lazyLoader = {
+    observer: null,
+
+    /**
+     * Initialize lazy loading
+     */
+    init() {
+        if ('IntersectionObserver' in window) {
+            this.observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            this.loadImage(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    rootMargin: '50px 0px',
+                    threshold: 0.01
+                }
+            );
+
+            console.log('[Lazy Loader] Initialized');
+        } else {
+            console.warn('[Lazy Loader] IntersectionObserver not supported, loading all images');
+            this.loadAllImages();
+        }
+    },
+
+    /**
+     * Observe an image for lazy loading
+     */
+    observe(img) {
+        if (this.observer && img.dataset.src) {
+            img.setAttribute('data-lazy-loading', 'true');
+            this.observer.observe(img);
+        } else {
+            this.loadImage(img);
+        }
+    },
+
+    /**
+     * Load a single image
+     */
+    loadImage(img) {
+        const src = img.dataset.src || img.src;
+
+        if (!src) return;
+
+        // Create new image to preload
+        const preloadImg = new Image();
+
+        preloadImg.onload = () => {
+            img.src = src;
+            img.removeAttribute('data-lazy-loading');
+            img.classList.add('lazy-loaded');
+
+            // Remove data-src to prevent re-loading
+            delete img.dataset.src;
+        };
+
+        preloadImg.onerror = () => {
+            console.error('[Lazy Loader] Failed to load:', src);
+            img.removeAttribute('data-lazy-loading');
+
+            // Use fallback image
+            if (img.dataset.fallback) {
+                img.src = img.dataset.fallback;
+            }
+        };
+
+        preloadImg.src = src;
+    },
+
+    /**
+     * Load all images immediately (fallback for no IntersectionObserver)
+     */
+    loadAllImages() {
+        document.querySelectorAll('img[data-src]').forEach((img) => {
+            this.loadImage(img);
+        });
+    },
+
+    /**
+     * Observe multiple images
+     */
+    observeAll(selector = 'img[data-src]') {
+        document.querySelectorAll(selector).forEach((img) => {
+            this.observe(img);
+        });
+    }
+};
+
+/**
+ * Create skeleton loading placeholders
+ */
+const skeletonLoader = {
+    /**
+     * Create skeleton for animal card
+     */
+    createAnimalCardSkeleton() {
+        return `
+            <div class="skeleton-animal-card">
+                <div class="skeleton-animal-photo skeleton"></div>
+                <div class="skeleton-animal-info">
+                    <div class="skeleton skeleton-animal-name"></div>
+                    <div class="skeleton skeleton-animal-breed"></div>
+                    <div class="skeleton-animal-details">
+                        <div class="skeleton skeleton-detail-item"></div>
+                        <div class="skeleton skeleton-detail-item"></div>
+                        <div class="skeleton skeleton-detail-item"></div>
+                    </div>
+                    <div class="skeleton skeleton-adopt-button"></div>
+                </div>
+            </div>
+        `;
+    },
+
+    /**
+     * Create multiple skeleton cards
+     */
+    createSkeletonGrid(count = 6) {
+        let html = '<div class="skeleton-grid">';
+        for (let i = 0; i < count; i++) {
+            html += this.createAnimalCardSkeleton();
+        }
+        html += '</div>';
+        return html;
+    },
+
+    /**
+     * Show skeleton loading in container
+     */
+    show(container, count = 6) {
+        if (container) {
+            container.innerHTML = this.createSkeletonGrid(count);
+        }
+    }
+};
+
+/**
+ * Debounce function for performance
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Throttle function for scroll events
+ */
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// =============================================================================
 // UI COMPONENTS
 // =============================================================================
 
@@ -232,20 +409,20 @@ const ui = {
      */
     createAnimalCard(animal) {
         const card = document.createElement('div');
-        card.className = 'animal-card';
+        card.className = 'animal-card fade-in';
         card.setAttribute('data-animal-id', animal.id);
         card.setAttribute('role', 'article');
         card.setAttribute('aria-label', `${animal.canonical_name}, ${animal.breed_primary}, waiting ${animal.days_waiting} days`);
-        
+
         const photoUrl = animal.photo_url || 'https://placedog.net/400/300';
         const daysWaiting = animal.days_waiting || 0;
         const urgencyClass = daysWaiting > 365 ? 'urgent' : daysWaiting > 180 ? 'warning' : '';
-        
+
         card.innerHTML = `
             <div class="animal-photo">
-                <img src="${photoUrl}" 
-                     alt="Photo of ${animal.canonical_name}, a ${animal.breed_primary}" 
-                     loading="lazy"
+                <img data-src="${photoUrl}"
+                     alt="Photo of ${animal.canonical_name}, a ${animal.breed_primary}"
+                     data-fallback="https://placedog.net/400/300"
                      onerror="this.src='https://placedog.net/400/300'">
                 <span class="days-badge ${urgencyClass}" aria-label="${daysWaiting} days waiting">
                     ${daysWaiting} days
@@ -337,12 +514,8 @@ const ui = {
      * Show loading spinner
      */
     showLoading(container) {
-        container.innerHTML = `
-            <div class="loading-spinner" role="status" aria-label="Loading...">
-                <div class="spinner"></div>
-                <p>Finding animals who need your help...</p>
-            </div>
-        `;
+        // Use skeleton loader for better UX
+        skeletonLoader.show(container, 12);
     },
     
     /**
@@ -445,10 +618,16 @@ const app = {
      */
     async init() {
         console.log('🐕 Waiting The Longest - Initializing...');
-        
+
+        // Initialize lazy loader
+        lazyLoader.init();
+
         // Set up event listeners
         this.setupEventListeners();
-        
+
+        // Register service worker
+        this.registerServiceWorker();
+
         // Load initial data
         await Promise.all([
             this.loadFeaturedAnimal(),
@@ -456,8 +635,49 @@ const app = {
             this.loadStats(),
             this.loadSuccessStories(),
         ]);
-        
+
         console.log('✅ Application initialized');
+    },
+
+    /**
+     * Register service worker for PWA and caching
+     */
+    async registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registration = await navigator.serviceWorker.register('/service-worker.js');
+                console.log('[App] Service Worker registered:', registration.scope);
+
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('[App] New service worker available');
+                            this.showUpdateNotification();
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('[App] Service Worker registration failed:', error);
+            }
+        }
+    },
+
+    /**
+     * Show update notification
+     */
+    showUpdateNotification() {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-info';
+        notification.style.cssText = 'position: fixed; top: 80px; right: 20px; z-index: 1000; max-width: 400px;';
+        notification.innerHTML = `
+            <p>A new version is available!</p>
+            <button onclick="location.reload()" class="btn btn-primary btn-sm">Update Now</button>
+        `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.remove(), 10000);
     },
     
     /**
@@ -627,8 +847,11 @@ const app = {
             state.animals.forEach(animal => {
                 container.appendChild(ui.createAnimalCard(animal));
             });
+
+            // Initialize lazy loading for newly added images
+            lazyLoader.observeAll('img[data-src]');
         }
-        
+
         // Render pagination
         if (paginationContainer) {
             ui.renderPagination(paginationContainer, state.page, state.totalPages);

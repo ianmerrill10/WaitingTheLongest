@@ -16,7 +16,23 @@ Features:
 - Data consistency checks
 - Orphan record handling
 
+Usage Example:
+    agent = DataQualityAgent()
+
+    # Run comprehensive audit
+    audit = await agent.run_audit({'entity_type': 'all'})
+    print(f"Overall quality score: {audit['overall_quality_score']}")
+
+    # Find duplicate shelters
+    dupes = await agent.find_duplicates({'entity_type': 'shelters'})
+
+    # Cleanup orphan records (dry run)
+    cleanup = await agent.cleanup({'type': 'orphans', 'dry_run': True})
+
 Cooperates with: Librarian, IntakeSpecialist, Debugging, AlertMonitor
+
+Author: Waiting The Longest Development Team
+Last Updated: 2025-12-07
 ===============================================================================
 """
 
@@ -35,7 +51,19 @@ from agents.protocols import CooperativeMixin, DataCategory, Priority
 
 @dataclass
 class QualityReport:
-    """Data quality report"""
+    """
+    Data quality audit report.
+
+    Attributes:
+        report_id: Unique identifier for the report
+        entity_type: Type of entity audited (animals, shelters, etc.)
+        total_records: Total number of records checked
+        issues_found: Number of records with issues
+        issues_fixed: Number of issues automatically fixed
+        quality_score: Overall quality score (0-100)
+        details: List of specific issues found
+        created_at: Timestamp when report was created
+    """
     report_id: str
     entity_type: str
     total_records: int
@@ -376,15 +404,19 @@ class DataQualityAgent(CooperativeMixin, BaseAgent):
         return {'field': field, 'normalized_count': normalized}
 
     async def _handle_audit(self, payload: Dict) -> Dict:
+        """Handler for inter-agent audit requests."""
         return await self.run_audit(payload)
 
     async def _handle_duplicates(self, payload: Dict) -> Dict:
+        """Handler for inter-agent duplicate detection requests."""
         return await self.find_duplicates(payload)
 
     async def _handle_cleanup(self, payload: Dict) -> Dict:
+        """Handler for inter-agent cleanup requests."""
         return await self.cleanup(payload)
 
     async def _handle_quality_score(self, payload: Dict) -> Dict:
+        """Handler for inter-agent quality score requests."""
         audit = await self.run_audit({'entity_type': 'all'})
         return {'quality_score': audit.get('overall_quality_score', 0)}
 

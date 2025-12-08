@@ -3,18 +3,41 @@
 ===============================================================================
 Accounting Agent - Financial Tracking & Reporting
 ===============================================================================
-Manages financial data, donations, expenses, and generates financial reports.
+Manages financial data, donations, expenses, and generates financial reports
+for the Waiting The Longest platform.
 
 Features:
 - Donation tracking and reconciliation
-- Expense categorization
-- Budget monitoring
-- Financial reporting
+- Expense categorization and monitoring
+- Budget monitoring and alerts
+- Financial reporting (monthly, yearly, custom periods)
 - Tax document preparation
 - Amazon Associates revenue tracking
 - Fundraiser accounting
+- Multi-category transaction management
+- Real-time balance calculations
+
+Usage Example:
+    agent = AccountingAgent()
+
+    # Record a donation
+    await agent.record_donation({
+        'amount': 100.00,
+        'category': 'general',
+        'description': 'Monthly donor',
+        'source': 'website'
+    })
+
+    # Get financial balance
+    balance = await agent.get_balance()
+
+    # Generate monthly report
+    report = await agent.generate_report({'period': 'month'})
 
 Cooperates with: DonationTracker, ReportGenerator, AlertMonitor
+
+Author: Waiting The Longest Development Team
+Last Updated: 2025-12-07
 ===============================================================================
 """
 
@@ -34,7 +57,19 @@ from agents.protocols import CooperativeMixin, DataCategory, Priority
 
 @dataclass
 class Transaction:
-    """Financial transaction"""
+    """
+    Represents a financial transaction in the accounting system.
+
+    Attributes:
+        transaction_id: Unique identifier for the transaction
+        type: Transaction type ('donation', 'expense', 'revenue')
+        amount: Transaction amount in Decimal for precision
+        category: Category for classification (e.g., 'general', 'operations')
+        description: Human-readable description of the transaction
+        date: Timestamp when the transaction occurred
+        source: Source of the transaction (e.g., 'website', 'direct', 'amazon')
+        verified: Whether the transaction has been verified/reconciled
+    """
     transaction_id: str
     type: str  # donation, expense, revenue
     amount: Decimal
@@ -47,17 +82,37 @@ class Transaction:
 
 class AccountingAgent(CooperativeMixin, BaseAgent):
     """
-    Financial tracking and reporting agent.
+    Financial tracking and reporting agent for Waiting The Longest.
 
-    Commands:
-    - record_donation: Record a donation
-    - record_expense: Record an expense
-    - get_balance: Get current balance
-    - generate_report: Generate financial report
-    - get_donations: Get donation summary
-    - get_expenses: Get expense breakdown
-    - reconcile: Reconcile accounts
-    - track_amazon: Track Amazon Associates revenue
+    Manages all financial transactions including donations, expenses, and revenue.
+    Provides real-time balance tracking, budget monitoring, and comprehensive
+    financial reporting capabilities.
+
+    Attributes:
+        transactions: List of all financial transactions
+        budgets: Dictionary mapping categories to budget amounts
+
+    Supported Commands:
+        record_donation: Record a new donation transaction
+        record_expense: Record a new expense transaction
+        get_balance: Calculate and return current financial balance
+        generate_report: Generate financial reports for specified periods
+        get_donations: Get summary of all donations
+        get_expenses: Get breakdown of expenses by category
+        reconcile: Reconcile accounts and verify transactions
+        track_amazon: Track Amazon Associates revenue
+
+    Examples:
+        >>> agent = AccountingAgent()
+        >>> # Record a donation
+        >>> result = await agent.record_donation({
+        ...     'amount': 250.00,
+        ...     'category': 'fundraiser',
+        ...     'description': 'Holiday campaign donation'
+        ... })
+        >>> # Generate yearly report
+        >>> report = await agent.generate_report({'period': 'year'})
+        >>> print(f"Balance: ${report['balance']}")
     """
 
     def __init__(self):
@@ -80,7 +135,26 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         self.register_handler('get_balance', self._handle_balance)
 
     async def execute_task(self, task: AgentTask) -> AgentResult:
-        """Execute an accounting task"""
+        """
+        Execute an accounting task based on task type.
+
+        Args:
+            task: AgentTask containing task_type and payload with task data
+
+        Returns:
+            AgentResult with success status, message, and transaction data
+
+        Raises:
+            Exception: If task execution fails
+
+        Examples:
+            >>> task = AgentTask(
+            ...     task_id="task_123",
+            ...     task_type="record_donation",
+            ...     payload={'amount': 100, 'category': 'general'}
+            ... )
+            >>> result = await agent.execute_task(task)
+        """
         task.started_at = datetime.now()
 
         try:
@@ -107,7 +181,20 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
             return AgentResult(success=False, message=str(e), errors=[str(e)])
 
     async def run(self) -> AgentResult:
-        """Main accounting agent loop"""
+        """
+        Main accounting agent execution loop.
+
+        Continuously processes inter-agent messages and queued tasks while
+        the agent status is 'running'.
+
+        Returns:
+            AgentResult with total number of tasks processed
+
+        Examples:
+            >>> agent = AccountingAgent()
+            >>> result = await agent.start()
+            >>> print(f"Processed {result.items_processed} tasks")
+        """
         self.logger.info("Accounting Agent starting")
         processed = 0
 
@@ -123,7 +210,28 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         return AgentResult(success=True, message="Accounting Agent completed", items_processed=processed)
 
     async def record_donation(self, data: Dict) -> Dict:
-        """Record a donation"""
+        """
+        Record a new donation transaction.
+
+        Args:
+            data: Dictionary containing donation details:
+                - amount (float): Donation amount
+                - category (str, optional): Category (default: 'general')
+                - description (str, optional): Donation description
+                - source (str, optional): Source of donation (default: 'direct')
+
+        Returns:
+            Dictionary with transaction_id and amount
+
+        Examples:
+            >>> result = await agent.record_donation({
+            ...     'amount': 100.00,
+            ...     'category': 'animal_care',
+            ...     'description': 'Monthly sustainer',
+            ...     'source': 'website'
+            ... })
+            >>> print(result['transaction_id'])
+        """
         transaction = Transaction(
             transaction_id=f"don_{datetime.now().strftime('%Y%m%d%H%M%S')}",
             type='donation',
@@ -137,7 +245,25 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         return {'transaction_id': transaction.transaction_id, 'amount': float(transaction.amount)}
 
     async def record_expense(self, data: Dict) -> Dict:
-        """Record an expense"""
+        """
+        Record a new expense transaction.
+
+        Args:
+            data: Dictionary containing expense details:
+                - amount (float): Expense amount
+                - category (str, optional): Category (default: 'operations')
+                - description (str, optional): Expense description
+
+        Returns:
+            Dictionary with transaction_id and amount
+
+        Examples:
+            >>> result = await agent.record_expense({
+            ...     'amount': 250.00,
+            ...     'category': 'marketing',
+            ...     'description': 'Social media advertising'
+            ... })
+        """
         transaction = Transaction(
             transaction_id=f"exp_{datetime.now().strftime('%Y%m%d%H%M%S')}",
             type='expense',
@@ -149,7 +275,21 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         return {'transaction_id': transaction.transaction_id, 'amount': float(transaction.amount)}
 
     async def get_balance(self) -> Dict:
-        """Calculate current balance"""
+        """
+        Calculate current financial balance across all transaction types.
+
+        Returns:
+            Dictionary containing:
+                - total_donations: Sum of all donations
+                - total_expenses: Sum of all expenses
+                - total_revenue: Sum of all revenue (e.g., Amazon Associates)
+                - balance: Net balance (donations + revenue - expenses)
+
+        Examples:
+            >>> balance = await agent.get_balance()
+            >>> print(f"Current balance: ${balance['balance']}")
+            >>> print(f"Total donations: ${balance['total_donations']}")
+        """
         donations = sum(t.amount for t in self.transactions if t.type == 'donation')
         expenses = sum(t.amount for t in self.transactions if t.type == 'expense')
         revenue = sum(t.amount for t in self.transactions if t.type == 'revenue')
@@ -161,7 +301,30 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         }
 
     async def generate_report(self, params: Dict) -> Dict:
-        """Generate financial report"""
+        """
+        Generate comprehensive financial report for a specified period.
+
+        Args:
+            params: Dictionary with report parameters:
+                - period (str): Time period ('month', 'year', or custom days)
+
+        Returns:
+            Dictionary containing:
+                - period: Selected reporting period
+                - start_date: Report start date
+                - transaction_count: Number of transactions in period
+                - by_category: Breakdown by category with donations and expenses
+                - balance: Net balance for the period
+
+        Examples:
+            >>> # Monthly report
+            >>> report = await agent.generate_report({'period': 'month'})
+            >>> # Yearly report
+            >>> report = await agent.generate_report({'period': 'year'})
+            >>> print(f"Period balance: ${report['balance']}")
+            >>> for category, amounts in report['by_category'].items():
+            ...     print(f"{category}: {amounts}")
+        """
         period = params.get('period', 'month')
         now = datetime.now()
 
@@ -192,15 +355,19 @@ class AccountingAgent(CooperativeMixin, BaseAgent):
         }
 
     async def _handle_donation(self, payload: Dict) -> Dict:
+        """Handler for inter-agent donation requests."""
         return await self.record_donation(payload)
 
     async def _handle_expense(self, payload: Dict) -> Dict:
+        """Handler for inter-agent expense requests."""
         return await self.record_expense(payload)
 
     async def _handle_summary(self, payload: Dict) -> Dict:
+        """Handler for inter-agent summary/report requests."""
         return await self.generate_report(payload)
 
     async def _handle_balance(self, payload: Dict) -> Dict:
+        """Handler for inter-agent balance requests."""
         return await self.get_balance()
 
 
