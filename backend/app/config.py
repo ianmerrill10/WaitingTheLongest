@@ -149,6 +149,67 @@ settings = Settings()
 
 
 # ==========================================================================
+# Security Validation - CRITICAL
+# ==========================================================================
+# These checks prevent deployment with insecure default values
+
+# Known insecure default values that MUST be changed
+INSECURE_DEFAULTS = [
+    "CHANGE_THIS_TO_A_SECURE_RANDOM_STRING",
+    "CHANGE_THIS_TO_ANOTHER_SECURE_RANDOM_STRING",
+    "CHANGE_PASSWORD",
+]
+
+
+class InsecureConfigurationError(Exception):
+    """Raised when insecure default configuration values are detected in production"""
+    pass
+
+
+def validate_security_settings() -> None:
+    """
+    Validate that security-critical settings are not using default values.
+
+    This function should be called during application startup in production.
+    It will raise InsecureConfigurationError if default secrets are detected.
+
+    In DEBUG mode, this only logs warnings instead of raising exceptions
+    to allow local development without full configuration.
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    issues = []
+
+    # Check SECRET_KEY
+    if settings.SECRET_KEY in INSECURE_DEFAULTS:
+        issues.append("SECRET_KEY is using an insecure default value")
+
+    # Check DATABASE_URL for default password
+    if any(default in settings.DATABASE_URL for default in INSECURE_DEFAULTS):
+        issues.append("DATABASE_URL contains a default password")
+
+    # Check JWT_SECRET_KEY if it's set
+    if settings.JWT_SECRET_KEY and settings.JWT_SECRET_KEY in INSECURE_DEFAULTS:
+        issues.append("JWT_SECRET_KEY is using an insecure default value")
+
+    if issues:
+        error_msg = (
+            "SECURITY ERROR: Insecure configuration detected!\n"
+            "The following issues must be fixed before running in production:\n"
+            + "\n".join(f"  - {issue}" for issue in issues)
+            + "\n\nGenerate secure values with: python3 -c \"import secrets; print(secrets.token_urlsafe(64))\""
+        )
+
+        if settings.DEBUG:
+            # In debug mode, just warn
+            logger.warning(f"\n{'='*60}\n{error_msg}\n{'='*60}\n")
+        else:
+            # In production, fail hard
+            raise InsecureConfigurationError(error_msg)
+
+
+# ==========================================================================
 # Computed Properties
 # ==========================================================================
 

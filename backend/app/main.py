@@ -32,7 +32,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-from .config import settings
+from .config import settings, validate_security_settings
 from .database import get_db, engine, Base
 from .models import Animal, Observation, Shelter, SuccessStory, EmailSubscriber
 from .schemas import (
@@ -66,8 +66,14 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Waiting The Longest API starting up...")
     logger.info("Mission: Help shelter animals who have waited the longest find forever homes")
-    # Skip DB initialization during tests (tests handle their own DB setup)
+
+    # Security validation - CRITICAL
+    # This will raise an exception in production if default secrets are detected
     import os
+    if not os.environ.get("TESTING"):
+        validate_security_settings()
+
+    # Skip DB initialization during tests (tests handle their own DB setup)
     if not os.environ.get("TESTING"):
         try:
             Base.metadata.create_all(bind=engine)
@@ -501,29 +507,46 @@ async def verify_email(
         raise HTTPException(status_code=400, detail="Invalid or expired verification link.")
 
 
-@app.put("/api/newsletter/preferences/{subscriber_id}", response_model=EmailSubscriberResponse)
+@app.put("/api/newsletter/preferences", response_model=EmailSubscriberResponse)
 @limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
 async def update_email_preferences(
     request: Request,
-    subscriber_id: int,
     preferences: EmailPreferencesUpdate,
+    email: str = Query(..., description="Subscriber email address"),
+    token: str = Query(..., description="Unsubscribe token for verification"),
     db: Session = Depends(get_db)
 ):
     """
     Update email preferences.
-    
+
+    Security: Requires email and unsubscribe token to prevent unauthorized changes.
+    The token is sent in every email footer.
+
     Control what types of emails you receive:
     - Newsletter: Weekly longest waiting pets digest
     - Product updates: New features and improvements
     - Adoption alerts: Animals matching your preferences
     - Affiliate emails: Product recommendations and deals
     """
-    subscriber = EmailMarketingService.update_preferences(db, subscriber_id, preferences)
-    
+    # Verify email and token match (prevents IDOR attacks)
+    expected_token = EmailMarketingService.generate_unsubscribe_token(email)
+    if token != expected_token:
+        logger.warning(f"Invalid token attempt for email preferences: {email}")
+        raise HTTPException(
+            status_code=403,
+            detail="Invalid verification token. Please use the link from your email."
+        )
+
+    subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
     if not subscriber:
         raise HTTPException(status_code=404, detail="Subscriber not found")
-    
-    return subscriber
+
+    updated = EmailMarketingService.update_preferences(db, subscriber.id, preferences)
+
+    if not updated:
+        raise HTTPException(status_code=404, detail="Failed to update preferences")
+
+    return updated
 
 
 @app.post("/api/alerts", response_model=PriceAlertResponse)
@@ -567,14 +590,24 @@ async def create_price_alert(
 async def get_price_alerts(
     request: Request,
     email: str = Query(..., description="Subscriber email address"),
+    token: str = Query(..., description="Unsubscribe token for verification"),
     db: Session = Depends(get_db)
 ):
-    """Get all active alerts for a subscriber"""
+    """
+    Get all active alerts for a subscriber.
+
+    Security: Requires email and verification token.
+    """
+    # Verify token (prevents enumeration attacks)
+    expected_token = EmailMarketingService.generate_unsubscribe_token(email)
+    if token != expected_token:
+        raise HTTPException(status_code=403, detail="Invalid verification token")
+
     subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
-    
+
     if not subscriber:
         raise HTTPException(status_code=404, detail="Subscriber not found")
-    
+
     alerts = EmailMarketingService.get_active_alerts(db, subscriber.id)
     return alerts
 
@@ -585,16 +618,26 @@ async def delete_price_alert(
     request: Request,
     alert_id: int,
     email: str = Query(..., description="Subscriber email address"),
+    token: str = Query(..., description="Unsubscribe token for verification"),
     db: Session = Depends(get_db)
 ):
-    """Deactivate a price alert"""
+    """
+    Deactivate a price alert.
+
+    Security: Requires email and verification token.
+    """
+    # Verify token (prevents unauthorized deletions)
+    expected_token = EmailMarketingService.generate_unsubscribe_token(email)
+    if token != expected_token:
+        raise HTTPException(status_code=403, detail="Invalid verification token")
+
     subscriber = EmailMarketingService.get_subscriber_by_email(db, email)
-    
+
     if not subscriber:
         raise HTTPException(status_code=404, detail="Subscriber not found")
-    
+
     success = EmailMarketingService.deactivate_alert(db, alert_id, subscriber.id)
-    
+
     if success:
         return {"success": True, "message": "Alert deactivated"}
     else:
@@ -642,44 +685,129 @@ async def start_still_waiting_reminder(
 
 
 @app.get("/api/email/stats")
-@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+@limiter.limit("5/minute;20/hour")  # Very restrictive - internal use only
 async def get_email_stats(
     request: Request,
     db: Session = Depends(get_db)
 ):
     """
     Get email marketing statistics.
-    
+
     Returns subscriber counts, open rates, click rates, and comparison to targets.
+
+    NOTE: This endpoint is intended for internal/admin use only.
+    In a production environment, this should be protected by authentication.
+    Currently protected by very restrictive rate limiting.
     """
+    # In production, this should require admin authentication
+    # For now, we restrict access via rate limiting and don't expose sensitive data
     stats = EmailMarketingService.get_email_stats(db)
-    return stats
+
+    # Return only aggregate stats, no PII
+    return {
+        "total_subscribers": stats.get("total_subscribers", 0),
+        "active_subscribers": stats.get("active_subscribers", 0),
+        "open_rate": stats.get("open_rate", 0),
+        "click_rate": stats.get("click_rate", 0),
+        "target_open_rate": stats.get("target_open_rate", 25.0),
+        "target_click_rate": stats.get("target_click_rate", 5.0),
+    }
 
 
-@app.post("/api/email/track/open/{email_id}")
+# 1x1 transparent GIF pixel (base64 decoded)
+TRANSPARENT_GIF_PIXEL = bytes([
+    0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00,
+    0x80, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x21,
+    0xf9, 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0x2c, 0x00, 0x00,
+    0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44,
+    0x01, 0x00, 0x3b
+])
+
+# Allowed domains for email click redirects (security: prevent open redirect)
+ALLOWED_REDIRECT_DOMAINS = [
+    "waitingthelongest.com",
+    "www.waitingthelongest.com",
+    "waitedthelongest.com",
+    "www.waitedthelongest.com",
+    "amazon.com",
+    "www.amazon.com",
+    "amzn.to",
+    "rescuegroups.org",
+    "www.rescuegroups.org",
+]
+
+
+def is_safe_redirect_url(url: str) -> bool:
+    """
+    Validate that a redirect URL is safe (not an open redirect attack).
+
+    Only allows:
+    - Relative URLs starting with /
+    - URLs to explicitly whitelisted domains
+    """
+    from urllib.parse import urlparse
+
+    if not url:
+        return False
+
+    # Allow relative URLs
+    if url.startswith('/') and not url.startswith('//'):
+        return True
+
+    try:
+        parsed = urlparse(url)
+        # Must have a scheme (http/https)
+        if parsed.scheme not in ('http', 'https'):
+            return False
+        # Check domain against whitelist
+        domain = parsed.netloc.lower()
+        # Strip port if present
+        if ':' in domain:
+            domain = domain.split(':')[0]
+        return domain in ALLOWED_REDIRECT_DOMAINS
+    except Exception:
+        return False
+
+
+@app.get("/api/email/track/open/{email_id}")
 async def track_email_open(
     email_id: int,
     db: Session = Depends(get_db)
 ):
     """Track email open event (typically called from email tracking pixel)"""
     EmailMarketingService.track_email_open(db, email_id)
-    # Return 1x1 transparent pixel
-    return JSONResponse(
-        content={},
-        headers={"Content-Type": "image/gif"}
+    # Return actual 1x1 transparent GIF pixel
+    from fastapi.responses import Response
+    return Response(
+        content=TRANSPARENT_GIF_PIXEL,
+        media_type="image/gif",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate"}
     )
 
 
-@app.post("/api/email/track/click/{email_id}")
+@app.get("/api/email/track/click/{email_id}")
 async def track_email_click(
     email_id: int,
     redirect_url: str = Query(..., description="URL to redirect to"),
     db: Session = Depends(get_db)
 ):
-    """Track email click event and redirect"""
+    """
+    Track email click event and redirect.
+
+    Security: Only allows redirects to whitelisted domains to prevent
+    open redirect attacks that could be used for phishing.
+    """
+    # Validate redirect URL against whitelist (prevent open redirect)
+    if not is_safe_redirect_url(redirect_url):
+        logger.warning(f"Blocked unsafe redirect attempt to: {redirect_url}")
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid redirect URL. Only links to approved domains are allowed."
+        )
+
     EmailMarketingService.track_email_click(db, email_id)
     from fastapi.responses import RedirectResponse
-    return RedirectResponse(url=redirect_url)
+    return RedirectResponse(url=redirect_url, status_code=302)
 
 
 # =============================================================================

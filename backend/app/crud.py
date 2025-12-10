@@ -32,6 +32,16 @@ from .schemas import (
     SuccessStoryCreate, ObservationOut
 )
 
+# Valid US state codes for validation
+VALID_US_STATES = {
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
+    "DC",  # District of Columbia
+}
+
 
 # =============================================================================
 # Animal CRUD Operations
@@ -108,10 +118,15 @@ def paginate_animals(
         query = query.filter(Animal.gender == gender)
 
     # Filter by state (from observations)
+    # Security: Validate state is a real US state code to prevent unexpected queries
     if state:
-        query = query.join(Animal.observations).filter(
-            Observation.state.ilike(f"%{state}%")
-        ).distinct()
+        state_upper = state.upper().strip()
+        if state_upper in VALID_US_STATES:
+            query = query.join(Animal.observations).filter(
+                Observation.state.ilike(state_upper)  # Exact match, not wildcard
+            ).distinct()
+        # If invalid state code provided, silently ignore the filter
+        # (returns all results rather than error, for better UX)
 
     # Get total count before pagination
     total = query.count()
