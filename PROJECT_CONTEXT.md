@@ -2,9 +2,9 @@
 
 > **🤖 AI AGENT INSTRUCTION FILE** - This file is the single source of truth for AI agents working on this project. Always read this file first and update it after completing tasks.
 
-**Last Updated:** 2025-12-07
-**Updated By:** GitHub Copilot (Claude Opus 4.5)
-**Current Status:** Pre-Launch Development
+**Last Updated:** 2025-12-11
+**Updated By:** Claude Opus 4.5
+**Current Status:** Pre-Launch Development (Consolidated Lead Version)
 
 ---
 
@@ -295,7 +295,7 @@ python scripts/launch_all_agents.py
 - [x] Nginx configuration deployed *(nginx/waitingthelongest.conf)*
 - [x] Systemd service enabled *(systemd/waitingthelongest.service)*
 - [ ] Redis cache running
-- [x] Initial shelter data imported *(6,462 shelters in registry)*
+- [x] Initial shelter data imported *(40,085 IRS orgs + 6,462 verified shelters)*
 - [ ] Social media accounts connected
 - [x] Amazon Associates verified *(waitingthelon-20)*
 - [x] Error monitoring enabled *(Sentry DSN in .env.production)*
@@ -395,6 +395,11 @@ python scripts/launch_all_agents.py
 4. **Document all code changes** with clear comments
 5. **Run tests** before marking work complete
 6. **Follow existing code patterns** in the codebase
+7. **Update logs/** after each task:
+   - `logs/WORK_COMPLETED.md` - What was done
+   - `logs/PROBLEMS_SOLVED.md` - Issues resolved
+   - `logs/KNOWN_ISSUES.md` - New issues discovered or resolved
+   - `logs/CHANGELOG.md` - Version changelog
 
 ### Code Style
 
@@ -454,6 +459,10 @@ python -m pytest --cov=app tests/
 | `OWNERS_MANUAL.md` | Operations manual |
 | `backend/agents/AGENTREADME.md` | Agent system documentation |
 | `COMPLETION_REPORT.md` | Launch readiness report |
+| `logs/WORK_COMPLETED.md` | Log of completed work |
+| `logs/PROBLEMS_SOLVED.md` | Log of resolved issues |
+| `logs/KNOWN_ISSUES.md` | Current known issues |
+| `logs/CHANGELOG.md` | Version changelog |
 
 ---
 
@@ -461,6 +470,7 @@ python -m pytest --cov=app tests/
 
 | Date | Author | Changes |
 |------|--------|---------|
+| 2025-12-11 | Claude Opus 4.5 | **PROJECT CONSOLIDATION**: Consolidated multiple development versions into single lead version. Merged shelter data (1,170 organizations, 50 state files). Created logging system (logs/ folder). Cleaned up temp files. Created main branch as lead version. |
 | 2025-12-07 | Claude Opus 4.5 | **MAJOR UPDATE**: Completed all 50 tasks (Tasks 3-50). Created unit tests for base_agent.py and orchestrator.py, .env.production template, DEPLOYMENT.md, RUNBOOK.md. Added frontend enhancements (404 page, PWA manifest, service worker, loading skeletons, lazy loading). Documented all specialized agents. Created comprehensive agent test suite. Updated launch checklist. |
 | 2025-12-07 | GitHub Copilot | Created PROJECT_CONTEXT.md, added AI context references to README.md and OWNERS_MANUAL.md, added CSS utility classes, fixed text-size-adjust browser compatibility, completed Tasks 1-2 |
 | 2025-12-06 | GitHub Copilot | Fixed state filter, added OAuth login |

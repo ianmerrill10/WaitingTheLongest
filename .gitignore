@@ -36,9 +36,10 @@ htmlcov/
 *~
 .DS_Store
 
-# Logs
+# Logs (runtime logs, not documentation logs)
 *.log
-logs/
+# Note: logs/ folder at root is for project documentation, not runtime logs
+# Runtime logs should go in backend/logs/ or similar
 
 # Data files (generated)
 data/videos/
