@@ -13,8 +13,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from asgi2wsgi import ASGI2WSGI
+from a2wsgi import ASGIMiddleware
 
 from backend.app.main import app as asgi_app
 
-app = ASGI2WSGI(asgi_app)
+app = ASGIMiddleware(asgi_app)

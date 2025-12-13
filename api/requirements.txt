@@ -8,5 +8,5 @@ python-dateutil==2.9.0.post0
 tenacity==9.0.0
 slowapi==0.1.9
 httpx==0.25.2
-asgi2wsgi==1.10.0
+a2wsgi==1.10.10
 structlog==23.2.0
