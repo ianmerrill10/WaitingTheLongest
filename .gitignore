@@ -77,3 +77,4 @@ secrets/
 
 # AWS exports (sanitized metadata snapshots)
 aws_exports/
+.vercel

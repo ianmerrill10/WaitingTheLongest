@@ -190,6 +190,50 @@
             background: #eee;
         }
 
+        .pet-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #eee;
+        }
+
+        .pet-image-wrap .pet-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .wait-counter {
+            position: absolute;
+            left: 0.75rem;
+            bottom: 0.75rem;
+            right: 0.75rem;
+            padding: 0.35rem 0.5rem;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.55);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1.2;
+            display: inline-flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .wait-counter .unit {
+            display: inline-flex;
+            gap: 0.2rem;
+            align-items: baseline;
+            white-space: nowrap;
+        }
+
+        .wait-counter .label {
+            opacity: 0.85;
+            font-weight: 700;
+        }
+
         .pet-info {
             padding: 1rem;
         }
@@ -399,6 +443,229 @@
         // API Base URL
         const API_BASE = '/api';
 
+        const counterElements = new Set();
+        let counterIntervalId = null;
+
+        function normalizePhotoUrl(url) {
+            if (!url || typeof url !== 'string') return '';
+            const trimmed = url.trim();
+            if (!trimmed) return '';
+            if (trimmed.startsWith('http://')) return `https://${trimmed.slice('http://'.length)}`;
+            return trimmed;
+        }
+
+        function placeholderDataUrl(name = 'Pet') {
+            const safeName = String(name || 'Pet').slice(0, 24);
+            const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563EB" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#7C3AED" stop-opacity="0.35" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#g)" />
+  <rect x="24" y="24" width="752" height="352" rx="24" fill="#FFFFFF" fill-opacity="0.18" />
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="44" fill="#FFFFFF" fill-opacity="0.92" font-weight="700">${safeName}</text>
+  <text x="50%" y="68%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#FFFFFF" fill-opacity="0.8">Photo unavailable</text>
+</svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+        }
+
+        function parseFirstSeenMs(animal) {
+            if (!animal) return null;
+            if (animal.first_seen_at) {
+                const ms = Date.parse(animal.first_seen_at);
+                if (Number.isFinite(ms)) return ms;
+            }
+            if (Number.isFinite(animal.days_waiting)) {
+                return Date.now() - Math.max(0, animal.days_waiting) * 24 * 60 * 60 * 1000;
+            }
+            return null;
+        }
+
+        function addMonthsClamped(date, months) {
+            const d = new Date(date.getTime());
+            const day = d.getDate();
+
+            const totalMonths = d.getFullYear() * 12 + d.getMonth() + months;
+            const targetYear = Math.floor(totalMonths / 12);
+            const targetMonth = totalMonths % 12;
+
+            const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+
+            const result = new Date(d.getTime());
+            result.setFullYear(targetYear, targetMonth, 1);
+            result.setDate(Math.min(day, lastDayOfTargetMonth));
+            return result;
+        }
+
+        function diffParts(startMs, nowMs) {
+            const start = new Date(startMs);
+            const now = new Date(nowMs);
+            if (!(start instanceof Date) || Number.isNaN(start.getTime())) {
+                return { years: 0, months: 0, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+            }
+            if (start > now) {
+                return { years: 0, months: 0, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+            }
+
+            const startMonthIndex = start.getFullYear() * 12 + start.getMonth();
+            const nowMonthIndex = now.getFullYear() * 12 + now.getMonth();
+
+            let totalMonths = Math.max(0, nowMonthIndex - startMonthIndex);
+            let anchor = addMonthsClamped(start, totalMonths);
+            if (anchor > now) {
+                totalMonths = Math.max(0, totalMonths - 1);
+                anchor = addMonthsClamped(start, totalMonths);
+            }
+
+            const years = Math.floor(totalMonths / 12);
+            const months = totalMonths % 12;
+
+            let remainingSeconds = Math.floor((now.getTime() - anchor.getTime()) / 1000);
+            remainingSeconds = Math.max(0, remainingSeconds);
+
+            const weeks = Math.floor(remainingSeconds / (7 * 24 * 3600));
+            remainingSeconds -= weeks * 7 * 24 * 3600;
+
+            const days = Math.floor(remainingSeconds / (24 * 3600));
+            remainingSeconds -= days * 24 * 3600;
+
+            const hours = Math.floor(remainingSeconds / 3600);
+            remainingSeconds -= hours * 3600;
+
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds - minutes * 60;
+
+            return { years, months, weeks, days, hours, minutes, seconds };
+        }
+
+        function formatCounter(parts) {
+            const pad = (n) => String(n).padStart(2, '0');
+            return {
+                years: parts.years,
+                months: parts.months,
+                weeks: parts.weeks,
+                days: parts.days,
+                hours: pad(parts.hours),
+                minutes: pad(parts.minutes),
+                seconds: pad(parts.seconds),
+            };
+        }
+
+        function ensureCounterInterval() {
+            if (counterIntervalId) return;
+            counterIntervalId = window.setInterval(() => {
+                const now = Date.now();
+                for (const el of counterElements) {
+                    const startMs = Number(el.getAttribute('data-start-ms'));
+                    if (!Number.isFinite(startMs)) continue;
+                    const parts = formatCounter(diffParts(startMs, now));
+                    el.querySelector('[data-unit="years"]').textContent = parts.years;
+                    el.querySelector('[data-unit="months"]').textContent = parts.months;
+                    el.querySelector('[data-unit="weeks"]').textContent = parts.weeks;
+                    el.querySelector('[data-unit="days"]').textContent = parts.days;
+                    el.querySelector('[data-unit="hours"]').textContent = parts.hours;
+                    el.querySelector('[data-unit="minutes"]').textContent = parts.minutes;
+                    el.querySelector('[data-unit="seconds"]').textContent = parts.seconds;
+                }
+            }, 1000);
+        }
+
+        function createWaitCounter(startMs) {
+            const el = document.createElement('div');
+            el.className = 'wait-counter';
+            el.setAttribute('data-start-ms', String(startMs));
+            el.setAttribute('aria-label', 'Time waiting');
+            el.innerHTML = `
+                <span class="unit"><span data-unit="years">0</span><span class="label">y</span></span>
+                <span class="unit"><span data-unit="months">0</span><span class="label">mo</span></span>
+                <span class="unit"><span data-unit="weeks">0</span><span class="label">w</span></span>
+                <span class="unit"><span data-unit="days">0</span><span class="label">d</span></span>
+                <span class="unit"><span data-unit="hours">00</span><span class="label">h</span></span>
+                <span class="unit"><span data-unit="minutes">00</span><span class="label">m</span></span>
+                <span class="unit"><span data-unit="seconds">00</span><span class="label">s</span></span>
+            `;
+            counterElements.add(el);
+            return el;
+        }
+
+        function renderAnimals(items) {
+            const grid = document.getElementById('pet-grid');
+            grid.innerHTML = '';
+
+            const fragment = document.createDocumentFragment();
+
+            for (const animal of items) {
+                const card = document.createElement('div');
+                card.className = 'pet-card';
+                card.addEventListener('click', () => viewAnimal(animal.id));
+
+                const imageWrap = document.createElement('div');
+                imageWrap.className = 'pet-image-wrap';
+
+                const img = document.createElement('img');
+                img.className = 'pet-image';
+                img.alt = animal.canonical_name || 'Pet';
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.referrerPolicy = 'no-referrer';
+
+                const placeholder = placeholderDataUrl(animal.canonical_name || 'Pet');
+                img.src = placeholder;
+
+                const photoUrl = normalizePhotoUrl(animal.photo_url);
+                if (photoUrl) {
+                    const preload = new Image();
+                    preload.decoding = 'async';
+                    preload.referrerPolicy = 'no-referrer';
+                    preload.onload = () => { img.src = photoUrl; };
+                    preload.onerror = () => { img.src = placeholder; };
+                    preload.src = photoUrl;
+                }
+
+                imageWrap.appendChild(img);
+
+                const startMs = parseFirstSeenMs(animal);
+                if (startMs) {
+                    imageWrap.appendChild(createWaitCounter(startMs));
+                }
+
+                const info = document.createElement('div');
+                info.className = 'pet-info';
+
+                const name = document.createElement('div');
+                name.className = 'pet-name';
+                name.textContent = animal.canonical_name || 'Unknown';
+
+                const breed = document.createElement('div');
+                breed.className = 'pet-breed';
+                breed.textContent = animal.breed_primary || animal.species || '';
+
+                const badge = document.createElement('span');
+                badge.className = `days-waiting ${animal.days_waiting > 100 ? 'long' : ''}`;
+                badge.textContent = `${animal.days_waiting || 0} days waiting`;
+
+                const location = document.createElement('div');
+                location.className = 'pet-location';
+                location.textContent = `${animal.city || ''} ${animal.state || ''}`.trim();
+
+                info.appendChild(name);
+                info.appendChild(breed);
+                info.appendChild(badge);
+                info.appendChild(location);
+
+                card.appendChild(imageWrap);
+                card.appendChild(info);
+
+                fragment.appendChild(card);
+            }
+
+            grid.appendChild(fragment);
+            ensureCounterInterval();
+        }
+
         // Load statistics
         async function loadStats() {
             try {
@@ -422,26 +689,7 @@
                 const data = await response.json();
 
                 if (data.items && data.items.length > 0) {
-                    grid.innerHTML = data.items.map(animal => `
-                        <div class="pet-card" onclick="viewAnimal(${animal.id})">
-                            <img
-                                class="pet-image"
-                                src="${animal.photo_url || '/images/placeholder-pet.jpg'}"
-                                alt="${animal.canonical_name || 'Pet'}"
-                                onerror="this.src='/images/placeholder-pet.jpg'"
-                            >
-                            <div class="pet-info">
-                                <div class="pet-name">${animal.canonical_name || 'Unknown'}</div>
-                                <div class="pet-breed">${animal.breed_primary || animal.species}</div>
-                                <span class="days-waiting ${animal.days_waiting > 100 ? 'long' : ''}">
-                                    ${animal.days_waiting} days waiting
-                                </span>
-                                <div class="pet-location">
-                                    ${animal.city || ''} ${animal.state || ''}
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
+                    renderAnimals(data.items);
                 } else {
                     grid.innerHTML = '<p>No animals found. Check back soon!</p>';
                 }
