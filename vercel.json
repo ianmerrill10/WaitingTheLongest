@@ -25,6 +25,14 @@
       "dest": "frontend/index.html"
     },
     {
+      "src": "^/(about|success-stories|resources|privacy|terms|contact)/?$",
+      "dest": "frontend/index.html"
+    },
+    {
+      "src": "^/animal/[^/]+/?$",
+      "dest": "frontend/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "frontend/$1"
     }

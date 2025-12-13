@@ -28,6 +28,8 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.svg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="WTL">
@@ -176,6 +178,50 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
+        }
+
+        .card-static {
+            cursor: default;
+        }
+
+        .route {
+            display: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .text-block p {
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-list {
+            margin-top: 0.75rem;
+            padding-left: 1.25rem;
+            color: var(--text-light);
+        }
+
+        .loading-pad {
+            padding: 2rem;
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
+        .text-muted {
+            color: var(--text-light);
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
         }
 
         .pet-card:hover {
@@ -378,62 +424,180 @@
                 <span>Because Every Day Matters</span>
             </div>
             <nav>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/success-stories">Success Stories</a>
-                <a href="/resources">Resources</a>
+                <a href="/" data-nav="/">Home</a>
+                <a href="/about" data-nav="/about">About</a>
+                <a href="/success-stories" data-nav="/success-stories">Success Stories</a>
+                <a href="/resources" data-nav="/resources">Resources</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Help Shelter Animals Find Forever Homes</h1>
-        <p>We highlight the animals who have been waiting the longest. Every day matters when you're waiting for love.</p>
-        <a href="#pets" class="btn btn-primary">Meet the Animals</a>
+    <div id="routes">
+        <!-- HOME -->
+        <div id="route-home" class="route" data-route="/">
+            <section class="hero">
+                <h1>Help Shelter Animals Find Forever Homes</h1>
+                <p>We highlight the animals who have been waiting the longest. Every day matters when you're waiting for love.</p>
+                <a href="#pets" class="btn btn-primary">Meet the Animals</a>
 
-        <div class="hero-stats">
-            <div class="stat">
-                <div class="stat-number" id="stat-available">--</div>
-                <div class="stat-label">Animals Waiting</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="stat-longest">--</div>
-                <div class="stat-label">Longest Wait (Days)</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="stat-adopted">--</div>
-                <div class="stat-label">Success Stories</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main>
-        <section id="pets">
-            <h2 class="section-title">Animals Waiting The Longest</h2>
-
-            <div id="pet-grid" class="pet-grid">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading animals...</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="stat-available">--</div>
+                        <div class="stat-label">Animals Waiting</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="stat-longest">--</div>
+                        <div class="stat-label">Longest Wait (Days)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="stat-adopted">--</div>
+                        <div class="stat-label">Success Stories</div>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+
+            <main>
+                <section id="pets">
+                    <h2 class="section-title">Animals Waiting The Longest</h2>
+
+                    <div id="pet-grid" class="pet-grid">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Loading animals...</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- ABOUT -->
+        <div id="route-about" class="route" data-route="/about">
+            <main>
+                <h2 class="section-title">About</h2>
+                <div class="pet-card card-static">
+                    <div class="pet-info text-block">
+                        <p>Waiting The Longest™ helps shelter animals who have waited the longest get seen first.</p>
+                        <p>We pull adoption listings from rescue and shelter sources, rank them by time waiting, and make it easy to share long-waiting pets with friends and family.</p>
+                        <p>Because every day matters.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- SUCCESS STORIES -->
+        <div id="route-success" class="route" data-route="/success-stories">
+            <main>
+                <h2 class="section-title">Success Stories</h2>
+                <div id="success-stories" class="pet-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading success stories...</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- RESOURCES -->
+        <div id="route-resources" class="route" data-route="/resources">
+            <main>
+                <h2 class="section-title">Resources</h2>
+                <div class="pet-grid">
+                    <div class="pet-card card-static">
+                        <div class="pet-info">
+                            <div class="pet-name">Adoption prep checklist</div>
+                            <div class="pet-breed">What to do before bringing a pet home</div>
+                            <ul class="resource-list">
+                                <li>Verify landlord / housing rules</li>
+                                <li>Find a local vet and schedule a first visit</li>
+                                <li>Get food, bowls, bed, and a safe crate/carrier</li>
+                                <li>Pet-proof your home and yard</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pet-card card-static">
+                        <div class="pet-info">
+                            <div class="pet-name">Shelter support</div>
+                            <div class="pet-breed">Ways to help if you can’t adopt</div>
+                            <ul class="resource-list">
+                                <li>Foster (even short term helps)</li>
+                                <li>Share long-waiting pets on social media</li>
+                                <li>Donate supplies or volunteer time</li>
+                                <li>Sponsor adoption fees</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- PRIVACY -->
+        <div id="route-privacy" class="route" data-route="/privacy">
+            <main>
+                <h2 class="section-title">Privacy Policy</h2>
+                <div class="pet-card card-static">
+                    <div class="pet-info text-block">
+                        <p>We collect minimal data needed to operate the site and improve the experience (e.g., basic analytics and error logs).</p>
+                        <p>If you subscribe to emails, we store your email address and preferences. You can unsubscribe at any time.</p>
+                        <p>We do not sell personal information.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- TERMS -->
+        <div id="route-terms" class="route" data-route="/terms">
+            <main>
+                <h2 class="section-title">Terms of Service</h2>
+                <div class="pet-card card-static">
+                    <div class="pet-info text-block">
+                        <p>Listings and details are provided “as-is” from partner sources. Always confirm availability and details with the shelter or rescue.</p>
+                        <p>By using the site you agree not to misuse the service or attempt to disrupt it.</p>
+                        <p>Because every day matters, please share responsibly.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- CONTACT -->
+        <div id="route-contact" class="route" data-route="/contact">
+            <main>
+                <h2 class="section-title">Contact</h2>
+                <div class="pet-card card-static">
+                    <div class="pet-info text-block">
+                        <p>Want to partner, report an issue, or suggest a shelter to add?</p>
+                        <p>Email: <a href="mailto:hello@waitingthelongest.com">hello@waitingthelongest.com</a></p>
+                        <a class="btn btn-primary" href="mailto:hello@waitingthelongest.com?subject=Waiting%20The%20Longest%20-%20Hello">Send email</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ANIMAL DETAIL -->
+        <div id="route-animal" class="route" data-route="/animal/:id">
+            <main>
+                <a href="/" data-nav="/" class="back-link">← Back to Home</a>
+                <div id="animal-detail" class="pet-card card-static">
+                    <div class="loading loading-pad">
+                        <div class="spinner"></div>
+                        <p>Loading animal...</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="/about">About Us</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact</a>
+            <a href="/about" data-nav="/about">About Us</a>
+            <a href="/privacy" data-nav="/privacy">Privacy Policy</a>
+            <a href="/terms" data-nav="/terms">Terms of Service</a>
+            <a href="/contact" data-nav="/contact">Contact</a>
         </div>
         <p class="affiliate-disclosure">
             As an Amazon Associate, Waiting The Longest™ earns from qualifying purchases.
         </p>
-        <p style="margin-top: 1rem; opacity: 0.7;">
+        <p class="footer-note">
             © 2025 Waiting The Longest™. All rights reserved.
         </p>
     </footer>
@@ -666,6 +830,187 @@
             ensureCounterInterval();
         }
 
+        function setActiveRoute(routePath) {
+            const routes = document.querySelectorAll('.route');
+            routes.forEach((el) => {
+                const isActive = el.getAttribute('data-route') === routePath;
+                el.style.display = isActive ? 'block' : 'none';
+            });
+        }
+
+        function getRouteFromPath(pathname) {
+            const clean = (pathname || '/').replace(/\/$/, '') || '/';
+            if (clean === '') return '/';
+            if (clean === '/animal') return '/';
+            if (clean.startsWith('/animal/')) return '/animal/:id';
+            if (['/', '/about', '/success-stories', '/resources', '/privacy', '/terms', '/contact'].includes(clean)) {
+                return clean;
+            }
+            return '/';
+        }
+
+        function getAnimalIdFromPath(pathname) {
+            const clean = (pathname || '').replace(/\/$/, '');
+            const m = clean.match(/^\/animal\/([^/]+)$/);
+            return m ? m[1] : null;
+        }
+
+        async function loadSuccessStories() {
+            const container = document.getElementById('success-stories');
+            if (!container) return;
+            if (container.getAttribute('data-loaded') === '1') return;
+
+            try {
+                const response = await fetch(`${API_BASE}/success-stories?limit=24`);
+                const data = await response.json();
+                const stories = (data && data.stories) ? data.stories : [];
+                if (!stories.length) {
+                    container.innerHTML = '<p>No stories yet. Check back soon!</p>';
+                    container.setAttribute('data-loaded', '1');
+                    return;
+                }
+
+                container.innerHTML = '';
+                for (const story of stories) {
+                    const card = document.createElement('div');
+                    card.className = 'pet-card';
+                    card.style.cursor = 'default';
+
+                    const imageWrap = document.createElement('div');
+                    imageWrap.className = 'pet-image-wrap';
+
+                    const img = document.createElement('img');
+                    img.className = 'pet-image';
+                    img.alt = story.pet_name ? `Photo of ${story.pet_name}` : 'Pet';
+                    img.loading = 'lazy';
+                    img.decoding = 'async';
+                    img.referrerPolicy = 'no-referrer';
+                    const placeholder = placeholderDataUrl(story.pet_name || 'Pet');
+                    img.src = placeholder;
+                    const photoUrl = normalizePhotoUrl((story.photos && story.photos[0]) || '');
+                    if (photoUrl) {
+                        const preload = new Image();
+                        preload.decoding = 'async';
+                        preload.referrerPolicy = 'no-referrer';
+                        preload.onload = () => { img.src = photoUrl; };
+                        preload.onerror = () => { img.src = placeholder; };
+                        preload.src = photoUrl;
+                    }
+                    imageWrap.appendChild(img);
+
+                    const info = document.createElement('div');
+                    info.className = 'pet-info';
+                    const name = document.createElement('div');
+                    name.className = 'pet-name';
+                    name.textContent = story.pet_name || 'Success Story';
+                    const meta = document.createElement('div');
+                    meta.className = 'pet-breed';
+                    meta.textContent = story.days_waited ? `${story.days_waited} days waited` : '';
+                    const preview = document.createElement('div');
+                    preview.className = 'mt-2 text-muted';
+                    preview.textContent = story.story_preview || '';
+
+                    info.appendChild(name);
+                    info.appendChild(meta);
+                    info.appendChild(preview);
+
+                    card.appendChild(imageWrap);
+                    card.appendChild(info);
+                    container.appendChild(card);
+                }
+
+                container.setAttribute('data-loaded', '1');
+            } catch (e) {
+                console.error('Failed to load success stories:', e);
+                container.innerHTML = '<p>Unable to load stories right now.</p>';
+            }
+        }
+
+        async function loadAnimalDetail(animalId) {
+            const container = document.getElementById('animal-detail');
+            if (!container) return;
+
+            try {
+                container.innerHTML = `
+                    <div class="loading loading-pad">
+                        <div class="spinner"></div>
+                        <p>Loading animal...</p>
+                    </div>
+                `;
+                const response = await fetch(`${API_BASE}/animals/${encodeURIComponent(animalId)}`);
+                const animal = await response.json();
+
+                const name = animal.canonical_name || 'Unknown';
+                const placeholder = placeholderDataUrl(name);
+                const photoUrl = normalizePhotoUrl((animal.photos && animal.photos[0]) || animal.photo_url || '');
+                const startMs = parseFirstSeenMs(animal);
+
+                container.innerHTML = `
+                    <div class="pet-image-wrap">
+                        <img class="pet-image" src="${placeholder}" alt="${name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-name">${name}</div>
+                        <div class="pet-breed">${animal.breed_primary || animal.species || ''}</div>
+                        <span class="days-waiting ${animal.days_waiting > 100 ? 'long' : ''}">${animal.days_waiting || 0} days waiting</span>
+                        <div class="pet-location mt-2">${(animal.shelter_info && animal.shelter_info.city) ? `${animal.shelter_info.city} ${animal.shelter_info.state || ''}` : `${animal.city || ''} ${animal.state || ''}`}</div>
+                        <div class="mt-4 text-muted">${animal.description || ''}</div>
+                    </div>
+                `;
+
+                const img = container.querySelector('img.pet-image');
+                if (img && photoUrl) {
+                    const preload = new Image();
+                    preload.decoding = 'async';
+                    preload.referrerPolicy = 'no-referrer';
+                    preload.onload = () => { img.src = photoUrl; };
+                    preload.onerror = () => { img.src = placeholder; };
+                    preload.src = photoUrl;
+                }
+
+                if (startMs) {
+                    const wrap = container.querySelector('.pet-image-wrap');
+                    if (wrap) wrap.appendChild(createWaitCounter(startMs));
+                    ensureCounterInterval();
+                }
+            } catch (e) {
+                console.error('Failed to load animal detail:', e);
+                container.innerHTML = '<div class="pet-info"><p>Unable to load this animal right now.</p></div>';
+            }
+        }
+
+        function navigate(path) {
+            const target = (path || '/').startsWith('/') ? path : `/${path}`;
+            if (window.location.pathname === target) {
+                renderRoute();
+                return;
+            }
+            window.history.pushState({}, '', target);
+            renderRoute();
+        }
+
+        function renderRoute() {
+            const route = getRouteFromPath(window.location.pathname);
+            setActiveRoute(route);
+
+            if (route === '/') {
+                loadStats();
+                loadAnimals();
+                return;
+            }
+
+            if (route === '/success-stories') {
+                loadSuccessStories();
+                return;
+            }
+
+            if (route === '/animal/:id') {
+                const animalId = getAnimalIdFromPath(window.location.pathname);
+                if (animalId) loadAnimalDetail(animalId);
+                return;
+            }
+        }
+
         // Load statistics
         async function loadStats() {
             try {
@@ -701,13 +1046,22 @@
 
         // View animal details
         function viewAnimal(id) {
-            window.location.href = `/animal/${id}`;
+            navigate(`/animal/${id}`);
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            loadStats();
-            loadAnimals();
+            document.addEventListener('click', (e) => {
+                const a = e.target && e.target.closest ? e.target.closest('a[data-nav]') : null;
+                if (!a) return;
+                const href = a.getAttribute('data-nav');
+                if (!href) return;
+                e.preventDefault();
+                navigate(href);
+            });
+
+            window.addEventListener('popstate', () => renderRoute());
+            renderRoute();
         });
     </script>
 </body>
