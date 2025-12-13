@@ -21,7 +21,7 @@
       "dest": "api/index.py"
     },
     {
-      "src": "/$",
+      "src": "^/$",
       "dest": "frontend/index.html"
     },
     {
