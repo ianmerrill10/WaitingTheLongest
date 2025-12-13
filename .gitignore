@@ -38,7 +38,16 @@ htmlcov/
 
 # Logs
 *.log
-logs/
+
+# Project logs folder is tracked (keep artifacts committed)
+!logs/README.md
+!logs/WORK_COMPLETED.md
+!logs/PROBLEMS_SOLVED.md
+!logs/KNOWN_ISSUES.md
+!logs/CHANGELOG.md
+!logs/TESTING_LOG.md
+!logs/FILES_TESTED.md
+!logs/FILES_TESTED.json
 
 # Data files (generated)
 data/videos/
@@ -66,5 +75,5 @@ docs/_build/
 *.crt
 secrets/
 
-# Agent output files (except .gitkeep)
-backend/agents/output/*.csv
+# AWS exports (sanitized metadata snapshots)
+aws_exports/

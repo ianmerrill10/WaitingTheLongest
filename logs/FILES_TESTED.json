@@ -1,0 +1,84 @@
+{
+  "files": {
+    ".github/agents/backend-engineer.agent.md": {
+      "last_tested_at": "2025-12-12T13:54:35Z",
+      "notes": "basic read ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    ".github/agents/error-handler.agent.md": {
+      "last_tested_at": "2025-12-12T13:54:33Z",
+      "notes": "basic read ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    ".github/agents/social-media-engineer.agent.md": {
+      "last_tested_at": "2025-12-12T13:54:33Z",
+      "notes": "basic read ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "aws/admin-dashboard/app.js": {
+      "last_tested_at": "2025-12-12T13:54:31Z",
+      "notes": "basic read ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "backend/data/bf_network_orgs.json": {
+      "last_tested_at": "2025-12-12T13:54:33Z",
+      "notes": "json parse ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "backend/data/collected_shelters/CA_shelters.json": {
+      "last_tested_at": "2025-12-12T13:54:35Z",
+      "notes": "json parse ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "backend/data/collected_shelters/SC_shelters.json": {
+      "last_tested_at": "2025-12-12T13:54:34Z",
+      "notes": "json parse ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "backend/data/dog_breeds.json": {
+      "last_tested_at": "2025-12-12T13:54:34Z",
+      "notes": "json parse ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "backend/tests": {
+      "last_tested_at": "2025-12-13T04:05:45Z",
+      "notes": "Scheduled run",
+      "status": "pass",
+      "test_command": "C:\\Users\\ianme\\OneDrive\\Desktop\\waitingthelongestdevelopment\\WAITINGTHELONGEST DEC 12 TRANSFER\\waitingthelongest\\WaitingTheLongest\\backend\\.venv\\Scripts\\python.exe -m pytest -q"
+    },
+    "backend/tests/test_specialized_agents.py": {
+      "last_tested_at": "2025-12-12T00:00:00Z",
+      "notes": "Specialized agent suite green (50 passed).",
+      "status": "pass",
+      "test_command": "python -m pytest -q tests/test_specialized_agents.py"
+    },
+    "backend/tools/generate_demo_data.py": {
+      "last_tested_at": "2025-12-12T13:54:33Z",
+      "notes": "py_compile ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "frontend/blog.html": {
+      "last_tested_at": "2025-12-12T13:54:33Z",
+      "notes": "basic read ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    },
+    "frontend/manifest.json": {
+      "last_tested_at": "2025-12-12T13:52:56Z",
+      "notes": "json parse ok",
+      "status": "pass",
+      "test_command": "random_file_test"
+    }
+  },
+  "schema_version": 1,
+  "updated_at": "2025-12-13T04:05:45Z"
+}

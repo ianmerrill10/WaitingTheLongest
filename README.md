@@ -84,21 +84,50 @@ WaitingTheLongest/
 git clone https://github.com/ianmerrill10/WaitedTheLongest.git
 cd WaitedTheLongest
 
-# Create virtual environment
+# Option 1: Automated setup (recommended)
+python scripts/dev_setup.py
+
+# Option 2: Manual setup
 cd backend
-python3.12 -m venv venv
-source venv/bin/activate
-
-# Install dependencies
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # Mac/Linux
 pip install -r requirements.txt
+cp ../.env.example .env       # Then edit .env
 
-# Copy and configure environment
-cp ../.env.example .env
-# Edit .env with your settings
+# Seed demo data
+python scripts/db_seed.py demo
 
 # Run development server
+cd backend
 uvicorn app.main:app --reload
+
+# Run tests
+pytest
 ```
+
+### Automation Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/dev_setup.py` | One-command dev environment setup |
+| `scripts/run.py` | Start development server with hot reload |
+| `scripts/db_seed.py` | Database seeding (demo/clear/reset/status) |
+| `scripts/ci.py` | Run all CI checks locally |
+| `scripts/ingest.py` | Run data ingestion (once or daemon) |
+| `scripts/full_project_check.py` | Run all validation checks |
+| `scripts/health_check.py` | Zero-dependency health checker |
+| `backend/tools/api_smoke_test.py` | Quick API endpoint tests |
+| `backend/tools/validate_ingestion.py` | Validate ingestion setup |
+
+### Quick Start Files
+
+| File | Platform | Purpose |
+|------|----------|---------|
+| `start.bat` | Windows | Double-click to start dev server |
+| `start.ps1` | Windows PowerShell | PowerShell quick start |
+| `start.sh` | Mac/Linux | Bash quick start |
+| `Makefile` | Unix/WSL | Standard make commands |
 
 ### Production Deployment
 

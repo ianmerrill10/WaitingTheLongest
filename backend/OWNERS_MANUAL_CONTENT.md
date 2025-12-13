@@ -136,6 +136,9 @@ RescueGroups API → Ingestor → Deduplication Check → Database
 **Endpoints Defined**:
 - `GET /` - Returns API info and version
 - `GET /health` - Health check with database connectivity test
+- `GET /demo` - Local demo UI (serves `frontend/index.html`)
+- `GET /styles.css` - Local demo UI stylesheet
+- `GET /app.js` - Local demo UI JavaScript bundle
 - `GET /api/animals` - Paginated animal listing with filters
 - `GET /api/animals/{id}` - Single animal details
 - `GET /api/longest-waiting` - Top N longest-waiting animals
@@ -460,11 +463,13 @@ systemctl start waitingthelongest
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| DATABASE_URL | Yes | PostgreSQL connection |
+| DATABASE_URL | No* | SQLAlchemy DB URL. Defaults to SQLite (`sqlite:///./waitingthelongest.db`) if unset; set PostgreSQL for production |
 | SECRET_KEY | Yes | Application secret |
 | RESCUEGROUPS_API_KEY | No | Data source API |
 | AMAZON_ASSOCIATE_ID | No | waitingthelon-20 |
 | REDIS_PASSWORD | No | Redis auth |
+
+\* Recommended to set in production deployments.
 
 See `.env.example` for complete list.
 

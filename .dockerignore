@@ -1,0 +1,30 @@
+.git
+.github
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.venv
+**/venv
+
+# Local databases
+**/*.db
+**/*.sqlite
+
+# Logs and exports
+aws_exports
+logs
+
+# Large data directories
+**/data
+**/data/**
+
+# Node
+**/node_modules
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode
+.idea

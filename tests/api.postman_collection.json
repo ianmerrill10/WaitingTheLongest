@@ -1,0 +1,175 @@
+{
+    "info": {
+        "name": "Waiting The Longest API",
+        "_postman_id": "wtl-api-collection",
+        "description": "API endpoints for Waiting The Longest™ pet adoption platform",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health & Info",
+            "item": [
+                {
+                    "name": "Root - API Info",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/",
+                        "description": "Get API information and status"
+                    }
+                },
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/health",
+                        "description": "Check API and database health"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Animals",
+            "item": [
+                {
+                    "name": "List Animals",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/animals?page=1&page_size=20&sort_by=days_waiting&sort_order=desc",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "animals"],
+                            "query": [
+                                {"key": "page", "value": "1"},
+                                {"key": "page_size", "value": "20"},
+                                {"key": "sort_by", "value": "days_waiting"},
+                                {"key": "sort_order", "value": "desc"}
+                            ]
+                        },
+                        "description": "Get paginated list of animals"
+                    }
+                },
+                {
+                    "name": "List Animals - Dogs Only",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/animals?species=dog",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "animals"],
+                            "query": [
+                                {"key": "species", "value": "dog"}
+                            ]
+                        },
+                        "description": "Get dogs only"
+                    }
+                },
+                {
+                    "name": "List Animals - Cats Only",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/animals?species=cat",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "animals"],
+                            "query": [
+                                {"key": "species", "value": "cat"}
+                            ]
+                        },
+                        "description": "Get cats only"
+                    }
+                },
+                {
+                    "name": "Get Animal Detail",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/animals/1",
+                        "description": "Get detailed information for a specific animal"
+                    }
+                },
+                {
+                    "name": "Longest Waiting Animals",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/longest-waiting?limit=10",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "longest-waiting"],
+                            "query": [
+                                {"key": "limit", "value": "10"}
+                            ]
+                        },
+                        "description": "Get animals who have waited the longest"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Success Stories",
+            "item": [
+                {
+                    "name": "Get Success Stories",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/success-stories?limit=10",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "success-stories"],
+                            "query": [
+                                {"key": "limit", "value": "10"}
+                            ]
+                        },
+                        "description": "Get adoption success stories"
+                    }
+                },
+                {
+                    "name": "Submit Success Story",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{baseUrl}}/api/success-stories",
+                        "header": [
+                            {"key": "Content-Type", "value": "application/json"}
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"pet_name\": \"Max\",\n  \"story_text\": \"We adopted Max after he waited 500 days. He's the best dog ever!\",\n  \"days_waited\": 500,\n  \"adopter_name\": \"The Smith Family\",\n  \"contact_email\": \"smith@example.com\"\n}"
+                        },
+                        "description": "Submit a new adoption success story"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Statistics",
+            "item": [
+                {
+                    "name": "Get Platform Stats",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/stats",
+                        "description": "Get platform statistics"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Demo",
+            "item": [
+                {
+                    "name": "Demo Page",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/demo",
+                        "description": "Get demo page (if available)"
+                    }
+                }
+            ]
+        }
+    ]
+}

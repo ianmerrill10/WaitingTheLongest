@@ -467,10 +467,19 @@ class TestStatsEndpoint:
         
         required_fields = [
             "total_animals", "available_animals", "average_wait_days",
-            "longest_wait_days", "success_stories", "mission", "updated_at"
+            "longest_wait_days", "success_stories", "mission", "updated_at",
+            "data_updated_at"
         ]
         for field in required_fields:
             assert field in data, f"Missing required field: {field}"
+    
+    def test_stats_data_updated_at_with_observations(self, client, sample_animal_with_observation):
+        """Test that data_updated_at reflects observation timestamp"""
+        response = client.get("/api/stats")
+        assert response.status_code == status.HTTP_200_OK
+        data = response.json()
+        # Should have a data_updated_at since there's an observation
+        assert data["data_updated_at"] is not None
 
 
 class TestAffiliateEndpoints:

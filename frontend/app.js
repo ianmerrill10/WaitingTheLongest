@@ -20,8 +20,21 @@
 // CONFIGURATION
 // =============================================================================
 
+function resolveApiBaseUrl() {
+    const fromGlobal =
+        (window.WTL_CONFIG && window.WTL_CONFIG.API_BASE_URL) ||
+        window.WTL_API_BASE_URL ||
+        window.__WTL_API_BASE_URL__;
+
+    const meta = document.querySelector('meta[name="wtl-api-base-url"]');
+    const fromMeta = meta ? meta.getAttribute('content') : null;
+
+    const raw = (fromGlobal || fromMeta || window.location.origin || '').trim();
+    return raw.replace(/\/+$/, '');
+}
+
 const CONFIG = {
-    API_BASE_URL: window.location.origin,
+    API_BASE_URL: resolveApiBaseUrl(),
     DEFAULT_PAGE_SIZE: 20,
     AFFILIATE_TAG: 'waitingthelon-20',
     CACHE_TTL: 5 * 60 * 1000, // 5 minutes
@@ -93,7 +106,17 @@ const api = {
             
             return data;
         } catch (error) {
-            console.error('API request failed:', error);
+            // Improved error handling with user-friendly messages
+            let userMessage = 'Unable to connect to the server.';
+            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                userMessage = 'Network error. Please check your internet connection.';
+            } else if (error.message.includes('CORS')) {
+                userMessage = 'Cross-origin request blocked. The backend may not be configured for this domain.';
+            } else if (error.message.includes('API error: 5')) {
+                userMessage = 'Server error. Please try again later.';
+            }
+            console.error('API request failed:', error, '| User message:', userMessage);
+            error.userMessage = userMessage;
             throw error;
         }
     },
@@ -308,11 +331,15 @@ const ui = {
     /**
      * Show error message
      */
-    showError(container, message) {
+    showError(container, message, error = null) {
+        // Use user-friendly message from API error if available
+        const displayMessage = (error && error.userMessage) ? error.userMessage : message;
         container.innerHTML = `
             <div class="error-message" role="alert">
                 <span class="error-icon">⚠️</span>
-                <p>${message}</p>
+                <h3>Connection Issue</h3>
+                <p>${displayMessage}</p>
+                <p class="error-hint">API: ${CONFIG.API_BASE_URL || '(not configured)'}</p>
                 <button onclick="app.loadAnimals()" class="retry-button">Try Again</button>
             </div>
         `;
@@ -324,6 +351,14 @@ const ui = {
     updateStats(stats) {
         const statsContainer = document.getElementById('stats-container');
         if (!statsContainer) return;
+
+        // Format data freshness timestamp if available
+        let dataFreshnessHtml = '';
+        if (stats.data_updated_at) {
+            const dataDate = new Date(stats.data_updated_at);
+            const formatted = dataDate.toLocaleString();
+            dataFreshnessHtml = `<div class="data-freshness">Data last updated: ${formatted}</div>`;
+        }
         
         statsContainer.innerHTML = `
             <div class="stat-item">
@@ -338,6 +373,7 @@ const ui = {
                 <span class="stat-value">${stats.success_stories || 0}</span>
                 <span class="stat-label">Happy Endings</span>
             </div>
+            ${dataFreshnessHtml}
         `;
     },
     
@@ -497,7 +533,7 @@ const app = {
             this.renderAnimals();
             
         } catch (error) {
-            ui.showError(container, 'Failed to load animals. Please try again.');
+            ui.showError(container, 'Failed to load animals. Please try again.', error);
             console.error('Failed to load animals:', error);
         } finally {
             state.isLoading = false;
@@ -521,15 +557,29 @@ const app = {
         
         // Render animal cards
         if (state.animals.length === 0) {
-            container.innerHTML = `
-                <div class="no-results">
-                    <span class="no-results-icon">🔍</span>
-                    <p>No animals found matching your criteria.</p>
-                    <button onclick="app.clearFilters()" class="clear-filters-btn">
-                        Clear Filters
-                    </button>
-                </div>
-            `;
+            // Distinguish between "no filters match" vs "no data at all"
+            const hasActiveFilters = Object.values(state.filters).some(v => v && v !== '');
+            if (hasActiveFilters) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <span class="no-results-icon">🔍</span>
+                        <p>No animals found matching your criteria.</p>
+                        <button onclick="app.clearFilters()" class="clear-filters-btn">
+                            Clear Filters
+                        </button>
+                    </div>
+                `;
+            } else {
+                // No data at all - empty database / new deployment
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span class="empty-state-icon">🐾</span>
+                        <h3>No Animals Yet</h3>
+                        <p>We're still gathering data from shelters. Check back soon!</p>
+                        <p class="empty-state-hint">If you're an admin, run the ingestion script to populate data.</p>
+                    </div>
+                `;
+            }
         } else {
             container.innerHTML = '';
             state.animals.forEach(animal => {
@@ -806,6 +856,37 @@ const app = {
 // =============================================================================
 // INITIALIZATION
 // =============================================================================
+
+/**
+ * Register service worker for offline support
+ */
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+            try {
+                const registration = await navigator.serviceWorker.register('/sw.js');
+                console.log('[App] ServiceWorker registered:', registration.scope);
+                
+                // Handle updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New version available
+                            console.log('[App] New version available');
+                            // Optionally notify user about update
+                        }
+                    });
+                });
+            } catch (error) {
+                console.warn('[App] ServiceWorker registration failed:', error);
+            }
+        });
+    }
+}
+
+// Register service worker
+registerServiceWorker();
 
 // Initialize app when DOM is ready
 if (document.readyState === 'loading') {

@@ -31,10 +31,7 @@ from PIL import Image
 import imagehash
 from io import BytesIO
 
-try:
-    from app.config import settings
-except ImportError:
-    from ..app.config import settings
+from app.config import settings
 
 logger = logging.getLogger(__name__)
 

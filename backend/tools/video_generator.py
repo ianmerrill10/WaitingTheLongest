@@ -39,10 +39,8 @@ except ImportError:
     MOVIEPY_AVAILABLE = False
     logging.warning("MoviePy not installed. Video generation disabled.")
 
-try:
-    from app.config import settings
-except ImportError:
-    from ..app.config import settings
+# Use absolute import - requires backend/ in PYTHONPATH
+from app.config import settings
 
 logger = logging.getLogger(__name__)
 

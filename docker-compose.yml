@@ -1,0 +1,152 @@
+# ============================================================================
+# Waiting The Longest™ - Docker Compose
+# ============================================================================
+# Local development environment with all services
+#
+# Usage:
+#   docker-compose up              # Start all services
+#   docker-compose up -d           # Start in background
+#   docker-compose down            # Stop all services
+#   docker-compose logs -f         # View logs
+#   docker-compose exec backend bash  # Shell into backend container
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # Backend API Service
+  # ===========================================================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wtl-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://waiting_user:waiting_pass@db:5432/waiting_the_longest
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-dev-secret-key-change-me}
+      - DEBUG=true
+      - CORS_ORIGINS=["http://localhost:3000","http://localhost:8000","http://127.0.0.1:8000"]
+    volumes:
+      - ./backend:/app/backend:ro
+      - backend_data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # ===========================================================================
+  # PostgreSQL Database
+  # ===========================================================================
+  db:
+    image: postgres:16-alpine
+    container_name: wtl-db
+    environment:
+      - POSTGRES_USER=waiting_user
+      - POSTGRES_PASSWORD=waiting_pass
+      - POSTGRES_DB=waiting_the_longest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U waiting_user -d waiting_the_longest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ===========================================================================
+  # Redis Cache
+  # ===========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: wtl-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  # ===========================================================================
+  # Frontend (Static Files via Nginx)
+  # ===========================================================================
+  frontend:
+    image: nginx:alpine
+    container_name: wtl-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ===========================================================================
+  # Adminer (Database UI)
+  # ===========================================================================
+  adminer:
+    image: adminer:latest
+    container_name: wtl-adminer
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      - db
+    restart: unless-stopped
+    profiles:
+      - tools
+
+  # ===========================================================================
+  # Ingestion Worker (Background Data Sync)
+  # ===========================================================================
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wtl-ingestion
+    command: python scripts/ingest.py --daemon --interval 6
+    environment:
+      - DATABASE_URL=postgresql://waiting_user:waiting_pass@db:5432/waiting_the_longest
+      - REDIS_URL=redis://redis:6379/0
+      - RESCUEGROUPS_API_KEY=${RESCUEGROUPS_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+    profiles:
+      - full
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  backend_data:
+    driver: local
+
+networks:
+  default:
+    name: wtl-network

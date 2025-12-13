@@ -1,0 +1,46 @@
+name: 🧪 Scheduled Tests
+
+on:
+  schedule:
+    # Daily at 03:15 UTC (adjust as desired)
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  scheduled-tests:
+    name: 🧪 Run pytest + update logs
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+
+      - name: Run scheduled test runner
+        env:
+          DATABASE_URL: sqlite:///./test.db
+          SECRET_KEY: scheduled-tests
+        run: |
+          cd backend && python tools/scheduled_tests.py
+
+      - name: Commit updated test logs
+        if: success() || failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add logs/TESTING_LOG.md logs/FILES_TESTED.json logs/FILES_TESTED.md || true
+          git diff --cached --quiet || git commit -m "chore: update testing logs [skip ci]"
+          git push || echo "Nothing to push or push failed"

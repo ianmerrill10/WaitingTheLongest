@@ -7,6 +7,9 @@
     <meta name="keywords" content="pet adoption, shelter animals, rescue pets, adopt a dog, adopt a cat, longest waiting pets">
     <meta name="author" content="Waiting The Longest™">
 
+    <!-- Optional: set this when frontend and backend are on different origins -->
+    <meta name="wtl-api-base-url" content="">
+
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://waitingthelongest.com/">
@@ -22,6 +25,13 @@
 
     <title>Waiting The Longest™ - Because Every Day Matters</title>
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="WTL">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,16 +39,16 @@
 
     <style>
         :root {
-            --primary-color: #E86C3A;
-            --primary-dark: #C85A2E;
-            --secondary-color: #4A90A4;
-            --text-color: #333;
-            --text-light: #666;
-            --bg-color: #FFF9F5;
+            --primary-color: #2563EB;
+            --primary-dark: #1D4ED8;
+            --secondary-color: #7C3AED;
+            --text-color: #1F2937;
+            --text-light: #6B7280;
+            --bg-color: #F8FAFC;
             --card-bg: #FFFFFF;
-            --border-color: #E5E5E5;
-            --success-color: #4CAF50;
-            --warning-color: #FF9800;
+            --border-color: #E2E8F0;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
         }
 
         * {

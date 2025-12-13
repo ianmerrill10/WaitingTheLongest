@@ -19,7 +19,11 @@ management and validation.
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List, Optional
+from pathlib import Path
 import os
+
+
+_DEFAULT_SQLITE_PATH = (Path(__file__).resolve().parents[1] / "waitingthelongest.db").as_posix()
 
 
 class Settings(BaseSettings):
@@ -42,7 +46,7 @@ class Settings(BaseSettings):
     # ==========================================================================
     # Database Configuration
     # ==========================================================================
-    DATABASE_URL: str = "postgresql://waiting_user:CHANGE_PASSWORD@localhost:5432/waiting_the_longest"
+    DATABASE_URL: str = f"sqlite:///{_DEFAULT_SQLITE_PATH}"
     DB_POOL_SIZE: int = 5
     DB_MAX_OVERFLOW: int = 10
 

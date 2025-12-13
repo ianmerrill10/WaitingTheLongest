@@ -20,6 +20,7 @@ Tagline: "Because Every Day Matters"
 from fastapi import FastAPI, Depends, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import Optional, List
@@ -27,6 +28,7 @@ from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 import logging
 import hashlib
+import uuid
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -48,6 +50,9 @@ from .crud import (
     create_success_story, get_trending_stories
 )
 from .email_marketing import EmailMarketingService
+
+from pathlib import Path
+from fastapi.responses import FileResponse
 
 # Import monetization modules
 from backend.monetization.amazon_associates import AmazonAssociates, track_affiliate_click
@@ -88,9 +93,30 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+
+# =============================================================================
+# Middleware
+# =============================================================================
+
+class RequestIDMiddleware(BaseHTTPMiddleware):
+    """Add unique request ID to each request for tracing"""
+    
+    async def dispatch(self, request: Request, call_next):
+        # Use provided X-Request-ID or generate new one
+        request_id = request.headers.get("X-Request-ID", str(uuid.uuid4())[:8])
+        request.state.request_id = request_id
+        
+        response = await call_next(request)
+        response.headers["X-Request-ID"] = request_id
+        return response
+
+
 # Rate limiting
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Add request ID middleware (applied first = runs last, so ID is available early)
+app.add_middleware(RequestIDMiddleware)
 
 # CORS middleware
 app.add_middleware(
@@ -312,6 +338,10 @@ async def get_statistics(request: Request, db: Session = Depends(get_db)):
     # Success stories count
     success_count = db.query(func.count(SuccessStory.id)).scalar() or 0
 
+    # Get most recent observation timestamp for "data freshness"
+    latest_observation = db.query(func.max(Observation.last_seen_at)).scalar()
+    data_updated_at = latest_observation.isoformat() if latest_observation else None
+
     return {
         "total_animals": total_animals,
         "available_animals": available_animals,
@@ -319,7 +349,8 @@ async def get_statistics(request: Request, db: Session = Depends(get_db)):
         "longest_wait_days": longest_wait_days,
         "success_stories": success_count,
         "mission": "Because Every Day Matters",
-        "updated_at": datetime.utcnow().isoformat()
+        "updated_at": datetime.utcnow().isoformat(),
+        "data_updated_at": data_updated_at
     }
 
 
@@ -696,6 +727,28 @@ async def global_exception_handler(request: Request, exc: Exception):
             "message": "Something went wrong. Please try again later."
         }
     )
+
+
+# =============================================================================
+# Local Demo UI (served from backend)
+# =============================================================================
+
+FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
+
+if FRONTEND_DIR.exists():
+    @app.get("/demo", include_in_schema=False)
+    async def demo_ui():
+        return FileResponse(FRONTEND_DIR / "index.html", media_type="text/html")
+
+    @app.get("/styles.css", include_in_schema=False)
+    async def demo_styles():
+        return FileResponse(FRONTEND_DIR / "styles.css", media_type="text/css")
+
+    @app.get("/app.js", include_in_schema=False)
+    async def demo_app_js():
+        return FileResponse(FRONTEND_DIR / "app.js", media_type="application/javascript")
+else:
+    logger.warning(f"Frontend directory not found at {FRONTEND_DIR}; /demo will be unavailable")
 
 
 # =============================================================================
