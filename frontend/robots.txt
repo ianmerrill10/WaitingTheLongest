@@ -1,0 +1,24 @@
+# Waiting The Longest™ - Robots.txt
+# https://waitingthelongest.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://waitingthelongest.com/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Disallow API endpoints from indexing
+Disallow: /api/
+Disallow: /health
+
+# Allow specific content pages
+Allow: /about
+Allow: /success-stories
+Allow: /resources
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+Allow: /animal/

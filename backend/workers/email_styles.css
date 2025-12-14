@@ -1,0 +1,306 @@
+/* =============================================================================
+   Waiting The Longest™ - Email Styles
+   ============================================================================= */
+
+/* 
+ * Email-safe CSS for HTML email templates.
+ * Note: Email clients have limited CSS support. These styles are optimized
+ * for maximum compatibility.
+ */
+
+/* =============================================================================
+   Base Styles
+   ============================================================================= */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* =============================================================================
+   Container
+   ============================================================================= */
+
+.email-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.email-wrapper {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* =============================================================================
+   Header
+   ============================================================================= */
+
+.email-header {
+    background: linear-gradient(135deg, #2c5530 0%, #4a7c4e 100%);
+    color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.email-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.email-header p {
+    margin: 10px 0 0 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Urgent header variant */
+.email-header.urgent {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+/* Success header variant */
+.email-header.success {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* =============================================================================
+   Content
+   ============================================================================= */
+
+.email-content {
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+.email-content h2 {
+    color: #2c5530;
+    font-size: 24px;
+    margin: 0 0 20px 0;
+}
+
+.email-content h3 {
+    color: #333333;
+    font-size: 18px;
+    margin: 20px 0 10px 0;
+}
+
+.email-content p {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #555555;
+}
+
+.email-content ul {
+    margin: 0 0 20px 0;
+    padding-left: 25px;
+}
+
+.email-content li {
+    margin-bottom: 8px;
+    color: #555555;
+}
+
+/* =============================================================================
+   Buttons
+   ============================================================================= */
+
+.email-btn {
+    display: inline-block;
+    background-color: #2c5530;
+    color: #ffffff !important;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.email-btn:hover {
+    background-color: #4a7c4e;
+}
+
+.email-btn.secondary {
+    background-color: #6b7280;
+}
+
+.email-btn.urgent {
+    background-color: #dc2626;
+}
+
+.email-btn-wrapper {
+    text-align: center;
+    margin: 25px 0;
+}
+
+/* =============================================================================
+   Animal Cards
+   ============================================================================= */
+
+.animal-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #fafafa;
+}
+
+.animal-card img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 6px;
+    display: block;
+}
+
+.animal-card h3 {
+    margin: 0 0 5px 0;
+    color: #1f2937;
+    font-size: 20px;
+}
+
+.animal-card .details {
+    margin: 5px 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.animal-card .days-waiting {
+    color: #2c5530;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.animal-card .shelter {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* =============================================================================
+   Stats Section
+   ============================================================================= */
+
+.stats-section {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.stats-section h3 {
+    margin-top: 0;
+    color: #374151;
+}
+
+.stat-item {
+    margin: 10px 0;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #2c5530;
+}
+
+/* =============================================================================
+   Divider
+   ============================================================================= */
+
+.email-divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 25px 0;
+}
+
+/* =============================================================================
+   Footer
+   ============================================================================= */
+
+.email-footer {
+    background-color: #f9fafb;
+    padding: 25px;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.email-footer p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.email-footer a {
+    color: #2c5530;
+    text-decoration: underline;
+}
+
+.email-footer .social-links {
+    margin: 15px 0;
+}
+
+.email-footer .social-links a {
+    display: inline-block;
+    margin: 0 10px;
+    color: #6b7280;
+    text-decoration: none;
+}
+
+/* =============================================================================
+   Utility Classes
+   ============================================================================= */
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #9ca3af;
+}
+
+.highlight {
+    background-color: #fef3c7;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.emoji-large {
+    font-size: 48px;
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* =============================================================================
+   Responsive (for email clients that support it)
+   ============================================================================= */
+
+@media screen and (max-width: 600px) {
+    .email-container {
+        width: 100% !important;
+    }
+    
+    .email-header {
+        padding: 20px 15px;
+    }
+    
+    .email-header h1 {
+        font-size: 24px;
+    }
+    
+    .email-content {
+        padding: 20px 15px;
+    }
+    
+    .animal-card img {
+        max-width: 100%;
+    }
+}

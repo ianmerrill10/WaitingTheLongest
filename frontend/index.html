@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Waiting The Longest™ - Help shelter animals who have waited the longest find forever homes. Because Every Day Matters.">
-    <meta name="keywords" content="pet adoption, shelter animals, rescue pets, adopt a dog, adopt a cat, longest waiting pets">
+    <meta name="keywords" content="dog adoption, shelter dogs, rescue dogs, adopt a dog, longest waiting dogs, dog rescue">
     <meta name="author" content="Waiting The Longest™">
+    <link rel="canonical" href="https://waitingthelongest.com/">
 
     <!-- Optional: set this when frontend and backend are on different origins -->
     <meta name="wtl-api-base-url" content="">
@@ -16,6 +17,7 @@
     <meta property="og:title" content="Waiting The Longest™ - Because Every Day Matters">
     <meta property="og:description" content="Help shelter animals who have waited the longest find forever homes.">
     <meta property="og:image" content="https://waitingthelongest.com/images/og-image.jpg">
+    <meta property="og:site_name" content="Waiting The Longest™">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -25,9 +27,41 @@
 
     <title>Waiting The Longest™ - Because Every Day Matters</title>
 
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Waiting The Longest™",
+        "alternateName": "WTL",
+        "url": "https://waitingthelongest.com",
+        "description": "Help shelter animals who have waited the longest find forever homes. Because Every Day Matters.",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://waitingthelongest.com/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Waiting The Longest™",
+        "url": "https://waitingthelongest.com",
+        "logo": "https://waitingthelongest.com/icons/icon.svg",
+        "sameAs": [],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@waitingthelongest.com",
+            "contactType": "customer service"
+        }
+    }
+    </script>
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3b82f6">
+    <meta name="theme-color" content="#2563EB">
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="apple-touch-icon.svg">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,6 +85,23 @@
             --border-color: #E2E8F0;
             --success-color: #10B981;
             --warning-color: #F59E0B;
+            --error-color: #EF4444;
+            --skeleton-bg: #E2E8F0;
+            --skeleton-shine: #F1F5F9;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --primary-color: #3B82F6;
+            --primary-dark: #2563EB;
+            --secondary-color: #8B5CF6;
+            --text-color: #F3F4F6;
+            --text-light: #9CA3AF;
+            --bg-color: #111827;
+            --card-bg: #1F2937;
+            --border-color: #374151;
+            --skeleton-bg: #374151;
+            --skeleton-shine: #4B5563;
         }
 
         * {
@@ -59,11 +110,35 @@
             box-sizing: border-box;
         }
 
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            z-index: 1000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus indicators for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Header */
@@ -98,6 +173,12 @@
             opacity: 0.9;
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         nav a {
             color: white;
             text-decoration: none;
@@ -108,6 +189,29 @@
 
         nav a:hover {
             opacity: 0.8;
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
 
         /* Hero Section */
@@ -316,6 +420,204 @@
             margin-top: 0.5rem;
         }
 
+        /* Search Bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        .search-bar input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .search-bar button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .search-bar button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .filter-bar select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .filter-bar select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Favorites Badge */
+        .favorites-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: var(--text-color);
+        }
+        .favorites-toggle.active {
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+        .favorites-count {
+            background: var(--error-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Favorite Button on Card */
+        .favorite-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+        .favorite-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #ccc;
+            transition: fill 0.2s;
+        }
+        .favorite-btn.active svg {
+            fill: var(--error-color);
+        }
+
+        /* Share Buttons */
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            background: var(--bg-color);
+        }
+        .share-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Loading Skeleton */
+        .skeleton-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .skeleton-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-text {
+            height: 1rem;
+            background: linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+            margin: 0.5rem 1rem;
+        }
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.medium { width: 80%; }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 50;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
@@ -396,6 +698,11 @@
                 gap: 1rem;
             }
 
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
             nav a {
                 margin: 0 0.75rem;
             }
@@ -412,22 +719,48 @@
             .pet-grid {
                 grid-template-columns: 1fr;
             }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .filter-bar {
+                justify-content: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header, footer, .back-to-top, .favorite-btn, .share-buttons, .filter-bar, .search-bar {
+                display: none !important;
+            }
+            .pet-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
-    <header>
+    <header role="banner">
         <div class="header-content">
-            <div class="logo">
+            <div class="logo" role="img" aria-label="Waiting The Longest logo">
                 Waiting The Longest™
                 <span>Because Every Day Matters</span>
             </div>
-            <nav>
+            <nav role="navigation" aria-label="Main navigation">
                 <a href="/" data-nav="/">Home</a>
                 <a href="/about" data-nav="/about">About</a>
                 <a href="/success-stories" data-nav="/success-stories">Success Stories</a>
                 <a href="/resources" data-nav="/resources">Resources</a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></svg>
+                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none"><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></svg>
+                </button>
             </nav>
         </div>
     </header>
@@ -435,36 +768,89 @@
     <div id="routes">
         <!-- HOME -->
         <div id="route-home" class="route" data-route="/">
-            <section class="hero">
+            <section class="hero" role="region" aria-label="Welcome banner">
                 <h1>Help Shelter Animals Find Forever Homes</h1>
                 <p>We highlight the animals who have been waiting the longest. Every day matters when you're waiting for love.</p>
                 <a href="#pets" class="btn btn-primary">Meet the Animals</a>
 
-                <div class="hero-stats">
+                <div class="hero-stats" role="group" aria-label="Platform statistics">
                     <div class="stat">
-                        <div class="stat-number" id="stat-available">--</div>
+                        <div class="stat-number" id="stat-available" aria-live="polite">--</div>
                         <div class="stat-label">Animals Waiting</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number" id="stat-longest">--</div>
+                        <div class="stat-number" id="stat-longest" aria-live="polite">--</div>
                         <div class="stat-label">Longest Wait (Days)</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number" id="stat-adopted">--</div>
+                        <div class="stat-number" id="stat-adopted" aria-live="polite">--</div>
                         <div class="stat-label">Success Stories</div>
                     </div>
                 </div>
             </section>
 
-            <main>
-                <section id="pets">
+            <main id="main-content" role="main">
+                <section id="pets" aria-label="Pet listings">
                     <h2 class="section-title">Animals Waiting The Longest</h2>
 
-                    <div id="pet-grid" class="pet-grid">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>Loading animals...</p>
+                    <!-- Search Bar -->
+                    <div class="search-bar" role="search">
+                        <input type="text" id="search-input" placeholder="Search by name, breed, or location..." aria-label="Search pets">
+                        <button type="button" id="search-btn" aria-label="Search">Search</button>
+                    </div>
+
+                    <!-- Filter Bar -->
+                    <div class="filter-bar" role="group" aria-label="Filter options">
+                        <select id="filter-species" aria-label="Filter by species" style="display:none;">
+                            <option value="dog" selected>Dogs</option>
+                            <option value="cat" disabled>Cats (Coming Soon)</option>
+                        </select>
+                        <select id="filter-age" aria-label="Filter by age">
+                            <option value="">All Ages</option>
+                            <option value="puppy">Puppy</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                        <select id="filter-size" aria-label="Filter by size">
+                            <option value="">All Sizes</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                        <select id="filter-gender" aria-label="Filter by gender">
+                            <option value="">All Genders</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <button type="button" class="favorites-toggle" id="favorites-toggle" aria-label="Show favorites">
+                            <span>❤️ Favorites</span>
+                            <span class="favorites-count" id="favorites-count">0</span>
+                        </button>
+                    </div>
+
+                    <div id="pet-grid" class="pet-grid" role="list" aria-label="Pet cards">
+                        <!-- Loading skeletons -->
+                        <div class="skeleton-card" aria-hidden="true">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-text medium"></div>
+                            <div class="skeleton-text short"></div>
                         </div>
+                        <div class="skeleton-card" aria-hidden="true">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-text medium"></div>
+                            <div class="skeleton-text short"></div>
+                        </div>
+                        <div class="skeleton-card" aria-hidden="true">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-text medium"></div>
+                            <div class="skeleton-text short"></div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button type="button" class="btn btn-primary" id="load-more-btn" style="display: none;">Load More Animals</button>
                     </div>
                 </section>
             </main>
@@ -602,6 +988,11 @@
         </p>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+    </button>
+
     <!-- JavaScript -->
     <script>
         // API Base URL
@@ -609,6 +1000,89 @@
 
         const counterElements = new Set();
         let counterIntervalId = null;
+        let currentPage = 1;
+        let allAnimals = [];
+        let showingFavoritesOnly = false;
+
+        // Favorites Management (localStorage)
+        function getFavorites() {
+            try {
+                return JSON.parse(localStorage.getItem('wtl_favorites') || '[]');
+            } catch { return []; }
+        }
+        function saveFavorites(ids) {
+            localStorage.setItem('wtl_favorites', JSON.stringify(ids));
+            updateFavoritesCount();
+        }
+        function toggleFavorite(id) {
+            const favs = getFavorites();
+            const idx = favs.indexOf(id);
+            if (idx === -1) favs.push(id);
+            else favs.splice(idx, 1);
+            saveFavorites(favs);
+            return favs.includes(id);
+        }
+        function isFavorite(id) {
+            return getFavorites().includes(id);
+        }
+        function updateFavoritesCount() {
+            const count = getFavorites().length;
+            const el = document.getElementById('favorites-count');
+            if (el) el.textContent = count;
+        }
+
+        // Theme Management
+        function getTheme() {
+            return localStorage.getItem('wtl_theme') || 'light';
+        }
+        function setTheme(theme) {
+            localStorage.setItem('wtl_theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+        function toggleTheme() {
+            setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+        }
+
+        // Back to Top
+        function initBackToTop() {
+            const btn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) btn.classList.add('visible');
+                else btn.classList.remove('visible');
+            });
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Share functionality
+        function getShareUrl(animal) {
+            return `${window.location.origin}/animal/${animal.id}`;
+        }
+        function shareTwitter(animal) {
+            const url = getShareUrl(animal);
+            const text = `Meet ${animal.canonical_name || 'this pet'}! They've been waiting ${animal.days_waiting} days for a forever home. ${url}`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+        }
+        function shareFacebook(animal) {
+            const url = getShareUrl(animal);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+        function copyLink(animal) {
+            const url = getShareUrl(animal);
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied!');
+            });
+        }
 
         function normalizePhotoUrl(url) {
             if (!url || typeof url !== 'string') return '';
@@ -755,19 +1229,50 @@
             return el;
         }
 
-        function renderAnimals(items) {
+        function renderAnimals(items, append = false) {
             const grid = document.getElementById('pet-grid');
-            grid.innerHTML = '';
+            if (!append) {
+                grid.innerHTML = '';
+                counterElements.clear();
+            }
 
             const fragment = document.createDocumentFragment();
 
             for (const animal of items) {
                 const card = document.createElement('div');
                 card.className = 'pet-card';
-                card.addEventListener('click', () => viewAnimal(animal.id));
+                card.setAttribute('role', 'listitem');
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.favorite-btn') && !e.target.closest('.share-btn')) {
+                        viewAnimal(animal.id);
+                    }
+                });
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        viewAnimal(animal.id);
+                    }
+                });
 
                 const imageWrap = document.createElement('div');
                 imageWrap.className = 'pet-image-wrap';
+
+                // Favorite button
+                const favBtn = document.createElement('button');
+                favBtn.className = `favorite-btn ${isFavorite(animal.id) ? 'active' : ''}`;
+                favBtn.setAttribute('aria-label', isFavorite(animal.id) ? 'Remove from favorites' : 'Add to favorites');
+                favBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+                favBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const nowFav = toggleFavorite(animal.id);
+                    favBtn.classList.toggle('active', nowFav);
+                    favBtn.setAttribute('aria-label', nowFav ? 'Remove from favorites' : 'Add to favorites');
+                    if (showingFavoritesOnly && !nowFav) {
+                        card.remove();
+                    }
+                });
+                imageWrap.appendChild(favBtn);
 
                 const img = document.createElement('img');
                 img.className = 'pet-image';
@@ -815,10 +1320,38 @@
                 location.className = 'pet-location';
                 location.textContent = `${animal.city || ''} ${animal.state || ''}`.trim();
 
+                // Share buttons
+                const shareDiv = document.createElement('div');
+                shareDiv.className = 'share-buttons';
+                shareDiv.innerHTML = `
+                    <button class="share-btn" data-share="twitter" aria-label="Share on Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+                        Tweet
+                    </button>
+                    <button class="share-btn" data-share="facebook" aria-label="Share on Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        Share
+                    </button>
+                    <button class="share-btn" data-share="copy" aria-label="Copy link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                        Copy
+                    </button>
+                `;
+                shareDiv.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.share-btn');
+                    if (!btn) return;
+                    e.stopPropagation();
+                    const type = btn.getAttribute('data-share');
+                    if (type === 'twitter') shareTwitter(animal);
+                    else if (type === 'facebook') shareFacebook(animal);
+                    else if (type === 'copy') copyLink(animal);
+                });
+
                 info.appendChild(name);
                 info.appendChild(breed);
                 info.appendChild(badge);
                 info.appendChild(location);
+                info.appendChild(shareDiv);
 
                 card.appendChild(imageWrap);
                 card.appendChild(info);
@@ -1026,21 +1559,117 @@
         }
 
         // Load animals
-        async function loadAnimals() {
+        async function loadAnimals(append = false) {
             const grid = document.getElementById('pet-grid');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            if (!append) {
+                currentPage = 1;
+                // Show skeleton loaders
+                grid.innerHTML = `
+                    <div class="skeleton-card" aria-hidden="true"><div class="skeleton-image"></div><div class="skeleton-text medium"></div><div class="skeleton-text short"></div></div>
+                    <div class="skeleton-card" aria-hidden="true"><div class="skeleton-image"></div><div class="skeleton-text medium"></div><div class="skeleton-text short"></div></div>
+                    <div class="skeleton-card" aria-hidden="true"><div class="skeleton-image"></div><div class="skeleton-text medium"></div><div class="skeleton-text short"></div></div>
+                `;
+            }
+
+            // Build query params from filters
+            const species = document.getElementById('filter-species')?.value || '';
+            const age = document.getElementById('filter-age')?.value || '';
+            const size = document.getElementById('filter-size')?.value || '';
+            const gender = document.getElementById('filter-gender')?.value || '';
+            const search = document.getElementById('search-input')?.value || '';
+
+            let url = `${API_BASE}/animals?sort_by=days_waiting&sort_order=desc&page=${currentPage}&page_size=12`;
+            if (species) url += `&species=${encodeURIComponent(species)}`;
+            if (age) url += `&age_group=${encodeURIComponent(age)}`;
+            if (size) url += `&size=${encodeURIComponent(size)}`;
+            if (gender) url += `&gender=${encodeURIComponent(gender)}`;
+            if (search) url += `&breed=${encodeURIComponent(search)}`;
 
             try {
-                const response = await fetch(`${API_BASE}/animals?sort_by=days_waiting&sort_order=desc&page_size=12`);
+                const response = await fetch(url);
                 const data = await response.json();
 
                 if (data.items && data.items.length > 0) {
-                    renderAnimals(data.items);
+                    if (!append) allAnimals = data.items;
+                    else allAnimals = [...allAnimals, ...data.items];
+
+                    renderAnimals(data.items, append);
+
+                    // Show/hide load more button
+                    if (data.has_next) {
+                        loadMoreBtn.style.display = 'inline-block';
+                    } else {
+                        loadMoreBtn.style.display = 'none';
+                    }
                 } else {
-                    grid.innerHTML = '<p>No animals found. Check back soon!</p>';
+                    if (!append) {
+                        grid.innerHTML = '<p>No animals found. Try adjusting your filters.</p>';
+                    }
+                    loadMoreBtn.style.display = 'none';
                 }
             } catch (error) {
                 console.error('Failed to load animals:', error);
-                grid.innerHTML = '<p>Unable to load animals. Please try again later.</p>';
+                if (!append) {
+                    grid.innerHTML = '<p>Unable to load animals. Please try again later.</p>';
+                }
+            }
+        }
+
+        // Filter and search handlers
+        function initFilters() {
+            const filterIds = ['filter-species', 'filter-age', 'filter-size', 'filter-gender'];
+            filterIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('change', () => {
+                    showingFavoritesOnly = false;
+                    document.getElementById('favorites-toggle')?.classList.remove('active');
+                    loadAnimals();
+                });
+            });
+
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', () => {
+                    showingFavoritesOnly = false;
+                    document.getElementById('favorites-toggle')?.classList.remove('active');
+                    loadAnimals();
+                });
+            }
+            if (searchInput) {
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        showingFavoritesOnly = false;
+                        document.getElementById('favorites-toggle')?.classList.remove('active');
+                        loadAnimals();
+                    }
+                });
+            }
+
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', () => {
+                    currentPage++;
+                    loadAnimals(true);
+                });
+            }
+
+            const favToggle = document.getElementById('favorites-toggle');
+            if (favToggle) {
+                favToggle.addEventListener('click', () => {
+                    showingFavoritesOnly = !showingFavoritesOnly;
+                    favToggle.classList.toggle('active', showingFavoritesOnly);
+                    if (showingFavoritesOnly) {
+                        const favIds = getFavorites();
+                        const favAnimals = allAnimals.filter(a => favIds.includes(a.id));
+                        renderAnimals(favAnimals);
+                        document.getElementById('load-more-btn').style.display = 'none';
+                    } else {
+                        renderAnimals(allAnimals);
+                    }
+                });
             }
         }
 
@@ -1051,6 +1680,15 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            // Apply saved theme
+            setTheme(getTheme());
+            document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+
+            // Init features
+            initBackToTop();
+            initFilters();
+            updateFavoritesCount();
+
             document.addEventListener('click', (e) => {
                 const a = e.target && e.target.closest ? e.target.closest('a[data-nav]') : null;
                 if (!a) return;

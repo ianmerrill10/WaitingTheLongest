@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Waiting The Longest™</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 1.75rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .paw-prints {
+            font-size: 2rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+        
+        .retry-btn {
+            display: inline-block;
+            background: #2c5530;
+            color: white;
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        
+        .retry-btn:hover {
+            background: #3d7a42;
+            transform: translateY(-2px);
+        }
+        
+        .retry-btn:active {
+            transform: translateY(0);
+        }
+        
+        .tips {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        
+        .tips h3 {
+            font-size: 1rem;
+            color: #2c5530;
+            margin-bottom: 0.75rem;
+        }
+        
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips li {
+            padding: 0.5rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .tips li::before {
+            content: "🐾 ";
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .offline-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="offline-icon">🐕</div>
+        
+        <h1>You're Offline</h1>
+        <p class="subtitle">But don't worry, help is on the way!</p>
+        
+        <div class="paw-prints">🐾 🐾 🐾</div>
+        
+        <p>
+            It looks like you've lost your internet connection. 
+            Just like a loyal pet waiting at the door, we'll be here 
+            when you get back online!
+        </p>
+        
+        <button class="retry-btn" onclick="location.reload()">
+            Try Again
+        </button>
+        
+        <div class="tips">
+            <h3>While you wait:</h3>
+            <ul>
+                <li>Check your WiFi or mobile data connection</li>
+                <li>Try moving to a location with better signal</li>
+                <li>If you're on a plane, enjoy your flight! 🛫</li>
+                <li>Previously viewed animals may still be cached</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Waiting The Longest™ — Giving overlooked pets a voice</p>
+        </div>
+    </div>
+    
+    <script>
+        // Check for connection and auto-reload
+        window.addEventListener('online', () => {
+            location.reload();
+        });
+        
+        // Register to receive updates when back online
+        if ('serviceWorker' in navigator && 'sync' in window.SyncManager) {
+            navigator.serviceWorker.ready.then((registration) => {
+                return registration.sync.register('sync-when-online');
+            });
+        }
+    </script>
+</body>
+</html>

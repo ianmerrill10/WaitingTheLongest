@@ -1,0 +1,180 @@
+# ===============================================================================
+# Waiting The Longest™ - Performance Testing Workflow
+# ===============================================================================
+# Purpose: Run load tests on staging environment
+# Tools: Locust for load testing
+# ===============================================================================
+
+name: Performance Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'Target URL to test'
+        required: true
+        default: 'https://staging.waitingthelongest.com'
+      users:
+        description: 'Number of concurrent users'
+        required: true
+        default: '50'
+      spawn_rate:
+        description: 'Users spawned per second'
+        required: true
+        default: '10'
+      duration:
+        description: 'Test duration (e.g., 5m, 1h)'
+        required: true
+        default: '5m'
+  schedule:
+    # Run weekly performance test on staging
+    - cron: '0 4 * * 0'
+
+jobs:
+  load-test:
+    name: Locust Load Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Locust
+        run: pip install locust
+
+      - name: Create Locustfile
+        run: |
+          cat > locustfile.py << 'EOF'
+          from locust import HttpUser, task, between
+          import random
+          
+          class WaitingTheLongestUser(HttpUser):
+              """Simulates typical user behavior on the site."""
+              
+              wait_time = between(1, 5)
+              
+              @task(10)
+              def view_homepage(self):
+                  """Most common action: view the main page."""
+                  self.client.get("/")
+              
+              @task(8)
+              def get_animals(self):
+                  """Fetch animal listings."""
+                  self.client.get("/api/animals")
+              
+              @task(5)
+              def get_animals_with_filters(self):
+                  """Fetch animals with filters."""
+                  species = random.choice(["dog", "cat", ""])
+                  age = random.choice(["puppy", "adult", "senior", ""])
+                  self.client.get(f"/api/animals?species={species}&age_group={age}")
+              
+              @task(4)
+              def get_stats(self):
+                  """Fetch platform statistics."""
+                  self.client.get("/api/stats")
+              
+              @task(3)
+              def get_success_stories(self):
+                  """Fetch success stories."""
+                  self.client.get("/api/success-stories")
+              
+              @task(2)
+              def get_shelters(self):
+                  """Fetch shelter listings."""
+                  self.client.get("/api/shelters")
+              
+              @task(2)
+              def get_breeds(self):
+                  """Fetch breed list."""
+                  self.client.get("/api/breeds")
+              
+              @task(1)
+              def get_filters(self):
+                  """Fetch filter options."""
+                  self.client.get("/api/filters")
+              
+              @task(1)
+              def health_check(self):
+                  """API health check."""
+                  self.client.get("/health")
+          EOF
+
+      - name: Run Locust load test
+        run: |
+          locust \
+            --headless \
+            --host=${{ github.event.inputs.target_url || 'https://waitingthelongest.com' }} \
+            --users=${{ github.event.inputs.users || '50' }} \
+            --spawn-rate=${{ github.event.inputs.spawn_rate || '10' }} \
+            --run-time=${{ github.event.inputs.duration || '5m' }} \
+            --csv=locust_results \
+            --html=locust_report.html
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report
+          path: |
+            locust_results_*.csv
+            locust_report.html
+          retention-days: 30
+
+      - name: Post summary
+        run: |
+          echo "## Performance Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target:** ${{ github.event.inputs.target_url || 'https://waitingthelongest.com' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Users:** ${{ github.event.inputs.users || '50' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Duration:** ${{ github.event.inputs.duration || '5m' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Request Statistics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f locust_results_stats.csv ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            head -20 locust_results_stats.csv >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+  api-benchmark:
+    name: API Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install hey (HTTP load generator)
+        run: |
+          wget https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
+          chmod +x hey_linux_amd64
+          sudo mv hey_linux_amd64 /usr/local/bin/hey
+
+      - name: Run API benchmarks
+        run: |
+          TARGET="${{ github.event.inputs.target_url || 'https://waitingthelongest.com' }}"
+          
+          echo "## API Benchmark Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Health endpoint
+          echo "### GET /health" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          hey -n 1000 -c 50 "$TARGET/health" | tail -20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          
+          # Animals endpoint
+          echo "### GET /api/animals" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          hey -n 500 -c 25 "$TARGET/api/animals" | tail -20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          
+          # Stats endpoint
+          echo "### GET /api/stats" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          hey -n 500 -c 25 "$TARGET/api/stats" | tail -20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,404 @@
+/* Waiting The Longest™ - Buttons Styles */
+
+/* =============================================================================
+   Button Base
+   ============================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.5;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent-color, #e85a4f);
+  outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Button Variants
+   ============================================================================= */
+
+/* Primary */
+.btn--primary {
+  background: var(--accent-color, #e85a4f);
+  color: white;
+}
+
+.btn--primary:hover {
+  background: var(--accent-hover, #d64a3f);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 90, 79, 0.3);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Secondary */
+.btn--secondary {
+  background: var(--bg-secondary, #f3f4f6);
+  color: var(--text-primary, #1f2937);
+}
+
+.btn--secondary:hover {
+  background: var(--bg-hover, #e5e7eb);
+}
+
+/* Outline */
+.btn--outline {
+  background: transparent;
+  border: 2px solid var(--accent-color, #e85a4f);
+  color: var(--accent-color, #e85a4f);
+}
+
+.btn--outline:hover {
+  background: var(--accent-color, #e85a4f);
+  color: white;
+}
+
+/* Ghost */
+.btn--ghost {
+  background: transparent;
+  color: var(--text-primary, #1f2937);
+}
+
+.btn--ghost:hover {
+  background: var(--bg-hover, #f3f4f6);
+}
+
+/* Link style */
+.btn--link {
+  background: transparent;
+  color: var(--accent-color, #e85a4f);
+  padding: 0;
+  text-decoration: underline;
+}
+
+.btn--link:hover {
+  text-decoration: none;
+}
+
+/* Danger */
+.btn--danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn--danger:hover {
+  background: #dc2626;
+}
+
+/* Success */
+.btn--success {
+  background: #10b981;
+  color: white;
+}
+
+.btn--success:hover {
+  background: #059669;
+}
+
+/* =============================================================================
+   Button Sizes
+   ============================================================================= */
+
+.btn--small {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+}
+
+.btn--large {
+  padding: 14px 28px;
+  font-size: 1.0625rem;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* =============================================================================
+   Icon Buttons
+   ============================================================================= */
+
+.btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-secondary, #6b7280);
+}
+
+.btn--icon:hover {
+  background: var(--bg-hover, #f3f4f6);
+  color: var(--text-primary, #1f2937);
+}
+
+.btn--icon.btn--small {
+  width: 32px;
+  height: 32px;
+}
+
+.btn--icon.btn--large {
+  width: 48px;
+  height: 48px;
+}
+
+/* Icon with text */
+.btn__icon {
+  flex-shrink: 0;
+}
+
+.btn__icon--left {
+  margin-right: -4px;
+}
+
+.btn__icon--right {
+  margin-left: -4px;
+}
+
+/* =============================================================================
+   Loading State
+   ============================================================================= */
+
+.btn.is-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn.is-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+.btn--primary.is-loading::after {
+  border-color: white;
+  border-right-color: transparent;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =============================================================================
+   Button Groups
+   ============================================================================= */
+
+.btn-group {
+  display: inline-flex;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+.btn-group--vertical {
+  flex-direction: column;
+}
+
+.btn-group--vertical .btn:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.btn-group--vertical .btn:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.btn-group--vertical .btn + .btn {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+/* Segmented control style */
+.btn-group--segmented {
+  background: var(--bg-secondary, #f3f4f6);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.btn-group--segmented .btn {
+  background: transparent;
+  border: none;
+}
+
+.btn-group--segmented .btn.is-active {
+  background: var(--bg-primary, #ffffff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================================================
+   FAB (Floating Action Button)
+   ============================================================================= */
+
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--accent-color, #e85a4f);
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.fab:active {
+  transform: scale(0.98);
+}
+
+/* Extended FAB */
+.fab--extended {
+  width: auto;
+  padding: 0 20px;
+  border-radius: 28px;
+}
+
+/* =============================================================================
+   Social Buttons
+   ============================================================================= */
+
+.btn--facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.btn--facebook:hover {
+  background: #166fe5;
+}
+
+.btn--twitter {
+  background: #1da1f2;
+  color: white;
+}
+
+.btn--twitter:hover {
+  background: #0c90e0;
+}
+
+.btn--instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+}
+
+.btn--email {
+  background: #6b7280;
+  color: white;
+}
+
+.btn--email:hover {
+  background: #4b5563;
+}
+
+/* =============================================================================
+   Pill Buttons
+   ============================================================================= */
+
+.btn--pill {
+  border-radius: 9999px;
+}
+
+/* =============================================================================
+   Dark Mode
+   ============================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .btn--secondary {
+    background: var(--bg-secondary-dark, #374151);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .btn--secondary:hover {
+    background: var(--bg-hover-dark, #4b5563);
+  }
+
+  .btn--ghost {
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .btn--ghost:hover {
+    background: var(--bg-hover-dark, #374151);
+  }
+
+  .btn--icon:hover {
+    background: var(--bg-hover-dark, #374151);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .btn-group--segmented {
+    background: var(--bg-secondary-dark, #374151);
+  }
+
+  .btn-group--segmented .btn.is-active {
+    background: var(--bg-primary-dark, #1f2937);
+  }
+}
+
+/* =============================================================================
+   Reduced Motion
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  .btn.is-loading::after {
+    animation: none;
+  }
+}

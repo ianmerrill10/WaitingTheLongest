@@ -1,0 +1,466 @@
+/* Waiting The Longest™ - Form Styles */
+
+/* =============================================================================
+   Form Layout
+   ============================================================================= */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row > * {
+  flex: 1;
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+/* =============================================================================
+   Form Groups
+   ============================================================================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-group--inline label {
+  flex-shrink: 0;
+  width: 120px;
+}
+
+/* =============================================================================
+   Labels
+   ============================================================================= */
+
+label,
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary, #1f2937);
+}
+
+.form-label--required::after {
+  content: ' *';
+  color: #ef4444;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-tertiary, #9ca3af);
+  margin-top: 4px;
+}
+
+/* =============================================================================
+   Text Inputs
+   ============================================================================= */
+
+.form-input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-primary, #1f2937);
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:hover {
+  border-color: var(--border-hover, #9ca3af);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-color, #e85a4f);
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.15);
+}
+
+.form-input::placeholder {
+  color: var(--text-tertiary, #9ca3af);
+}
+
+.form-input:disabled {
+  background: var(--bg-disabled, #f3f4f6);
+  color: var(--text-disabled, #9ca3af);
+  cursor: not-allowed;
+}
+
+/* Input with icon */
+.input-group {
+  position: relative;
+}
+
+.input-group .form-input {
+  padding-left: 40px;
+}
+
+.input-group__icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary, #9ca3af);
+  pointer-events: none;
+}
+
+.input-group--suffix .form-input {
+  padding-left: 14px;
+  padding-right: 40px;
+}
+
+.input-group__suffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* =============================================================================
+   Textarea
+   ============================================================================= */
+
+.form-textarea,
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--text-primary, #1f2937);
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 8px;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-color, #e85a4f);
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.15);
+}
+
+/* =============================================================================
+   Select
+   ============================================================================= */
+
+.form-select,
+select {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-primary, #1f2937);
+  background: var(--bg-primary, #ffffff);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--accent-color, #e85a4f);
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.15);
+}
+
+/* =============================================================================
+   Checkbox & Radio
+   ============================================================================= */
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--accent-color, #e85a4f);
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 0.875rem;
+  color: var(--text-primary, #1f2937);
+  cursor: pointer;
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-checkbox__box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color, #d1d5db);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.custom-checkbox input:checked + .custom-checkbox__box {
+  background: var(--accent-color, #e85a4f);
+  border-color: var(--accent-color, #e85a4f);
+}
+
+.custom-checkbox input:checked + .custom-checkbox__box::after {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.custom-checkbox input:focus + .custom-checkbox__box {
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.15);
+}
+
+/* =============================================================================
+   Toggle Switch
+   ============================================================================= */
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.toggle__track {
+  width: 44px;
+  height: 24px;
+  background: var(--bg-tertiary, #d1d5db);
+  border-radius: 12px;
+  transition: background-color 0.2s;
+}
+
+.toggle__thumb {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: left 0.2s;
+}
+
+.toggle input:checked + .toggle__track {
+  background: var(--accent-color, #e85a4f);
+}
+
+.toggle input:checked ~ .toggle__thumb {
+  left: 22px;
+}
+
+.toggle input:focus + .toggle__track {
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.15);
+}
+
+/* =============================================================================
+   Range Input
+   ============================================================================= */
+
+.form-range {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-tertiary, #d1d5db);
+  border-radius: 3px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--accent-color, #e85a4f);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.form-range:focus {
+  outline: none;
+}
+
+.form-range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.3);
+}
+
+/* =============================================================================
+   Validation States
+   ============================================================================= */
+
+.form-input.is-valid,
+.form-select.is-valid,
+.form-textarea.is-valid {
+  border-color: #10b981;
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid,
+.form-textarea.is-invalid {
+  border-color: #ef4444;
+}
+
+.form-input.is-invalid:focus,
+.form-select.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.form-error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.form-success {
+  font-size: 0.75rem;
+  color: #10b981;
+  margin-top: 4px;
+}
+
+/* =============================================================================
+   Search Input
+   ============================================================================= */
+
+.search-input {
+  position: relative;
+}
+
+.search-input .form-input {
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 24px;
+}
+
+.search-input__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary, #9ca3af);
+}
+
+.search-input__clear {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary, #9ca3af);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+}
+
+.search-input:has(.form-input:not(:placeholder-shown)) .search-input__clear {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =============================================================================
+   Dark Mode
+   ============================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .form-label,
+  label {
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background: var(--bg-primary-dark, #1f2937);
+    border-color: var(--border-color-dark, #374151);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--accent-color, #e85a4f);
+  }
+
+  .form-input::placeholder {
+    color: var(--text-tertiary-dark, #6b7280);
+  }
+
+  .form-input:disabled {
+    background: var(--bg-disabled-dark, #374151);
+  }
+
+  .toggle__track {
+    background: var(--bg-tertiary-dark, #4b5563);
+  }
+
+  .form-range {
+    background: var(--bg-tertiary-dark, #4b5563);
+  }
+}

@@ -1,0 +1,441 @@
+/* 
+ * Waiting The Longest™ - Responsive Styles
+ * =========================================
+ * Mobile-first responsive design breakpoints
+ */
+
+/* =============================================================================
+   CSS Custom Properties for Breakpoints
+   ============================================================================= */
+
+:root {
+  /* Breakpoint values (for reference in JavaScript) */
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+  
+  /* Container max-widths */
+  --container-sm: 540px;
+  --container-md: 720px;
+  --container-lg: 960px;
+  --container-xl: 1140px;
+  --container-xxl: 1320px;
+  
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+}
+
+/* =============================================================================
+   Base Mobile Styles (Default)
+   ============================================================================= */
+
+.container {
+  width: 100%;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Stack navigation on mobile */
+.nav {
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.nav-links {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nav-links.active {
+  display: flex;
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+}
+
+.nav-toggle-icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+}
+
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  position: absolute;
+}
+
+.nav-toggle-icon::before {
+  top: -8px;
+}
+
+.nav-toggle-icon::after {
+  top: 8px;
+}
+
+/* Cards stack on mobile */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* Full-width buttons on mobile */
+.btn {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-group {
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Hero section mobile */
+.hero {
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 1.75rem;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+}
+
+/* Animal card mobile */
+.animal-card {
+  max-width: 100%;
+}
+
+.animal-card-image {
+  height: 200px;
+}
+
+/* Filter panel mobile */
+.filter-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-color, white);
+  z-index: 1000;
+  padding: var(--space-lg);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.filter-panel.active {
+  transform: translateX(0);
+}
+
+.filter-toggle {
+  display: block;
+}
+
+/* Footer mobile */
+.footer-content {
+  flex-direction: column;
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+/* =============================================================================
+   Small Devices (landscape phones, 576px and up)
+   ============================================================================= */
+
+@media (min-width: 576px) {
+  .container {
+    max-width: var(--container-sm);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .btn-group {
+    flex-direction: row;
+  }
+  
+  .btn {
+    width: auto;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+/* =============================================================================
+   Medium Devices (tablets, 768px and up)
+   ============================================================================= */
+
+@media (min-width: 768px) {
+  .container {
+    max-width: var(--container-md);
+  }
+  
+  /* Horizontal navigation */
+  .nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+  }
+  
+  .nav-toggle {
+    display: none;
+  }
+  
+  /* 2-3 column cards */
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-grid.dense {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Side-by-side layout */
+  .split-layout {
+    display: flex;
+    gap: var(--space-lg);
+  }
+  
+  .split-layout > * {
+    flex: 1;
+  }
+  
+  /* Filter sidebar */
+  .filter-panel {
+    position: static;
+    transform: none;
+    width: 250px;
+    flex-shrink: 0;
+  }
+  
+  .filter-toggle {
+    display: none;
+  }
+  
+  /* Hero */
+  .hero {
+    padding: var(--space-xxl) var(--space-xl);
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  /* Footer */
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* =============================================================================
+   Large Devices (desktops, 992px and up)
+   ============================================================================= */
+
+@media (min-width: 992px) {
+  .container {
+    max-width: var(--container-lg);
+  }
+  
+  /* 3-4 column cards */
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .card-grid.dense {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Wider filter sidebar */
+  .filter-panel {
+    width: 280px;
+  }
+  
+  /* Hero */
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  /* Animal detail page */
+  .animal-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .animal-gallery {
+    position: sticky;
+    top: var(--space-lg);
+  }
+}
+
+/* =============================================================================
+   Extra Large Devices (large desktops, 1200px and up)
+   ============================================================================= */
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--container-xl);
+  }
+  
+  /* 4 column cards */
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Hero */
+  .hero-title {
+    font-size: 3.5rem;
+  }
+}
+
+/* =============================================================================
+   Extra Extra Large Devices (larger desktops, 1400px and up)
+   ============================================================================= */
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: var(--container-xxl);
+  }
+  
+  /* 5 column cards for very large screens */
+  .card-grid.dense {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* =============================================================================
+   Utility Classes
+   ============================================================================= */
+
+/* Hide/show at breakpoints */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-grid { display: grid !important; }
+
+@media (min-width: 576px) {
+  .d-sm-none { display: none !important; }
+  .d-sm-block { display: block !important; }
+  .d-sm-flex { display: flex !important; }
+  .d-sm-grid { display: grid !important; }
+}
+
+@media (min-width: 768px) {
+  .d-md-none { display: none !important; }
+  .d-md-block { display: block !important; }
+  .d-md-flex { display: flex !important; }
+  .d-md-grid { display: grid !important; }
+}
+
+@media (min-width: 992px) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+  .d-lg-grid { display: grid !important; }
+}
+
+@media (min-width: 1200px) {
+  .d-xl-none { display: none !important; }
+  .d-xl-block { display: block !important; }
+  .d-xl-flex { display: flex !important; }
+  .d-xl-grid { display: grid !important; }
+}
+
+/* Text alignment responsive */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+@media (min-width: 768px) {
+  .text-md-left { text-align: left; }
+  .text-md-center { text-align: center; }
+  .text-md-right { text-align: right; }
+}
+
+/* Margin/padding responsive utilities */
+.mx-auto { margin-left: auto; margin-right: auto; }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+/* =============================================================================
+   Touch-Friendly Styles
+   ============================================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn,
+  .nav-link,
+  .filter-option,
+  .pagination-link {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch */
+  .btn:hover,
+  .card:hover {
+    transform: none;
+  }
+  
+  /* Add active states for touch feedback */
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  .card:active {
+    transform: scale(0.99);
+  }
+}
+
+/* =============================================================================
+   High DPI / Retina Displays
+   ============================================================================= */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Use higher resolution images */
+  .logo {
+    background-image: url('/images/logo@2x.png');
+  }
+}

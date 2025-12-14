@@ -1,0 +1,503 @@
+/* Waiting The Longest™ - Modal Styles */
+
+/* =============================================================================
+   Modal Container
+   ============================================================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.modal.is-open .modal__container {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Sizes */
+.modal--small .modal__container {
+  width: min(90vw, 400px);
+}
+
+.modal--medium .modal__container {
+  width: min(90vw, 600px);
+}
+
+.modal--large .modal__container {
+  width: min(90vw, 800px);
+}
+
+.modal--full .modal__container {
+  width: 95vw;
+  height: 95vh;
+}
+
+/* =============================================================================
+   Modal Header
+   ============================================================================= */
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+}
+
+.modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-secondary, #6b7280);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.modal__close:hover {
+  background: var(--bg-hover, #f3f4f6);
+  color: var(--text-primary, #1f2937);
+}
+
+.modal__close:focus-visible {
+  outline: 2px solid var(--accent-color, #e85a4f);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   Modal Body
+   ============================================================================= */
+
+.modal__body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.modal__body p {
+  margin: 0 0 1em;
+  line-height: 1.6;
+}
+
+.modal__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* =============================================================================
+   Modal Footer
+   ============================================================================= */
+
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+}
+
+.modal__footer:empty {
+  display: none;
+}
+
+/* =============================================================================
+   Toast Container
+   ============================================================================= */
+
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Toast Notifications
+   ============================================================================= */
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 12px 16px;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.toast__message {
+  flex: 1;
+  font-size: 0.875rem;
+  color: var(--text-primary, #1f2937);
+}
+
+.toast__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-secondary, #6b7280);
+  flex-shrink: 0;
+}
+
+.toast__close:hover {
+  background: var(--bg-hover, #f3f4f6);
+}
+
+/* Toast Types */
+.toast--info {
+  border-left: 4px solid #3b82f6;
+}
+
+.toast--success {
+  border-left: 4px solid #10b981;
+}
+
+.toast--warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.toast--error {
+  border-left: 4px solid #ef4444;
+}
+
+/* =============================================================================
+   Confirm Dialog
+   ============================================================================= */
+
+.confirm-dialog .modal__body {
+  text-align: center;
+}
+
+.confirm-dialog__icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.confirm-dialog__title {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.confirm-dialog__message {
+  color: var(--text-secondary, #6b7280);
+}
+
+.confirm-dialog .modal__footer {
+  justify-content: center;
+}
+
+/* =============================================================================
+   Alert Modal
+   ============================================================================= */
+
+.alert-modal .modal__body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.alert-modal__icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.alert-modal--info .alert-modal__icon {
+  color: #3b82f6;
+}
+
+.alert-modal--success .alert-modal__icon {
+  color: #10b981;
+}
+
+.alert-modal--warning .alert-modal__icon {
+  color: #f59e0b;
+}
+
+.alert-modal--error .alert-modal__icon {
+  color: #ef4444;
+}
+
+/* =============================================================================
+   Image Modal / Lightbox
+   ============================================================================= */
+
+.lightbox .modal__container {
+  max-width: 95vw;
+  max-height: 95vh;
+  background: transparent;
+}
+
+.lightbox .modal__header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background: transparent;
+  z-index: 10;
+}
+
+.lightbox .modal__close {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.lightbox .modal__body {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* =============================================================================
+   Share Modal
+   ============================================================================= */
+
+.share-modal__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.share-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.share-option:hover {
+  background: var(--bg-hover, #f3f4f6);
+  border-color: var(--accent-color, #e85a4f);
+}
+
+.share-option__icon {
+  font-size: 1.5rem;
+}
+
+.share-option__label {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #6b7280);
+}
+
+/* =============================================================================
+   Newsletter Modal
+   ============================================================================= */
+
+.newsletter-modal .modal__body {
+  text-align: center;
+}
+
+.newsletter-modal__icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.newsletter-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.newsletter-modal__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.newsletter-modal__input:focus {
+  outline: none;
+  border-color: var(--accent-color, #e85a4f);
+  box-shadow: 0 0 0 3px rgba(232, 90, 79, 0.1);
+}
+
+/* =============================================================================
+   Mobile Adjustments
+   ============================================================================= */
+
+@media (max-width: 576px) {
+  .modal__container {
+    max-height: 100vh;
+    border-radius: 16px 16px 0 0;
+    margin-top: auto;
+  }
+
+  .modal--small .modal__container,
+  .modal--medium .modal__container,
+  .modal--large .modal__container {
+    width: 100%;
+  }
+
+  .toast-container {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 16px;
+  }
+
+  .toast {
+    width: 100%;
+    max-width: none;
+  }
+
+  .share-modal__options {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =============================================================================
+   Dark Mode
+   ============================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .modal__container {
+    background: var(--bg-primary-dark, #1f2937);
+  }
+
+  .modal__header,
+  .modal__footer {
+    border-color: var(--border-color-dark, #374151);
+  }
+
+  .modal__title {
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .modal__close:hover {
+    background: var(--bg-hover-dark, #374151);
+  }
+
+  .toast {
+    background: var(--bg-primary-dark, #1f2937);
+  }
+
+  .toast__message {
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .share-option {
+    border-color: var(--border-color-dark, #374151);
+  }
+
+  .share-option:hover {
+    background: var(--bg-hover-dark, #374151);
+  }
+
+  .newsletter-modal__input {
+    background: var(--bg-secondary-dark, #374151);
+    border-color: var(--border-color-dark, #4b5563);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+}
+
+/* =============================================================================
+   Body Modal Open State
+   ============================================================================= */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* =============================================================================
+   Reduced Motion
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal__container,
+  .toast {
+    transition: none;
+  }
+
+  .modal.is-open .modal__container {
+    transform: none;
+  }
+
+  .toast.is-visible {
+    transform: none;
+  }
+}

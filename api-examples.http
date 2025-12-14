@@ -1,0 +1,186 @@
+# API Testing Examples
+# ====================
+# HTTP request examples for testing the API with REST Client extension
+# Usage: Install REST Client extension, then click "Send Request" above each block
+
+### Variables
+@baseUrl = http://localhost:8000
+
+
+# =============================================================================
+# Health & Status
+# =============================================================================
+
+### Health Check
+GET {{baseUrl}}/health
+Accept: application/json
+
+
+### API Root
+GET {{baseUrl}}/
+Accept: application/json
+
+
+# =============================================================================
+# Animals
+# =============================================================================
+
+### List All Animals
+GET {{baseUrl}}/animals
+Accept: application/json
+
+
+### List Animals with Limit
+GET {{baseUrl}}/animals?limit=10
+Accept: application/json
+
+
+### List Animals with Pagination
+GET {{baseUrl}}/animals?skip=0&limit=20
+Accept: application/json
+
+
+### Filter by Species
+GET {{baseUrl}}/animals?species=dog
+Accept: application/json
+
+
+### Filter by State
+GET {{baseUrl}}/animals?state=CA
+Accept: application/json
+
+
+### Combined Filters
+GET {{baseUrl}}/animals?species=dog&state=CA&min_days_waiting=30
+Accept: application/json
+
+
+### Get Single Animal
+GET {{baseUrl}}/animals/1
+Accept: application/json
+
+
+### Search Animals
+GET {{baseUrl}}/animals/search?q=buddy
+Accept: application/json
+
+
+# =============================================================================
+# Shelters
+# =============================================================================
+
+### List All Shelters
+GET {{baseUrl}}/shelters
+Accept: application/json
+
+
+### Get Single Shelter
+GET {{baseUrl}}/shelters/1
+Accept: application/json
+
+
+### Get Shelter Animals
+GET {{baseUrl}}/shelters/1/animals
+Accept: application/json
+
+
+# =============================================================================
+# Newsletter
+# =============================================================================
+
+### Subscribe to Newsletter
+POST {{baseUrl}}/newsletter/subscribe
+Content-Type: application/json
+
+{
+    "email": "test@example.com"
+}
+
+
+### Unsubscribe from Newsletter
+DELETE {{baseUrl}}/newsletter/unsubscribe
+Content-Type: application/json
+
+{
+    "email": "test@example.com"
+}
+
+
+# =============================================================================
+# Success Stories
+# =============================================================================
+
+### List Success Stories
+GET {{baseUrl}}/success-stories
+Accept: application/json
+
+
+### Get Single Success Story
+GET {{baseUrl}}/success-stories/1
+Accept: application/json
+
+
+# =============================================================================
+# Statistics
+# =============================================================================
+
+### Get Dashboard Stats
+GET {{baseUrl}}/stats
+Accept: application/json
+
+
+### Get Breed Stats
+GET {{baseUrl}}/stats/breeds?species=dog
+Accept: application/json
+
+
+# =============================================================================
+# Admin Endpoints (if authenticated)
+# =============================================================================
+
+### Trigger Ingestion (Admin)
+# POST {{baseUrl}}/admin/ingest
+# Authorization: Bearer YOUR_TOKEN
+# Content-Type: application/json
+# 
+# {
+#     "source": "rescuegroups",
+#     "dry_run": true
+# }
+
+
+# =============================================================================
+# Error Testing
+# =============================================================================
+
+### Not Found Error
+GET {{baseUrl}}/animals/999999
+Accept: application/json
+
+
+### Invalid Parameter
+GET {{baseUrl}}/animals?species=invalid_species_that_does_not_exist
+Accept: application/json
+
+
+### Invalid Email
+POST {{baseUrl}}/newsletter/subscribe
+Content-Type: application/json
+
+{
+    "email": "not-an-email"
+}
+
+
+# =============================================================================
+# Performance Testing
+# =============================================================================
+
+### Large Result Set
+GET {{baseUrl}}/animals?limit=100
+Accept: application/json
+
+
+### Complex Query
+GET {{baseUrl}}/animals?species=dog&state=CA&breed=labrador&min_days_waiting=30&limit=50
+Accept: application/json

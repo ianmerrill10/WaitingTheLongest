@@ -1,0 +1,348 @@
+/* =============================================================================
+   Waiting The Longest™ - Print Styles
+   ============================================================================= */
+
+/*
+ * Optimized stylesheet for printing animal profiles and adoption info.
+ * Removes unnecessary elements and formats content for paper/PDF.
+ */
+
+@media print {
+    /* =============================================================================
+       Hide Non-Essential Elements
+       ============================================================================= */
+    
+    header nav,
+    .navigation,
+    .search-bar,
+    .filters,
+    .share-buttons,
+    .social-share,
+    footer,
+    .newsletter-signup,
+    .dark-mode-toggle,
+    .skip-link,
+    .loading-skeleton,
+    .pagination,
+    button:not(.print-only),
+    .modal,
+    .overlay,
+    .affiliate-links,
+    .back-to-top,
+    .cookie-banner {
+        display: none !important;
+    }
+    
+    /* =============================================================================
+       Page Setup
+       ============================================================================= */
+    
+    @page {
+        size: letter;
+        margin: 0.75in;
+    }
+    
+    @page :first {
+        margin-top: 0.5in;
+    }
+    
+    body {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000000;
+        background: #ffffff !important;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* =============================================================================
+       Typography
+       ============================================================================= */
+    
+    h1 {
+        font-size: 24pt;
+        margin-bottom: 0.25in;
+        color: #000000;
+        border-bottom: 2pt solid #2c5530;
+        padding-bottom: 0.1in;
+    }
+    
+    h2 {
+        font-size: 18pt;
+        margin-top: 0.25in;
+        margin-bottom: 0.1in;
+        color: #2c5530;
+    }
+    
+    h3 {
+        font-size: 14pt;
+        margin-top: 0.2in;
+        margin-bottom: 0.1in;
+    }
+    
+    p {
+        margin: 0.1in 0;
+        orphans: 3;
+        widows: 3;
+    }
+    
+    /* =============================================================================
+       Links
+       ============================================================================= */
+    
+    a {
+        color: #000000;
+        text-decoration: underline;
+    }
+    
+    /* Show URL after links for reference */
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #666666;
+        word-wrap: break-word;
+    }
+    
+    /* Don't show URL for internal links */
+    a[href^="/"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+    
+    /* =============================================================================
+       Animal Profile Card
+       ============================================================================= */
+    
+    .animal-card,
+    .animal-profile {
+        page-break-inside: avoid;
+        border: 1pt solid #cccccc;
+        padding: 0.25in;
+        margin-bottom: 0.25in;
+        background: #ffffff;
+    }
+    
+    .animal-card img,
+    .animal-profile img {
+        max-width: 3in;
+        height: auto;
+        float: right;
+        margin-left: 0.25in;
+        margin-bottom: 0.1in;
+        border: 1pt solid #999999;
+    }
+    
+    .animal-name {
+        font-size: 18pt;
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 0.1in;
+    }
+    
+    .days-waiting {
+        font-size: 14pt;
+        font-weight: bold;
+        color: #2c5530;
+        margin-bottom: 0.15in;
+    }
+    
+    .animal-details {
+        margin: 0.15in 0;
+    }
+    
+    .animal-details dt {
+        font-weight: bold;
+        float: left;
+        clear: left;
+        width: 1.5in;
+    }
+    
+    .animal-details dd {
+        margin-left: 1.6in;
+        margin-bottom: 0.05in;
+    }
+    
+    .animal-description {
+        clear: both;
+        margin-top: 0.2in;
+        padding-top: 0.1in;
+        border-top: 1pt dotted #cccccc;
+    }
+    
+    /* =============================================================================
+       Shelter Information
+       ============================================================================= */
+    
+    .shelter-info {
+        background: #f5f5f5;
+        padding: 0.15in;
+        margin-top: 0.2in;
+        border: 1pt solid #dddddd;
+    }
+    
+    .shelter-info h3 {
+        margin-top: 0;
+        font-size: 12pt;
+    }
+    
+    .shelter-contact {
+        font-size: 11pt;
+    }
+    
+    /* =============================================================================
+       QR Code (for adoption page URL)
+       ============================================================================= */
+    
+    .print-qr-code {
+        display: block !important;
+        float: right;
+        width: 1in;
+        height: 1in;
+        margin-left: 0.2in;
+    }
+    
+    /* =============================================================================
+       Page Breaks
+       ============================================================================= */
+    
+    .page-break {
+        page-break-after: always;
+    }
+    
+    .no-break {
+        page-break-inside: avoid;
+    }
+    
+    h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    img {
+        page-break-inside: avoid;
+    }
+    
+    /* =============================================================================
+       Header/Footer for Printed Pages
+       ============================================================================= */
+    
+    .print-header {
+        display: block !important;
+        text-align: center;
+        font-size: 10pt;
+        margin-bottom: 0.25in;
+        border-bottom: 1pt solid #cccccc;
+        padding-bottom: 0.1in;
+    }
+    
+    .print-header .logo {
+        font-size: 16pt;
+        font-weight: bold;
+        color: #2c5530;
+    }
+    
+    .print-footer {
+        display: block !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 9pt;
+        color: #666666;
+        border-top: 1pt solid #cccccc;
+        padding-top: 0.1in;
+    }
+    
+    /* =============================================================================
+       Tables (if any)
+       ============================================================================= */
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0.2in 0;
+    }
+    
+    th, td {
+        border: 1pt solid #cccccc;
+        padding: 0.1in;
+        text-align: left;
+    }
+    
+    th {
+        background: #f0f0f0;
+        font-weight: bold;
+    }
+    
+    /* =============================================================================
+       Adopt Me Flyer Layout
+       ============================================================================= */
+    
+    .adopt-flyer {
+        text-align: center;
+        page-break-after: always;
+    }
+    
+    .adopt-flyer .photo {
+        max-width: 5in;
+        max-height: 5in;
+        margin: 0 auto 0.25in;
+    }
+    
+    .adopt-flyer .name {
+        font-size: 36pt;
+        font-weight: bold;
+        color: #2c5530;
+        margin-bottom: 0.1in;
+    }
+    
+    .adopt-flyer .tagline {
+        font-size: 18pt;
+        font-style: italic;
+        margin-bottom: 0.25in;
+    }
+    
+    .adopt-flyer .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.1in;
+        max-width: 4in;
+        margin: 0 auto 0.25in;
+        text-align: left;
+    }
+    
+    .adopt-flyer .cta {
+        font-size: 14pt;
+        font-weight: bold;
+        padding: 0.2in;
+        background: #f5f5f5;
+        border: 2pt solid #2c5530;
+    }
+}
+
+/* =============================================================================
+   Print Button (shown only on screen)
+   ============================================================================= */
+
+@media screen {
+    .print-only {
+        display: none;
+    }
+    
+    .print-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.5em 1em;
+        background: #f5f5f5;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    .print-button:hover {
+        background: #e5e5e5;
+    }
+}

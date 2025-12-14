@@ -730,6 +730,266 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 
 # =============================================================================
+# New API Endpoints: Shelters, Breeds, Filters
+# =============================================================================
+
+@app.get("/api/shelters")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def list_shelters(
+    request: Request,
+    state: Optional[str] = Query(None, description="Filter by state abbreviation"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    db: Session = Depends(get_db)
+):
+    """
+    List all shelters and rescue organizations.
+    
+    Returns shelter names, locations, and contact information.
+    """
+    from sqlalchemy import func
+    
+    query = db.query(Shelter)
+    
+    if state:
+        query = query.filter(Shelter.state.ilike(f"%{state}%"))
+    
+    total = query.count()
+    offset = (page - 1) * page_size
+    shelters = query.order_by(Shelter.name).offset(offset).limit(page_size).all()
+    
+    return {
+        "items": [
+            {
+                "id": s.id,
+                "name": s.name,
+                "city": s.city,
+                "state": s.state,
+                "email": s.email,
+                "phone": s.phone,
+                "website": s.website,
+                "total_animals": s.total_animals
+            }
+            for s in shelters
+        ],
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "total_pages": (total + page_size - 1) // page_size
+    }
+
+
+@app.get("/api/shelters/{shelter_id}")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_shelter(
+    request: Request,
+    shelter_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get detailed information about a specific shelter"""
+    shelter = db.query(Shelter).filter(Shelter.id == shelter_id).first()
+    
+    if not shelter:
+        raise HTTPException(status_code=404, detail="Shelter not found")
+    
+    # Get animal count for this shelter
+    from sqlalchemy import func
+    animal_count = db.query(func.count(Observation.id)).filter(
+        Observation.shelter_id == shelter_id
+    ).scalar() or 0
+    
+    return {
+        "id": shelter.id,
+        "name": shelter.name,
+        "address": shelter.address,
+        "city": shelter.city,
+        "state": shelter.state,
+        "zip_code": shelter.zip_code,
+        "email": shelter.email,
+        "phone": shelter.phone,
+        "website": shelter.website,
+        "latitude": shelter.latitude,
+        "longitude": shelter.longitude,
+        "total_animals": animal_count,
+        "created_at": shelter.created_at.isoformat() if shelter.created_at else None
+    }
+
+
+@app.get("/api/breeds")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def list_breeds(
+    request: Request,
+    species: Optional[str] = Query(None, description="Filter by species (dog/cat)"),
+    db: Session = Depends(get_db)
+):
+    """
+    Get list of unique breeds in the database.
+    
+    Useful for populating filter dropdowns.
+    """
+    from sqlalchemy import distinct
+    
+    query = db.query(distinct(Animal.breed_primary)).filter(
+        Animal.breed_primary.isnot(None),
+        Animal.breed_primary != ""
+    )
+    
+    if species:
+        query = query.filter(Animal.species == species)
+    
+    breeds = [row[0] for row in query.order_by(Animal.breed_primary).all()]
+    
+    return {
+        "breeds": breeds,
+        "count": len(breeds),
+        "species": species
+    }
+
+
+@app.get("/api/filters")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_filter_options(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Get all available filter options.
+    
+    Returns counts for each filter value to help users understand data distribution.
+    """
+    from sqlalchemy import func, distinct
+    
+    # Species counts
+    species_counts = db.query(
+        Animal.species,
+        func.count(Animal.id)
+    ).filter(Animal.status == "available").group_by(Animal.species).all()
+    
+    # Age group counts
+    age_counts = db.query(
+        Animal.age_group,
+        func.count(Animal.id)
+    ).filter(
+        Animal.status == "available",
+        Animal.age_group.isnot(None)
+    ).group_by(Animal.age_group).all()
+    
+    # Size counts
+    size_counts = db.query(
+        Animal.size,
+        func.count(Animal.id)
+    ).filter(
+        Animal.status == "available",
+        Animal.size.isnot(None)
+    ).group_by(Animal.size).all()
+    
+    # Gender counts
+    gender_counts = db.query(
+        Animal.gender,
+        func.count(Animal.id)
+    ).filter(
+        Animal.status == "available",
+        Animal.gender.isnot(None)
+    ).group_by(Animal.gender).all()
+    
+    # State counts (from observations)
+    state_counts = db.query(
+        Observation.state,
+        func.count(distinct(Observation.animal_id))
+    ).join(Animal).filter(
+        Animal.status == "available",
+        Observation.state.isnot(None)
+    ).group_by(Observation.state).all()
+    
+    return {
+        "species": [{"value": s, "count": c} for s, c in species_counts if s],
+        "age_groups": [{"value": a, "count": c} for a, c in age_counts if a],
+        "sizes": [{"value": s, "count": c} for s, c in size_counts if s],
+        "genders": [{"value": g, "count": c} for g, c in gender_counts if g],
+        "states": [{"value": s, "count": c} for s, c in state_counts if s]
+    }
+
+
+@app.get("/api/animals/{animal_id}/similar")
+@limiter.limit(f"{settings.RATE_LIMIT_PER_MINUTE}/minute;{settings.RATE_LIMIT_PER_HOUR}/hour")
+async def get_similar_animals(
+    request: Request,
+    animal_id: int,
+    limit: int = Query(6, ge=1, le=20),
+    db: Session = Depends(get_db)
+):
+    """
+    Get animals similar to the specified animal.
+    
+    Similarity is based on species, breed, size, and age.
+    """
+    # Get the target animal
+    animal = db.query(Animal).filter(Animal.id == animal_id).first()
+    if not animal:
+        raise HTTPException(status_code=404, detail="Animal not found")
+    
+    # Find similar animals
+    query = db.query(Animal).filter(
+        Animal.id != animal_id,
+        Animal.status == "available",
+        Animal.species == animal.species
+    )
+    
+    # Prefer same breed
+    if animal.breed_primary:
+        similar = query.filter(
+            Animal.breed_primary == animal.breed_primary
+        ).limit(limit).all()
+        
+        if len(similar) < limit:
+            # Add more by size/age
+            more = query.filter(
+                Animal.id.notin_([a.id for a in similar]),
+                (Animal.size == animal.size) | (Animal.age_group == animal.age_group)
+            ).limit(limit - len(similar)).all()
+            similar.extend(more)
+    else:
+        similar = query.filter(
+            (Animal.size == animal.size) | (Animal.age_group == animal.age_group)
+        ).limit(limit).all()
+    
+    # Format response
+    from .schemas import AnimalListItem
+    items = []
+    for a in similar:
+        photo_url = None
+        city = None
+        state = None
+        if a.observations:
+            obs = a.observations[0]
+            photo_url = obs.photo_url
+            city = obs.city
+            state = obs.state
+        
+        items.append({
+            "id": a.id,
+            "species": a.species,
+            "canonical_name": a.canonical_name,
+            "breed_primary": a.breed_primary,
+            "age_group": a.age_group,
+            "size": a.size,
+            "gender": a.gender,
+            "status": a.status,
+            "days_waiting": a.days_waiting,
+            "first_seen_at": a.first_seen_at.isoformat() if a.first_seen_at else None,
+            "photo_url": photo_url,
+            "city": city,
+            "state": state
+        })
+    
+    return {
+        "similar_to": animal.canonical_name or f"Animal #{animal_id}",
+        "items": items,
+        "count": len(items)
+    }
+
+
+# =============================================================================
 # Local Demo UI (served from backend)
 # =============================================================================
 

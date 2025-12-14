@@ -1,5 +1,29 @@
 {
   "version": 2,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=300" }
+      ]
+    },
+    {
+      "source": "/(.*\\.(?:js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2))",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
   "builds": [
     {
       "src": "api/index.py",
@@ -25,12 +49,20 @@
       "dest": "frontend/index.html"
     },
     {
-      "src": "^/(about|success-stories|resources|privacy|terms|contact)/?$",
+      "src": "^/(about|success-stories|resources|privacy|terms|contact|favorites)/?$",
       "dest": "frontend/index.html"
     },
     {
       "src": "^/animal/[^/]+/?$",
       "dest": "frontend/index.html"
+    },
+    {
+      "src": "^/robots\\.txt$",
+      "dest": "frontend/robots.txt"
+    },
+    {
+      "src": "^/sitemap\\.xml$",
+      "dest": "frontend/sitemap.xml"
     },
     {
       "src": "/(.*)",

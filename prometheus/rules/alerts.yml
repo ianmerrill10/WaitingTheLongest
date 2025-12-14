@@ -1,0 +1,143 @@
+# Waiting The Longest™ - Prometheus Alert Rules
+# ===============================================
+# Alerting rules for application monitoring
+
+groups:
+- name: wtl-alerts
+  rules:
+  # =============================================================================
+  # API Health Alerts
+  # =============================================================================
+
+  - alert: APIDown
+    expr: up{job="wtl-api"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "WTL API is down"
+      description: "The Waiting The Longest API has been unreachable for more than 1 minute."
+
+  - alert: HighErrorRate
+    expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High error rate detected"
+      description: "More than 5% of requests are returning 5xx errors."
+
+  - alert: HighLatency
+    expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High API latency detected"
+      description: "95th percentile latency is above 2 seconds."
+
+  # =============================================================================
+  # Database Alerts
+  # =============================================================================
+
+  - alert: DatabaseDown
+    expr: pg_up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "PostgreSQL database is down"
+      description: "The database has been unreachable for more than 1 minute."
+
+  - alert: DatabaseConnectionsHigh
+    expr: pg_stat_activity_count > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High database connection count"
+      description: "Database connection count is above 80."
+
+  # =============================================================================
+  # Redis Alerts
+  # =============================================================================
+
+  - alert: RedisDown
+    expr: redis_up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Redis is down"
+      description: "Redis cache has been unreachable for more than 1 minute."
+
+  - alert: RedisMemoryHigh
+    expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Redis memory usage high"
+      description: "Redis is using more than 90% of available memory."
+
+  # =============================================================================
+  # Application-Specific Alerts
+  # =============================================================================
+
+  - alert: IngestorFailure
+    expr: increase(wtl_ingestor_errors_total[1h]) > 10
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Ingestor experiencing failures"
+      description: "The data ingestor has had more than 10 errors in the last hour."
+
+  - alert: NoNewAnimals
+    expr: increase(wtl_animals_ingested_total[24h]) == 0
+    for: 1h
+    labels:
+      severity: warning
+    annotations:
+      summary: "No new animals ingested"
+      description: "No new animals have been ingested in the last 24 hours."
+
+  - alert: LowAnimalCount
+    expr: wtl_total_animals < 100
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Low animal count"
+      description: "Total animal count has dropped below 100."
+
+  # =============================================================================
+  # Resource Alerts
+  # =============================================================================
+
+  - alert: HighCPUUsage
+    expr: avg(rate(process_cpu_seconds_total[5m])) * 100 > 80
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU usage"
+      description: "CPU usage is above 80% for more than 10 minutes."
+
+  - alert: HighMemoryUsage
+    expr: process_resident_memory_bytes / 1073741824 > 1
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage"
+      description: "Memory usage is above 1GB."
+
+  - alert: DiskSpaceLow
+    expr: node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"} < 0.1
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Low disk space"
+      description: "Less than 10% disk space remaining."
