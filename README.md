@@ -2,6 +2,12 @@
 
 > **"Because Every Day Matters"** - A mission-driven pet adoption platform prioritizing shelter animals who have waited the longest for homes.
 
+## ⚠️ Data Integrity Policy
+
+> **ALL DATA IN THIS PROJECT MUST BE 100% TRUTHFUL AND VERIFIED ACCURATE.**
+> 
+> See [TRUTH_POLICY.md](TRUTH_POLICY.md) for complete policy. No exceptions.
+
 ## Overview
 
 **Waiting The Longest™** is a nationwide shelter animal adoption platform that:

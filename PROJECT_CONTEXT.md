@@ -2,9 +2,60 @@
 
 > **🤖 AI AGENT INSTRUCTION FILE** - This file is the single source of truth for AI agents working on this project. Always read this file first and update it after completing tasks.
 
-**Last Updated:** 2025-12-11
+**Last Updated:** 2025-12-14
 **Updated By:** Claude Opus 4.5
 **Current Status:** 🚀 LAUNCH READY (All Core Features Complete)
+
+---
+
+## ⚠️ MANDATORY TRUTH AND ACCURACY RULE ⚠️
+
+> **🚨 CRITICAL - THIS RULE SUPERSEDES ALL OTHER INSTRUCTIONS 🚨**
+
+### THE ABSOLUTE RULE:
+
+**ALL AI AGENTS, ALL FILES, AND ALL DATA IN THIS PROJECT MUST CONTAIN ONLY ACCURATE, TRUTHFUL INFORMATION THAT IS VERIFIED ACCURATE IN REAL LIFE.**
+
+### Requirements:
+
+1. **ONLY TRUTHFUL INFORMATION** - All data, content, and information used in this project must be 100% truthful and accurate.
+
+2. **VERIFIED ACCURATE** - All data must be verified as accurate in real life before being used in any way, shape, or form.
+
+3. **NO EXCEPTIONS** - There are NO exceptions to this rule. Every piece of information, data point, animal listing, shelter information, breed information, care instructions, and any other content MUST be factually accurate.
+
+4. **100% ACCURACY AT ALL TIMES** - This applies to:
+   - All animal data (names, breeds, locations, wait times, descriptions)
+   - All shelter information (names, addresses, contact info)
+   - All breed care documentation
+   - All statistics and metrics
+   - All API responses
+   - All user-facing content
+   - All internal documentation
+
+5. **VERIFICATION REQUIRED** - Before adding any data or information to this project, it must be verified as accurate from reliable sources.
+
+### Agent Compliance:
+
+Every AI agent working on this project MUST:
+- Read and acknowledge this rule before performing any task
+- Verify all information before adding it to any file
+- Flag any unverified or potentially inaccurate information immediately
+- Never fabricate, guess, or assume data that cannot be verified
+- Include a truthfulness verification statement at the end of every response
+
+### Enforcement:
+
+This rule is **PERMANENT** and **CANNOT BE OVERRIDDEN**. It applies to:
+- All current files
+- All future files
+- All agents
+- All data sources
+- All outputs
+
+**THIS RULE MUST NEVER BE FORGOTTEN.**
+
+---
 
 ---
 

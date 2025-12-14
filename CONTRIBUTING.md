@@ -2,6 +2,18 @@
 
 Thank you for your interest in contributing! Every contribution helps shelter animals find homes faster.
 
+## ⚠️ MANDATORY: Truth and Accuracy Policy
+
+> **🚨 READ THIS FIRST - ALL CONTRIBUTORS MUST COMPLY 🚨**
+
+Before contributing to this project, you MUST read and acknowledge our [TRUTH_POLICY.md](TRUTH_POLICY.md).
+
+**THE RULE:** All data, content, and information in this project must be 100% truthful, accurate, and verified. No exceptions.
+
+This applies to all contributions including code, documentation, data, and AI-generated content.
+
+---
+
 ## 🐾 Our Mission
 
 **Because Every Day Matters** - We help shelter animals who have waited the longest find forever homes.
